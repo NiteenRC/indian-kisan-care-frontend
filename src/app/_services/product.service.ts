@@ -36,6 +36,6 @@ export class ProductService {
   }
 
   getProductsList(): Observable<any> {
-    return this.http.get(`https://run.mocky.io/v3/7af56485-78c4-414d-b484-7a3bb835293e`);
+    return this.http.get(this.baseUrl);
   }
 }
