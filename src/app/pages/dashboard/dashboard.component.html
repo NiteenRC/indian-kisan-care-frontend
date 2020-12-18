@@ -1,0 +1,71 @@
+<div class="app-container">
+
+	<app-action-bar class="d-none d-sm-block">	</app-action-bar>
+
+	<div class="main-container flex-fill">
+		<app-navigation-bar class="d-none d-sm-block"></app-navigation-bar>
+     <!-- only Mobile and Tab View -->
+  <app-mobile-menu class="d-block d-sm-none"></app-mobile-menu>
+		<div class="container-fluid mt-2">
+      <div class="row">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb" *ngIf="urlPath.length < 2; else visibleCrum">
+            <li  class="breadcrumb-item active" >
+              <span >{{urlPath[0] | titlecase}}</span>
+           </li>
+          </ol>
+          <ng-template #visibleCrum>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"  *ngFor="let item of urlPath" >
+                {{urlPath.pop()}}  {{item}}
+                <!-- <a [routerLink]="[item]" *ngIf="urlPath.pop() != item; else activeMenu" >{{ item | titlecase}}</a>
+                <ng-template #activeMenu><span>{{ item | titlecase }}</span></ng-template> -->
+             </li>
+           </ol>
+          </ng-template>
+
+        </nav>
+      </div>
+			<div class="row">
+				<div class="col-md-12">
+
+            <div class="row" *ngIf="isVisible">
+
+            <div class="col-md-3">
+              <div class="card-counter primary">
+                <i class="fa fa-code-fork"></i>
+                <span class="count-numbers">12</span>
+                <span class="count-name">Flowz</span>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="card-counter danger">
+                <i class="fa fa-ticket"></i>
+                <span class="count-numbers">599</span>
+                <span class="count-name">Instances</span>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="card-counter success">
+                <i class="fa fa-database"></i>
+                <span class="count-numbers">6875</span>
+                <span class="count-name">Data</span>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="card-counter info">
+                <i class="fa fa-users"></i>
+                <span class="count-numbers">35</span>
+                <span class="count-name">Users</span>
+              </div>
+            </div>
+          </div>
+					<router-outlet></router-outlet>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

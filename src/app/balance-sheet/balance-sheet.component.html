@@ -1,0 +1,48 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Customer List</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>City</th>
+          <th>Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customerBalanceSheet of customerBalanceSheets | async">
+          <td>{{customerBalanceSheet.customer.customerName}}</td>
+          <td>{{customerBalanceSheet.customer.location.cityName}}</td>
+          <td>{{customerBalanceSheet.currentBalance}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Supplier List</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Supplier</th>
+          <th>Company</th>
+          <th>Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let supplierBalanceSheet of supplierBalanceSheets | async">
+          <td>{{supplierBalanceSheet.supplier.supplierName}}</td>
+          <td>{{supplierBalanceSheet.supplier.company.companyName}}</td>
+          <td>{{supplierBalanceSheet.currentBalance}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

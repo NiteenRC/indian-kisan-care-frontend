@@ -1,0 +1,76 @@
+<div style="width: 400px;">
+  <div class="form-group">
+    <label for="name">Customer</label>
+    <select name="customer" class="form-control" required [(ngModel)]="salesOrder.customer"
+      (change)="customerBalanceData(salesOrder.customer.customerID)">
+      <option disabled>Select Customerr</option>
+      <option [ngValue]="customer" *ngFor="let customer of customers | async">{{customer.customerName}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Product</label>
+    <select name="products" class="form-control" [(ngModel)]="product" (change)="selectedProduct(product)">
+      <option disabled>Select Product</option>
+      <option [ngValue]="product" *ngFor="let product of products | async">{{product.productName}}</option>
+    </select>
+  </div>
+</div>
+<div>
+  <table class="table table-hover table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Remove</th>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Total Amout</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let cart of rows; let i = index">
+      <td>{{i+1}}</td>
+      <td><button (click)="removeCart(i)">X</button></td>
+      <td>
+        <input class="form-control" type="text" [(ngModel)]="cart.product.productName" disabled>
+      </td>
+      <td><input class="form-control" type="text" [(ngModel)]="cart.price" (change)="changeInQtyOrPrice()"></td>
+      <td>
+        <div>
+          <input class="form-control" type="text" [(ngModel)]="cart.qtyOrdered" placeholder="{{cart.product.qty}}"
+            (change)="changeInQtyOrPrice()">
+        </div>
+      </td>
+      <td>{{cart.price*cart.qtyOrdered}}</td>
+    </tr>
+    <tr>
+      <td>Total:</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{getTotalQty()}}</td>
+      <td>{{totalAmountToPaid().toLocaleString('en-IN')}}</td>
+    </tr>
+  </table>
+</div>
+
+<div style="text-align:right;">
+  <div class="form-group">
+    <label for="name">Amount Paid</label>
+    <input type="text" id="price" required [(ngModel)]="salesOrder.amountPaid"
+      (input)="amountToBePaid(salesOrder.amountPaid)" name="price">
+  </div>
+  <div class="form-group">
+    <label for="name">Current Balance</label>
+    <input type="text" id="price" [value]="currentBalance.toLocaleString('en-IN')" name="price" disabled>
+  </div>
+  <div class="form-group">
+    <label for="name">Previous Balance</label>
+    <input type="text" id="price" [value]="previousBalance.toLocaleString('en-IN')" name="price" disabled>
+  </div>
+  <div class="form-group">
+    <label for="name">Total Pay Balance</label>
+    <input type="text" id="price" [value]="totalBalance.toLocaleString('en-IN')" name="price" disabled>
+  </div>
+  <button type="submit" class="btn btn-success" (click)="save()">Submit</button>
+</div>

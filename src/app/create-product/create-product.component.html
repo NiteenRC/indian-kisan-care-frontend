@@ -1,0 +1,48 @@
+<h3>Create Product</h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Product</label>
+      <input type="text" class="form-control" id="productName" required [(ngModel)]="product.productName"
+        name="productName">
+    </div>
+
+    <!-- <div class="form-group">
+      <label for="name">Category</label>
+      <select formControlName="website" class="form-control">
+        <option disabled>Select Website</option>
+        <option *ngFor="let web of websiteList">{{web}}</option>
+      </select>
+    </div> -->
+
+    <div class="form-group">
+      <label for="name">Category</label>
+      <select name="categories" class="form-control" required [(ngModel)]= "product.category" >
+        <option disabled>Select Category</option>
+        <option [ngValue]="category" *ngFor="let category of categories | async">{{category.categoryName}}</option>
+      </select>
+    </div>
+
+   
+    <!-- <mat-form-field>
+      <input type="text" placeholder="Enter Category" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let category of categories | async" [value]="category.categoryName">
+          {{category.categoryName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field> -->
+
+    <div class="form-group">
+      <label for="name">Price</label>
+      <input type="text" class="form-control" id="price" required [(ngModel)]="product.price" name="price">
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+  <!-- <button class="btn btn-success" (click)="newProduct()">Add</button> -->
+</div>

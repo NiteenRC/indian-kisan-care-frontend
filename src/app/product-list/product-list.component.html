@@ -1,0 +1,105 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Product List</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered row-border hover" >
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th (click)="sort('price')">Price</th>
+          <th>Qty Stock</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="products?.length == 0">
+        <tr>
+          <td colspan="3" class="no-data-available">No data!</td>
+        </tr>
+      <tbody>
+      <tbody *ngIf="products?.length != 0">
+        <tr *ngFor="let product of products | paginate: { itemsPerPage: 10, currentPage: p }">
+          <td>{{product.productName}}</td>
+          <td>{{product.category.categoryName}}</td>
+          <td>{{product.price}}</td>
+          <td>{{product.qty}}</td>
+          <td class="d-none d-sm-block">
+            <button (click)="deleteProduct(product.productID)" class="btn btn-danger">Delete</button>
+            <button (click)="openModal(editProfileModal, product)" class="btn btn-info"
+              style="margin-left: 10px">Update</button>
+            <button (click)="productDetails(product.productID)" class="btn btn-info"
+              style="margin-left: 10px">Details</button>
+          </td>
+          <td class="d-block d-sm-none" >
+
+                <button (click)="deleteProduct(product.productID)"  class="btn btn-danger btn-sm">
+                  <i class="fa fa-trash"></i>
+                </button>
+
+                <button (click)="openModal(editProfileModal, product)" style="margin-top:5px;" class="btn btn-info btn-sm"
+                >  <i class="fa fa-edit"></i></button>
+
+                <button (click)="productDetails(product.productID)" style="margin-top:5px;" class="btn btn-info btn-sm">
+                  <i class="fa fa-eye"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="8" class="text-right">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+</div>
+
+<ng-template #editProfileModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="editProfileLabel">Update Product</h5>
+    <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="editProfileForm" (ngSubmit)="updateProduct()">
+      <div class="form-group row">
+        <label for="lastname" class="col-sm-4 col-form-label">Product</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="lastname" id="lastname"
+            [(ngModel)]="product.productName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="firstname" class="col-sm-4 col-form-label">Price</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="firstname" id="firstname"
+            [(ngModel)]="product.price">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="username" class="col-sm-4 col-form-label">Qty</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="username" id="username" [(ngModel)]="product.qty">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="username" class="col-sm-4 col-form-label">Category</label>
+        <div class="col-sm-8">
+          <select name="username" id="username" class="form-control" required [(ngModel)]="product.category">
+            <option disabled>Select Category</option>
+            <option *ngFor="let category of categories | async">{{category.categoryName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

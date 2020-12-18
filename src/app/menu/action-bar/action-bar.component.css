@@ -1,0 +1,15 @@
+.nav-link span{
+  margin-left: 15px;
+}
+
+.fa{
+  font-size: 20px !important;
+}
+
+ul.nav li.nav-item{
+  width: 100%;
+  float: left;
+}
+.nav-item .nav-link{
+  color: #fff !important;
+}
