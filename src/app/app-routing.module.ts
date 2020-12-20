@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 
 import { CreateCategoryComponent } from './create-category/create-category.component';
@@ -26,9 +26,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: '404', component: NotfoundComponent },
   {path: 'dashboard', pathMatch: 'prefix',  canActivate: [ AuthGuard ],
-    component: DashboardComponent,
-    children: [
-      { path: 'products', component: ProductListComponent },
+    component: DashboardComponent},
+      { path: 'products', component: ProductListComponent, canActivate:[AuthGuard] },
       { path: 'add', component: CreateProductComponent },
       { path: 'details/:id', component: ProductDetailsComponent },
       { path: 'addCategory', component: CreateCategoryComponent },
@@ -39,8 +38,6 @@ const routes: Routes = [
       { path: 'customer', component: CustomerComponent },
       { path: 'supplier', component: SupplierComponent },
       { path: 'balance-sheet', component: BalanceSheetComponent },
-    ],
-  },
   { path: '**', redirectTo: '404', pathMatch: 'full'},
 ];
 

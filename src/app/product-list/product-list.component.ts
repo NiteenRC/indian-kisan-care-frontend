@@ -26,6 +26,7 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService,
               private modalService: NgbModal,
               private categoryService: CategoryService,
+              public fb: FormBuilder,
               private router: Router) { }
 
   ngOnInit() {
@@ -33,6 +34,14 @@ export class ProductListComponent implements OnInit {
       pagingType: 'full_numbers'
     };
     this.reloadData();
+
+    this.editProfileForm = this.fb.group({
+      productID:'',
+      productName: '',
+      price: '',
+      qty: '',
+      category: ''
+    });
   }
 
   reloadData() {
@@ -64,12 +73,13 @@ export class ProductListComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  openModal(targetModal: any, product: Product) {
+  openModal(targetModal: any, product) {
+    this.product = product;
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static'
     });
-    this.product = product;
+   
   }
 
   sort(e) {

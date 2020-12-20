@@ -6,7 +6,6 @@
       class="profile-img-card"
     />
     <form
-      *ngIf="!isLoggedIn"
       name="form"
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
@@ -61,15 +60,12 @@
         <div
           class="alert alert-danger"
           role="alert"
-          *ngIf="f.submitted && isLoginFailed"
+          *ngIf="f.submitted"
         >
           Login failed: {{ errorMessage }}
         </div>
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="isLoggedIn">
-      Logged in as {{ roles }}.
-    </div>
   </div>
 </div>

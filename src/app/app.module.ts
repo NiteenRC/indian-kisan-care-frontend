@@ -33,6 +33,8 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MobileMenuComponent } from './menu/mobile-menu/mobile-menu.component';
+import {TableModule} from 'primeng/table';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +58,7 @@ import { MobileMenuComponent } from './menu/mobile-menu/mobile-menu.component';
     MobileMenuComponent
   ],
   imports: [
+    TableModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
