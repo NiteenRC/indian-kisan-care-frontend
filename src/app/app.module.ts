@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SharedModule } from "./menu/shared.module";
+// import { SharedModule } from "./menu/shared.module";
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -34,6 +34,9 @@ import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MobileMenuComponent } from './menu/mobile-menu/mobile-menu.component';
 import {TableModule} from 'primeng/table';
+import { ActionBarComponent } from './menu/action-bar/action-bar.component';
+import { ActionBarItemComponent } from './menu/action-bar-item/action-bar-item.component';
+import { NavigationBarComponent } from './menu/navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import {TableModule} from 'primeng/table';
     CompanyComponent,
     SalesOrderComponent,
     BalanceSheetComponent,
-
+    ActionBarComponent,
+    ActionBarItemComponent,
+    NavigationBarComponent,
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
@@ -65,7 +70,6 @@ import {TableModule} from 'primeng/table';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    SharedModule,
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,

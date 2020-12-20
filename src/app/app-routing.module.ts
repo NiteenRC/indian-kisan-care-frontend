@@ -20,14 +20,14 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AuthGuard } from './auth.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent,  },
   { path: 'register', component: RegisterComponent },
   { path: '404', component: NotfoundComponent },
   {path: 'dashboard', pathMatch: 'prefix',  canActivate: [ AuthGuard ],
-    component: DashboardComponent},
-      { path: 'products', component: ProductListComponent, canActivate:[AuthGuard] },
+    component: DashboardComponent, children : [
+      { path: 'products', component: ProductListComponent, canActivate: [ AuthGuard] },
       { path: 'add', component: CreateProductComponent },
       { path: 'details/:id', component: ProductDetailsComponent },
       { path: 'addCategory', component: CreateCategoryComponent },
@@ -37,7 +37,8 @@ const routes: Routes = [
       { path: 'company', component: CompanyComponent },
       { path: 'customer', component: CustomerComponent },
       { path: 'supplier', component: SupplierComponent },
-      { path: 'balance-sheet', component: BalanceSheetComponent },
+      { path: 'balance-sheet', component: BalanceSheetComponent }]
+    },
   { path: '**', redirectTo: '404', pathMatch: 'full'},
 ];
 
