@@ -190,3 +190,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.text-center{
+display: flex;
+justify-content: center;
+}
+.forms-fildes{
+  width: 400px;
+}
+.button-container{
+  display: flex;
+  justify-content: center;
+}

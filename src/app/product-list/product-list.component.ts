@@ -4,14 +4,14 @@ import { Product } from './../_model/product';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CategoryService } from '../_services/category.service';
 import { Category } from '../_model/category';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { JsonpClientBackend } from '@angular/common/http';
-
+import {map, startWith} from 'rxjs/operators';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -20,6 +20,9 @@ import { JsonpClientBackend } from '@angular/common/http';
 export class ProductListComponent implements OnInit {
   displayedColumns: string[] = ['productID', 'productName', 'price', 'category','qty','productDesc'];
   dataSource ;
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) matsort: MatSort;
   applyFilter(event: Event) {
@@ -49,6 +52,11 @@ export class ProductListComponent implements OnInit {
               }
 
   ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
    // this.dataSource = new MatTableDataSource(this.products);
   //  this.dataSource.paginator = this.paginator;
     this.dtOptions = {
@@ -64,7 +72,11 @@ export class ProductListComponent implements OnInit {
       category: ''
     });
   }
+private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
   reloadData() {
     this.productService.getProductsList().subscribe(response => {
       this.products = response;
