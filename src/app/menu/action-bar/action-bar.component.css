@@ -1,5 +1,9 @@
 .nav-link span{
   margin-left: 15px;
+  color: white;
+}
+.span{
+  color: white;
 }
 
 .fa{
@@ -12,4 +16,17 @@ ul.nav li.nav-item{
 }
 .nav-item .nav-link{
   color: #fff !important;
+}
+::ng-deep.mat-menu-content:not(:empty) {
+  /* padding-top: 8px; */
+  /* padding-bottom: 8px; */
+  background-color: #1389fd;
+  /* color: white; */
+}
+::ng-deep.a{
+  color: white;
+}
+::ng-deep.d-sm-inline {
+  display: inline!important;
+  color: white;
 }

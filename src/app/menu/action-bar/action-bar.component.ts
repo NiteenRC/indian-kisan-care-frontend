@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-action-bar',
@@ -9,4 +10,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 export class ActionBarComponent {
 
   expanded = false;
+constructor(private router:Router){
+
+}
+  goTohome(){
+    this.router.navigate(['dashboard']);
+  }
 }

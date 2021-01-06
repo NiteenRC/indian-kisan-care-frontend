@@ -24,7 +24,7 @@ import { LocationComponent } from './location/location.component';
 import { CompanyComponent } from './company/company.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
-
+import {MatTableModule} from '@angular/material/table';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -37,6 +37,8 @@ import {TableModule} from 'primeng/table';
 import { ActionBarComponent } from './menu/action-bar/action-bar.component';
 import { ActionBarItemComponent } from './menu/action-bar-item/action-bar-item.component';
 import { NavigationBarComponent } from './menu/navigation-bar/navigation-bar.component';
+import { DashboardCategoriesComponent } from './pages/dashboard-categories/dashboard-categories.component';
+import { DemoMaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -60,10 +62,13 @@ import { NavigationBarComponent } from './menu/navigation-bar/navigation-bar.com
     DashboardComponent,
     SortPipe,
     NotfoundComponent,
-    MobileMenuComponent
+    MobileMenuComponent,
+    DashboardCategoriesComponent
   ],
   imports: [
     TableModule,
+    DemoMaterialModule,
+    MatTableModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

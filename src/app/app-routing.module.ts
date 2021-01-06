@@ -19,14 +19,18 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AuthGuard } from './auth.guard';
+import { DashboardCategoriesComponent } from './pages/dashboard-categories/dashboard-categories.component';
 
 export const routes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent,  },
   { path: 'register', component: RegisterComponent },
   { path: '404', component: NotfoundComponent },
+
   {path: 'dashboard', pathMatch: 'prefix',  canActivate: [ AuthGuard ],
-    component: DashboardComponent, children : [
+    component: DashboardComponent, 
+    children : [
+      { path: 'dashboard2', component: DashboardCategoriesComponent, canActivate: [ AuthGuard] },
       { path: 'products', component: ProductListComponent, canActivate: [ AuthGuard] },
       { path: 'add', component: CreateProductComponent },
       { path: 'details/:id', component: ProductDetailsComponent },
