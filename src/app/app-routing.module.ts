@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 
-import { CreateCategoryComponent } from './create-category/create-category.component';
+import { CreateCategoryComponent1 } from './create-category/create-category.component';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { LocationComponent } from './location/location.component';
 import { CompanyComponent } from './company/company.component';
@@ -20,6 +20,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AuthGuard } from './auth.guard';
 import { DashboardCategoriesComponent } from './pages/dashboard-categories/dashboard-categories.component';
+import { CustomersListComponent } from './customers/customers-list/customers-list.component';
+import { CompanyListComponent } from './companies/company-list/company-list.component';
+import { CategoryListComponent } from './categories/category-list/category-list.component';
+import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
 
 export const routes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' },
@@ -34,14 +38,23 @@ export const routes: Routes = [
       { path: 'products', component: ProductListComponent, canActivate: [ AuthGuard] },
       { path: 'add', component: CreateProductComponent },
       { path: 'details/:id', component: ProductDetailsComponent },
-      { path: 'addCategory', component: CreateCategoryComponent },
+      { path: 'addCategory', component: CreateCategoryComponent1 },
       { path: 'purchaseOrder', component: PurchaseOrderComponent },
       { path: 'salesOrder', component: SalesOrderComponent },
       { path: 'location', component: LocationComponent },
       { path: 'company', component: CompanyComponent },
       { path: 'customer', component: CustomerComponent },
       { path: 'supplier', component: SupplierComponent },
-      { path: 'balance-sheet', component: BalanceSheetComponent }]
+      { path: 'balance-sheet', component: BalanceSheetComponent },
+      { path: 'customers-list', component: CustomersListComponent },
+      { path: 'companies-list', component: CompanyListComponent },
+      { path: 'suppliers-list', component: SupplierListComponent },
+      { path: 'categories-list', component: CategoryListComponent },
+    
+    
+    
+    
+    ]
     },
   { path: '**', redirectTo: '404', pathMatch: 'full'},
 ];

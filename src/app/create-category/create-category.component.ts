@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   selector: 'app-create-category',
   templateUrl: './create-category.component.html'
 })
-export class CreateCategoryComponent implements OnInit {
+export class CreateCategoryComponent1 implements OnInit {
   categories: Observable<Category[]>;
   id: number;
   category: Category = new Category();

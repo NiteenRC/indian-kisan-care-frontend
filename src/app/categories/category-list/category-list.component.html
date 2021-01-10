@@ -1,0 +1,66 @@
+
+
+
+
+<div>
+    <mat-form-field style="width: 300px;">
+       <mat-label>Search</mat-label>
+       <input matInput  placeholder="Ex. urea" #input>
+     </mat-form-field>
+     <div class="pull-right">
+       <button (click)="openDialog()" class="btn btn-info btn-sm"
+         style="height: 35px;width: 150px;"> Add Category </button>
+     </div>
+   
+   </div>
+   
+   <div class="mat-elevation-z8">
+       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+           <!-- Position customer -->
+           <ng-container matColumnDef="categoryName">
+               <th mat-header-cell *matHeaderCellDef>Category </th>
+               <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+           </ng-container>
+   
+           <!-- Name Column -->
+           <ng-container matColumnDef="categoryDesc">
+               <th mat-header-cell *matHeaderCellDef> Description </th>
+               <td mat-cell *matCellDef="let element"> {{element.categoryDesc}} </td>
+           </ng-container>
+   
+           <ng-container matColumnDef="categoryID">
+               <th mat-header-cell *matHeaderCellDef> Action </th>
+               <td mat-cell *matCellDef="let element">
+       
+                 <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                   <mat-icon>more_vert</mat-icon>
+                 </button>
+                 <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
+                   <div>
+                     <button (click)="openModal(editProfileModal, product)" class="btn btn-info"
+                       style="width: 80px;margin-left: 15px;">
+                       Update </button>
+                     <br>
+                     <button (click)="deleteProduct(product.productID)" style="margin-top:5px;width: 80px;margin-left: 15px;"
+                       class="btn btn-danger">Delete</button>
+                     <br>
+                     
+                   </div>
+                 </mat-menu>
+                 <!--  -->
+       
+               </td>
+             </ng-container>
+       
+   
+           <!-- Symbol Column -->
+           <ng-container matColumnDef="symbol">
+               <th mat-header-cell *matHeaderCellDef> Symbol </th>
+               <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+           </ng-container>
+   
+           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       </table>
+   </div>

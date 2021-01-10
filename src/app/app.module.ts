@@ -8,7 +8,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CreateCategoryComponent } from './create-category/create-category.component';
+import { CreateCategoryComponent1 } from './create-category/create-category.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { SharedModule } from "./menu/shared.module";
@@ -39,6 +39,13 @@ import { ActionBarItemComponent } from './menu/action-bar-item/action-bar-item.c
 import { NavigationBarComponent } from './menu/navigation-bar/navigation-bar.component';
 import { DashboardCategoriesComponent } from './pages/dashboard-categories/dashboard-categories.component';
 import { DemoMaterialModule } from './material.module';
+import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
+import { CustomersListComponent } from './customers/customers-list/customers-list.component';
+import { CreateCompanyComponent } from './companies/create-company/create-company.component';
+import { CompanyListComponent } from './companies/company-list/company-list.component';
+import { CategoryListComponent } from './categories/category-list/category-list.component';
+import { CreateSupplierComponent } from './suppliers/create-supplier/create-supplier.component';
+import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +53,7 @@ import { DemoMaterialModule } from './material.module';
     CreateProductComponent,
     ProductDetailsComponent,
     ProductListComponent,
-    CreateCategoryComponent,
+    CreateCategoryComponent1,
     PurchaseOrderComponent,
     CustomerComponent,
     SupplierComponent,
@@ -63,7 +70,14 @@ import { DemoMaterialModule } from './material.module';
     SortPipe,
     NotfoundComponent,
     MobileMenuComponent,
-    DashboardCategoriesComponent
+    DashboardCategoriesComponent,
+    CreateCustomerComponent,
+    CustomersListComponent,
+    CreateCompanyComponent,
+    CompanyListComponent,
+    CategoryListComponent,
+    CreateSupplierComponent,
+    SupplierListComponent
   ],
   imports: [
     TableModule,
