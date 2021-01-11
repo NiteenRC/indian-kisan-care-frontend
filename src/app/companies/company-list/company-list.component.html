@@ -5,7 +5,7 @@
 <div>
     <mat-form-field style="width: 300px;">
        <mat-label>Search</mat-label>
-       <input matInput placeholder="Ex. Test" #input>
+       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Test" #input>
      </mat-form-field>
      <div class="pull-right">
        <button (click)="openDialog()" class="btn btn-info btn-sm"
@@ -38,11 +38,11 @@
                  </button>
                  <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
                    <div>
-                     <button (click)="openModal(editProfileModal, product)" class="btn btn-info"
+                     <button (click)="updateComapny(element)" class="btn btn-info"
                        style="width: 80px;margin-left: 15px;">
                        Update </button>
                      <br>
-                     <button (click)="deleteProduct(product.productID)" style="margin-top:5px;width: 80px;margin-left: 15px;"
+                     <button (click)="deleteCompany(element)" style="margin-top:5px;width: 80px;margin-left: 15px;"
                        class="btn btn-danger">Delete</button>
                      <br>
                      
@@ -54,13 +54,10 @@
              </ng-container>
        
    
-           <!-- Symbol Column -->
-           <ng-container matColumnDef="symbol">
-               <th mat-header-cell *matHeaderCellDef> Symbol </th>
-               <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-           </ng-container>
+          
    
            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
        </table>
+       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
    </div>

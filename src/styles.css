@@ -201,6 +201,7 @@ justify-content: center;
 .button-container{
   display: flex;
   justify-content: center;
+  margin-top: 5px;
 }
 .title-header{
   display: flex;
