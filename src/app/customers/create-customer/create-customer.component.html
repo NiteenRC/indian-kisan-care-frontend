@@ -3,27 +3,27 @@
         <h4 class="title">Add Customer</h4>
     </div>
     <hr>
-    <form>
+    <form  [formGroup]="customerForm">
         <div class="title-header">
             <mat-form-field class="forms-fildes">
-                <input matInput placeholder="Customer Name">
+                <input matInput placeholder="Customer Name" formControlName="customerName">
             </mat-form-field>
         </div>
         <div class="title-header">
-            <mat-form-field class="forms-fildes">
-                <mat-select placeholder="City">
-                    <mat-option value="option">Option</mat-option>
+            <mat-form-field class="forms-fildes" >
+                <mat-select placeholder="City" formControlName="cityName">
+                    <mat-option value="cityName" *ngFor="let cityName of citiesList.cityName"  >{{cityName}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="title-header">
             <mat-form-field class="forms-fildes">
-                <input matInput placeholder="Customer Phone Number">
+                <input matInput placeholder="Customer Phone Number" formControlName="phoneNumber">
             </mat-form-field>
         </div>
         <div class="button-container">
             <button class="btn btn-warning" style="width: 25%;margin-left: 5px;"  (click)="closeModal()" aria-label="Close">Cancel</button>
-            <button class="btn btn-primary" style="width: 25%;margin-left: 5px;">Save</button>
+            <button class="btn btn-primary" style="width: 25%;margin-left: 5px;"  (click)="saveCustomer()">Save</button>
           
           </div>
     </form>

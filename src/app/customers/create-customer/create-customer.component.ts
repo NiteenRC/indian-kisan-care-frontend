@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA,MatDialog } from '@angular/material/dialog';
 import { CompanyService } from 'src/app/_services/company.service';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { LocationService } from 'src/app/_services/location.service';
 
 @Component({
   selector: 'app-create-customer',
@@ -10,31 +12,42 @@ import { CompanyService } from 'src/app/_services/company.service';
 })
 export class CreateCustomerComponent implements OnInit {
 
-  companyForm: FormGroup;
-  companyUpdateData: any;
+  customerForm: FormGroup;
+  locationForm: FormGroup;
+  customerUpdateData: any;
   successMsg: any;
   errorMsg: any;
-  constructor(private companyService: CompanyService,
+  citiesList: any;
+  constructor(private customerService: CustomerService, private location:LocationService ,
     public dialogRef: MatDialogRef<CreateCustomerComponent>,
     @Inject(MAT_DIALOG_DATA) private data) {
-    this.companyUpdateData = data;
-    this.companyForm = new FormGroup({
-      companyName: new FormControl(null, [Validators.required]),
+    this.customerUpdateData = data;
+    this.customerForm = new FormGroup({
+      cityName: new FormControl(null, [Validators.required]),
+      customerName: new FormControl(null, [Validators.required]),
       phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(10), Validators.maxLength(10)]),
     })
+
+    this.locationForm = new FormGroup({
+      cityName: new FormControl(null, [Validators.required]),
+    })
+
     if (data != null) {
-      this.companyForm.controls["companyName"].setValue(this.companyUpdateData.data.companyName);
-      this.companyForm.controls["phoneNumber"].setValue(this.companyUpdateData.data.phoneNumber);
+      this.customerForm.controls["customerName"].setValue(this.customerUpdateData.data.customerName);
+      this.customerForm.controls["phoneNumber"].setValue(this.customerUpdateData.data.phoneNumber);
+      this.customerForm.controls["cityName"].setValue(this.customerUpdateData.data.location.cityName);
     }
   }
   closeModal(): void {
     this.dialogRef.close();
   }
   ngOnInit(): void {
+
+    this.getlocationList();
   }
   onSubmit() {
-    if (this.companyUpdateData?.data.id != null) {
-      this.updateCustomer();
+    if (this.customerUpdateData?.data.id != null) {
+     // this.updateCustomer();
     } else {
       this.saveCustomer();
     }
@@ -42,14 +55,22 @@ export class CreateCustomerComponent implements OnInit {
 
   saveCustomer() {
     let data = {
-      companyID: this.companyUpdateData?.data.id,
-      companyName: this.companyForm.controls.companyName.value,
-      phoneNumber: this.companyForm.controls.phoneNumber.value
+      // companyID: this.companyUpdateData?.data.id,
+      // companyName: this.customerForm.controls.companyName.value,
+      // phoneNumber: this.customerForm.controls.phoneNumber.value
+
+    //  customerID: number;
+  customerName: this.customerForm.controls.customerName.value,
+  location:{
+    cityName:this.customerForm.controls.cityName.value,
+  },
+  phoneNumber:  this.customerForm.controls.phoneNumber.value,
     }
-    this.companyService.createCompany(data).subscribe(res => {
+
+    this.customerService.createCustomer(data).subscribe(res => {
       if (res != null) {
         this.successMsg = "Company Successfully Created..!";
-        this.getCompanyList();
+       // this.getCompanyList();
         this.closeModal();
       }
     }, error => {
@@ -57,26 +78,33 @@ export class CreateCustomerComponent implements OnInit {
     })
 
   }
-  updateCustomer() {
-    let data = {
-      companyID: this.companyUpdateData?.data.id,
-      companyName: this.companyForm.controls.companyName.value,
-      phoneNumber: this.companyForm.controls.phoneNumber.value
-    }
-    this.companyService.updateCompany(data).subscribe(res => {
-      if (res != null) {
-        this.successMsg = "Company Successfully Updated..!";
-        this.getCompanyList();
-        this.closeModal();
-      }
-    }, error => {
-      this.errorMsg = "Company Unsuccessfully Updated..";
-    })
-  }
+  // updateCustomer() {
+  //   let data = {
+  //     companyID: this.companyUpdateData?.data.id,
+  //     companyName: this.customerForm.controls.companyName.value,
+  //     phoneNumber: this.customerForm.controls.phoneNumber.value
+  //   }
+  //   this.customerService.updateCompany(data).subscribe(res => {
+  //     if (res != null) {
+  //       this.successMsg = "Company Successfully Updated..!";
+  //       this.getCompanyList();
+  //       this.closeModal();
+  //     }
+  //   }, error => {
+  //     this.errorMsg = "Company Unsuccessfully Updated..";
+  //   })
+  // }
 
-  getCompanyList() {
-    this.companyService.getCompanyList().subscribe(data => {
-    }, error => console.log(error));
-  }
+  // getCompanyList() {
+  //   this.customerService.getCompanyList().subscribe(data => {
+  //   }, error => console.log(error));
+  // }
+  
+getlocationList(){
+  this.location.getLocationList().subscribe(res=>{
+this.citiesList=res;
 
+
+  })
+}
 }

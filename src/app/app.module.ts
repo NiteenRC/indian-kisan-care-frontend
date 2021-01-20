@@ -86,6 +86,7 @@ import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.c
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MatFormFieldModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
