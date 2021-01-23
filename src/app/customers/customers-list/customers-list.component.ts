@@ -14,16 +14,20 @@ import { CreateCustomerComponent } from '../create-customer/create-customer.comp
 })
 export class CustomersListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['customerName', 'phoneNumber', 'customerID'];
+  displayedColumns: string[] = ['customerName', 'phoneNumber', 'id'];
   dataSource;
-  constructor(public dialog: MatDialog,private customerService: CustomerService, private companyService: CompanyService) { }
+
+  constructor(public dialog: MatDialog, private customerService: CustomerService, private companyService: CompanyService) { }
+
   ngOnInit(): void {
-    this.getCompanyList();
+    this.getCustomerList();
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateCustomerComponent, {
       width: '550px',
@@ -33,29 +37,32 @@ export class CustomersListComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-  updateCustomer(updateCustomer):void{
+
+  updateCustomer(updateCustomer): void {
     const dialogRef = this.dialog.open(CreateCustomerComponent, {
       width: '550px',
-      data: {data: updateCustomer}
+      data: { data: updateCustomer }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
-  getCompanyList() { 
+
+  getCustomerList() {
     this.customerService.getCustomerList().subscribe(data => {
-        this.dataSource = data;  
-        this.dataSource = new MatTableDataSource(data);
-         this.dataSource.paginator = this.paginator;
-      }, error => console.log(error));
+      this.dataSource = data;
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+    }, error => console.log(error));
   }
-  deleteCompany(event) {
-    this.companyService.deleteCompany(event.id).subscribe(
-        response => {
-          this.getCompanyList();
-        },
-        error => console.log(error));
+
+  deleteCustomer(event) {
+    this.customerService.deleteCustomer(event.id).subscribe(
+      response => {
+        this.getCustomerList();
+      },
+      error => console.log(error));
   }
 }
 

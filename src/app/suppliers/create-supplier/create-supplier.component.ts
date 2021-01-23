@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CompanyService } from 'src/app/_services/company.service';
-import { CustomerService } from 'src/app/_services/customer.service';
 import { LocationService } from 'src/app/_services/location.service';
+import { SupplierService } from 'src/app/_services/supplier.service';
 
 @Component({
   selector: 'app-create-supplier',
@@ -14,17 +14,22 @@ export class CreateSupplierComponent implements OnInit {
 
   supplierForm: FormGroup;
   locationForm: FormGroup;
-  customerUpdateData: any;
+  supplierUpdateData: any;
   successMsg: any;
   errorMsg: any;
   citiesList: any;
-  constructor(private customerService: CustomerService, private location: LocationService,
+  companies: any;
+
+  constructor(private supplierService: SupplierService, private location: LocationService,
+    private companyService: CompanyService,
     public dialogRef: MatDialogRef<CreateSupplierComponent>,
     @Inject(MAT_DIALOG_DATA) private data) {
-    this.customerUpdateData = data;
+    this.supplierUpdateData = data;
+
     this.supplierForm = new FormGroup({
       cityName: new FormControl(null, [Validators.required]),
-      customerName: new FormControl(null, [Validators.required]),
+      supplierName: new FormControl(null, [Validators.required]),
+      companyName: new FormControl(null, [Validators.required]),
       phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(10), Validators.maxLength(10)]),
     })
 
@@ -33,43 +38,41 @@ export class CreateSupplierComponent implements OnInit {
     })
 
     if (data != null) {
-      this.supplierForm.controls["customerName"].setValue(this.customerUpdateData.data.customerName);
-      this.supplierForm.controls["phoneNumber"].setValue(this.customerUpdateData.data.phoneNumber);
-      this.supplierForm.controls["cityName"].setValue(this.customerUpdateData.data.location.cityName);
+      this.supplierForm.controls["supplierName"].setValue(this.supplierUpdateData.data.supplierName);
+      this.supplierForm.controls["phoneNumber"].setValue(this.supplierUpdateData.data.phoneNumber);
+      this.supplierForm.controls["cityName"].setValue(this.supplierUpdateData.data.location.cityName);
+      this.supplierForm.controls["companyName"].setValue(this.supplierUpdateData.data.location.companyName);
     }
   }
+
   closeModal(): void {
     this.dialogRef.close();
   }
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    this.getCompanyList();
     this.getlocationList();
   }
+
   onSubmit() {
-    if (this.customerUpdateData?.data.id != null) {
+    if (this.supplierUpdateData?.data.id != null) {
       // this.updateCustomer();
     } else {
-      this.saveCustomer();
+      this.saveSupplier();
     }
   }
 
-  saveCustomer() {
+  saveSupplier() {
     let data = {
-      // companyID: this.companyUpdateData?.data.id,
-      // companyName: this.customerForm.controls.companyName.value,
-      // phoneNumber: this.customerForm.controls.phoneNumber.value
-
-      //  customerID: number;
-      customerName: this.supplierForm.controls.customerName.value,
-      location: {
-        cityName: this.supplierForm.controls.cityName.value,
-      },
+      supplierName: this.supplierForm.controls.supplierName.value,
+      location: this.supplierForm.controls.cityName.value,
+      company: this.supplierForm.controls.companyName.value,
       phoneNumber: this.supplierForm.controls.phoneNumber.value,
     }
 
-    this.customerService.createCustomer(data).subscribe(res => {
+    this.supplierService.createSupplier(data).subscribe(res => {
       if (res != null) {
-        this.successMsg = "Company Successfully Created..!";
+        this.successMsg = "Supplier Successfully Created..!";
         // this.getCompanyList();
         this.closeModal();
       }
@@ -95,15 +98,15 @@ export class CreateSupplierComponent implements OnInit {
   //   })
   // }
 
-  // getCompanyList() {
-  //   this.customerService.getCompanyList().subscribe(data => {
-  //   }, error => console.log(error));
-  // }
-
   getlocationList() {
     this.location.getLocationList().subscribe(res => {
       this.citiesList = res;
+    })
+  }
 
+  getCompanyList() {
+    this.companyService.getCompanyList().subscribe(res => {
+      this.companies = res;
     })
   }
 }

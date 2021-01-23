@@ -12,7 +12,7 @@
         <div class="title-header">
             <mat-form-field class="forms-fildes" >
                 <mat-select placeholder="City" formControlName="cityName">
-                    <mat-option value="cityName" *ngFor="let cityName of citiesList.cityName"  >{{cityName}}</mat-option>
+                    <mat-option [value]="location" *ngFor="let location of citiesList"  >{{location.cityName}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>

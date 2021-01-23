@@ -1,7 +1,7 @@
 import { Location } from './location';
 
 export class Customer {
-  customerID: number;
+  id: number;
   customerName: string;
   location: Location;
   phoneNumber: string;

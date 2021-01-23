@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA,MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { LocationService } from 'src/app/_services/location.service';
 
@@ -17,10 +17,12 @@ export class CreateCustomerComponent implements OnInit {
   successMsg: any;
   errorMsg: any;
   citiesList: any;
-  constructor(private customerService: CustomerService, private location:LocationService ,
+
+  constructor(private customerService: CustomerService, private location: LocationService,
     public dialogRef: MatDialogRef<CreateCustomerComponent>,
     @Inject(MAT_DIALOG_DATA) private data) {
     this.customerUpdateData = data;
+
     this.customerForm = new FormGroup({
       cityName: new FormControl(null, [Validators.required]),
       customerName: new FormControl(null, [Validators.required]),
@@ -41,12 +43,11 @@ export class CreateCustomerComponent implements OnInit {
     this.dialogRef.close();
   }
   ngOnInit(): void {
-
     this.getlocationList();
   }
   onSubmit() {
     if (this.customerUpdateData?.data.id != null) {
-     // this.updateCustomer();
+      // this.updateCustomer();
     } else {
       this.saveCustomer();
     }
@@ -54,16 +55,9 @@ export class CreateCustomerComponent implements OnInit {
 
   saveCustomer() {
     let data = {
-      // companyID: this.companyUpdateData?.data.id,
-      // companyName: this.customerForm.controls.companyName.value,
-      // phoneNumber: this.customerForm.controls.phoneNumber.value
-
-    //  customerID: number;
-  customerName: this.customerForm.controls.customerName.value,
-  location:{
-    cityName:this.customerForm.controls.cityName.value,
-  },
-  phoneNumber:  this.customerForm.controls.phoneNumber.value,
+      customerName: this.customerForm.controls.customerName.value,
+      location: this.customerForm.controls.cityName.value,
+      phoneNumber: this.customerForm.controls.phoneNumber.value,
     }
 
     this.customerService.createCustomer(data).subscribe(res => {
@@ -75,7 +69,6 @@ export class CreateCustomerComponent implements OnInit {
     }, error => {
       this.errorMsg = "Company Unsuccessfully Created.."
     })
-
   }
   // updateCustomer() {
   //   let data = {
@@ -98,12 +91,10 @@ export class CreateCustomerComponent implements OnInit {
   //   this.customerService.getCompanyList().subscribe(data => {
   //   }, error => console.log(error));
   // }
-  
-getlocationList(){
-  this.location.getLocationList().subscribe(res=>{
-this.citiesList=res;
 
-
-  })
-}
+  getlocationList() {
+    this.location.getLocationList().subscribe(res => {
+      this.citiesList = res;
+    })
+  }
 }
