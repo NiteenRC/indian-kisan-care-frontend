@@ -32,11 +32,14 @@ export class CreateCompanyComponent implements OnInit {
       this.companyForm.controls["phoneNumber"].setValue(this.companyUpdateData.data.phoneNumber);
     }
   }
+
   closeModal(): void {
     this.dialogRef.close();
   }
+
   ngOnInit(): void {
   }
+
   onSubmit() {
     if (this.companyUpdateData?.data.id != null) {
       this.updateCompany();
@@ -44,6 +47,7 @@ export class CreateCompanyComponent implements OnInit {
       this.saveCompany();
     }
   }
+
   saveCompany() {
     let data = {
       id: this.companyUpdateData?.data.id,
@@ -59,8 +63,8 @@ export class CreateCompanyComponent implements OnInit {
     }, error => {
       this.errorMsg = "Company Unsuccessfully Created.."
     })
-
   }
+
   updateCompany() {
     let data = {
       id: this.companyUpdateData?.data.id,

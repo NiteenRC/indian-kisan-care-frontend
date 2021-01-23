@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -9,13 +8,11 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
-import { CustomerComponent } from './customer/customer.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
 import { MatTableModule} from '@angular/material/table';
@@ -50,7 +47,7 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
     ProductListComponent,
     CreateCategoryComponent,
     PurchaseOrderComponent,
-    CustomerComponent,
+    CreateCustomerComponent,
     CreateSupplierComponent,
     CreateLocationComponent,
     SalesOrderComponent,
@@ -64,7 +61,6 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
     NotfoundComponent,
     MobileMenuComponent,
     DashboardCategoriesComponent,
-    CreateCustomerComponent,
     CustomersListComponent,
     CreateCompanyComponent,
     CompanyListComponent,

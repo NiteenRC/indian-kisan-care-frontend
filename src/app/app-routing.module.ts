@@ -4,10 +4,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
-
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
-import { CustomerComponent } from './customer/customer.component';
-
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -22,6 +19,7 @@ import { LocationListComponent } from './locations/location-list/location-list.c
 import { CreateLocationComponent } from './locations/create-location/create-location.component';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { CreateSupplierComponent } from './suppliers/create-supplier/create-supplier.component';
+import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 
 export const routes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' },
@@ -39,7 +37,7 @@ export const routes: Routes = [
       { path: 'purchaseOrder', component: PurchaseOrderComponent },
       { path: 'salesOrder', component: SalesOrderComponent },
       { path: 'location', component: CreateLocationComponent },
-      { path: 'customer', component: CustomerComponent },
+      { path: 'customer', component: CreateCustomerComponent },
       { path: 'supplier', component: CreateSupplierComponent },
       { path: 'balance-sheet', component: BalanceSheetComponent },
       { path: 'customers-list', component: CustomersListComponent },

@@ -64,7 +64,7 @@ export class CreateLocationComponent implements OnInit {
 
   updateLocation() {
     let data = {
-      locationID: this.locationUpdateData?.data.id,
+      id: this.locationUpdateData?.data.id,
       cityName: this.locationForm.controls.cityName.value
     }
     this.locationService.updateLocation(data).subscribe(res => {
