@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,19 +16,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { CustomerComponent } from './customer/customer.component';
-import { SupplierComponent } from './supplier/supplier.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule} from '@angular/material/table';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SortPipe } from './pipe/sort.pipe';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MobileMenuComponent } from './menu/mobile-menu/mobile-menu.component';
-import {TableModule} from 'primeng/table';
+import { TableModule} from 'primeng/table';
 import { ActionBarComponent } from './menu/action-bar/action-bar.component';
 import { ActionBarItemComponent } from './menu/action-bar-item/action-bar-item.component';
 import { NavigationBarComponent } from './menu/navigation-bar/navigation-bar.component';
@@ -50,12 +47,11 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
   declarations: [
     AppComponent,
     CreateProductComponent,
-    ProductDetailsComponent,
     ProductListComponent,
     CreateCategoryComponent,
     PurchaseOrderComponent,
     CustomerComponent,
-    SupplierComponent,
+    CreateSupplierComponent,
     CreateLocationComponent,
     SalesOrderComponent,
     BalanceSheetComponent,
@@ -65,7 +61,6 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    SortPipe,
     NotfoundComponent,
     MobileMenuComponent,
     DashboardCategoriesComponent,

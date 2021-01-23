@@ -18,6 +18,7 @@ export class CreateLocationComponent implements OnInit {
   locationUpdateData: any;
   successMsg: any;
   errorMsg: any;
+
   constructor(private locationService: LocationService,
     public dialogRef: MatDialogRef<CreateLocationComponent>,
     @Inject(MAT_DIALOG_DATA) private data) {
@@ -29,11 +30,14 @@ export class CreateLocationComponent implements OnInit {
       this.locationForm.controls["cityName"].setValue(this.locationUpdateData.data.cityName);
     }
   }
+
   closeModal(): void {
     this.dialogRef.close();
   }
+
   ngOnInit(): void {
   }
+
   onSubmit() {
     if (this.locationUpdateData?.data.id != null) {
       this.updateLocation();
@@ -41,6 +45,7 @@ export class CreateLocationComponent implements OnInit {
       this.saveLocation();
     }
   }
+
   saveLocation() {
     let data = {
       locationID: this.locationUpdateData?.data.id,
@@ -55,8 +60,8 @@ export class CreateLocationComponent implements OnInit {
     }, error => {
       this.errorMsg = "Location Unsuccessfully Created.."
     })
-
   }
+
   updateLocation() {
     let data = {
       locationID: this.locationUpdateData?.data.id,
