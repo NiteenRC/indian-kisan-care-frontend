@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA,MatDialog } from '@angular/material/dialog';
-import { CompanyService } from 'src/app/_services/company.service';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { LocationService } from 'src/app/_services/location.service';
 

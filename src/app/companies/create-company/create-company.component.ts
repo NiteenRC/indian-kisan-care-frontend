@@ -46,7 +46,7 @@ export class CreateCompanyComponent implements OnInit {
   }
   saveCompany() {
     let data = {
-      companyID: this.companyUpdateData?.data.id,
+      id: this.companyUpdateData?.data.id,
       companyName: this.companyForm.controls.companyName.value,
       phoneNumber: this.companyForm.controls.phoneNumber.value
     }
@@ -63,7 +63,7 @@ export class CreateCompanyComponent implements OnInit {
   }
   updateCompany() {
     let data = {
-      companyID: this.companyUpdateData?.data.id,
+      id: this.companyUpdateData?.data.id,
       companyName: this.companyForm.controls.companyName.value,
       phoneNumber: this.companyForm.controls.phoneNumber.value
     }
