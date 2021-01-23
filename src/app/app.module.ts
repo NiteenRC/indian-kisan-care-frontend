@@ -8,10 +8,8 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CreateCategoryComponent1 } from './create-category/create-category.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { SharedModule } from "./menu/shared.module";
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -20,8 +18,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { CustomerComponent } from './customer/customer.component';
 import { SupplierComponent } from './supplier/supplier.component';
-import { LocationComponent } from './location/location.component';
-import { CompanyComponent } from './company/company.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
 import {MatTableModule} from '@angular/material/table';
@@ -46,6 +42,9 @@ import { CompanyListComponent } from './companies/company-list/company-list.comp
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { CreateSupplierComponent } from './suppliers/create-supplier/create-supplier.component';
 import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
+import { LocationListComponent } from './locations/location-list/location-list.component';
+import { CreateLocationComponent } from './locations/create-location/create-location.component';
+import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 
 @NgModule({
   declarations: [
@@ -53,12 +52,11 @@ import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.c
     CreateProductComponent,
     ProductDetailsComponent,
     ProductListComponent,
-    CreateCategoryComponent1,
+    CreateCategoryComponent,
     PurchaseOrderComponent,
     CustomerComponent,
     SupplierComponent,
-    LocationComponent,
-    CompanyComponent,
+    CreateLocationComponent,
     SalesOrderComponent,
     BalanceSheetComponent,
     ActionBarComponent,
@@ -77,7 +75,8 @@ import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.c
     CompanyListComponent,
     CategoryListComponent,
     CreateSupplierComponent,
-    SupplierListComponent
+    SupplierListComponent,
+    LocationListComponent,
   ],
   imports: [
     TableModule,
@@ -91,7 +90,6 @@ import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.c
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    MatFormFieldModule,
     MatInputModule,
     NgbModule,
     NgxPaginationModule,
