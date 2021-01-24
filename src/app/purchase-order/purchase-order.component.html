@@ -2,7 +2,7 @@
   <div class="form-group">
     <label for="name">Supplier</label>
     <select name="customer" class="form-control" required [(ngModel)]="purchaseOrder.supplier"
-      (change)="supplierBalanceData(purchaseOrder.supplier.supplierID)">
+      (change)="supplierBalanceData(purchaseOrder.supplier.id)">
       <option disabled>Select Supplierr</option>
       <option [ngValue]="supplier" *ngFor="let supplier of suppliers | async">{{supplier.supplierName}}</option>
     </select>

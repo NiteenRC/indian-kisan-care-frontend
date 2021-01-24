@@ -2,24 +2,23 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { CompanyService } from 'src/app/_services/company.service';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { LocationService } from 'src/app/_services/location.service';
 import { SupplierService } from 'src/app/_services/supplier.service';
 import { CreateSupplierComponent } from '../create-supplier/create-supplier.component';
 
-
 @Component({
   selector: 'app-supplier-list',
   templateUrl: './supplier-list.component.html',
   styleUrls: ['./supplier-list.component.css'],
-  
+
 })
 export class SupplierListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['supplierName', 'phoneNumber', 'supplierID'];
+  displayedColumns: string[] = ['supplierName', 'company', 'location', 'phoneNumber', 'id'];
   dataSource;
-  constructor(public dialog: MatDialog,private customerService: CustomerService, private supplierService: SupplierService) { }
+
+  constructor(public dialog: MatDialog, private supplierService: SupplierService) { }
   ngOnInit(): void {
     this.getSupplierList();
   }
@@ -32,14 +31,14 @@ export class SupplierListComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateSupplierComponent, {
       width: '550px',
-     // data: {name: this.name, animal: this.animal}
+      // data: {name: this.name, animal: this.animal}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
 
-  getSupplierList() { 
+  getSupplierList() {
     this.supplierService.getSupplierList()
       .subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
@@ -47,19 +46,19 @@ export class SupplierListComponent implements OnInit {
         this.dataSource = data;
       }, error => console.log(error));
   }
-  
+
   deleteSupllier(event) {
     this.supplierService.deleteSupplier(event.id).subscribe(
-        response => {
-          this.getSupplierList();
-        },
-        error => console.log(error));
+      response => {
+        this.getSupplierList();
+      },
+      error => console.log(error));
   }
 
-  updateSuppliers(updateCustomer):void{
+  updateSuppliers(updateSupplier): void {
     const dialogRef = this.dialog.open(CreateSupplierComponent, {
       width: '550px',
-      data: {data: updateCustomer}
+      data: { data: updateSupplier }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

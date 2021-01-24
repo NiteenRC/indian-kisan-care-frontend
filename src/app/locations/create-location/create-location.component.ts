@@ -1,7 +1,9 @@
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { Location } from 'src/app/_model/location';
 import { LocationService } from 'src/app/_services/location.service';
@@ -18,6 +20,9 @@ export class CreateLocationComponent implements OnInit {
   locationUpdateData: any;
   successMsg: any;
   errorMsg: any;
+  //@ViewChild(MatPaginator) paginator: MatPaginator;
+  //displayedColumns: string[] = ['cityName', 'id'];
+  dataSource;
 
   constructor(private locationService: LocationService,
     public dialogRef: MatDialogRef<CreateLocationComponent>,
@@ -48,7 +53,7 @@ export class CreateLocationComponent implements OnInit {
 
   saveLocation() {
     let data = {
-      locationID: this.locationUpdateData?.data.id,
+      id: this.locationUpdateData?.data.id,
       cityName: this.locationForm.controls.cityName.value
     }
     this.locationService.createLocation(data).subscribe(res => {
@@ -58,7 +63,7 @@ export class CreateLocationComponent implements OnInit {
         this.closeModal();
       }
     }, error => {
-      this.errorMsg = "Location Unsuccessfully Created.."
+      this.errorMsg = error.error.errorMessage;
     })
   }
 
@@ -74,12 +79,14 @@ export class CreateLocationComponent implements OnInit {
         this.closeModal();
       }
     }, error => {
-      this.errorMsg = "Location Unsuccessfully Updated..";
+      this.errorMsg = error.error.errorMessage;
     })
   }
 
   getLocationList() {
     this.locationService.getLocationList().subscribe(data => {
+      this.dataSource = data;
+      this.dataSource = new MatTableDataSource(data);
     }, error => console.log(error));
   }
 }

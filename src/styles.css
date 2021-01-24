@@ -50,7 +50,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex: none;
   width: 56px;
   height: 100%;
-  background:#1389FD;
+  background:#ababab;
   transition: width 200ms ease-in-out;
   overflow: hidden;
 }

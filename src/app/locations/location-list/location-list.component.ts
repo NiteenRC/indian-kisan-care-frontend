@@ -14,7 +14,8 @@ export class LocationListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['cityName', 'id'];
   dataSource;
-  constructor(public dialog: MatDialog, private customerService: CustomerService, private LocationService: LocationService) { }
+  
+  constructor(public dialog: MatDialog, private customerService: CustomerService, private locationService: LocationService) { }
 
   ngOnInit(): void {
     this.getLocationList();
@@ -47,7 +48,7 @@ export class LocationListComponent implements OnInit {
   }
 
   getLocationList() {
-    this.LocationService.getLocationList().subscribe(data => {
+    this.locationService.getLocationList().subscribe(data => {
       this.dataSource = data;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
@@ -55,7 +56,7 @@ export class LocationListComponent implements OnInit {
   }
 
   deleteLocation(event) {
-    this.LocationService.deleteLocation(event.locationID).subscribe(
+    this.locationService.deleteLocation(event.id).subscribe(
       response => {
         this.getLocationList();
       },
