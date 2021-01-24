@@ -20,7 +20,7 @@ ul.nav li.nav-item{
 ::ng-deep.mat-menu-content:not(:empty) {
   /* padding-top: 8px; */
   /* padding-bottom: 8px; */
-  background-color: #1389fd;
+  background-color: #ababab;
   /* color: white; */
 }
 ::ng-deep.a{

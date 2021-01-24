@@ -77,7 +77,7 @@ export class CreateSupplierComponent implements OnInit {
         this.closeModal();
       }
     }, error => {
-      this.errorMsg = "Company Unsuccessfully Created.."
+      this.errorMsg = error.error.errorMessage;
     })
 
   }
@@ -94,7 +94,7 @@ export class CreateSupplierComponent implements OnInit {
   //       this.closeModal();
   //     }
   //   }, error => {
-  //     this.errorMsg = "Company Unsuccessfully Updated..";
+  //     this.errorMsg = error.error.errorMessage; "Company Unsuccessfully Updated..";
   //   })
   // }
 

@@ -67,7 +67,7 @@ export class CreateCustomerComponent implements OnInit {
         this.closeModal();
       }
     }, error => {
-      this.errorMsg = "Company Unsuccessfully Created.."
+      this.errorMsg = error.error.errorMessage;
     })
   }
   // updateCustomer() {
@@ -83,7 +83,7 @@ export class CreateCustomerComponent implements OnInit {
   //       this.closeModal();
   //     }
   //   }, error => {
-  //     this.errorMsg = "Company Unsuccessfully Updated..";
+  //     this.errorMsg = error.error.errorMessage; "Company Unsuccessfully Updated..";
   //   })
   // }
 

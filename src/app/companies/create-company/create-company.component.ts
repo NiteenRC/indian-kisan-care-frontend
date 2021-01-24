@@ -19,10 +19,12 @@ export class CreateCompanyComponent implements OnInit {
   companyUpdateData: any;
   successMsg: any;
   errorMsg: any;
+
   constructor(private companyService: CompanyService,
     public dialogRef: MatDialogRef<CreateCompanyComponent>,
     @Inject(MAT_DIALOG_DATA) private data) {
     this.companyUpdateData = data;
+    
     this.companyForm = new FormGroup({
       companyName: new FormControl(null, [Validators.required]),
       phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(10), Validators.maxLength(10)]),
@@ -61,7 +63,7 @@ export class CreateCompanyComponent implements OnInit {
         this.closeModal();
       }
     }, error => {
-      this.errorMsg = "Company Unsuccessfully Created.."
+      this.errorMsg = error.error.errorMessage;
     })
   }
 
@@ -78,7 +80,7 @@ export class CreateCompanyComponent implements OnInit {
         this.closeModal();
       }
     }, error => {
-      this.errorMsg = "Company Unsuccessfully Updated..";
+      this.errorMsg = error.error.errorMessage;
     })
   }
 

@@ -13,7 +13,7 @@ import { CreateCategoryComponent } from '../create-category/create-category.comp
 
 export class CategoryListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['categoryName', 'categoryDesc', 'categoryID'];
+  displayedColumns: string[] = ['categoryName', 'categoryDesc', 'id'];
   dataSource;
 
   constructor(private categoryService: CategoryService, public dialog: MatDialog) { }

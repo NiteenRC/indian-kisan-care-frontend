@@ -45,7 +45,7 @@
           [matMenuTriggerFor]="dispatchPlan">
           <i class="fa fa-plus "></i> <span *ngIf="expanded" class="d-none d-sm-inline">MASTER</span>
         </a>
-        <mat-menu #dispatchPlan="matMenu" style="background-color: #1389fd;">
+        <mat-menu #dispatchPlan="matMenu" style="background-color: #ababab;">
           <span (mouseleave)="dispatchPlanmenuTrigger.closeMenu()">
             <a class="nav-link" routerLink="/dashboard/products">
               <span *ngIf="expanded" class="d-none d-sm-inline"> Product </span>
@@ -75,12 +75,12 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/addCategory">
+        <a class="nav-link" routerLink="/dashboard/balance-sheet">
           <i class="fa fa-inr "></i> <span *ngIf="expanded" class="d-none d-sm-inline">BALANCE SHEET</span></a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/supplier"><i class="fa fa-users "></i> <span *ngIf="expanded"
+        <a class="nav-link" routerLink="/dashboard/user"><i class="fa fa-users "></i> <span *ngIf="expanded"
             class="d-none d-sm-inline">USERS</span></a>
       </li>
 

@@ -20,7 +20,7 @@ export class CreateCategoryComponent implements OnInit {
   errorMsg: any;
   constructor(private categoryService: CategoryService,
     public dialogRef: MatDialogRef<CreateCategoryComponent>,
-    
+
     @Inject(MAT_DIALOG_DATA) private data) {
     this.categoryUpdateData = data;
 
@@ -34,7 +34,7 @@ export class CreateCategoryComponent implements OnInit {
       this.categoryForm.controls["categoryDesc"].setValue(this.categoryUpdateData.data.categoryDesc);
     }
   }
-  
+
   closeModal(): void {
     this.dialogRef.close();
   }
@@ -63,7 +63,7 @@ export class CreateCategoryComponent implements OnInit {
         this.closeModal();
       }
     }, error => {
-      this.errorMsg = "Category Unsuccessfully Created.."
+      this.errorMsg = error.error.errorMessage;
     })
   }
 
@@ -80,7 +80,7 @@ export class CreateCategoryComponent implements OnInit {
         this.closeModal();
       }
     }, error => {
-      this.errorMsg = "Category Unsuccessfully Updated..";
+      this.errorMsg = error.error.errorMessage;
     })
   }
 

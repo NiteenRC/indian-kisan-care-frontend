@@ -3,29 +3,47 @@
         <h4 class="title">Add Customer</h4>
     </div>
     <hr>
-    <form  [formGroup]="customerForm">
+    <form [formGroup]="customerForm">
         <div class="title-header">
             <mat-form-field class="forms-fildes">
                 <input matInput placeholder="Customer Name" formControlName="customerName">
             </mat-form-field>
         </div>
         <div class="title-header">
-            <mat-form-field class="forms-fildes" >
+            <mat-form-field class="forms-fildes">
                 <mat-select placeholder="City" formControlName="cityName">
-                    <mat-option [value]="location" *ngFor="let location of citiesList"  >{{location.cityName}}</mat-option>
+                    <mat-option [value]="location" *ngFor="let location of citiesList">{{location.cityName}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="title-header">
             <mat-form-field class="forms-fildes">
-                <input matInput placeholder="Customer Phone Number" formControlName="phoneNumber">
+                <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
+                <mat-error *ngIf="customerForm.get('phoneNumber').hasError('required')">
+                    Phone Number required!
+                </mat-error>
+                <mat-error *ngIf="customerForm.get('phoneNumber').hasError('pattern')">
+                    Only Numbers allowed.
+                </mat-error>
+                <mat-error *ngIf="customerForm.get('phoneNumber').hasError('maxlength')">
+                    Max lenghth is 10 Number.
+                </mat-error>
+                <mat-error *ngIf="customerForm.get('phoneNumber').hasError('minlength')">
+                    Min lenghth is 10 Number.
+                </mat-error>
             </mat-form-field>
         </div>
         <div class="button-container">
-            <button class="btn btn-warning" style="width: 25%;margin-left: 5px;"  (click)="closeModal()" aria-label="Close">Cancel</button>
-            <button class="btn btn-primary" style="width: 25%;margin-left: 5px;"  (click)="saveCustomer()">Save</button>
-          
-          </div>
+            <button class="btn btn-warning" style="width: 25%;margin-left: 5px;" (click)="closeModal()"
+                aria-label="Close">Cancel</button>
+            <button class="btn btn-primary" style="width: 25%;margin-left: 5px;" (click)="saveCustomer()"
+                [disabled]="!customerForm.valid">Save</button>
+        </div>
+        <div class="button-container">
+            <h4 style="color: green;">{{successMsg}}</h4>
+            <h4 style="color: red;">{{errorMsg}}</h4>
+        </div>
     </form>
 
 </div>
