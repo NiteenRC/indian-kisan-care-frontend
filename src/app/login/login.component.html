@@ -57,12 +57,11 @@
         </button>
       </div>
       <div class="form-group">
-        <div
-          class="alert alert-danger"
-          role="alert"
-          *ngIf="f.submitted"
-        >
-          Login failed: {{ errorMessage }}
+      
+        <div *ngIf="errorMessage!==null">
+          {{ errorMessage }}
+       
+         
         </div>
       </div>
     </form>

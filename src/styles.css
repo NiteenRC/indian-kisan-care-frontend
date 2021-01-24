@@ -16,7 +16,10 @@
   margin: 6px 0;
   transition: 0.4s;
 }
-
+::ng-deep.mat-tree-node {
+  min-height: 48px;
+  background-color: #1389fd;
+}
 .change .bar1 {
   -webkit-transform: rotate(-45deg) translate(-9px, 6px);
   transform: rotate(-45deg) translate(-9px, 6px);
@@ -56,6 +59,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .action-bar-expanded .action-bar-item-text {
   opacity: 1;
+}
+
+::ng-deep.mat-button .mat-button-wrapper>*, .mat-flat-button .mat-button-wrapper>*, .mat-stroked-button .mat-button-wrapper>*, .mat-raised-button .mat-button-wrapper>*, .mat-icon-button .mat-button-wrapper>*, .mat-fab .mat-button-wrapper>*, .mat-mini-fab .mat-button-wrapper>* {
+  vertical-align: middle;
+  margin-right: 15px;
 }
 .action-bar-item {
   display: flex;

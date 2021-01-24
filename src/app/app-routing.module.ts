@@ -20,6 +20,7 @@ import { CreateLocationComponent } from './locations/create-location/create-loca
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { CreateSupplierComponent } from './suppliers/create-supplier/create-supplier.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' },
@@ -30,6 +31,7 @@ export const routes: Routes = [
   {path: 'dashboard', pathMatch: 'prefix',  canActivate: [ AuthGuard ],
     component: DashboardComponent, 
     children : [
+
       { path: 'dashboard2', component: DashboardCategoriesComponent, canActivate: [ AuthGuard] },
       { path: 'products', component: ProductListComponent, canActivate: [ AuthGuard] },
       { path: 'add', component: CreateProductComponent },
@@ -45,6 +47,7 @@ export const routes: Routes = [
       { path: 'suppliers-list', component: SupplierListComponent },
       { path: 'categories-list', component: CategoryListComponent },
       { path: 'locations-list', component: LocationListComponent },
+      { path: 'home', component: HomeComponent },
     ]
     },
   { path: '**', redirectTo: '404', pathMatch: 'full'},

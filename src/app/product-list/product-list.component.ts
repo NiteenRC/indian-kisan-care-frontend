@@ -1,17 +1,17 @@
-import { Observable } from 'rxjs';
-import { ProductService } from './../_services/product.service';
-import { Product } from './../_model/product';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { CategoryService } from '../_services/category.service';
-import { Category } from '../_model/category';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { JsonpClientBackend } from '@angular/common/http';
-import {map, startWith} from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Observable } from "rxjs";
+import { startWith, map } from "rxjs/operators";
+import { Category } from "../_model/category";
+import { Product } from "../_model/product";
+import { CategoryService } from "../_services/category.service";
+import { ProductService } from "../_services/product.service";
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',

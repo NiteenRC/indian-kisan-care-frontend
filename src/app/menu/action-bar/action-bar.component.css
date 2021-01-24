@@ -1,5 +1,5 @@
 .nav-link span{
-  margin-left: 15px;
+  margin-left: 10px;
   color: white;
 }
 .span{
@@ -8,7 +8,9 @@
 
 .fa{
   font-size: 20px !important;
+  margin-left: 10px;
 }
+
 
 ul.nav li.nav-item{
   width: 100%;
@@ -29,4 +31,22 @@ ul.nav li.nav-item{
 ::ng-deep.d-sm-inline {
   display: inline!important;
   color: white;
+}
+::ng-deep.mat-tree-node {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  word-wrap: break-word;
+  color: white;
+}
+::ng-deep.mat-tree-node {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  word-wrap: break-word;
+  color: white;
+}
+::ng-deep.mat-tree-node {
+  min-height: 48px;
+  background-color: #1389fd;
 }

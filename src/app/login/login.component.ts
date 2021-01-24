@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('accessToken', data.accessToken);
         this.tokenStorage.saveUser(data);
         this.roles = this.tokenStorage.getUser().roles;
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard/home']);
       },
       err => {
         this.errorMessage = err.error.message;

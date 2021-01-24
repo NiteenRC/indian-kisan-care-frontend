@@ -17,35 +17,19 @@
     <!-- Links -->
     <ul class="navbar-nav nav">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/dashboard2" routerLinkActive="active" style="cursor: pointer;"> <i
+        <a class="nav-link" routerLink="/dashboard/home" routerLinkActive="active" style="cursor: pointer;"> <i
             class="fa fa-home "></i> <span *ngIf="expanded" class="d-none d-sm-inline">DASHBOARDS</span> </a>
       </li>
 
-      <li class="nav-item" routerLinkActive="active" (mouseover)="createPlanmenuTrigger.openMenu()"
-        (mouseout)="$event.stopPropagation();createPlanmenuTrigger.openMenu()">
-        <a class="nav-link" routerLink="/dashboard/products" #createPlanmenuTrigger="matMenuTrigger"
-          [matMenuTriggerFor]="createPlan" routerLinkActive="active"><i class="fa fa-list "></i> <span *ngIf="expanded"
-            class="d-none d-sm-inline">ORDERS</span></a>
-        <mat-menu #createPlan="matMenu">
-          <a class="nav-link" routerLink="/dashboard/salesOrder"><span *ngIf="expanded" class="d-none d-sm-inline">Sales
-              Order</span></a>
-          <a class="nav-link" routerLink="/dashboard/purchaseOrder"> <span *ngIf="expanded"
-              class="d-none d-sm-inline">Purchase
-              Order</span></a>
-        </mat-menu>
-      </li>
-      <!-- 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/salesOrder"  routerLinkActive="active"><i class="fa fa-suitcase "></i> <span *ngIf="expanded"
-            class="d-none d-sm-inline">SALES</span></a>
-      </li> -->
 
-      <li class="nav-item" routerLinkActive="active" (mouseover)="dispatchPlanmenuTrigger.openMenu()">
+     
+    
+      <!-- <li class="nav-item" routerLinkActive="active" (mouseover)="dispatchPlanmenuTrigger.openMenu()">
         <a class="nav-link" routerLink="/dashboard/add" #dispatchPlanmenuTrigger="matMenuTrigger"
-          [matMenuTriggerFor]="dispatchPlan">
+          [matMenuTriggerFor]="dispatchPlan1">
           <i class="fa fa-plus "></i> <span *ngIf="expanded" class="d-none d-sm-inline">MASTER</span>
         </a>
-        <mat-menu #dispatchPlan="matMenu" style="background-color: #1389fd;">
+        <mat-menu #dispatchPlan1="matMenu" style="background-color: #1389fd;">
           <span (mouseleave)="dispatchPlanmenuTrigger.closeMenu()">
             <a class="nav-link" routerLink="/dashboard/products">
               <span *ngIf="expanded" class="d-none d-sm-inline"> Product </span>
@@ -67,7 +51,84 @@
               </span></a>
           </span>
         </mat-menu>
-      </li>
+      </li>  -->
+
+      <mat-tree [dataSource]="dataSource_Order" [treeControl]="treeControl" style="margin-right: 10px;">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button (click)="getOrder(node.name)"> {{node.name}}</button>
+          
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle
+                  [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'add'}}
+            </mat-icon>
+          </button>
+          {{node.name}}
+        </mat-tree-node>
+      </mat-tree>
+
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button (click)="getComponent(node.name)"> {{node.name}}</button>
+          
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle
+                  [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          {{node.name}}
+        </mat-tree-node>
+      </mat-tree>
+  
+     
+
+      
+      <!-- 
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard/salesOrder"  routerLinkActive="active"><i class="fa fa-suitcase "></i> <span *ngIf="expanded"
+            class="d-none d-sm-inline">SALES</span></a>
+      </li> -->
+
+       <!-- <li class="nav-item" routerLinkActive="active" (mouseover)="dispatchPlanmenu1Trigger.openMenu()">
+        <a class="nav-link" routerLink="/dashboard/add" #dispatchPlanmenu1Trigger="matMenuTrigger"
+          [matMenuTriggerFor]="dispatchPlan">
+          <i class="fa fa-plus "></i> <span *ngIf="expanded" class="d-none d-sm-inline">MASTER</span>
+        </a>
+        <mat-menu #dispatchPlan="matMenu" style="background-color: #1389fd;">
+          <span (mouseleave)="dispatchPlanmenu1Trigger.closeMenu()">
+            <a class="nav-link" routerLink="/dashboard/products">
+              <span *ngIf="expanded" class="d-none d-sm-inline"> Product </span>
+            </a>
+            <a class="nav-link" routerLink="/dashboard/categories-list"> <span *ngIf="expanded"
+                class="d-none d-sm-inline">Category
+              </span></a>
+            <a class="nav-link" routerLink="/dashboard/suppliers-list"> <span *ngIf="expanded"
+                class="d-none d-sm-inline">Supplier
+              </span></a>
+            <a class="nav-link" routerLink="/dashboard/customers-list"> <span *ngIf="expanded"
+                class="d-none d-sm-inline">Customer
+              </span></a>
+            <a class="nav-link" routerLink="/dashboard/companies-list"> <span *ngIf="expanded"
+                class="d-none d-sm-inline">Company
+              </span></a>
+            <a class="nav-link" routerLink="/dashboard/locations-list"> <span *ngIf="expanded"
+                class="d-none d-sm-inline">Location
+              </span></a>
+          </span>
+        </mat-menu>
+      </li>  -->
+     
 
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard/addCategory">
