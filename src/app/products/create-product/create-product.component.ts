@@ -123,7 +123,13 @@ export class CreateProductComponent implements OnInit {
   }
 
   getCategoryList() {
-    this.filteredOptions = this.categoryService.getCategoryList();
+    //this.filteredOptions = this.categoryService.getCategoryList();
+
+    this.categoryService.getCategoryList().subscribe(data => {
+      data.forEach(x => {
+        this.options.push(x.categoryName);
+      })
+    });
   }
 
 }
