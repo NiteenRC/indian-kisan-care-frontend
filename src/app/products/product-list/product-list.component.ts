@@ -40,9 +40,10 @@ export class ProductListComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  createProduct():void{
+  createProduct(updateProduct):void{
     const dialogRef = this.dialog.open(CreateProductComponent, {
       width: '550px',
+      data:updateProduct
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

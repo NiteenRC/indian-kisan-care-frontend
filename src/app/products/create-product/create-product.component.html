@@ -1,11 +1,12 @@
 <div class="product-conatiner">
   <div class="title-header">
-    <h4 class="title">Add Supplier</h4>
+    <h4 class="title">Add Product</h4>
   </div>
   <hr>
-  <form [formGroup]="supplierForm">
+  <form [formGroup]="productForm">
+    <div class="addproduct-container">
     <mat-form-field class="forms-fildes">
-      <input type="text" placeholder="Category" aria-label="Number" matInput [formControl]="myControl"
+      <input type="text" placeholder="Category" aria-label="Number" matInput   [(ngModel)]="test" [formControl]="myControl"
         [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -13,26 +14,27 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+  </div>
     <div class="addproduct-container">
       <mat-form-field class="forms-fildes">
-        <input matInput placeholder="Enter Product Name">
+        <input matInput placeholder="Enter Product Name" formControlName="productName">
       </mat-form-field><br>
     </div>
     <div class="addproduct-container">
       <mat-form-field class="forms-fildes">
-        <input matInput placeholder="Enter Price ">
+        <input matInput placeholder="Enter Price " formControlName="price">
       </mat-form-field><br>
     </div>
     <div class="addproduct-container">
       <mat-form-field class="forms-fildes">
-        <input matInput placeholder="Enter Quantity ">
+        <input matInput placeholder="Enter Quantity " formControlName="qty">
       </mat-form-field><br>
     </div>
     <div class="button-container">
       <button class="btn btn-danger" style="width: 25%;margin-left: 5px;border-radius: 10px;" (click)="closeModal()"
         aria-label="Close">Cancel</button>
-      <button class="btn btn-primary" style="width: 25%;margin-left: 5px;border-radius: 10px;" (click)="saveSupplier()"
-        [disabled]="!supplierForm.valid">Save</button>
+      <button class="btn btn-primary" style="width: 25%;margin-left: 5px;border-radius: 10px;" (click)="onSubmit()"
+        [disabled]="!productForm.valid">Save</button>
     </div>
     <div class="button-container">
       <h4 style="color: green;">{{successMsg}}</h4>
