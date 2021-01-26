@@ -214,7 +214,19 @@
     </form>
   </div>
 </ng-template>
-
+<mat-form-field class="forms-fildes">
+  <input type="text"
+         placeholder="Category"
+         aria-label="Number"
+         matInput
+         [formControl]="myControl"
+         [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
 <ng-template #addProfileModal let-modal>
   <mat-card>
     <div class="text-center">

@@ -17,7 +17,7 @@ import { ProductService } from "../_services/product.service";
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent1 implements OnInit {
   displayedColumns: string[] = ['productID', 'productName', 'price', 'category','qty','productDesc'];
   dataSource ;
   myControl = new FormControl();

@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateProductComponent } from './create-product/create-product.component';
-import { ProductListComponent } from './product-list/product-list.component';
+
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -39,6 +39,8 @@ import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.c
 import { LocationListComponent } from './locations/location-list/location-list.component';
 import { CreateLocationComponent } from './locations/create-location/create-location.component';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
+import { ProductListComponent } from './products/product-list/product-list.component';
+import { CreateProductComponent } from './products/create-product/create-product.component';
 
 @NgModule({
   declarations: [

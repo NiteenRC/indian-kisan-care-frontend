@@ -3,7 +3,7 @@ import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
-import { ProductListComponent } from './product-list/product-list.component';
+
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -21,6 +21,7 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
 import { CreateSupplierComponent } from './suppliers/create-supplier/create-supplier.component';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { HomeComponent } from './home/home.component';
+import { ProductListComponent } from './products/product-list/product-list.component';
 
 export const routes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' },
