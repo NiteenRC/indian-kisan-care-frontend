@@ -1,47 +1,43 @@
 <div class="product-conatiner">
-    <div class="title-header">
-        <h4 class="title">Add Supplier</h4>
+  <div class="title-header">
+    <h4 class="title">Add Supplier</h4>
+  </div>
+  <hr>
+  <form [formGroup]="supplierForm">
+    <mat-form-field class="forms-fildes">
+      <input type="text" placeholder="Category" aria-label="Number" matInput [formControl]="myControl"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.categoryName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="addproduct-container">
+      <mat-form-field class="forms-fildes">
+        <input matInput placeholder="Enter Product Name">
+      </mat-form-field><br>
     </div>
-    <hr>
-    <form [formGroup]="supplierForm">
-        <mat-form-field class="forms-fildes">
-            <input type="text"
-                   placeholder="Category"
-                   aria-label="Number"
-                   matInput
-                   [formControl]="myControl"
-                   [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of filteredOptions.categoryName | async" [value]="option">
-                {{option}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-          <div class="addproduct-container">
-            <mat-form-field class="forms-fildes" >
-              <input matInput placeholder="Enter Product Name">
-            </mat-form-field><br>
-          </div>
-          <div class="addproduct-container">
-            <mat-form-field class="forms-fildes" >
-              <input matInput placeholder="Enter Price ">
-            </mat-form-field><br>
-          </div>
-          <div class="addproduct-container">
-            <mat-form-field class="forms-fildes" >
-              <input matInput placeholder="Enter Quantity ">
-            </mat-form-field><br>
-          </div>
-        <div class="button-container">
-            <button class="btn btn-danger" style="width: 25%;margin-left: 5px;border-radius: 10px;"
-                (click)="closeModal()" aria-label="Close">Cancel</button>
-            <button class="btn btn-primary" style="width: 25%;margin-left: 5px;border-radius: 10px;"
-                (click)="saveSupplier()" [disabled]="!supplierForm.valid">Save</button>
-        </div>
-        <div class="button-container">
-            <h4 style="color: green;">{{successMsg}}</h4>
-            <h4 style="color: red;">{{errorMsg}}</h4>
-        </div>
-    </form>
+    <div class="addproduct-container">
+      <mat-form-field class="forms-fildes">
+        <input matInput placeholder="Enter Price ">
+      </mat-form-field><br>
+    </div>
+    <div class="addproduct-container">
+      <mat-form-field class="forms-fildes">
+        <input matInput placeholder="Enter Quantity ">
+      </mat-form-field><br>
+    </div>
+    <div class="button-container">
+      <button class="btn btn-danger" style="width: 25%;margin-left: 5px;border-radius: 10px;" (click)="closeModal()"
+        aria-label="Close">Cancel</button>
+      <button class="btn btn-primary" style="width: 25%;margin-left: 5px;border-radius: 10px;" (click)="saveSupplier()"
+        [disabled]="!supplierForm.valid">Save</button>
+    </div>
+    <div class="button-container">
+      <h4 style="color: green;">{{successMsg}}</h4>
+      <h4 style="color: red;">{{errorMsg}}</h4>
+    </div>
+  </form>
 
 </div>

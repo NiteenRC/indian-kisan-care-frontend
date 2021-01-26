@@ -3,11 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { Product } from 'src/app/_model/product';
 import { CategoryService } from 'src/app/_services/category.service';
 import { CompanyService } from 'src/app/_services/company.service';
 import { LocationService } from 'src/app/_services/location.service';
-import { ProductService } from 'src/app/_services/product.service';
 import { SupplierService } from 'src/app/_services/supplier.service';
 
 @Component({
@@ -16,12 +14,10 @@ import { SupplierService } from 'src/app/_services/supplier.service';
   styleUrls: ['./create-product.component.css']
 })
 export class CreateProductComponent implements OnInit {
-
-
   myControl = new FormControl();
   options: string[] = [];
   filteredOptions: Observable<string[]>;
-  listOfCategories=[];
+  listOfCategories = [];
   supplierForm: FormGroup;
   locationForm: FormGroup;
   supplierUpdateData: any;
@@ -67,11 +63,10 @@ export class CreateProductComponent implements OnInit {
         map(value => this._filter(value))
       );
 
-
-    this.getCompanyList();
+    this.getCategoryList();
     this.getlocationList();
   }
-  
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
@@ -96,7 +91,7 @@ export class CreateProductComponent implements OnInit {
     this.supplierService.createSupplier(data).subscribe(res => {
       if (res != null) {
         this.successMsg = "Supplier Successfully Created..!";
-        // this.getCompanyList();
+        // this.getCategoryList();
         this.closeModal();
       }
     }, error => {
@@ -113,7 +108,7 @@ export class CreateProductComponent implements OnInit {
   //   this.customerService.updateCompany(data).subscribe(res => {
   //     if (res != null) {
   //       this.successMsg = "Company Successfully Updated..!";
-  //       this.getCompanyList();
+  //       this.getCategoryList();
   //       this.closeModal();
   //     }
   //   }, error => {
@@ -127,17 +122,8 @@ export class CreateProductComponent implements OnInit {
     })
   }
 
-  getCompanyList() {
-
-    let test=[];
-    this.categoryService.getCategoryList().subscribe(res => {
-       this.listOfCategories = res;
-      
-       this.listOfCategories.forEach(res=>{
-         test.push(res.categoryName);
-       })
-    });
-  
+  getCategoryList() {
+    this.filteredOptions = this.categoryService.getCategoryList();
   }
 
 }
