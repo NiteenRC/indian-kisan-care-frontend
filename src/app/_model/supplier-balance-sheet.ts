@@ -1,6 +1,6 @@
-import { Supplier } from './supplier';
+import {Supplier} from './supplier';
 
 export class SupplierBalanceSheet {
-  supplier: Supplier;
-	currentBalance: number;
+    supplier: Supplier;
+    currentBalance: number;
 }

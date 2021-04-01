@@ -1,15 +1,15 @@
 <div class="product-conatiner">
-    <div class="title-header" *ngIf="locationUpdateData?.data.id==null">
+    <div *ngIf="locationUpdateData?.data.id==null" class="title-header">
         <h4 class="title">Add location</h4>
     </div>
-    <div class="title-header" *ngIf="locationUpdateData?.data.id!=null">
+    <div *ngIf="locationUpdateData?.data.id!=null" class="title-header">
         <h4 class="title">Update location</h4>
     </div>
     <hr>
     <form [formGroup]="locationForm">
         <div class="title-header">
             <mat-form-field class="forms-fildes">
-                <input matInput placeholder="location Name" formControlName="cityName" required>
+                <input formControlName="cityName" matInput placeholder="location Name" required>
                 <mat-error *ngIf="locationForm.get('cityName').hasError('required')">
                     City Name required!
                 </mat-error>
@@ -17,10 +17,12 @@
         </div>
 
         <div class="button-container">
-            <button class="btn btn-warning" style="width: 25%;margin-left: 5px;" (click)="closeModal()"
-                aria-label="Close">Cancel</button>
-            <button class="btn btn-primary" style="width: 25%;margin-left: 5px;" (click)="onSubmit()"
-                [disabled]="!locationForm.valid">Save</button>
+            <button (click)="closeModal()" aria-label="Close" class="btn btn-warning"
+                    style="width: 25%;margin-left: 5px;">Cancel
+            </button>
+            <button (click)="onSubmit()" [disabled]="!locationForm.valid" class="btn btn-primary"
+                    style="width: 25%;margin-left: 5px;">Save
+            </button>
         </div>
         <div class="button-container">
             <h4 style="color: green;">{{successMsg}}</h4>

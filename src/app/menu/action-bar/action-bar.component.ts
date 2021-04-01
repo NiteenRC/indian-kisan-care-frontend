@@ -66,7 +66,7 @@ export class ActionBarComponent {
     if (item == "Purchase") {
       this.router.navigate(['dashboard/purchaseOrder']);
     }
- 
+
   }
 }
 
@@ -80,11 +80,11 @@ const Order_DATA: MasterNode[] = [
     children: [
       {
         name: 'Sales Order',
-        
+
       },
       {
         name: 'Purchase',
-        
+
       }
     ]
   },
@@ -101,25 +101,25 @@ const TREE_DATA: MasterNode[] = [
     children: [
       {
         name: 'Product',
-        
+
       },
       {
         name: 'Category',
-        
+
       }, {
         name: 'Supplier',
-       
+
       },
       {
         name: 'Customer',
-        
+
       }, {
         name: 'Company',
-       
+
       }
       , {
         name: 'Location',
-       
+
       }
     ]
   },

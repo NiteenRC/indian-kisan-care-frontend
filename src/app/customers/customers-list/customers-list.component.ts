@@ -1,69 +1,69 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { CompanyService } from 'src/app/_services/company.service';
-import { CustomerService } from 'src/app/_services/customer.service';
-import { LocationService } from 'src/app/_services/location.service';
-import { CreateCustomerComponent } from '../create-customer/create-customer.component';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {CompanyService} from 'src/app/_services/company.service';
+import {CustomerService} from 'src/app/_services/customer.service';
+import {CreateCustomerComponent} from '../create-customer/create-customer.component';
 
 @Component({
-  selector: 'app-customers-list',
-  templateUrl: './customers-list.component.html',
-  styleUrls: ['./customers-list.component.css']
+    selector: 'app-customers-list',
+    templateUrl: './customers-list.component.html',
+    styleUrls: ['./customers-list.component.css']
 })
 export class CustomersListComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['customerName', 'phoneNumber', 'id'];
-  dataSource;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    displayedColumns: string[] = ['customerName', 'phoneNumber', 'id'];
+    dataSource;
 
-  constructor(public dialog: MatDialog, private customerService: CustomerService, private companyService: CompanyService) { }
+    constructor(public dialog: MatDialog, private customerService: CustomerService, private companyService: CompanyService) {
+    }
 
-  ngOnInit(): void {
-    this.getCustomerList();
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateCustomerComponent, {
-      width: '550px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
-  updateCustomer(updateCustomer): void {
-    const dialogRef = this.dialog.open(CreateCustomerComponent, {
-      width: '550px',
-      data: { data: updateCustomer }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
-  getCustomerList() {
-    this.customerService.getCustomerList().subscribe(data => {
-      this.dataSource = data;
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-    }, error => console.log(error));
-  }
-
-  deleteCustomer(event) {
-    this.customerService.deleteCustomer(event.id).subscribe(
-      response => {
+    ngOnInit(): void {
         this.getCustomerList();
-      },
-      error => console.log(error));
-  }
+    }
+
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog.open(CreateCustomerComponent, {
+            width: '550px',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
+
+    updateCustomer(updateCustomer): void {
+        const dialogRef = this.dialog.open(CreateCustomerComponent, {
+            width: '550px',
+            data: {data: updateCustomer}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
+
+    getCustomerList() {
+        this.customerService.getCustomerList().subscribe(data => {
+            this.dataSource = data;
+            this.dataSource = new MatTableDataSource(data);
+            this.dataSource.paginator = this.paginator;
+        }, error => console.log(error));
+    }
+
+    deleteCustomer(event) {
+        this.customerService.deleteCustomer(event.id).subscribe(
+            response => {
+                this.getCustomerList();
+            },
+            error => console.log(error));
+    }
 }
 
 

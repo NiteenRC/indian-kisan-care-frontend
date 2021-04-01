@@ -1,4 +1,4 @@
 export class Location {
-  locationID: number;
-  cityName: string;
+    locationID: number;
+    cityName: string;
 }

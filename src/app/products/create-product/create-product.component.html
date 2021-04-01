@@ -1,45 +1,53 @@
 <div class="product-conatiner">
-  <div class="title-header">
-    <h4 class="title">Add Product</h4>
-  </div>
-  <hr>
-  <form [formGroup]="productForm">
-    <div class="addproduct-container">
-    <mat-form-field class="forms-fildes">
-      <input type="text" placeholder="Category" aria-label="Number" matInput   [(ngModel)]="test" [formControl]="myControl"
-        [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </div>
-    <div class="addproduct-container">
-      <mat-form-field class="forms-fildes">
-        <input matInput placeholder="Enter Product Name" formControlName="productName">
-      </mat-form-field><br>
+    <div class="title-header">
+        <h4 class="title">Add Product</h4>
     </div>
-    <div class="addproduct-container">
-      <mat-form-field class="forms-fildes">
-        <input matInput placeholder="Enter Price " formControlName="price">
-      </mat-form-field><br>
-    </div>
-    <div class="addproduct-container">
-      <mat-form-field class="forms-fildes">
-        <input matInput placeholder="Enter Quantity " formControlName="qty">
-      </mat-form-field><br>
-    </div>
-    <div class="button-container">
-      <button class="btn btn-danger" style="width: 25%;margin-left: 5px;border-radius: 10px;" (click)="closeModal()"
-        aria-label="Close">Cancel</button>
-      <button class="btn btn-primary" style="width: 25%;margin-left: 5px;border-radius: 10px;" (click)="onSubmit()"
-        [disabled]="!productForm.valid">Save</button>
-    </div>
-    <div class="button-container">
-      <h4 style="color: green;">{{successMsg}}</h4>
-      <h4 style="color: red;">{{errorMsg}}</h4>
-    </div>
-  </form>
+    <hr>
+    <form [formGroup]="productForm">
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input [(ngModel)]="test" [formControl]="myControl" [matAutocomplete]="auto" aria-label="Number" matInput
+                       placeholder="Category"
+                       type="text">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="productName" matInput placeholder="Enter Product Name">
+            </mat-form-field>
+            <br>
+        </div>
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="price" matInput placeholder="Enter Price ">
+            </mat-form-field>
+            <br>
+        </div>
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="qty" matInput placeholder="Enter Quantity ">
+            </mat-form-field>
+            <br>
+        </div>
+        <div class="button-container">
+            <button (click)="closeModal()" aria-label="Close"
+                    class="btn btn-danger"
+                    style="width: 25%;margin-left: 5px;border-radius: 10px;">Cancel
+            </button>
+            <button (click)="onSubmit()" [disabled]="!productForm.valid"
+                    class="btn btn-primary"
+                    style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
+            </button>
+        </div>
+        <div class="button-container">
+            <h4 style="color: green;">{{successMsg}}</h4>
+            <h4 style="color: red;">{{errorMsg}}</h4>
+        </div>
+    </form>
 
 </div>

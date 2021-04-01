@@ -1,10 +1,10 @@
-import { Company } from './company';
-import { Location } from './location';
+import {Company} from './company';
+import {Location} from './location';
 
 export class Supplier {
-  id: number;
-  supplierName: string;
-  company: Company;
-  location: Location;
-  phoneNumber: string;
+    id: number;
+    supplierName: string;
+    company: Company;
+    location: Location;
+    phoneNumber: string;
 }

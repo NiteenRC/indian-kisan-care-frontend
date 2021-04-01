@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DashboardCategoriesComponent } from './dashboard-categories.component';
+import {DashboardCategoriesComponent} from './dashboard-categories.component';
 
 describe('DashboardCategoriesComponent', () => {
-  let component: DashboardCategoriesComponent;
-  let fixture: ComponentFixture<DashboardCategoriesComponent>;
+    let component: DashboardCategoriesComponent;
+    let fixture: ComponentFixture<DashboardCategoriesComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DashboardCategoriesComponent ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [DashboardCategoriesComponent]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardCategoriesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DashboardCategoriesComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -1,6 +1,6 @@
-import { Customer } from './customer';
+import {Customer} from './customer';
 
 export class CustomerBalanceSheet {
-  customer: Customer;
-	currentBalance: number;
+    customer: Customer;
+    currentBalance: number;
 }
