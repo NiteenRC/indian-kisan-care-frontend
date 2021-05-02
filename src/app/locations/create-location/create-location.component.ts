@@ -41,7 +41,7 @@ export class CreateLocationComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onSubmit() {
+    onSubmit(): void {
         if (this.locationUpdateData?.data.id != null) {
             this.updateLocation();
         } else {

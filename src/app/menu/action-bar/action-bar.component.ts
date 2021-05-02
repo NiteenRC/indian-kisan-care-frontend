@@ -33,7 +33,7 @@ export class ActionBarComponent {
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  expanded = false;
+  expanded = true;
 
   goTohome(){
     this.router.navigate(['dashboard']);
