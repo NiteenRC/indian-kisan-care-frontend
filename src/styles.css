@@ -229,3 +229,11 @@ justify-content: center;
     max-height: inherit;
     border-radius: 10px;
 }
+
+.mat-table tr.mat-row {
+  height: 40px; 
+}
+
+.mat-table tr.mat-header-row {
+  height: 40px; 
+}

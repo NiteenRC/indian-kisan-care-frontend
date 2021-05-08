@@ -1,12 +1,15 @@
 <div class="product-conatiner">
-    <div class="title-header">
+    <div class="title-header" *ngIf="productUpdateData?.id==null">
         <h4 class="title">Add Product</h4>
+    </div>
+    <div class="title-header" *ngIf="productUpdateData?.id!=null">
+        <h4 class="title">Update Product</h4>
     </div>
     <hr>
     <form [formGroup]="productForm">
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input [(ngModel)]="test" [formControl]="myControl" [matAutocomplete]="auto" aria-label="Number" matInput
+                <input formControlName="categoryName" [matAutocomplete]="auto" aria-label="Number" matInput
                        placeholder="Category"
                        type="text">
                 <mat-autocomplete #auto="matAutocomplete">

@@ -17,7 +17,7 @@
     <!-- Position Column -->
     <ng-container matColumnDef="productID">
         <th *matHeaderCellDef mat-header-cell> No.</th>
-        <td *matCellDef="let element" mat-cell> {{element.productID}} </td>
+        <td *matCellDef="let element" mat-cell> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -51,17 +51,17 @@
             </button>
             <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
                 <div>
-                    <button (click)="createProduct(element)" class="btn btn-info"
+                    <button (click)="updateProduct(element)" class="btn btn-info"
                             style="width: 80px;margin-left: 15px;">
                         Update
                     </button>
                     <br>
-                    <button (click)="deleteProduct(product.productID)"
+                    <button (click)="deleteProduct(element.id)"
                             class="btn btn-danger"
                             style="margin-top:5px;width: 80px;margin-left: 15px;">Delete
                     </button>
                     <br>
-                    <button (click)="productDetails(product.productID)"
+                    <button (click)="productDetails(element.id)"
                             class="btn btn-info"
                             style="margin-top:5px;width: 80px;margin-left: 15px;">Details
                     </button>
@@ -75,4 +75,4 @@
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 </table>
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>

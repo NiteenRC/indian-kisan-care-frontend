@@ -43,8 +43,29 @@ export class ProductListComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.getProductList();
         });
     }
+
+    updateProduct(updateProduct): void {
+        const dialogRef = this.dialog.open(CreateProductComponent, {
+          width: '550px',
+          data: { data: updateProduct }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.getProductList();
+        });
+      }
+
+      deleteProduct(productId) {
+        this.productService.deleteProduct(productId).subscribe(
+          response => {
+            this.getProductList();
+          },
+          error => console.log(error));
+      }
 
 }
 
