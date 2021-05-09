@@ -14,12 +14,6 @@
 
 <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="productID">
-        <th *matHeaderCellDef mat-header-cell> No.</th>
-        <td *matCellDef="let element" mat-cell> {{element.id}} </td>
-    </ng-container>
-
     <!-- Name Column -->
     <ng-container matColumnDef="productName">
         <th *matHeaderCellDef mat-header-cell> Product</th>
