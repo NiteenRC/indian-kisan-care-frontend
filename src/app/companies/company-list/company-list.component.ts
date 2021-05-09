@@ -35,6 +35,7 @@ export class CompanyListComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.getCompanyList();
         });
     }
 
@@ -46,6 +47,7 @@ export class CompanyListComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.getCompanyList();
         });
     }
 

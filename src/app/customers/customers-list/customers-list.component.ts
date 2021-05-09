@@ -13,7 +13,7 @@ import {CreateCustomerComponent} from '../create-customer/create-customer.compon
 })
 export class CustomersListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    displayedColumns: string[] = ['customerName', 'phoneNumber', 'id'];
+    displayedColumns: string[] = ['customerName', 'location', 'phoneNumber', 'id'];
     dataSource;
 
     constructor(public dialog: MatDialog, private customerService: CustomerService, private companyService: CompanyService) {
@@ -35,6 +35,7 @@ export class CustomersListComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.getCustomerList();
         });
     }
 
@@ -46,6 +47,7 @@ export class CustomersListComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.getCustomerList();
         });
     }
 
