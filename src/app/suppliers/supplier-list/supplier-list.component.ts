@@ -35,6 +35,7 @@ export class SupplierListComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.getSupplierList();
         });
     }
 
@@ -62,6 +63,7 @@ export class SupplierListComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.getSupplierList();
         });
     }
 }

@@ -66,7 +66,6 @@ export class ActionBarComponent {
     if (item == "Purchase") {
       this.router.navigate(['dashboard/purchaseOrder']);
     }
-
   }
 }
 
