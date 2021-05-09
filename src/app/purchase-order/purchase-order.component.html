@@ -25,6 +25,10 @@
         <th>Product</th>
         <th>Price</th>
         <th>Qty</th>
+        <th>Net Amount</th>
+        <th>Tax Rate</th>
+        <th>Tax Type</th>
+        <th>Tax Amount</th>
         <th>Total Amout</th>
       </tr>
     </thead>
@@ -41,15 +45,25 @@
             (change)="changeInQtyOrPrice()">
         </div>
       </td>
-      <td>{{cart.price*cart.qtyOrdered}}</td>
+      <td>
+        ₹{{cart.price * cart.qtyOrdered || 0}}
+      </td>
+      <td>
+        {{TAX_RATE}}%
+      </td>
+      <td>
+        IGST
+      </td>
+      <td>
+        ₹{{TAX_RATE * cart.price * cart.qtyOrdered / 100}}
+      </td>
+      <td>
+        ₹{{cart.price*cart.qtyOrdered + (TAX_RATE * cart.price * cart.qtyOrdered/100) }}
+      </td>
     </tr>
     <tr>
-      <td>Total:</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>{{getTotalQty()}}</td>
-      <td>{{totalAmountToPaid().toLocaleString('en-IN')}}</td>
+      <td colspan="9">Total:</td>
+      <td>₹{{totalAmountToPaid().toLocaleString('en-IN')}}</td>
     </tr>
   </table>
 </div>
@@ -72,5 +86,5 @@
     <label for="name">Total Pay Balance</label>
     <input type="text" id="price" [value]="totalBalance.toLocaleString('en-IN')" name="price" disabled>
   </div>
-  <button type="submit" class="btn btn-success" (click)="save()">Submit</button>
+  <button type="submit" class="btn btn-success" (click)="save()" [disabled]="rows?.length === 0">Submit</button>
 </div>

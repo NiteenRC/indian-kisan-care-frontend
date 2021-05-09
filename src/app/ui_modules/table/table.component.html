@@ -1,0 +1,140 @@
+<div class="page-content container">
+    <div class="page-header text-blue-d2">
+        <div class="container px-0">
+            <div class="row pt-4">
+                <div class="col-12 col-lg-10 offset-lg-1">
+                    <div style="text-align: center;">
+                        <h2> Tax Invoice </h2>
+                    </div>
+                    <hr class="row brc-default-l1 mx-n1 mb-4" />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="my-2">
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold my-2">
+                                    Customer Name:
+                                </span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    {{response?.supplier?.supplierName}}
+                                </span>
+                            </div>
+                            <div class="my-2">
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold my-2">
+                                    Mobile Number:
+                                </span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    {{response?.supplier?.phoneNumber}}
+                                </span>
+                            </div>
+                            <div class="my-2">
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold my-2">
+                                    Customer ID:</span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    {{response?.supplier?.id}}
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+                            <hr class="d-sm-none" />
+                            <div class="text-grey-m2">
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Bill Date:</span>
+                                    {{response?.supplier?.createdDate}}
+                                </div>
+
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Bill Number:</span>
+                                    {{response?.purchaseOrderID}}
+                                </div>
+
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Bill Status:</span>
+                                    <span class="text-600 text-90">
+                                        PAID
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- ----------------------------------------- -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">SI.<br>NO</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Net Amount</th>
+                                <th scope="col">Tax Rate</th>
+                                <th scope="col">Tax Type</th>
+                                <th scope="col">Tax Amount</th>
+                                <th scope="col">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cart of response?.purchaseOrderDetail; index as i;">
+                                <td>{{i + 1}}</td>
+                                <td>{{cart?.product?.productName}}</td>
+                                <td>₹{{cart?.price || 0}}</td>
+                                <td>{{cart?.qtyOrdered || 0}}</td>
+                                <td>₹{{cart?.price * cart?.qtyOrdered || 0}}</td>
+                                <td>{{TAX_RATE}}%</td>
+                                <td>IGST</td>
+                                <td>₹{{TAX_RATE * cart.price * cart.qtyOrdered / 100}}</td>
+                                <td>₹{{cart.price * cart.qtyOrdered + TAX_RATE * cart.price * cart.qtyOrdered / 100}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="8">Total</th>
+                                <th>₹{{totalPrice}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr>
+                    <!-- ---------------- -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">Payment Mode:</span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    Cash
+                                </span>
+                            </div>
+
+                        </div>
+                        <!-- /.col -->
+                        <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+                            <hr class="d-sm-none" />
+                            <div class="text-grey-m2">
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Amount Paid: </span>
+                                    {{response?.amountPaid || 0 }}
+                                </div>
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Current Balance: </span>
+                                    {{response?.currentBalance || 0 }}
+                                </div>
+
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Previous Balance: </span>
+                                    <span class="text-600 text-90">
+                                        {{response?.previousBalance || 0 }}
+                                    </span>
+                                </div>
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Total Pay Balance:</span>
+                                    <span class="text-600 text-90">
+                                        {{response?.totalPrice || 0 }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- --------------------- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

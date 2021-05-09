@@ -1,3 +1,4 @@
+import { TableComponent } from './ui_modules/table/table.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { CreateProductComponent } from './create-product/create-product.component';
@@ -51,6 +52,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
     ]
     },
+  { path: 'table', component: TableComponent },
   { path: '**', redirectTo: '404', pathMatch: 'full'},
 ];
 

@@ -41,6 +41,7 @@ import { CreateLocationComponent } from './locations/create-location/create-loca
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
+import { TableComponent } from './ui_modules/table/table.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { CreateProductComponent } from './products/create-product/create-product
     CreateSupplierComponent,
     SupplierListComponent,
     LocationListComponent,
+    TableComponent,
   ],
   imports: [
     TableModule,

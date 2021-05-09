@@ -1,3 +1,4 @@
+import { ElementRef, ViewChild } from '@angular/core';
 import { Product } from './../_model/product';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -25,6 +26,8 @@ export class PurchaseOrderComponent implements OnInit {
   totalAmount = 0;
   totalBalance = 0;
 
+  TAX_RATE = 18;
+
   constructor(private productService: ProductService,
     private supplierService: SupplierService,
     private purchaseOrderService: PurchaseOrderService) { }
@@ -47,6 +50,7 @@ export class PurchaseOrderComponent implements OnInit {
     this.purchaseOrderService
       .createPurchaseOrder(this.purchaseOrder).subscribe(data => {
         console.log(data);
+        this.printPdf(data);
         this.refreshAfterSave();
       },
         error => console.log(error));
@@ -81,7 +85,8 @@ export class PurchaseOrderComponent implements OnInit {
   totalAmountToPaid() {
     let totalAmount = 0;
     this.rows.forEach(obj => {
-      totalAmount += Number(obj.qtyOrdered) * Number(obj.price);
+      const netAmount = Number(obj.qtyOrdered) * Number(obj.price)
+      totalAmount += netAmount + netAmount * this.TAX_RATE/100;
     });
     this.totalAmount = totalAmount;
     return totalAmount;
@@ -119,5 +124,11 @@ export class PurchaseOrderComponent implements OnInit {
   changeInQtyOrPrice() {
     this.currentBalance = this.totalAmount - this.purchaseOrder.amountPaid;
     this.totalBalance = this.previousBalance + this.currentBalance;
+  }
+
+  printPdf(response) {
+    const url = `${location.origin}/table`;
+    const myWindow = window.open(url);
+    myWindow['response'] = response;
   }
 }
