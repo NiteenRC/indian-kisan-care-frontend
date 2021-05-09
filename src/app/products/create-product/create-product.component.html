@@ -13,8 +13,8 @@
                        placeholder="Category"
                        type="text">
                 <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option}}
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option?.categoryName">
+                        {{option?.categoryName}}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>

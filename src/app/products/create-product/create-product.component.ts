@@ -1,12 +1,13 @@
+import { Category } from './../../_model/category';
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { autocompleteStringValidator } from 'src/app/validators/category.validator';
 import {CategoryService} from 'src/app/_services/category.service';
 import {LocationService} from 'src/app/_services/location.service';
 import {ProductService} from 'src/app/_services/product.service';
-
 @Component({
     selector: 'app-create-product',
     templateUrl: './create-product.component.html',
@@ -14,8 +15,8 @@ import {ProductService} from 'src/app/_services/product.service';
 })
 export class CreateProductComponent implements OnInit {
     myControl = new FormControl();
-    options: string[] = [];
-    filteredOptions: Observable<string[]>;
+    options: Category[] = [];
+    filteredOptions: Observable<Category[]>;
     listOfCategories = [];
     productForm: FormGroup;
     locationForm: FormGroup;
@@ -72,15 +73,13 @@ export class CreateProductComponent implements OnInit {
     }
 
     addProduct() {
+        const selectedCategoryName = this.productForm.controls.categoryName.value;
+        const category = this._findCategory(selectedCategoryName);
         let data = {
             productName: this.productForm.controls.productName.value,
             price: this.productForm.controls.price.value,
             qty: this.productForm.controls.qty.value,
-            category: {
-                categoryName: this.productForm.controls.categoryName.value,
-                id: 2,
-                categoryDesc: 'test',
-            }
+            category
         };
         this.productService.createProduct(data).subscribe(res => {
             if (res != null) {
@@ -95,21 +94,18 @@ export class CreateProductComponent implements OnInit {
     }
 
     updateProduct() {
+        const selectedCategoryName = this.productForm.controls.categoryName.value;
+        const category = this._findCategory(selectedCategoryName);
         let data = {
             id: this.productUpdateData.id,
             productName: this.productForm.controls.productName.value,
             price: this.productForm.controls.price.value,
             qty: this.productForm.controls.qty.value,
-            category: {
-                categoryName: this.productForm.controls.categoryName.value,
-                id: 2,
-                categoryDesc: 'test',
-            }
+            category,
         };
         this.productService.updateProduct(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Supplier Successfully Created..!';
-                // this.getCategoryList();
                 this.closeModal();
             }
         }, error => {
@@ -119,18 +115,19 @@ export class CreateProductComponent implements OnInit {
     }
 
     getCategoryList() {
-        //this.filteredOptions = this.categoryService.getCategoryList();
-
         this.categoryService.getCategoryList().subscribe(data => {
-            data.forEach(x => {
-                this.options.push(x.categoryName);
-            });
+            this.options = data;
+            this.productForm.get('categoryName').setValidators([autocompleteStringValidator(data), Validators.required]);
         });
     }
 
-    private _filter(value: string): string[] {
+    private _filter(value: string): Category[] {
         const filterValue = value.toLowerCase();
-        return this.options.filter(option => option.toLowerCase().includes(filterValue));
+        return this.options.filter(option => option?.categoryName?.toLowerCase().includes(filterValue));
+    }
+
+    private _findCategory(categoryName: string) {
+        return this.options.find(option => option?.categoryName === categoryName);
     }
 
 }
