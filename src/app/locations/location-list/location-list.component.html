@@ -21,8 +21,8 @@
         <ng-container matColumnDef="id">
             <th *matHeaderCellDef mat-header-cell> Action</th>
             <td *matCellDef="let element" mat-cell>
-                <button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
-                    <mat-icon>more_vert</mat-icon>
+                <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
+                    <mat-icon class="kebab-menu">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
                     <div>

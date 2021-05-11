@@ -231,9 +231,18 @@ justify-content: center;
 }
 
 .mat-table tr.mat-row {
-  height: 40px; 
+  height: 32px; 
 }
 
 .mat-table tr.mat-header-row {
-  height: 40px; 
+  height: 32px; 
+}
+
+.kebab-menu {
+  transform: rotate(90deg);
+}
+
+.mat-icon-button.kebab-menu-btn {
+  height: inherit;
+  line-height: inherit;
 }
