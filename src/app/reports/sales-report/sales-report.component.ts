@@ -1,3 +1,4 @@
+import { SalesOrderService } from './../../_services/sales-order.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sales-report.component.css']
 })
 export class SalesReportComponent implements OnInit {
-
-  constructor() { }
+  displayedColumns: string[] = ['productName', 'category', 'price', 'qty', 'productDesc'];
+  dataSource;
+  
+  constructor(private salesOrderService: SalesOrderService) { }
 
   ngOnInit(): void {
+    this.getProductList();
   }
+
+  getProductList() {
+    this.salesOrderService.getSalesOrderList().subscribe(res => {
+        this.dataSource = res;
+    }, error => console.log(error));
+}
 
 }

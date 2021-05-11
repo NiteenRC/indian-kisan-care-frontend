@@ -1,1 +1,29 @@
-<p>sales-report works!</p>
+data {{ dataSource | json}}
+<table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="productName">
+    <th *matHeaderCellDef mat-header-cell> Product</th>
+    <td *matCellDef="let element" mat-cell> {{element.productName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="category">
+    <th *matHeaderCellDef mat-header-cell> Category</th>
+    <td *matCellDef="let element" mat-cell> {{element.category?.categoryName}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="qty">
+    <th *matHeaderCellDef mat-header-cell> Qty Stock</th>
+    <td *matCellDef="let element" mat-cell> {{element.qty}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th *matHeaderCellDef mat-header-cell> Price</th>
+    <td *matCellDef="let element" mat-cell> {{element.price}} </td>
+  </ng-container>
+
+  <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+</table>
