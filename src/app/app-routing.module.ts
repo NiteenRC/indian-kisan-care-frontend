@@ -23,6 +23,9 @@ import { CreateSupplierComponent } from './suppliers/create-supplier/create-supp
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { HomeComponent } from './home/home.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
+import { ReportsComponent } from './reports/reports.component';
+import { SalesReportComponent } from './reports/sales-report/sales-report.component';
+import { PurchaseReportComponent } from './reports/purchase-report/purchase-report.component';
 
 export const routes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' },
@@ -33,7 +36,6 @@ export const routes: Routes = [
   {path: 'dashboard', pathMatch: 'prefix',  canActivate: [ AuthGuard ],
     component: DashboardComponent, 
     children : [
-
       { path: 'dashboard2', component: DashboardCategoriesComponent, canActivate: [ AuthGuard] },
       { path: 'products', component: ProductListComponent, canActivate: [ AuthGuard] },
       { path: 'add', component: CreateProductComponent },
@@ -50,6 +52,16 @@ export const routes: Routes = [
       { path: 'categories-list', component: CategoryListComponent },
       { path: 'locations-list', component: LocationListComponent },
       { path: 'home', component: HomeComponent },
+      { 
+        path: 'reports', redirectTo: 'reports/sales-report'
+      },
+      { 
+        path: 'reports', component: ReportsComponent,
+        children: [
+          { path: 'sales-report', component: SalesReportComponent },
+          { path: 'purchase-report', component: PurchaseReportComponent },
+        ] 
+      },
     ]
     },
   { path: 'table', component: TableComponent },

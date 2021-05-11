@@ -21,9 +21,6 @@
             class="fa fa-home "></i> <span *ngIf="expanded" class="d-none d-sm-inline">DASHBOARDS</span> </a>
       </li>
 
-
-     
-    
       <!-- <li class="nav-item" routerLinkActive="active" (mouseover)="dispatchPlanmenuTrigger.openMenu()">
         <a class="nav-link" routerLink="/dashboard/add" #dispatchPlanmenuTrigger="matMenuTrigger"
           [matMenuTriggerFor]="dispatchPlan1">
@@ -58,12 +55,10 @@
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
           <button mat-icon-button (click)="getOrder(node.name)"> {{node.name}}</button>
-          
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
         <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-          <button mat-icon-button matTreeNodeToggle
-                  [attr.aria-label]="'Toggle ' + node.name">
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
             <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'add'}}
             </mat-icon>
@@ -77,12 +72,10 @@
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
           <button mat-icon-button (click)="getComponent(node.name)"> {{node.name}}</button>
-          
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
         <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-          <button mat-icon-button matTreeNodeToggle
-                  [attr.aria-label]="'Toggle ' + node.name">
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
             <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
@@ -90,17 +83,13 @@
           {{node.name}}
         </mat-tree-node>
       </mat-tree>
-  
-     
-
-      
       <!-- 
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard/salesOrder"  routerLinkActive="active"><i class="fa fa-suitcase "></i> <span *ngIf="expanded"
             class="d-none d-sm-inline">SALES</span></a>
       </li> -->
 
-       <!-- <li class="nav-item" routerLinkActive="active" (mouseover)="dispatchPlanmenu1Trigger.openMenu()">
+      <!-- <li class="nav-item" routerLinkActive="active" (mouseover)="dispatchPlanmenu1Trigger.openMenu()">
         <a class="nav-link" routerLink="/dashboard/add" #dispatchPlanmenu1Trigger="matMenuTrigger"
           [matMenuTriggerFor]="dispatchPlan">
           <i class="fa fa-plus "></i> <span *ngIf="expanded" class="d-none d-sm-inline">MASTER</span>
@@ -133,12 +122,24 @@
           </span>
         </mat-menu>
       </li>  -->
-     
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/addCategory">
-          <i class="fa fa-line-chart "></i> <span *ngIf="expanded" class="d-none d-sm-inline">REPORTS</span></a>
-      </li>
+      <mat-tree [dataSource]="dataSourceReports" [treeControl]="treeControl" style="margin-right: 10px;">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button (click)="getReports(node.name)"> {{node.name}}</button>
+
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'add'}}
+            </mat-icon>
+          </button>
+          {{node.name}}
+        </mat-tree-node>
+      </mat-tree>
 
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard/balance-sheet">

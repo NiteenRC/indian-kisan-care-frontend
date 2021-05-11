@@ -25,10 +25,14 @@ export class ActionBarComponent {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSource_Order=new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  dataSourceReports=new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private router:Router) {
     this.dataSource.data = TREE_DATA;
     this.dataSource_Order.data = Order_DATA;
+    this.dataSourceReports.data = REPORTS;
+
+    console.log('dataSourceReports', this.dataSourceReports);
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
@@ -67,6 +71,19 @@ export class ActionBarComponent {
       this.router.navigate(['dashboard/purchaseOrder']);
     }
   }
+
+  getReports(item) {
+    if (item === "Sales Order Report") {
+      this._redirectToPage('dashboard/reports/sales-report');
+    }
+    if (item === "Purchase Order Report") {
+      this._redirectToPage('dashboard/reports/purchase-report');
+    }
+  }
+
+  private _redirectToPage(route) {
+    this.router.navigate([route]);
+  }
 }
 
 interface MasterNode {
@@ -84,6 +101,20 @@ const Order_DATA: MasterNode[] = [
       {
         name: 'Purchase',
 
+      }
+    ]
+  },
+];
+
+const REPORTS: MasterNode[] = [
+  {
+    name: 'Reports',
+    children: [
+      {
+        name: 'Sales Order Report',
+      },
+      {
+        name: 'Purchase Order Report',
       }
     ]
   },
