@@ -39,10 +39,18 @@ export class SalesOrderComponent implements OnInit {
     this.salesOrder.amountPaid = 0;
   }
 
-  save() {
+  save(): void{
     this.salesOrder.currentBalance = this.currentBalance;
     this.salesOrder.salesOrderDetail = this.rows;
     this.salesOrder.totalPrice = this.totalAmount;
+
+    if (this.currentBalance <= 0) {
+      this.salesOrder.status = 'PAID';
+    } else if (this.salesOrder.amountPaid > 0) {
+      this.salesOrder.status = 'PARTIAL';
+    } else {
+      this.salesOrder.status = 'DUE';
+    }
 
     this.salesOrderService
       .createSalesOrder(this.salesOrder).subscribe(data => {

@@ -9,11 +9,11 @@
         <div class="container-fluid mt-2">
             <div class="row">
                 <nav aria-label="breadcrumb">
-                    <ol *ngIf="urlPath.length < 2; else visibleCrum" class="breadcrumb">
+                    <!-- <ol *ngIf="urlPath.length < 2; else visibleCrum" class="breadcrumb">
                         <li class="breadcrumb-item active">
                             <span>{{urlPath[0] | titlecase}}</span>
                         </li>
-                    </ol>
+                    </ol> -->
                     <ng-template #visibleCrum>
                         <ol class="breadcrumb">
                             <li *ngFor="let item of urlPath" class="breadcrumb-item">

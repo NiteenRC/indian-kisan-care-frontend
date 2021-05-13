@@ -1,13 +1,12 @@
-import { ElementRef, ViewChild } from '@angular/core';
-import { Product } from './../_model/product';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ProductService } from '../_services/product.service';
-import { PurchaseOrder } from '../_model/purchaseOrder';
-import { PurchaseOrderService } from '../_services/purchase-order.service';
-import { PurchaseOrderDetail } from '../_model/purchaseOrderDetail';
-import { Supplier } from '../_model/supplier';
-import { SupplierService } from '../_services/supplier.service';
+import {Component, OnInit} from '@angular/core';
+import {Product} from './../_model/product';
+import {Observable} from 'rxjs';
+import {ProductService} from '../_services/product.service';
+import {PurchaseOrder} from '../_model/purchaseOrder';
+import {PurchaseOrderService} from '../_services/purchase-order.service';
+import {PurchaseOrderDetail} from '../_model/purchaseOrderDetail';
+import {Supplier} from '../_model/supplier';
+import {SupplierService} from '../_services/supplier.service';
 
 @Component({
   selector: 'app-purchase-order',
@@ -46,6 +45,14 @@ export class PurchaseOrderComponent implements OnInit {
     this.purchaseOrder.currentBalance = this.currentBalance;
     this.purchaseOrder.purchaseOrderDetail = this.rows;
     this.purchaseOrder.totalPrice = this.totalAmount;
+
+    if (this.currentBalance <= 0) {
+      this.purchaseOrder.status = 'PAID';
+    } else if (this.purchaseOrder.amountPaid > 0) {
+      this.purchaseOrder.status = 'PARTIAL';
+    } else {
+      this.purchaseOrder.status = 'DUE';
+    }
 
     this.purchaseOrderService
       .createPurchaseOrder(this.purchaseOrder).subscribe(data => {

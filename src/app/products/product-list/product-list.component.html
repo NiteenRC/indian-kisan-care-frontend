@@ -11,7 +11,7 @@
 
 </div>
 
-<div class="product-list-table-container">
+<div class="mat-elevation-z8">
 <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
 
     <!-- Name Column -->
@@ -34,7 +34,7 @@
 
     <ng-container matColumnDef="price">
         <th *matHeaderCellDef mat-header-cell> Price</th>
-        <td *matCellDef="let element" mat-cell> {{element.price}} </td>
+        <td *matCellDef="let element" mat-cell> {{element.price  | number : '1.0-2'}} </td>
     </ng-container>
     <ng-container matColumnDef="productDesc">
         <th *matHeaderCellDef mat-header-cell> Action</th>
