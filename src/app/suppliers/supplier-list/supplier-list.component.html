@@ -17,6 +17,11 @@
             <td *matCellDef="let element" mat-cell> {{element.supplierName}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="GSTIN">
+            <th *matHeaderCellDef mat-header-cell>GSTIN</th>
+            <td *matCellDef="let element" mat-cell> {{element.gstIn}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="company">
             <th *matHeaderCellDef mat-header-cell> Company Name</th>
             <td *matCellDef="let element" mat-cell> {{element.company?.companyName}} </td>

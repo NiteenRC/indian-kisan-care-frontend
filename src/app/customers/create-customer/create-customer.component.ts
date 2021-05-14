@@ -26,6 +26,7 @@ export class CreateCustomerComponent implements OnInit {
         this.customerForm = new FormGroup({
             cityName: new FormControl(null, [Validators.required]),
             customerName: new FormControl(null, [Validators.required]),
+            gstIn: new FormControl(null, [Validators.required]),
             phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(10), Validators.maxLength(10)]),
         });
 
@@ -35,6 +36,7 @@ export class CreateCustomerComponent implements OnInit {
 
         if (data != null) {
             this.customerForm.controls['customerName'].setValue(this.customerUpdateData.data.customerName);
+            this.customerForm.controls['gstIn'].setValue(this.customerUpdateData.data.gstIn);
             this.customerForm.controls['phoneNumber'].setValue(this.customerUpdateData.data.phoneNumber);
             this.customerForm.controls['cityName'].setValue(this.customerUpdateData.data.location.cityName);
         }
@@ -59,6 +61,7 @@ export class CreateCustomerComponent implements OnInit {
     saveCustomer() {
         let data = {
             customerName: this.customerForm.controls.customerName.value,
+            gstIn: this.customerForm.controls.gstIn.value,
             location: this.customerForm.controls.cityName.value,
             phoneNumber: this.customerForm.controls.phoneNumber.value,
         };

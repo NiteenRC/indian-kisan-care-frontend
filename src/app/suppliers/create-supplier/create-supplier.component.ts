@@ -29,6 +29,7 @@ export class CreateSupplierComponent implements OnInit {
         this.supplierForm = new FormGroup({
             cityName: new FormControl(null, [Validators.required]),
             supplierName: new FormControl(null, [Validators.required]),
+            gstIn: new FormControl(null, [Validators.required]),
             companyName: new FormControl(null, [Validators.required]),
             phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(10), Validators.maxLength(10)]),
         });
@@ -39,6 +40,7 @@ export class CreateSupplierComponent implements OnInit {
 
         if (data != null) {
             this.supplierForm.controls['supplierName'].setValue(this.supplierUpdateData.data.supplierName);
+            this.supplierForm.controls['gstIn'].setValue(this.supplierUpdateData.data.gstIn);
             this.supplierForm.controls['phoneNumber'].setValue(this.supplierUpdateData.data.phoneNumber);
             this.supplierForm.controls['cityName'].setValue(this.supplierUpdateData.data.location.cityName);
             this.supplierForm.controls['companyName'].setValue(this.supplierUpdateData.data.location.companyName);
@@ -65,6 +67,7 @@ export class CreateSupplierComponent implements OnInit {
     saveSupplier() {
         let data = {
             supplierName: this.supplierForm.controls.supplierName.value,
+            gstIn: this.supplierForm.controls.gstIn.value,
             location: this.supplierForm.controls.cityName.value,
             company: this.supplierForm.controls.companyName.value,
             phoneNumber: this.supplierForm.controls.phoneNumber.value,

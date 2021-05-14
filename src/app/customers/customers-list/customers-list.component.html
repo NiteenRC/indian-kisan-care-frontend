@@ -22,6 +22,11 @@
             <td *matCellDef="let element" mat-cell> {{element.customerName}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="GSTIN">
+            <th *matHeaderCellDef mat-header-cell>GSTIN</th>
+            <td *matCellDef="let element" mat-cell> {{element.gstIn}} </td>
+        </ng-container>
+
         <!-- Name Column -->
         <ng-container matColumnDef="phoneNumber">
             <th *matHeaderCellDef mat-header-cell> Phone Number</th>

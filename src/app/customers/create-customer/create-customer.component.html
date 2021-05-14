@@ -11,6 +11,11 @@
         </div>
         <div class="title-header">
             <mat-form-field class="forms-fildes">
+                <input formControlName="gstIn" matInput placeholder="GSTIN">
+            </mat-form-field>
+        </div>
+        <div class="title-header">
+            <mat-form-field class="forms-fildes">
                 <mat-select formControlName="cityName" placeholder="City">
                     <mat-option *ngFor="let location of citiesList" [value]="location">{{location.cityName}}
                     </mat-option>
