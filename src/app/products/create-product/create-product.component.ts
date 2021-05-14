@@ -34,8 +34,9 @@ export class CreateProductComponent implements OnInit {
         this.productForm = new FormGroup({
             categoryName: new FormControl(null, [Validators.required]),
             productName: new FormControl(null, [Validators.required]),
-            price: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
-            qty: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
+            //price: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
+            gst: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
+            //qty: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
         });
 
         this.locationForm = new FormGroup({
@@ -46,8 +47,9 @@ export class CreateProductComponent implements OnInit {
             this.productUpdateData = data?.data;
             this.productForm.controls['categoryName'].setValue(this.productUpdateData.category.categoryName);
             this.productForm.controls['productName'].setValue(this.productUpdateData.productName);
-            this.productForm.controls['price'].setValue(this.productUpdateData.price);
-            this.productForm.controls['qty'].setValue(this.productUpdateData.qty);
+            //this.productForm.controls['price'].setValue(this.productUpdateData.price);
+            this.productForm.controls['gst'].setValue(this.productUpdateData.gst);
+            //this.productForm.controls['qty'].setValue(this.productUpdateData.qty);
         }
     }
 
@@ -77,8 +79,9 @@ export class CreateProductComponent implements OnInit {
         const category = this._findCategory(selectedCategoryName);
         let data = {
             productName: this.productForm.controls.productName.value,
-            price: this.productForm.controls.price.value,
-            qty: this.productForm.controls.qty.value,
+            //price: this.productForm.controls.price.value,
+            gst: this.productForm.controls.gst.value,
+            //qty: this.productForm.controls.qty.value,
             category
         };
         this.productService.createProduct(data).subscribe(res => {
@@ -99,8 +102,9 @@ export class CreateProductComponent implements OnInit {
         let data = {
             id: this.productUpdateData.id,
             productName: this.productForm.controls.productName.value,
-            price: this.productForm.controls.price.value,
-            qty: this.productForm.controls.qty.value,
+            //price: this.productForm.controls.price.value,
+            gst: this.productForm.controls.gst.value,
+            //qty: this.productForm.controls.qty.value,
             category,
         };
         this.productService.updateProduct(data).subscribe(res => {

@@ -1,12 +1,12 @@
-import { SalesOrderDetail } from './../_model/sales-order-detail';
-import { SalesOrder } from './../_model/sales-order';
-import { Product } from './../_model/product';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ProductService } from '../_services/product.service';
-import { SalesOrderService } from '../_services/sales-order.service';
-import { Customer } from '../_model/customer';
-import { CustomerService } from '../_services/customer.service';
+import {SalesOrderDetail} from './../_model/sales-order-detail';
+import {SalesOrder} from './../_model/sales-order';
+import {Product} from './../_model/product';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ProductService} from '../_services/product.service';
+import {SalesOrderService} from '../_services/sales-order.service';
+import {Customer} from '../_model/customer';
+import {CustomerService} from '../_services/customer.service';
 
 @Component({
   selector: 'app-sales-order',
@@ -39,29 +39,39 @@ export class SalesOrderComponent implements OnInit {
     this.salesOrder.amountPaid = 0;
   }
 
-  save(): void{
-    this.salesOrder.currentBalance = this.currentBalance;
-    this.salesOrder.salesOrderDetail = this.rows;
-    this.salesOrder.totalPrice = this.totalAmount;
+  save(): void {
+    let isStockAvail = true;
+    this.rows.forEach(value => {
+      if (value.product.qty < value.qtyOrdered) {
+        alert('No Stock for product: ' + value.product.productName);
+        isStockAvail = false;
+      }
+    });
 
-    if (this.currentBalance <= 0) {
-      this.salesOrder.status = 'PAID';
-    } else if (this.salesOrder.amountPaid > 0) {
-      this.salesOrder.status = 'PARTIAL';
-    } else {
-      this.salesOrder.status = 'DUE';
+    if (isStockAvail) {
+      this.salesOrder.currentBalance = this.currentBalance;
+      this.salesOrder.salesOrderDetail = this.rows;
+      this.salesOrder.totalPrice = this.totalAmount;
+
+      if (this.currentBalance <= 0) {
+        this.salesOrder.status = 'PAID';
+      } else if (this.salesOrder.amountPaid > 0) {
+        this.salesOrder.status = 'PARTIAL';
+      } else {
+        this.salesOrder.status = 'DUE';
+      }
+
+      this.salesOrderService
+          .createSalesOrder(this.salesOrder).subscribe(data => {
+            console.log(data);
+            this.refreshAfterSave();
+            this.reloadData();
+          },
+          error => {
+            console.log(error);
+            alert(error.error.errorMessage);
+          });
     }
-
-    this.salesOrderService
-      .createSalesOrder(this.salesOrder).subscribe(data => {
-        console.log(data);
-        this.refreshAfterSave();
-        this.reloadData();
-      },
-        error => {
-          console.log(error);
-          alert(error.error.errorMessage);
-        });
   }
 
   refreshAfterSave() {
