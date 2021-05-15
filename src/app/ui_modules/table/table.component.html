@@ -86,13 +86,14 @@
                         <thead>
                         <tr>
                             <th scope="col">SI.<br>NO</th>
-                            <th scope="col">Product</th>
+                            <th scope="col">Item & Description </th>
                             <th scope="col">HSN/SAC</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Net Amount</th>
-                            <th scope="col">Tax Rate</th>
-                            <th scope="col">Tax Type</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">
+                                <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
+                            </th>
                             <th scope="col">Tax Amount</th>
                             <th scope="col">Total Amount</th>
                         </tr>
@@ -106,7 +107,6 @@
                             <td>{{cart?.qtyOrdered || 0}}</td>
                             <td>₹{{cart?.price * cart?.qtyOrdered || 0}}</td>
                             <td>{{TAX_RATE}}%</td>
-                            <td>IGST</td>
                             <td>₹{{TAX_RATE * cart.price * cart.qtyOrdered / 100}}</td>
                             <td>₹{{cart.price * cart.qtyOrdered + TAX_RATE * cart.price * cart.qtyOrdered / 100}}
                             </td>
@@ -117,7 +117,10 @@
                         </tr>
                         </tbody>
                     </table>
-
+                    <span class="text-sm text-grey-m2 align-middle">Amount chargeable(in words):</span>
+                    <span class="text-lg text-grey-m2 align-middle font-weight-bold">
+                        Twnenty five lakh Only
+                    </span>
                     <hr>
                     <!-- ---------------- -->
                     <div class="row">
@@ -183,12 +186,28 @@
                                         {{response?.totalPrice || 0 }}
                                     </span>
                                 </div>
+
+                                <br><br><br>
+                                <div style="text-align: center;">
+                                    <div class="my-2">
+                                        <span class="text-600 text-90 font-weight-bold">Authorised Signatory</span>
+                                    </div>
+                                    <div class="my-2">
+                                        <span class="text-600 text-90 font-weight-bold">(PRAVEEN TRADERS)</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- --------------------- -->
                 </div>
             </div>
+
+            <div class="col-12 col-lg-10 offset-lg-1">
+                <hr>
+                <div style="text-align: center;">
+                    <span class="text-300 text-30">This is a computer generated invoice</span>
+                </div>
+            </div>
         </div>
     </div>
-</div>
