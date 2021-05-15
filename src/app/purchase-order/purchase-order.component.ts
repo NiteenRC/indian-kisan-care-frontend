@@ -134,7 +134,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   printPdf(response) {
-    const url = `${location.origin}/table`;
+    const url = `${location.origin}/#table`;
     const myWindow = window.open(url);
     myWindow['response'] = response;
   }
