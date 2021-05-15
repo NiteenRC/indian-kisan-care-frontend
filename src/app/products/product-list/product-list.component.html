@@ -37,6 +37,11 @@
         <td *matCellDef="let element" mat-cell> {{element.price  | number : '1.0-2'}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="HSN/SAC">
+        <th *matHeaderCellDef mat-header-cell> HAN/SAC</th>
+        <td *matCellDef="let element" mat-cell> {{element.hsnNo}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="GST">
         <th *matHeaderCellDef mat-header-cell> GST</th>
         <td *matCellDef="let element" mat-cell> {{element.gst}}%</td>

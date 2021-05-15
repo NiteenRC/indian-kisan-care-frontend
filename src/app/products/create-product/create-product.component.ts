@@ -36,6 +36,7 @@ export class CreateProductComponent implements OnInit {
             productName: new FormControl(null, [Validators.required]),
             //price: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
             gst: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
+            hsnNo: new FormControl(null, [Validators.required]),
             //qty: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
         });
 
@@ -49,6 +50,7 @@ export class CreateProductComponent implements OnInit {
             this.productForm.controls['productName'].setValue(this.productUpdateData.productName);
             //this.productForm.controls['price'].setValue(this.productUpdateData.price);
             this.productForm.controls['gst'].setValue(this.productUpdateData.gst);
+            this.productForm.controls['hsnNo'].setValue(this.productUpdateData.hsnNo);
             //this.productForm.controls['qty'].setValue(this.productUpdateData.qty);
         }
     }
@@ -81,6 +83,7 @@ export class CreateProductComponent implements OnInit {
             productName: this.productForm.controls.productName.value,
             //price: this.productForm.controls.price.value,
             gst: this.productForm.controls.gst.value,
+            hsnNo: this.productForm.controls.hsnNo.value,
             //qty: this.productForm.controls.qty.value,
             category
         };
@@ -104,6 +107,7 @@ export class CreateProductComponent implements OnInit {
             productName: this.productForm.controls.productName.value,
             //price: this.productForm.controls.price.value,
             gst: this.productForm.controls.gst.value,
+            hsnNo: this.productForm.controls.hsnNo.value,
             //qty: this.productForm.controls.qty.value,
             category,
         };
