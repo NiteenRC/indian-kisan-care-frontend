@@ -1,7 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
-
+import { Component, OnInit } from '@angular/core';
+import { numberInWords } from '../../utils/numToWords.js';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -10,7 +8,7 @@ import html2canvas from 'html2canvas';
 export class TableComponent implements OnInit {
   response: any;
   totalPrice: number = 0;
-  TAX_RATE = 18;
+  amountInWords: string = '';
 
   ngOnInit(): void {
     console.log('this.response', JSON.stringify((window['response'])));
@@ -24,9 +22,13 @@ export class TableComponent implements OnInit {
     let totalPrice = 0;
     console.log('response?.purchaseOrderDetail', this.response?.purchaseOrderDetail);
     this.response?.purchaseOrderDetail?.forEach((purchaseOrder) => {
-      totalPrice += purchaseOrder?.price * purchaseOrder?.qtyOrdered;
+      const amount = purchaseOrder?.price * purchaseOrder?.qtyOrdered;
+      const taxAmount = amount * purchaseOrder?.product?.gst/100;
+      totalPrice += amount + taxAmount;
     });
 
-    this.totalPrice = totalPrice + totalPrice * this.TAX_RATE / 100;
+    this.totalPrice = Math.round(totalPrice);
+
+    this.amountInWords = numberInWords(this.totalPrice);
   }
 }

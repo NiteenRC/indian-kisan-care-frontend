@@ -3,18 +3,26 @@
         <div class="container px-0">
             <div class="row pt-4">
                 <div class="col-12 col-lg-10 offset-lg-1">
-                    <div style="text-align: center;">
-                        <div>
-                            <span class="text-sm text-grey-m2 align-middle font-weight-bold"><h2> PRAVEEN TRADERS </h2></span>
-                        </div>
-                        <div>
-                            <span class="text-sm text-grey-m2 align-middle">GST: 36AARFA2747D1ZG | PAN: AARFA2747D </span>
-                        </div>
-                        <div>
-                            <span class="text-sm text-grey-m2 align-middle">P: +919133388349 E: info@praveentraders.in</span>
+                    <div class="d-flex">
+                        <img src="/assets/images/logo.png" alt="image" class="logo">
+                        <div style="text-align: center; width: 55%">
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">
+                                    <h2> PRAVEEN TRADERS </h2>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle">GST: 36AARFA2747D1ZG | PAN:
+                                    AARFA2747D
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle">P: +919133388349 E:
+                                    info@praveentraders.in</span>
+                            </div>
                         </div>
                     </div>
-                    <hr class="row brc-default-l1 mx-n1 mb-4"/>
+                    <hr class="row brc-default-l1 mx-n1 mb-4" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="my-2">
@@ -53,7 +61,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
-                            <hr class="d-sm-none"/>
+                            <hr class="d-sm-none" />
                             <div class="text-grey-m2">
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Bill Date:</span>
@@ -84,42 +92,42 @@
                     <!-- ----------------------------------------- -->
                     <table class="table table-bordered">
                         <thead>
-                        <tr>
-                            <th scope="col">SI.<br>NO</th>
-                            <th scope="col">Item & Description </th>
-                            <th scope="col">HSN/SAC</th>
-                            <th scope="col">Rate</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">
-                                <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
-                            </th>
-                            <th scope="col">Tax Amount</th>
-                            <th scope="col">Total Amount</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">SI.<br>NO</th>
+                                <th scope="col">Item & Description </th>
+                                <th scope="col">HSN/SAC</th>
+                                <th scope="col">Rate</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">
+                                    <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
+                                </th>
+                                <th scope="col">Tax Amount</th>
+                                <th scope="col">Total Amount</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let cart of response?.purchaseOrderDetail; index as i;">
-                            <td>{{i + 1}}</td>
-                            <td>{{cart?.product?.productName}}</td>
-                            <td>{{cart?.product?.hsnNo}}</td>
-                            <td>₹{{cart?.price || 0}}</td>
-                            <td>{{cart?.qtyOrdered || 0}}</td>
-                            <td>₹{{cart?.price * cart?.qtyOrdered || 0}}</td>
-                            <td>{{TAX_RATE}}%</td>
-                            <td>₹{{TAX_RATE * cart.price * cart.qtyOrdered / 100}}</td>
-                            <td>₹{{cart.price * cart.qtyOrdered + TAX_RATE * cart.price * cart.qtyOrdered / 100}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th colspan="8">Total</th>
-                            <th>₹{{totalPrice}}</th>
-                        </tr>
+                            <tr *ngFor="let cart of response?.purchaseOrderDetail; index as i;">
+                                <td>{{i + 1}}.</td>
+                                <td>{{cart?.product?.productName}}</td>
+                                <td>{{cart?.product?.hsnNo}}</td>
+                                <td>₹{{cart?.price || 0}}</td>
+                                <td>{{cart?.qtyOrdered || 0}}</td>
+                                <td>₹{{cart?.price * cart?.qtyOrdered || 0}}</td>
+                                <td>{{cart?.product?.gst}}%</td>
+                                <td>₹{{cart?.product?.gst * cart.price * cart.qtyOrdered / 100}}</td>
+                                <td>₹{{cart.price * cart.qtyOrdered + cart?.product?.gst * cart.price * cart.qtyOrdered / 100}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="8">Total</th>
+                                <th>₹{{totalPrice}}</th>
+                            </tr>
                         </tbody>
                     </table>
                     <span class="text-sm text-grey-m2 align-middle">Amount chargeable(in words):</span>
                     <span class="text-lg text-grey-m2 align-middle font-weight-bold">
-                        Twnenty five lakh Only
+                        {{ amountInWords }}
                     </span>
                     <hr>
                     <!-- ---------------- -->
@@ -163,7 +171,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
-                            <hr class="d-sm-none"/>
+                            <hr class="d-sm-none" />
                             <div class="text-grey-m2">
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Amount Paid: </span>

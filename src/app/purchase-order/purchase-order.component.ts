@@ -25,8 +25,6 @@ export class PurchaseOrderComponent implements OnInit {
   totalAmount = 0;
   totalBalance = 0;
 
-  TAX_RATE = 18;
-
   constructor(private productService: ProductService,
     private supplierService: SupplierService,
     private purchaseOrderService: PurchaseOrderService) { }
@@ -92,11 +90,12 @@ export class PurchaseOrderComponent implements OnInit {
   totalAmountToPaid() {
     let totalAmount = 0;
     this.rows.forEach(obj => {
-      const netAmount = Number(obj.qtyOrdered) * Number(obj.price)
-      totalAmount += netAmount + netAmount * this.TAX_RATE/100;
+      const amount = Number(obj.qtyOrdered) * Number(obj.price);
+      const taxAmount = amount * obj.product.gst/100;
+      totalAmount += amount + taxAmount;
     });
-    this.totalAmount = totalAmount;
-    return totalAmount;
+    this.totalAmount = Math.round(totalAmount);
+    return this.totalAmount;
   }
 
   removeCart(index: number) {

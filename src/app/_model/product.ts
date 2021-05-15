@@ -8,4 +8,5 @@ export class Product {
     currentPrice: number;
     qty: number;
     active: boolean;
+    gst: number;
 }

@@ -49,16 +49,16 @@
         ₹{{cart.price * cart.qtyOrdered || 0}}
       </td>
       <td>
-        {{TAX_RATE}}%
+        {{cart?.product?.gst}}%
       </td>
       <td>
         IGST
       </td>
       <td>
-        ₹{{TAX_RATE * cart.price * cart.qtyOrdered / 100}}
+        ₹{{cart?.product?.gst * cart.price * cart.qtyOrdered / 100}}
       </td>
       <td>
-        ₹{{cart.price*cart.qtyOrdered + (TAX_RATE * cart.price * cart.qtyOrdered/100) }}
+        ₹{{cart.price*cart.qtyOrdered + (cart?.product?.gst * cart.price * cart.qtyOrdered/100) }}
       </td>
     </tr>
     <tr>
