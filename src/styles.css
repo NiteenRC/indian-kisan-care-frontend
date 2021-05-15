@@ -246,3 +246,7 @@ justify-content: center;
   height: inherit;
   line-height: inherit;
 }
+
+table .popover {
+  min-width: 50vw;
+}
