@@ -9,132 +9,143 @@ import {Supplier} from '../_model/supplier';
 import {SupplierService} from '../_services/supplier.service';
 
 @Component({
-  selector: 'app-purchase-order',
-  templateUrl: './purchase-order.component.html'
+    selector: 'app-purchase-order',
+    templateUrl: './purchase-order.component.html'
 })
 export class PurchaseOrderComponent implements OnInit {
-  products: Observable<Product[]>;
-  product: Product = new Product();
-  purchaseOrder: PurchaseOrder = new PurchaseOrder();
-  purchaseOrderDetail: PurchaseOrderDetail = new PurchaseOrderDetail();
-  suppliers: Observable<Supplier[]>;
+    products: Observable<Product[]>;
+    product: Product = new Product();
+    purchaseOrder: PurchaseOrder = new PurchaseOrder();
+    purchaseOrderDetail: PurchaseOrderDetail = new PurchaseOrderDetail();
+    suppliers: Observable<Supplier[]>;
 
-  rows: Array<PurchaseOrderDetail> = [];
-  currentBalance = 0;
-  previousBalance = 0;
-  totalAmount = 0;
-  totalBalance = 0;
+    rows: Array<PurchaseOrderDetail> = [];
+    currentBalance = 0;
+    previousBalance = 0;
+    totalAmount = 0;
+    totalBalance = 0;
 
-  constructor(private productService: ProductService,
-    private supplierService: SupplierService,
-    private purchaseOrderService: PurchaseOrderService) { }
-
-  ngOnInit() {
-    this.reloadData();
-  }
-
-  reloadData() {
-    this.products = this.productService.getProductsList();
-    this.suppliers = this.supplierService.getSupplierList();
-    this.purchaseOrder.amountPaid = 0;
-  }
-
-  save() {
-    this.purchaseOrder.currentBalance = this.currentBalance;
-    this.purchaseOrder.purchaseOrderDetail = this.rows;
-    this.purchaseOrder.totalPrice = this.totalAmount;
-
-    if (this.currentBalance <= 0) {
-      this.purchaseOrder.status = 'PAID';
-    } else if (this.purchaseOrder.amountPaid > 0) {
-      this.purchaseOrder.status = 'PARTIAL';
-    } else {
-      this.purchaseOrder.status = 'DUE';
+    constructor(private productService: ProductService,
+                private supplierService: SupplierService,
+                private purchaseOrderService: PurchaseOrderService) {
     }
 
-    this.purchaseOrderService
-      .createPurchaseOrder(this.purchaseOrder).subscribe(data => {
-        console.log(data);
-        this.printPdf(data);
-        this.refreshAfterSave();
-      },
-        error => console.log(error));
-  }
+    ngOnInit() {
+        this.reloadData();
+    }
 
-  refreshAfterSave() {
-    this.purchaseOrder = new PurchaseOrder();
-    this.product = new Product();
-    this.purchaseOrder.amountPaid = 0;
-    this.previousBalance = 0;
-    this.currentBalance = 0;
-    this.totalBalance = 0;
-    this.rows = [];
-  }
+    reloadData() {
+        this.products = this.productService.getProductsList();
+        this.suppliers = this.supplierService.getSupplierList();
+        this.purchaseOrder.amountPaid = 0;
+    }
 
-  getTotalPrice() {
-    let total = 0;
-    this.rows.forEach(obj => {
-      total += Number(obj.price);
-    });
-    return total;
-  }
+    save() {
+        let isStockAvail = true;
+        this.rows.forEach(value => {
+            if (value.qtyOrdered === 0) {
+                alert('Please add Quantity to : ' + value.product.productName);
+                isStockAvail = false;
+            }
+        });
 
-  getTotalQty() {
-    let total = 0;
-    this.rows.forEach(obj => {
-      total += Number(obj.qtyOrdered);
-    });
-    return total;
-  }
+        if (isStockAvail) {
+            this.purchaseOrder.currentBalance = this.currentBalance;
+            this.purchaseOrder.purchaseOrderDetail = this.rows;
+            this.purchaseOrder.totalPrice = this.totalAmount;
 
-  totalAmountToPaid() {
-    let totalAmount = 0;
-    this.rows.forEach(obj => {
-      const amount = Number(obj.qtyOrdered) * Number(obj.price);
-      const taxAmount = amount * obj.product.gst/100;
-      totalAmount += amount + taxAmount;
-    });
-    this.totalAmount = Math.round(totalAmount);
-    return this.totalAmount;
-  }
+            if (this.currentBalance <= 0) {
+                this.purchaseOrder.status = 'PAID';
+            } else if (this.purchaseOrder.amountPaid > 0) {
+                this.purchaseOrder.status = 'PARTIAL';
+            } else {
+                this.purchaseOrder.status = 'DUE';
+            }
 
-  removeCart(index: number) {
-    const amountBalance1 = this.totalAmount - (this.rows[index].price * this.rows[index].qtyOrdered);
-    this.currentBalance = amountBalance1 - Number(this.purchaseOrder.amountPaid);
-    this.totalBalance = this.previousBalance + this.currentBalance;
-    this.rows.splice(index, 1);
-    this.purchaseOrder.amountPaid = this.rows.length === 0 ? 0 : this.purchaseOrder.amountPaid;
-  }
+            this.purchaseOrderService
+                .createPurchaseOrder(this.purchaseOrder).subscribe(data => {
+                    console.log(data);
+                    this.printPdf(data);
+                    this.refreshAfterSave();
+                },
+                error => console.log(error));
+        }
+    }
 
-  selectedProduct(prod: Product) {
-    this.rows.push({
-      product: prod,
-      qtyOrdered: 0,
-      price: 0
-    });
-  }
+    refreshAfterSave() {
+        this.purchaseOrder = new PurchaseOrder();
+        this.product = new Product();
+        this.purchaseOrder.amountPaid = 0;
+        this.previousBalance = 0;
+        this.currentBalance = 0;
+        this.totalBalance = 0;
+        this.rows = [];
+    }
 
-  supplierBalanceData(supplierID: any) {
-    this.purchaseOrderService.getPurchaseOrderBalaceBySupplier(supplierID).subscribe((data: number) => {
-      console.log(data);
-      this.previousBalance = data;
-      this.changeInQtyOrPrice();
-    }, (error: any) => console.log(error));
-  }
+    getTotalPrice() {
+        let total = 0;
+        this.rows.forEach(obj => {
+            total += Number(obj.price);
+        });
+        return total;
+    }
 
-  amountToBePaid(amountPaid: number) {
-    this.currentBalance = this.totalAmount - amountPaid;
-    this.totalBalance = this.previousBalance + this.currentBalance;
-  }
+    getTotalQty() {
+        let total = 0;
+        this.rows.forEach(obj => {
+            total += Number(obj.qtyOrdered);
+        });
+        return total;
+    }
 
-  changeInQtyOrPrice() {
-    this.currentBalance = this.totalAmount - this.purchaseOrder.amountPaid;
-    this.totalBalance = this.previousBalance + this.currentBalance;
-  }
+    totalAmountToPaid() {
+        let totalAmount = 0;
+        this.rows.forEach(obj => {
+            const amount = Number(obj.qtyOrdered) * Number(obj.price);
+            const taxAmount = amount * obj.product.gst / 100;
+            totalAmount += amount + taxAmount;
+        });
+        this.totalAmount = Math.round(totalAmount);
+        return this.totalAmount;
+    }
 
-  printPdf(response) {
-    const url = `${location.origin}/#table`;
-    const myWindow = window.open(url);
-    myWindow['response'] = response;
-  }
+    removeCart(index: number) {
+        const amountBalance1 = this.totalAmount - (this.rows[index].price * this.rows[index].qtyOrdered);
+        this.currentBalance = amountBalance1 - Number(this.purchaseOrder.amountPaid);
+        this.totalBalance = this.previousBalance + this.currentBalance;
+        this.rows.splice(index, 1);
+        this.purchaseOrder.amountPaid = this.rows.length === 0 ? 0 : this.purchaseOrder.amountPaid;
+    }
+
+    selectedProduct(prod: Product) {
+        this.rows.push({
+            product: prod,
+            qtyOrdered: 0,
+            price: 0
+        });
+    }
+
+    supplierBalanceData(supplierID: any) {
+        this.purchaseOrderService.getPurchaseOrderBalaceBySupplier(supplierID).subscribe((data: number) => {
+            console.log(data);
+            this.previousBalance = data;
+            this.changeInQtyOrPrice();
+        }, (error: any) => console.log(error));
+    }
+
+    amountToBePaid(amountPaid: number) {
+        this.currentBalance = this.totalAmount - amountPaid;
+        this.totalBalance = this.previousBalance + this.currentBalance;
+    }
+
+    changeInQtyOrPrice() {
+        this.currentBalance = this.totalAmount - this.purchaseOrder.amountPaid;
+        this.totalBalance = this.previousBalance + this.currentBalance;
+    }
+
+    printPdf(response) {
+        const url = `${location.origin}/#table`;
+        const myWindow = window.open(url);
+        myWindow['response'] = response;
+    }
 }

@@ -22,7 +22,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="row brc-default-l1 mx-n1 mb-4" />
+                    <hr class="row brc-default-l1 mx-n1 mb-4"/>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="my-2">
@@ -61,7 +61,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
-                            <hr class="d-sm-none" />
+                            <hr class="d-sm-none"/>
                             <div class="text-grey-m2">
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Bill Date:</span>
@@ -92,37 +92,38 @@
                     <!-- ----------------------------------------- -->
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
-                                <th scope="col">SI.<br>NO</th>
-                                <th scope="col">Item & Description </th>
-                                <th scope="col">HSN/SAC</th>
-                                <th scope="col">Rate</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">
-                                    <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
-                                </th>
-                                <th scope="col">Tax Amount</th>
-                                <th scope="col">Total Amount</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">SI.<br>NO</th>
+                            <th scope="col">Item & Description</th>
+                            <th scope="col">HSN/SAC</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">
+                                <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
+                            </th>
+                            <th scope="col">Tax Amount</th>
+                            <th scope="col">Total Amount</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let cart of response?.purchaseOrderDetail; index as i;">
-                                <td>{{i + 1}}.</td>
-                                <td>{{cart?.product?.productName}}</td>
-                                <td>{{cart?.product?.hsnNo}}</td>
-                                <td>₹{{cart?.price || 0}}</td>
-                                <td>{{cart?.qtyOrdered || 0}}</td>
-                                <td>₹{{cart?.price * cart?.qtyOrdered || 0}}</td>
-                                <td>{{cart?.product?.gst}}%</td>
-                                <td>₹{{cart?.product?.gst * cart.price * cart.qtyOrdered / 100}}</td>
-                                <td>₹{{cart.price * cart.qtyOrdered + cart?.product?.gst * cart.price * cart.qtyOrdered / 100}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th colspan="8">Total</th>
-                                <th>₹{{totalPrice}}</th>
-                            </tr>
+                        <tr *ngFor="let cart of response?.purchaseOrderDetail; index as i;">
+                            <td>{{i + 1}}.</td>
+                            <td>{{cart?.product?.productName}}</td>
+                            <td>{{cart?.product?.hsnNo}}</td>
+                            <td>₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>
+                            <td>{{cart?.qtyOrdered || 0}}</td>
+                            <td>₹{{(cart?.price * cart?.qtyOrdered).toLocaleString('en-IN') || 0}}</td>
+                            <td>{{cart?.product?.gst}}%</td>
+                            <td>₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}</td>
+                            <td>
+                                ₹{{(cart.price * cart.qtyOrdered + cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="8">Total</th>
+                            <th>₹{{totalPrice.toLocaleString('en-IN')}}</th>
+                        </tr>
                         </tbody>
                     </table>
                     <span class="text-sm text-grey-m2 align-middle">Amount chargeable(in words):</span>
@@ -171,27 +172,27 @@
                         </div>
                         <!-- /.col -->
                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
-                            <hr class="d-sm-none" />
+                            <hr class="d-sm-none"/>
                             <div class="text-grey-m2">
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Amount Paid: </span>
-                                    {{response?.amountPaid || 0 }}
+                                    ₹{{response?.amountPaid.toLocaleString('en-IN') || 0 }}
                                 </div>
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Current Balance: </span>
-                                    {{response?.currentBalance || 0 }}
+                                    ₹{{response?.currentBalance.toLocaleString('en-IN') || 0 }}
                                 </div>
 
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Previous Balance: </span>
                                     <span class="text-600 text-90">
-                                        {{response?.previousBalance || 0 }}
+                                        ₹{{(response?.previousBalance - (response?.currentBalance)).toLocaleString('en-IN') || 0 }}
                                     </span>
                                 </div>
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Total Pay Balance:</span>
                                     <span class="text-600 text-90">
-                                        {{response?.totalPrice || 0 }}
+                                        ₹{{response?.previousBalance.toLocaleString('en-IN') || 0 }}
                                     </span>
                                 </div>
 

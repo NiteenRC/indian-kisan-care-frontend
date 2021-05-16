@@ -46,6 +46,11 @@ export class SalesOrderComponent implements OnInit {
         alert('No Stock for product: ' + value.product.productName);
         isStockAvail = false;
       }
+
+      if (value.qtyOrdered === 0) {
+        alert('Please add Quantity to : ' + value.product.productName);
+        isStockAvail = false;
+      }
     });
 
     if (isStockAvail) {
