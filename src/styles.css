@@ -250,3 +250,7 @@ justify-content: center;
 table .popover {
   min-width: 50vw;
 }
+
+table {
+  width: 100%;
+}

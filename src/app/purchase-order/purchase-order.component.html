@@ -1,91 +1,183 @@
-<div style="width: 400px;">
-    <div class="form-group">
-        <label for="name">Supplier</label>
-        <select name="customer" class="form-control" required [(ngModel)]="purchaseOrder.supplier"
-                (change)="supplierBalanceData(purchaseOrder.supplier.id)">
-            <option disabled>Select Supplierr</option>
-            <option [ngValue]="supplier" *ngFor="let supplier of suppliers | async">{{supplier.supplierName}}</option>
-        </select>
-    </div>
+<div class="d-flex">
+  <div class="form-group col-4">
+    <mat-form-field class="forms-fildes">
+      <mat-label>Supplier</mat-label>
+      <input type="text" placeholder="Select Supplier" aria-label="Supplier" matInput [formControl]="supplierControl"
+        [matAutocomplete]="supplierAuto">
+      <mat-autocomplete #supplierAuto="matAutocomplete">
+        <mat-option *ngFor="let supplier of filteredSuppliers | async" [value]="supplier.supplierName">
+          {{supplier.supplierName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
 
-    <div class="form-group">
-        <label for="name">Product</label>
-        <select name="products" class="form-control" [(ngModel)]="product" (change)="selectedProduct(product)">
-            <option disabled>Select Product</option>
-            <option [ngValue]="product" *ngFor="let product of products | async">{{product.productName}}</option>
-        </select>
-    </div>
-</div>
-<div>
-    <table class="table table-hover table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>S.No</th>
-            <th>Remove</th>
-            <th>Item & Description</th>
-            <th>Rate</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-            <th>
-                <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
-            </th>
-            <th>Tax Amount</th>
-            <th>Total Amout</th>
-        </tr>
-        </thead>
-        <tr *ngFor="let cart of rows; let i = index">
-            <td>{{i + 1}}</td>
-            <td>
-                <button (click)="removeCart(i)">X</button>
-            </td>
-            <td>
-                <input class="form-control" type="text" [(ngModel)]="cart.product.productName" disabled>
-            </td>
-            <td><input class="form-control" type="text" [(ngModel)]="cart.price" (change)="changeInQtyOrPrice()"></td>
-            <td>
-                <div>
-                    <input class="form-control" type="text" [(ngModel)]="cart.qtyOrdered"
-                           placeholder="{{cart.product.qty}}"
-                           (change)="changeInQtyOrPrice()">
-                </div>
-            </td>
-            <td>
-                ₹{{cart.price * cart.qtyOrdered || 0}}
-            </td>
-            <td>
-                {{cart?.product?.gst}}%
-            </td>
-            <td>
-                ₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
-            </td>
-            <td>
-                ₹{{(cart.price * cart.qtyOrdered + (cart?.product?.gst * cart.price * cart.qtyOrdered / 100)).toLocaleString('en-IN') }}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8">Total:</td>
-            <td>₹{{totalAmountToPaid().toLocaleString('en-IN')}}</td>
-        </tr>
-    </table>
+  <div class="form-group col-4">
+    <mat-form-field class="forms-fildes">
+      <mat-label>Product</mat-label>
+      <input type="text" placeholder="Select Product" aria-label="Product" matInput [formControl]="productControl"
+        [matAutocomplete]="productAuto">
+      <mat-autocomplete #productAuto="matAutocomplete" (optionSelected)="selectedProduct($event.option.value)">
+        <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
+          {{product.productName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group col-4">
+    <mat-form-field class="forms-fildes">
+      <mat-label>Motor Vehicle no</mat-label>
+      <input type="text" placeholder="Motor Vehicle No" aria-label="Motor Vehicle no" matInput [formControl]="vehicleNoControl" required>
+    </mat-form-field>
+  </div>
 </div>
 
-<div style="text-align:right;">
-    <div class="form-group">
-        <label for="name">Amount Paid</label>
-        <input type="text" id="price" required [(ngModel)]="purchaseOrder.amountPaid"
-               (input)="amountToBePaid(purchaseOrder.amountPaid)" name="price">
+<div class="mat-elevation-z8">
+  <table [dataSource]="rows" mat-table>
+    <ng-container matColumnDef="sno">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-4">S. No</th>
+      <td *matCellDef="let element; let i = index;" mat-cell class="text-right pr-4"> {{i + 1}}. </td>
+      <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th *matHeaderCellDef mat-header-cell>Action</th>
+      <td *matCellDef="let element; let i = index;" mat-cell>
+        <button (click)="removeCart(i)" mat-icon-button aria-label="Remove product">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="item">
+      <th *matHeaderCellDef mat-header-cell>Item & Description</th>
+      <td *matCellDef="let element" mat-cell>{{element.product.productName}}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Rate</th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-4">
+        <mat-form-field floatLabel="never">
+          <input matInput placeholder="Price" [(ngModel)]="element.price" required class="text-right">
+          <span matPrefix>₹&nbsp;</span>
+        </mat-form-field>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Quantity</th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-4">
+        <mat-form-field floatLabel="never">
+          <input matInput [placeholder]="element.product.gst" [(ngModel)]="element.qtyOrdered" required class="text-right">
+        </mat-form-field>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Amount</th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-4">₹{{element.price * element.qtyOrdered}}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="taxType">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-4">
+        CGST/SGST <br> IGST Rate
+      </th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-4">{{element.product.gst}}%</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="taxAmount">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Tax Amount</th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-4">₹{{element.price * element.qtyOrdered * element.product.gst/100}}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalAmount">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Total Amount</th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-4">₹{{element.price * element.qtyOrdered + element.price * element.qtyOrdered * element.product.gst/100}}</td>
+      <td mat-footer-cell *matFooterCellDef class="text-right pr-4">{{ getTotalAmount() | currency:'INR' }} </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+
+
+  <!-- <table class="table table-hover table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Remove</th>
+        <th>Item & Description</th>
+        <th>Rate</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th>
+          <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
+        </th>
+        <th>Tax Amount</th>
+        <th>Total Amout</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let cart of rows; let i = index">
+      <td>{{i + 1}}</td>
+      <td>
+        <button (click)="removeCart(i)">X</button>
+      </td>
+      <td>
+        <input class="form-control" type="text" [(ngModel)]="cart.product.productName" disabled>
+      </td>
+      <td><input class="form-control" type="text" [(ngModel)]="cart.price" (change)="changeInQtyOrPrice()"></td>
+      <td>
+        <div>
+          <input class="form-control" type="text" [(ngModel)]="cart.qtyOrdered" placeholder="{{cart.product.qty}}"
+            (change)="changeInQtyOrPrice()">
+        </div>
+      </td>
+      <td>
+        ₹{{cart.price * cart.qtyOrdered || 0}}
+      </td>
+      <td>
+        {{cart?.product?.gst}}%
+      </td>
+      <td>
+        ₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
+      </td>
+      <td>
+        ₹{{(cart.price * cart.qtyOrdered + (cart?.product?.gst * cart.price * cart.qtyOrdered / 100)).toLocaleString('en-IN') }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="8">Total:</td>
+      <td>₹{{totalAmountToPaid().toLocaleString('en-IN')}}</td>
+    </tr>
+  </table> -->
+  <div class="total-container">
+    <div>
+      <label for="name">Amount Paid </label>
+      <input class="amount-edit" type="text" id="price" required [(ngModel)]="purchaseOrder.amountPaid"
+         name="price">
     </div>
-    <div class="form-group">
-        <label for="name">Current Balance</label>
-        <input type="text" id="price" [value]="currentBalance.toLocaleString('en-IN')" name="price" disabled>
+    <div>
+      <label for="name">Current Balance </label>
+      <span class="amount-read-only">{{ getCurrentBalance() | currency:'INR' }}</span>
     </div>
-    <div class="form-group">
-        <label for="name">Previous Balance</label>
-        <input type="text" id="price" [value]="previousBalance.toLocaleString('en-IN')" name="price" disabled>
+    <div>
+      <label for="name">Previous Balance </label>
+      <span class="amount-read-only">{{previousBalance | currency:'INR' }}</span>
     </div>
-    <div class="form-group">
-        <label for="name">Total Pay Balance</label>
-        <input type="text" id="price" [value]="totalBalance.toLocaleString('en-IN')" name="price" disabled>
+    <div>
+      <label for="name">Total Pay Balance</label>
+      <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
     </div>
     <button type="submit" class="btn btn-success" (click)="save()" [disabled]="rows?.length === 0">Submit</button>
+  </div>
 </div>
+

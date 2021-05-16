@@ -12,7 +12,17 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('this.response', JSON.stringify((window['response'])));
-    this.response = window['response'];
+    let purchaseOrder = window['response'];
+    if (!purchaseOrder) {
+      const invoiceData = sessionStorage.getItem('invoiceData');
+      if (invoiceData) {
+        purchaseOrder = JSON.parse(invoiceData);
+      }
+    } else {
+      sessionStorage.setItem('invoiceData', JSON.stringify(purchaseOrder));
+    }
+    
+    this.response = purchaseOrder;
     document.title = 'Tax Invoice';
     this._calculateTotals();
     window.print();

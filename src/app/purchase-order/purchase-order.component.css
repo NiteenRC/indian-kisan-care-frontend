@@ -1,0 +1,19 @@
+.amount-read-only {
+  width: 100px;
+  display: inline-block;
+}
+
+.amount-edit {
+  width: 100px;
+  text-align: right;
+  margin-left: 4px;
+}
+
+th {
+  background-color: #ababab;
+}
+
+.total-container {
+  padding: 12px;
+  text-align: right;
+}

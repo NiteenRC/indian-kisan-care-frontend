@@ -10,4 +10,5 @@ export class PurchaseOrder {
     currentBalance: number;
     previousBalance: number;
     purchaseOrderDetail: Array<PurchaseOrderDetail>;
+    vehicleNo: string;
 }
