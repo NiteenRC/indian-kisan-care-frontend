@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from 'src/app/_services/token-storage.service.js';
 import { numberInWords } from '../../utils/numToWords.js';
 @Component({
   selector: 'app-table',
@@ -9,6 +10,9 @@ export class TableComponent implements OnInit {
   response: any;
   totalPrice: number = 0;
   amountInWords: string = '';
+  user: any = null;
+
+  constructor(private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
     console.log('this.response', JSON.stringify((window['response'])));
@@ -26,6 +30,8 @@ export class TableComponent implements OnInit {
     document.title = 'Tax Invoice';
     this._calculateTotals();
     window.print();
+
+    this.user = this.tokenStorageService.getUser();
   }
 
   private _calculateTotals() {

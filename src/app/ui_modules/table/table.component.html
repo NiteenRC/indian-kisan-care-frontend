@@ -8,17 +8,17 @@
                         <div style="text-align: center; width: 55%">
                             <div>
                                 <span class="text-sm text-grey-m2 align-middle font-weight-bold">
-                                    <h2> PRAVEEN TRADERS </h2>
+                                    <h2> {{user.brandName}} </h2>
                                 </span>
                             </div>
                             <div>
-                                <span class="text-sm text-grey-m2 align-middle">GST: 36AARFA2747D1ZG | PAN:
-                                    AARFA2747D
+                                <span class="text-sm text-grey-m2 align-middle">GST: {{user.gstNo}} | PAN:
+                                    {{user.panNo}}
                                 </span>
                             </div>
                             <div>
-                                <span class="text-sm text-grey-m2 align-middle">P: +919133388349 E:
-                                    info@praveentraders.in</span>
+                                <span class="text-sm text-grey-m2 align-middle">P: {{user.phoneNumber}} | E:
+                                    {{user.email}}</span>
                             </div>
                         </div>
                     </div>
@@ -148,27 +148,29 @@
                             </div>
                             <br>
                             <div>
-                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">HDFC Bank</span>
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">{{user.bankAccount.bankName}}</span>
                             </div>
                             <div>
                                 <span class="text-sm text-grey-m2 align-middle font-weight-bold">A/c no:</span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    204723534534
+                                    {{user.bankAccount.accountNo}}
                                 </span>
                             </div>
 
                             <div>
                                 <span class="text-sm text-grey-m2 align-middle font-weight-bold">Branch:</span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    Bangalore
+                                    {{user.bankAccount.branchName}}
                                 </span>
                             </div>
                             <div>
                                 <span class="text-sm text-grey-m2 align-middle font-weight-bold">IFSC code:</span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    HDFC2047
+                                    {{user.bankAccount.ifscCode}}
                                 </span>
                             </div>
+                        </div>
                         </div>
                         <!-- /.col -->
                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
@@ -202,7 +204,7 @@
                                         <span class="text-600 text-90 font-weight-bold">Authorised Signatory</span>
                                     </div>
                                     <div class="my-2">
-                                        <span class="text-600 text-90 font-weight-bold">(PRAVEEN TRADERS)</span>
+                                        <span class="text-600 text-90 font-weight-bold">({{user.brandName}})</span>
                                     </div>
                                 </div>
                             </div>

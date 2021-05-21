@@ -1,13 +1,14 @@
-import { Category } from './../../_model/category';
+import {Category} from './../../_model/category';
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { autocompleteStringValidator } from 'src/app/validators/category.validator';
+import {autocompleteStringValidator} from 'src/app/validators/category.validator';
 import {CategoryService} from 'src/app/_services/category.service';
 import {LocationService} from 'src/app/_services/location.service';
 import {ProductService} from 'src/app/_services/product.service';
+
 @Component({
     selector: 'app-create-product',
     templateUrl: './create-product.component.html',
@@ -35,7 +36,7 @@ export class CreateProductComponent implements OnInit {
             categoryName: new FormControl(null, [Validators.required]),
             productName: new FormControl(null, [Validators.required]),
             //price: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
-            gst: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
+            gst: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(0)]),
             hsnNo: new FormControl(null, [Validators.required]),
             //qty: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
         });
@@ -89,7 +90,7 @@ export class CreateProductComponent implements OnInit {
         };
         this.productService.createProduct(data).subscribe(res => {
             if (res != null) {
-                this.successMsg = 'Supplier Successfully Created..!';
+                this.successMsg = 'Product Successfully Updated..!';
                 // this.getCategoryList();
                 this.closeModal();
             }
@@ -113,7 +114,7 @@ export class CreateProductComponent implements OnInit {
         };
         this.productService.updateProduct(data).subscribe(res => {
             if (res != null) {
-                this.successMsg = 'Supplier Successfully Created..!';
+                this.successMsg = 'Product Successfully Created..!';
                 this.closeModal();
             }
         }, error => {
@@ -137,5 +138,4 @@ export class CreateProductComponent implements OnInit {
     private _findCategory(categoryName: string) {
         return this.options.find(option => option?.categoryName === categoryName);
     }
-
 }

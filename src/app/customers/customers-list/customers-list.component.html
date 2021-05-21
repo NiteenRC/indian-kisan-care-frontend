@@ -7,7 +7,6 @@
         <button (click)="openDialog()" class="btn btn-info btn-sm" style="height: 35px;width: 150px;"> Add Customer
         </button>
     </div>
-
 </div>
 
 <div class="mat-elevation-z8">
@@ -34,7 +33,7 @@
         </ng-container>
 
         <ng-container matColumnDef="location">
-            <th *matHeaderCellDef mat-header-cell> Location Name</th>
+            <th *matHeaderCellDef mat-header-cell> Location</th>
             <td *matCellDef="let element" mat-cell> {{element.location?.cityName}} </td>
         </ng-container>
 
@@ -42,13 +41,14 @@
             <th *matHeaderCellDef mat-header-cell [hidden]="true"> Action</th>
             <td *matCellDef="let element" [hidden]="true" mat-cell>
 
-                <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
+                <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+                        mat-icon-button>
                     <mat-icon class="kebab-menu">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
                     <div>
                         <button (click)="updateCustomer(element)" class="btn btn-info"
-                                style="width: 80px;margin-left: 15px;" >
+                                style="width: 80px;margin-left: 15px;">
                             Update
                         </button>
                         <br>
