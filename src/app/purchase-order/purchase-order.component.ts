@@ -1,13 +1,14 @@
+import { MatTableDataSource } from '@angular/material/table';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
 import { Product } from './../_model/product';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ProductService } from '../_services/product.service';
 import { PurchaseOrder } from '../_model/purchaseOrder';
 import { PurchaseOrderService } from '../_services/purchase-order.service';
-import { PurchaseOrderDetail } from '../_model/purchaseOrderDetail';
 import { Supplier } from '../_model/supplier';
 import { SupplierService } from '../_services/supplier.service';
 
@@ -17,35 +18,24 @@ import { SupplierService } from '../_services/supplier.service';
   styleUrls: ['./purchase-order.component.css']
 })
 export class PurchaseOrderComponent implements OnInit {
+  purchaseOrderDetailData: any;
   displayedColumns: string[] = ['sno', 'action', 'item', 'price', 'quantity', 'amount', 'taxType', 'taxAmount', 'totalAmount'];
-
-  product: Product = new Product();
-  purchaseOrder: PurchaseOrder = new PurchaseOrder();
-  purchaseOrderDetail: PurchaseOrderDetail = new PurchaseOrderDetail();
-  purchaseForm: FormGroup;
-  supplierControl: FormControl;
-  productControl = new FormControl();
-  vehicleNoControl = new FormControl();
-
   filteredSuppliers: Observable<Supplier[]>;
   filteredProducts: Observable<Product[]>;
 
   suppliers: Supplier[];
   products: Product[];
 
-  rows: Array<PurchaseOrderDetail> = [];
-  currentBalance = 0;
   previousBalance = 0;
   totalAmount = 0;
-  totalBalance = 0;
 
-  constructor(private productService: ProductService,
+  purchaserOrderForm: FormGroup;
+
+  constructor(
+    private _fb: FormBuilder,
+    private productService: ProductService,
     private supplierService: SupplierService,
     private purchaseOrderService: PurchaseOrderService) {
-
-    this.supplierControl = new FormControl(null, [Validators.required]);
-    this.productControl = new FormControl();
-    this.vehicleNoControl = new FormControl();
 
     this.suppliers = [];
     this.products = [];
@@ -53,16 +43,18 @@ export class PurchaseOrderComponent implements OnInit {
 
   ngOnInit() {
     this.fetchData();
+    this._createForm();
+    console.log('this.purchaserOrderForm', this.purchaserOrderForm);
+  }
 
-    this.filteredSuppliers = this.supplierControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterSupplier(value))
-    );
+  removeProduct(index: number) {
+    this.purchaseOrderDetailArr.removeAt(index);
+    this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+  }
 
-    this.filteredProducts = this.productControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterProduct(value))
-    );
+  selectedProduct(selectedProduct: string) {
+    const product = this._findProduct(selectedProduct);
+    this._addProduct(product);
   }
 
   fetchData() {
@@ -72,99 +64,54 @@ export class PurchaseOrderComponent implements OnInit {
 
     this.productService.getProductsList().subscribe(data => {
       this.products = data;
+      this._valueChangesListner();
     });
-    this.purchaseOrder.amountPaid = 0;
-  }
-
-  save() {
-    let isStockAvail = true;
-    this.rows.forEach(value => {
-      if (value.qtyOrdered === 0) {
-        alert('Please add Quantity to : ' + value.product.productName);
-        isStockAvail = false;
-      }
-    });
-
-    if (isStockAvail) {
-      this.purchaseOrder.currentBalance = this.currentBalance;
-      this.purchaseOrder.purchaseOrderDetail = this.rows;
-      this.purchaseOrder.totalPrice = this.totalAmount;
-      this.purchaseOrder.vehicleNo = this.vehicleNoControl.value;
-
-      if (this.currentBalance <= 0) {
-        this.purchaseOrder.status = 'PAID';
-      } else if (this.purchaseOrder.amountPaid > 0) {
-        this.purchaseOrder.status = 'PARTIAL';
-      } else {
-        this.purchaseOrder.status = 'DUE';
-      }
-
-      this.purchaseOrderService
-        .createPurchaseOrder(this.purchaseOrder).subscribe(data => {
-          console.log(data);
-          this.printPdf(data);
-          this.refreshAfterSave();
-        },
-          error => console.log(error));
-    }
-  }
-
-  refreshAfterSave() {
-    this.purchaseOrder = new PurchaseOrder();
-    this.product = new Product();
-    this.purchaseOrder.amountPaid = 0;
-    this.previousBalance = 0;
-    this.currentBalance = 0;
-    this.totalBalance = 0;
-    this.rows = [];
-  }
-
-  getTotalAmount() {
-    let totalAmount = 0;
-    this.rows.forEach(obj => {
-      const amount = Number(obj.qtyOrdered) * Number(obj.price);
-      const taxAmount = amount * obj.product.gst / 100;
-      totalAmount += amount + taxAmount;
-    });
-    this.totalAmount = Math.round(totalAmount);
-    return this.totalAmount;
   }
 
   getCurrentBalance() {
-    return this.totalAmount - this.purchaseOrder.amountPaid;
+    return this.totalAmount - this.amountPaid.value;
   }
 
   getTotalBalance() {
     return this.previousBalance + this.getCurrentBalance();
   }
 
-  removeCart(index: number) {
-    const rows = [...this.rows];
-    rows.splice(index, 1);
-    this.rows = rows;
+  save() {
+    // console.log('this.purchaserOrderForm', this.purchaserOrderForm.value);
+    const purchaseOrder: PurchaseOrder = new PurchaseOrder();
+    purchaseOrder.currentBalance = this.getCurrentBalance();
+    purchaseOrder.purchaseOrderDetail = this.purchaseOrderDetailArr.value;
+    purchaseOrder.totalPrice = this.totalAmount;
+    purchaseOrder.vehicleNo = this.purchaserOrderForm.get('motorVehicleNo').value;
+
+    if (purchaseOrder.currentBalance <= 0) {
+      purchaseOrder.status = 'PAID';
+    } else if (purchaseOrder.amountPaid > 0) {
+      purchaseOrder.status = 'PARTIAL';
+    } else {
+      purchaseOrder.status = 'DUE';
+    }
+
+    this.purchaseOrderService
+      .createPurchaseOrder(purchaseOrder).subscribe(data => {
+        console.log(data);
+        this.printPdf(data);
+        this.refreshAfterSave();
+      },
+        error => console.log(error));
   }
 
-  selectedProduct(selectedProduct: string) {
-    const product = this._findProduct(selectedProduct);
-    const newProduct = {
-      product,
-      qtyOrdered: 0,
-      price: 0
-    };
-    this.rows = [...this.rows, newProduct];
+  refreshAfterSave() {
+    window.location.reload();
+    // this.previousBalance = 0;
+    // this.purchaseOrderDetailData = [];
+    // this._createForm();
   }
 
   supplierBalanceData(supplierID: any) {
     this.purchaseOrderService.getPurchaseOrderBalaceBySupplier(supplierID).subscribe((data: number) => {
-      console.log(data);
       this.previousBalance = data;
-      this.changeInQtyOrPrice();
     }, (error: any) => console.log(error));
-  }
-
-  changeInQtyOrPrice() {
-    this.currentBalance = this.totalAmount - this.purchaseOrder.amountPaid;
-    this.totalBalance = this.previousBalance + this.currentBalance;
   }
 
   printPdf(response) {
@@ -178,7 +125,8 @@ export class PurchaseOrderComponent implements OnInit {
       return this.suppliers;
     }
     const filterValue = value.toLowerCase();
-    return this.suppliers.filter(option => option.supplierName.toLowerCase().indexOf(filterValue) === 0);
+    const supplierList = this.suppliers.filter(option => option.supplierName.toLowerCase().indexOf(filterValue) === 0)
+    return supplierList;
   }
 
   private _filterProduct(value: string): Product[] {
@@ -192,4 +140,59 @@ export class PurchaseOrderComponent implements OnInit {
   private _findProduct(value: string): Product {
     return this.products.find(option => option.productName === value);
   }
+
+  private _initRow(product) {
+    return this._fb.group({
+      price: [0, [Validators.required, Validators.min(0), Validators.max(100000)]],
+      qtyOrdered: [0, [Validators.required, Validators.min(0), Validators.max(product.qty)]],
+      product: [product]
+    });
+  }
+
+  private _addProduct(product: Product) {
+    const newRow = this._initRow(product);
+    this.purchaseOrderDetailArr.push(newRow);
+    this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+  }
+
+  private _valueChangesListner() {
+    this.filteredSuppliers = this.purchaserOrderForm.controls['supplierName'].valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterSupplier(value))
+    );
+
+    this.filteredProducts = this.purchaserOrderForm.controls['productName'].valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterProduct(value))
+    );
+
+    this.purchaseOrderDetailArr.valueChanges.subscribe((productList) => {
+      let totalAmount = 0;
+      productList.forEach(product => {
+        const amount = Number(product.qtyOrdered) * Number(product.price);
+        const taxAmount = amount * (product.product?.gst || 0) / 100;
+        totalAmount += amount + taxAmount;
+      });
+      this.totalAmount = Math.round(totalAmount);
+    });
+  }
+
+  private _createForm() {
+    this.purchaserOrderForm = this._fb.group({
+      supplierName: [''],
+      productName: [''],
+      motorVehicleNo: [''],
+      purchaseOrderDetail: this._fb.array([]),
+      amountPaid: [0],
+    });
+  }
+
+  get purchaseOrderDetailArr() {
+    return this.purchaserOrderForm.get('purchaseOrderDetail') as FormArray;
+  }
+
+  get amountPaid() {
+    return this.purchaserOrderForm.get('amountPaid') as FormControl;
+  }
+
 }
