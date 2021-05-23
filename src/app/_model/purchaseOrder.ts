@@ -11,4 +11,5 @@ export class PurchaseOrder {
     previousBalance: number;
     purchaseOrderDetail: Array<PurchaseOrderDetail>;
     vehicleNo: string;
+    dueDate: string;
 }

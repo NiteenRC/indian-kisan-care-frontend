@@ -57,6 +57,11 @@ export class PurchaseOrderComponent implements OnInit {
     this._addProduct(product);
   }
 
+  selectedSupplier(selectedSupplier: string) {
+    const supplier = this._findSupplier(selectedSupplier);
+    this._supplierBalanceData(supplier?.id);
+  }
+
   fetchData() {
     this.supplierService.getSupplierList().subscribe(data => {
       this.suppliers = data;
@@ -79,10 +84,13 @@ export class PurchaseOrderComponent implements OnInit {
   save() {
     // console.log('this.purchaserOrderForm', this.purchaserOrderForm.value);
     const purchaseOrder: PurchaseOrder = new PurchaseOrder();
+    purchaseOrder.supplier = this.purchaserOrderForm.get('supplierName').value;;
     purchaseOrder.currentBalance = this.getCurrentBalance();
     purchaseOrder.purchaseOrderDetail = this.purchaseOrderDetailArr.value;
     purchaseOrder.totalPrice = this.totalAmount;
     purchaseOrder.vehicleNo = this.purchaserOrderForm.get('motorVehicleNo').value;
+    purchaseOrder.amountPaid = this.purchaserOrderForm.get('amountPaid').value;
+    purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value;
 
     if (purchaseOrder.currentBalance <= 0) {
       purchaseOrder.status = 'PAID';
@@ -95,7 +103,7 @@ export class PurchaseOrderComponent implements OnInit {
     this.purchaseOrderService
       .createPurchaseOrder(purchaseOrder).subscribe(data => {
         console.log(data);
-        this.printPdf(data);
+        this._printPdf(data);
         this.refreshAfterSave();
       },
         error => console.log(error));
@@ -108,13 +116,13 @@ export class PurchaseOrderComponent implements OnInit {
     // this._createForm();
   }
 
-  supplierBalanceData(supplierID: any) {
+  private _supplierBalanceData(supplierID: any) {
     this.purchaseOrderService.getPurchaseOrderBalaceBySupplier(supplierID).subscribe((data: number) => {
       this.previousBalance = data;
     }, (error: any) => console.log(error));
   }
 
-  printPdf(response) {
+  private _printPdf(response) {
     const url = `${location.origin}/#table`;
     const myWindow = window.open(url);
     myWindow['response'] = response;
@@ -141,10 +149,14 @@ export class PurchaseOrderComponent implements OnInit {
     return this.products.find(option => option.productName === value);
   }
 
+  private _findSupplier(value: string): Supplier {
+    return this.suppliers.find(option => option.supplierName === value);
+  }
+
   private _initRow(product) {
     return this._fb.group({
       price: [0, [Validators.required, Validators.min(0), Validators.max(100000)]],
-      qtyOrdered: [0, [Validators.required, Validators.min(0), Validators.max(product.qty)]],
+      qtyOrdered: [0, [Validators.required, Validators.min(0), Validators.max(100000)]],
       product: [product]
     });
   }
@@ -182,6 +194,7 @@ export class PurchaseOrderComponent implements OnInit {
       supplierName: [''],
       productName: [''],
       motorVehicleNo: [''],
+      dueDate: [new Date()],
       purchaseOrderDetail: this._fb.array([]),
       amountPaid: [0],
     });

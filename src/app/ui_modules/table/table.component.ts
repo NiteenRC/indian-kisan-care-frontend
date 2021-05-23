@@ -29,9 +29,11 @@ export class TableComponent implements OnInit {
     this.response = purchaseOrder;
     document.title = 'Tax Invoice';
     this._calculateTotals();
-    window.print();
-
     this.user = this.tokenStorageService.getUser();
+  }
+
+  printPDF() {
+    window.print();
   }
 
   private _calculateTotals() {

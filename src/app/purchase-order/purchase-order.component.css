@@ -11,9 +11,22 @@
 
 th {
   background-color: #ababab;
+  font-size: 15px;
 }
 
 .total-container {
   padding: 12px;
   text-align: right;
+}
+
+.purchase-order-container {
+  height: calc(100vh - 150px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.forms-fildes {
+  width: 200px;
 }
