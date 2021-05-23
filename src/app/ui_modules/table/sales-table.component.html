@@ -22,15 +22,15 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="row brc-default-l1 mx-n1 mb-4"/>
+                    <hr class="row brc-default-l1 mx-n1 mb-4" />
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="my-2">
                                 <span class="text-sm text-grey-m2 align-middle font-weight-bold my-2">
-                                    Supplier Name:
+                                    Customer Name:
                                 </span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    {{response?.supplier?.supplierName}}
+                                    {{response?.customer?.customerName}}
                                 </span>
                             </div>
                             <div class="my-2">
@@ -38,7 +38,7 @@
                                     GSTIN/UIN:
                                 </span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    {{response?.supplier?.gstIn}}
+                                    {{response?.customer?.gstIn}}
                                 </span>
                             </div>
 
@@ -47,7 +47,7 @@
                                     Mobile Number:
                                 </span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    {{response?.supplier?.phoneNumber}}
+                                    {{response?.customer?.phoneNumber}}
                                 </span>
                             </div>
                             <div class="my-2">
@@ -55,13 +55,13 @@
                                     Address:
                                 </span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    {{response?.supplier?.location?.cityName}}
+                                    {{response?.customer?.location?.cityName}}
                                 </span>
                             </div>
                         </div>
                         <!-- /.col -->
                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
-                            <hr class="d-sm-none"/>
+                            <hr class="d-sm-none" />
                             <div class="text-grey-m2">
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Bill Date:</span>
@@ -92,38 +92,39 @@
                     <!-- ----------------------------------------- -->
                     <table class="table table-bordered">
                         <thead>
-                        <tr>
-                            <th scope="col">SI.<br>NO</th>
-                            <th scope="col">Item & Description</th>
-                            <th scope="col">HSN/SAC</th>
-                            <th scope="col">Rate</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">
-                                <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
-                            </th>
-                            <th scope="col">Tax Amount</th>
-                            <th scope="col">Total Amount</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">SI.<br>NO</th>
+                                <th scope="col">Item & Description</th>
+                                <th scope="col">HSN/SAC</th>
+                                <th scope="col">Rate</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">
+                                    <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
+                                </th>
+                                <th scope="col">Tax Amount</th>
+                                <th scope="col">Total Amount</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let cart of response?.purchaseOrderDetail; index as i;">
-                            <td>{{i + 1}}.</td>
-                            <td>{{cart?.product?.productName}}</td>
-                            <td>{{cart?.product?.hsnNo}}</td>
-                            <td>₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>
-                            <td>{{cart?.qtyOrdered || 0}}</td>
-                            <td>₹{{(cart?.price * cart?.qtyOrdered).toLocaleString('en-IN') || 0}}</td>
-                            <td>{{cart?.product?.gst}}%</td>
-                            <td>₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}</td>
-                            <td>
-                                ₹{{(cart.price * cart.qtyOrdered + cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th colspan="8">Total</th>
-                            <th>₹{{totalPrice.toLocaleString('en-IN')}}</th>
-                        </tr>
+                            <tr *ngFor="let cart of response?.salesOrderDetail; index as i;">
+                                <td>{{i + 1}}.</td>
+                                <td>{{cart?.product?.productName}}</td>
+                                <td>{{cart?.product?.hsnNo}}</td>
+                                <td>₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>
+                                <td>{{cart?.qtyOrdered || 0}}</td>
+                                <td>₹{{(cart?.price * cart?.qtyOrdered).toLocaleString('en-IN') || 0}}</td>
+                                <td>{{cart?.product?.gst}}%</td>
+                                <td>₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
+                                </td>
+                                <td>
+                                    ₹{{(cart.price * cart.qtyOrdered + cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="8">Total</th>
+                                <th>₹{{totalPrice.toLocaleString('en-IN')}}</th>
+                            </tr>
                         </tbody>
                     </table>
                     <span class="text-sm text-grey-m2 align-middle">Amount chargeable(in words):</span>
@@ -147,35 +148,36 @@
                                 </span>
                             </div>
                             <br>
-                            
-                            <div *ngIf="user.bankAccount != null">
-                            <div>
-                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">{{user?.bankAccount?.bankName}}</span>
-                            </div>
-                            <div>
-                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">A/c no:</span>
-                                <span class="text-600 text-110 text-blue align-middle">
-                                    {{user?.bankAccount?.accountNo}}
-                                </span>
-                            </div>
 
-                            <div>
-                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">Branch:</span>
-                                <span class="text-600 text-110 text-blue align-middle">
-                                    {{user?.bankAccount?.branchName}}
-                                </span>
+                            <div *ngIf="user.bankAccount != null">
+                                <div>
+                                    <span
+                                        class="text-sm text-grey-m2 align-middle font-weight-bold">{{user?.bankAccount?.bankName}}</span>
+                                </div>
+                                <div>
+                                    <span class="text-sm text-grey-m2 align-middle font-weight-bold">A/c no:</span>
+                                    <span class="text-600 text-110 text-blue align-middle">
+                                        {{user?.bankAccount?.accountNo}}
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span class="text-sm text-grey-m2 align-middle font-weight-bold">Branch:</span>
+                                    <span class="text-600 text-110 text-blue align-middle">
+                                        {{user?.bankAccount?.branchName}}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="text-sm text-grey-m2 align-middle font-weight-bold">IFSC code:</span>
+                                    <span class="text-600 text-110 text-blue align-middle">
+                                        {{user?.bankAccount?.ifscCode}}
+                                    </span>
+                                </div>
                             </div>
-                            <div>
-                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">IFSC code:</span>
-                                <span class="text-600 text-110 text-blue align-middle">
-                                    {{user?.bankAccount?.ifscCode}}
-                                </span>
-                            </div>
-                        </div>
                         </div>
                         <!-- /.col -->
                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
-                            <hr class="d-sm-none"/>
+                            <hr class="d-sm-none" />
                             <div class="text-grey-m2">
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Amount Paid: </span>

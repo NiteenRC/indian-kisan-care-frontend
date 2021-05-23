@@ -1,0 +1,32 @@
+.amount-read-only {
+  width: 100px;
+  display: inline-block;
+}
+
+.amount-edit {
+  width: 100px;
+  text-align: right;
+  margin-left: 4px;
+}
+
+th {
+  background-color: #ababab;
+  font-size: 15px;
+}
+
+.total-container {
+  padding: 12px;
+  text-align: right;
+}
+
+.sales-order-container {
+  height: calc(100vh - 150px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.forms-fildes {
+  width: 200px;
+}

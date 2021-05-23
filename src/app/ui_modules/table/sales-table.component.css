@@ -1,0 +1,13 @@
+.logo {
+  width: 180px;
+}
+
+.print-btn{
+  margin-top: 10px;
+}
+
+@media print {
+  .print-btn{
+    display: none;
+  }
+}
