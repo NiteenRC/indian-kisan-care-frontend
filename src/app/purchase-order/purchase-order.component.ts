@@ -157,8 +157,8 @@ export class PurchaseOrderComponent implements OnInit {
 
   private _initRow(product) {
     return this._fb.group({
-      price: [0, [Validators.required, Validators.min(0), Validators.max(100000)]],
-      qtyOrdered: [0, [Validators.required, Validators.min(0), Validators.max(100000)]],
+      price: [0, [Validators.required, Validators.min(1), Validators.max(100000)]],
+      qtyOrdered: [0, [Validators.required, Validators.min(1), Validators.max(10000)]],
       product: [product]
     });
   }
