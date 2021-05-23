@@ -84,7 +84,9 @@ export class PurchaseOrderComponent implements OnInit {
   save() {
     // console.log('this.purchaserOrderForm', this.purchaserOrderForm.value);
     const purchaseOrder: PurchaseOrder = new PurchaseOrder();
-    purchaseOrder.supplier = this.purchaserOrderForm.get('supplierName').value;;
+    const supplierName = this.purchaserOrderForm.get('supplierName').value;
+    const supplier = this._findSupplier(supplierName);
+    purchaseOrder.supplier = supplier;
     purchaseOrder.currentBalance = this.getCurrentBalance();
     purchaseOrder.purchaseOrderDetail = this.purchaseOrderDetailArr.value;
     purchaseOrder.totalPrice = this.totalAmount;
