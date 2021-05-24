@@ -26,8 +26,8 @@ export class CreateCustomerComponent implements OnInit {
         this.customerForm = new FormGroup({
             cityName: new FormControl(null, [Validators.required]),
             customerName: new FormControl(null, [Validators.required]),
-            gstIn: new FormControl(null, [Validators.required]),
-            phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(10), Validators.maxLength(10)]),
+            gstIn: new FormControl(null),
+            phoneNumber: new FormControl(null),
         });
 
         this.locationForm = new FormGroup({

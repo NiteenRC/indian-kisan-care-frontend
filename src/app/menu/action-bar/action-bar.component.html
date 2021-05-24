@@ -123,7 +123,7 @@
         </mat-menu>
       </li>  -->
 
-      <mat-tree [dataSource]="dataSourceReports" [treeControl]="treeControl" style="margin-right: 10px;">
+      <mat-tree *ngIf="false" [dataSource]="dataSourceReports" [treeControl]="treeControl" style="margin-right: 10px;">
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
@@ -141,12 +141,12 @@
         </mat-tree-node>
       </mat-tree>
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="false">
         <a class="nav-link" routerLink="/dashboard/balance-sheet">
           <i class="fa fa-inr "></i> <span *ngIf="expanded" class="d-none d-sm-inline">BALANCE SHEET</span></a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="false">
         <a class="nav-link" routerLink="/dashboard/user"><i class="fa fa-users "></i> <span *ngIf="expanded"
             class="d-none d-sm-inline">USERS</span></a>
       </li>

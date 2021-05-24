@@ -25,7 +25,7 @@ export class CreateCompanyComponent implements OnInit {
 
         this.companyForm = new FormGroup({
             companyName: new FormControl(null, [Validators.required]),
-            phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(10), Validators.maxLength(10)]),
+            phoneNumber: new FormControl(null),
         });
         if (data != null) {
             this.companyForm.controls['companyName'].setValue(this.companyUpdateData.data.companyName);

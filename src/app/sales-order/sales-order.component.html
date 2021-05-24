@@ -4,7 +4,7 @@
       <mat-form-field class="forms-fildes">
         <mat-label>Customer</mat-label>
         <input type="text" placeholder="Select Customer" aria-label="Customer" matInput formControlName="customerName"
-          required [matAutocomplete]="customerAuto">
+          [matAutocomplete]="customerAuto">
         <mat-autocomplete #customerAuto="matAutocomplete" autoActiveFirstOption
           (optionSelected)="selectedCustomer($event.option.value)">
           <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.customerName">
@@ -38,7 +38,7 @@
 
     <mat-form-field class="form-group col-2">
       <mat-label>Due date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dueDate" required>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -47,13 +47,13 @@
   <div class="mat-elevation-z8 sales-order-container">
     <table formArrayName="salesOrderDetail" [dataSource]="salesOrderDetailData" mat-table>
       <ng-container matColumnDef="sno">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">S. No</th>
+        <th *matHeaderCellDef mat-header-cell class="text-left pr-4">S. No</th>
         <td *matCellDef="let element; let i = index;" mat-cell class="text-right pr-4"> {{i + 1}}. </td>
         <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
       </ng-container>
 
       <ng-container matColumnDef="action">
-        <th *matHeaderCellDef mat-header-cell>Action</th>
+        <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
         <td *matCellDef="let element; let i = index;" mat-cell>
           <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product">
             <mat-icon>delete</mat-icon>
@@ -72,9 +72,9 @@
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Rate</th>
         <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
           <mat-form-field floatLabel="never">
-            <input matInput placeholder="Price" type="number" formControlName="price" required required
+            <input matInput placeholder="Price" type="number" formControlName="price" required
               class="text-right">
-            <span matPrefix>₹&nbsp;</span>
+            <span matPrefix>₹</span>
           </mat-form-field>
         </td>
         <td mat-footer-cell *matFooterCellDef></td>

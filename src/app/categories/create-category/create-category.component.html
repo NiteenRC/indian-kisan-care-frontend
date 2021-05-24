@@ -19,10 +19,7 @@
         
         <div class="title-header">
             <mat-form-field class="forms-fildes">
-                <input matInput placeholder="Category description" formControlName="categoryDesc" required>
-                <mat-error *ngIf="categoryForm.get('categoryDesc').hasError('required')">
-                    Category description required!
-                </mat-error>
+                <input matInput placeholder="Category description" formControlName="categoryDesc">
             </mat-form-field>
         </div>
 

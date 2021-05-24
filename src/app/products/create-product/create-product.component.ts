@@ -98,7 +98,6 @@ export class CreateProductComponent implements OnInit {
         }, error => {
             this.errorMsg = error.error.errorMessage;
         });
-
     }
 
     updateProduct() {

@@ -31,7 +31,7 @@ export class CreateSupplierComponent implements OnInit {
             supplierName: new FormControl(null, [Validators.required]),
             gstIn: new FormControl(null, [Validators.required]),
             companyName: new FormControl(null, [Validators.required]),
-            phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(10), Validators.maxLength(10)]),
+            phoneNumber: new FormControl(null),
         });
 
         this.locationForm = new FormGroup({

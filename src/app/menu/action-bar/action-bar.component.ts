@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 @Component({
   selector: 'app-action-bar',
   templateUrl: './action-bar.component.html',
@@ -18,16 +18,16 @@ export class ActionBarComponent {
   }
 
   treeControl = new FlatTreeControl<ExampleFlatNode>(
-      node => node.level, node => node.expandable);
+    node => node.level, node => node.expandable);
 
   treeFlattener = new MatTreeFlattener(
-      this._transformer, node => node.level, node => node.expandable, node => node.children);
+    this._transformer, node => node.level, node => node.expandable, node => node.children);
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-  dataSource_Order=new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-  dataSourceReports=new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  dataSource_Order = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  dataSourceReports = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private router:Router) {
+  constructor(private router: Router) {
     this.dataSource.data = TREE_DATA;
     this.dataSource_Order.data = Order_DATA;
     this.dataSourceReports.data = REPORTS;
@@ -39,10 +39,10 @@ export class ActionBarComponent {
 
   expanded = true;
 
-  goTohome(){
+  goTohome() {
     this.router.navigate(['dashboard']);
   }
-  getComponent(item){
+  getComponent(item) {
     if (item == "Product") {
       this.router.navigate(['dashboard/products']);
     }
@@ -63,12 +63,12 @@ export class ActionBarComponent {
     }
   }
 
-  getOrder(item){
-    if (item == "Sales Order") {
-      this.router.navigate(['dashboard/salesOrder']);
-    }
-    if (item == "Purchase") {
+  getOrder(item) {
+    if (item == "Buy") {
       this.router.navigate(['dashboard/purchaseOrder']);
+    }
+    if (item == "Sell") {
+      this.router.navigate(['dashboard/salesOrder']);
     }
   }
 
@@ -95,11 +95,11 @@ const Order_DATA: MasterNode[] = [
     name: 'Order',
     children: [
       {
-        name: 'Sales Order',
+        name: 'Buy',
 
       },
       {
-        name: 'Purchase',
+        name: 'Sell',
 
       }
     ]
@@ -130,26 +130,17 @@ const TREE_DATA: MasterNode[] = [
     name: 'MASTER',
     children: [
       {
-        name: 'Product',
-
-      },
-      {
-        name: 'Category',
-
-      }, {
-        name: 'Supplier',
-
-      },
-      {
-        name: 'Customer',
-
+        name: 'Location',
       }, {
         name: 'Company',
-
-      }
-      , {
-        name: 'Location',
-
+      }, {
+        name: 'Supplier',
+      }, {
+        name: 'Customer',
+      }, {
+        name: 'Category',
+      }, {
+        name: 'Product',
       }
     ]
   },

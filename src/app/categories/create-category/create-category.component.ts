@@ -26,7 +26,7 @@ export class CreateCategoryComponent implements OnInit {
 
     this.categoryForm = new FormGroup({
       categoryName: new FormControl(null, [Validators.required]),
-      categoryDesc: new FormControl(null, [Validators.required]),
+      categoryDesc: new FormControl(null),
     })
 
     if (data != null) {

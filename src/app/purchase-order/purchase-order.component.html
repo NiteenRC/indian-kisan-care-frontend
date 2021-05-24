@@ -4,8 +4,9 @@
       <mat-form-field class="forms-fildes">
         <mat-label>Supplier</mat-label>
         <input type="text" placeholder="Select Supplier" aria-label="Supplier" matInput formControlName="supplierName"
-          required [matAutocomplete]="supplierAuto">
-        <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedSupplier($event.option.value)">
+          [matAutocomplete]="supplierAuto">
+        <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption
+          (optionSelected)="selectedSupplier($event.option.value)">
           <mat-option *ngFor="let supplier of filteredSuppliers | async" [value]="supplier.supplierName">
             {{supplier.supplierName}}
           </mat-option>
@@ -18,7 +19,8 @@
         <mat-label>Product</mat-label>
         <input type="text" placeholder="Select Product" aria-label="Product" matInput formControlName="productName"
           required [matAutocomplete]="productAuto">
-        <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedProduct($event.option.value)">
+        <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
+          (optionSelected)="selectedProduct($event.option.value)">
           <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
             {{product.productName}}
           </mat-option>
@@ -36,7 +38,7 @@
 
     <mat-form-field class="form-group col-2">
       <mat-label>Due date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dueDate" required>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -45,13 +47,13 @@
   <div class="mat-elevation-z8 purchase-order-container">
     <table formArrayName="purchaseOrderDetail" [dataSource]="purchaseOrderDetailData" mat-table>
       <ng-container matColumnDef="sno">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">S. No</th>
+        <th *matHeaderCellDef mat-header-cell class="text-left pr-4">S. No</th>
         <td *matCellDef="let element; let i = index;" mat-cell class="text-right pr-4"> {{i + 1}}. </td>
         <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
       </ng-container>
 
       <ng-container matColumnDef="action">
-        <th *matHeaderCellDef mat-header-cell>Action</th>
+        <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
         <td *matCellDef="let element; let i = index;" mat-cell>
           <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product">
             <mat-icon>delete</mat-icon>
@@ -70,7 +72,7 @@
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Rate</th>
         <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
           <mat-form-field floatLabel="never">
-            <input matInput placeholder="Price" type="number" formControlName="price" required required class="text-right">
+            <input matInput placeholder="Price" type="number" formControlName="price" required class="text-right">
             <span matPrefix>₹&nbsp;</span>
           </mat-form-field>
         </td>
@@ -81,7 +83,8 @@
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Quantity</th>
         <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
           <mat-form-field floatLabel="never" class="text-right">
-            <input matInput [placeholder]="element.get('product')?.value?.qty" type="number" formControlName="qtyOrdered" required>
+            <input matInput [placeholder]="element.get('product')?.value?.qty" type="number"
+              formControlName="qtyOrdered" required>
           </mat-form-field>
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
@@ -106,14 +109,16 @@
       <ng-container matColumnDef="taxAmount">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Tax Amount</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100}}</td>
+          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100}}
+        </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
       <ng-container matColumnDef="totalAmount">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Total Amount</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value + element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100}}</td>
+          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value + element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100}}
+        </td>
         <td mat-footer-cell *matFooterCellDef class="text-right pr-4">{{ totalAmount | currency:'INR' }} </td>
       </ng-container>
 
@@ -139,7 +144,8 @@
         <label for="name">Total Pay Balance</label>
         <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
       </div>
-      <button type="submit" class="btn btn-success" (click)="save()" [disabled]="purchaserOrderForm.invalid">Submit</button>
+      <button type="submit" class="btn btn-success" (click)="save()"
+        [disabled]="purchaserOrderForm.invalid">Submit</button>
     </div>
   </div>
 </form>
