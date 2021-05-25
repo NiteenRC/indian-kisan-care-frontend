@@ -1,6 +1,9 @@
 <div class="product-conatiner">
-    <div class="title-header">
+    <div class="title-header" *ngIf="customerUpdateData?.id==null">
         <h4 class="title">Add Customer</h4>
+    </div>
+    <div class="title-header" *ngIf="customerUpdateData?.id!=null">
+        <h4 class="title">Update Product</h4>
     </div>
     <hr>
     <form [formGroup]="customerForm">
@@ -29,10 +32,10 @@
         </div>
         <div class="button-container">
             <button (click)="closeModal()" aria-label="Close" class="btn btn-warning"
-                    style="width: 25%;margin-left: 5px;">Cancel
+                style="width: 25%;margin-left: 5px;">Cancel
             </button>
             <button (click)="saveCustomer()" [disabled]="!customerForm.valid" class="btn btn-primary"
-                    style="width: 25%;margin-left: 5px;">Save
+                style="width: 25%;margin-left: 5px;">Save
             </button>
         </div>
         <div class="button-container">

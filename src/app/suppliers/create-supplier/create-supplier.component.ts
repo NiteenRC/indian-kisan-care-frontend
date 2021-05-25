@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {CompanyService} from 'src/app/_services/company.service';
-import {LocationService} from 'src/app/_services/location.service';
-import {SupplierService} from 'src/app/_services/supplier.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { CompanyService } from 'src/app/_services/company.service';
+import { LocationService } from 'src/app/_services/location.service';
+import { SupplierService } from 'src/app/_services/supplier.service';
 
 @Component({
     selector: 'app-create-supplier',
@@ -21,16 +21,16 @@ export class CreateSupplierComponent implements OnInit {
     companies: any;
 
     constructor(private supplierService: SupplierService, private location: LocationService,
-                private companyService: CompanyService,
-                public dialogRef: MatDialogRef<CreateSupplierComponent>,
-                @Inject(MAT_DIALOG_DATA) private data) {
+        private companyService: CompanyService,
+        public dialogRef: MatDialogRef<CreateSupplierComponent>,
+        @Inject(MAT_DIALOG_DATA) private data) {
         this.supplierUpdateData = data;
 
         this.supplierForm = new FormGroup({
-            cityName: new FormControl(null, [Validators.required]),
+            cityName: new FormControl(null),
             supplierName: new FormControl(null, [Validators.required]),
-            gstIn: new FormControl(null, [Validators.required]),
-            companyName: new FormControl(null, [Validators.required]),
+            gstIn: new FormControl(null),
+            companyName: new FormControl(null),
             phoneNumber: new FormControl(null),
         });
 

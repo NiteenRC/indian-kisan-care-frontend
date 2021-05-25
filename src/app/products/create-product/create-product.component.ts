@@ -73,21 +73,29 @@ export class CreateProductComponent implements OnInit {
     }
 
     addProduct() {
-        const selectedCategoryName = this.productForm.controls.categoryName.value;
-        const category = this._findCategory(selectedCategoryName);
+        const categoryName = this.productForm.controls.categoryName.value;
+        let category = this._findCategory(categoryName);
 
         if (category === undefined) {
-            alert('Please select valid Category');
-            return;
+            this.saveCategory(categoryName);
+            this.categoryService.getCategoryByName(categoryName).subscribe(res => {
+                this.addProductCategory(res);
+            }, error => {
+                this.errorMsg = error.error.errorMessage;
+            });
+        } else {
+            this.addProductCategory(category);
         }
+    }
 
+    addProductCategory(category: string) {
         let data = {
             productName: this.productForm.controls.productName.value,
             //price: this.productForm.controls.price.value,
             gst: this.productForm.controls.gst.value,
             hsnNo: this.productForm.controls.hsnNo.value,
             //qty: this.productForm.controls.qty.value,
-            category
+            category: category
         };
         this.productService.createProduct(data).subscribe(res => {
             if (res != null) {
@@ -98,6 +106,13 @@ export class CreateProductComponent implements OnInit {
         }, error => {
             this.errorMsg = error.error.errorMessage;
         });
+    }
+
+    saveCategory(categoryName: string) {
+        let data = {
+            categoryName: categoryName
+        }
+        this.categoryService.createCategory(data).subscribe();
     }
 
     updateProduct() {

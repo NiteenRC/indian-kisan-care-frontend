@@ -86,6 +86,11 @@ export class PurchaseOrderComponent implements OnInit {
     const purchaseOrder: PurchaseOrder = new PurchaseOrder();
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
     const supplier = this._findSupplier(supplierName);
+
+    if (supplier === undefined) {
+      this.saveSupplier(supplierName);
+    }
+
     purchaseOrder.supplier = supplier;
     purchaseOrder.currentBalance = this.getCurrentBalance();
     purchaseOrder.purchaseOrderDetail = this.purchaseOrderDetailArr.value;
@@ -109,6 +114,15 @@ export class PurchaseOrderComponent implements OnInit {
         this.refreshAfterSave();
       },
         error => console.log(error));
+  }
+
+  saveSupplier(supplierName: string) {
+    let data = {
+      supplierName: supplierName,
+      gstIn: 'NA',
+      phoneNumber: 'NA'
+    };
+    this.supplierService.createSupplier(data).subscribe();
   }
 
   refreshAfterSave() {

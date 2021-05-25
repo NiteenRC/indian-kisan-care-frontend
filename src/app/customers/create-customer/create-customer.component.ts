@@ -24,7 +24,7 @@ export class CreateCustomerComponent implements OnInit {
         this.customerUpdateData = data;
 
         this.customerForm = new FormGroup({
-            cityName: new FormControl(null, [Validators.required]),
+            cityName: new FormControl(null),
             customerName: new FormControl(null, [Validators.required]),
             gstIn: new FormControl(null),
             phoneNumber: new FormControl(null),
@@ -52,7 +52,7 @@ export class CreateCustomerComponent implements OnInit {
 
     onSubmit() {
         if (this.customerUpdateData?.data.id != null) {
-            // this.updateCustomer();
+            this.updateCustomer();
         } else {
             this.saveCustomer();
         }
@@ -77,27 +77,35 @@ export class CreateCustomerComponent implements OnInit {
         });
     }
 
-    // updateCustomer() {
-    //   let data = {
-    //     companyID: this.companyUpdateData?.data.id,
-    //     companyName: this.customerForm.controls.companyName.value,
-    //     phoneNumber: this.customerForm.controls.phoneNumber.value
-    //   }
-    //   this.customerService.updateCompany(data).subscribe(res => {
-    //     if (res != null) {
-    //       this.successMsg = "Company Successfully Updated..!";
-    //       this.getCompanyList();
-    //       this.closeModal();
-    //     }
-    //   }, error => {
-    //     this.errorMsg = error.error.errorMessage; "Company Unsuccessfully Updated..";
-    //   })
-    // }
+     updateCustomer() {
+       let data1 = {
+         companyID: this.customerUpdateData?.data.id,
+         companyName: this.customerForm.controls.companyName.value,
+         phoneNumber: this.customerForm.controls.phoneNumber.value
+       }
+       let data = {
+        id: this.customerUpdateData?.data.id,  
+        customerName: this.customerUpdateData.controls.customerName.value,
+        gstIn: this.customerForm.controls.gstIn.value,
+        location: this.customerForm.controls.cityName.value,
+        phoneNumber: this.customerForm.controls.phoneNumber.value,
+    };
 
-    // getCompanyList() {
-    //   this.customerService.getCompanyList().subscribe(data => {
-    //   }, error => console.log(error));
-    // }
+       this.customerService.updateCustomer(data).subscribe(res => {
+         if (res != null) {
+           this.successMsg = "Company Successfully Updated..!";
+           this.getCustomerList();
+           this.closeModal();
+         }
+       }, error => {
+         this.errorMsg = error.error.errorMessage; "Company Unsuccessfully Updated..";
+       })
+     }
+
+     getCustomerList() {
+       this.customerService.getCustomerList().subscribe(data => {
+       }, error => console.log(error));
+     }
 
     getlocationList() {
         this.location.getLocationList().subscribe(res => {

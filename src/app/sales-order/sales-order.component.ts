@@ -96,7 +96,6 @@ export class SalesOrderComponent implements OnInit {
     });
 
     if (isStockAvail) {
-      // console.log('this.salesOrderForm', this.salesOrderForm.value);
       const salesOrder: SalesOrder = new SalesOrder();
       const customerName = this.salesOrderForm.get('customerName').value;
       const customer = this._findCustomer(customerName);
@@ -107,6 +106,10 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.vehicleNo = this.salesOrderForm.get('motorVehicleNo').value;
       salesOrder.amountPaid = this.salesOrderForm.get('amountPaid').value;
       salesOrder.dueDate = this.salesOrderForm.get('dueDate').value;
+
+      if (customer === undefined) {
+        this.saveCustomer(customerName);
+      }
 
       if (salesOrder.currentBalance <= 0) {
         salesOrder.status = 'PAID';
@@ -124,6 +127,15 @@ export class SalesOrderComponent implements OnInit {
         },
           error => console.log(error));
     }
+  }
+
+  saveCustomer(customerName: string) {
+    let data = {
+      customerName: customerName,
+      gstIn: 'NA',
+      phoneNumber: 'NA'
+    };
+    this.customerService.createCustomer(data).subscribe();
   }
 
   refreshAfterSave() {

@@ -72,9 +72,17 @@
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Rate</th>
         <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
           <mat-form-field floatLabel="never">
-            <input matInput placeholder="Price" type="number" formControlName="price" required
-              class="text-right">
-            <span matPrefix>₹</span>
+            <input matInput type="number" formControlName="price" required class="text-right">
+            <span matPrefix>₹&nbsp;</span>
+            <mat-error *ngIf="element.get('price')?.hasError('required')">
+              Price is Required!
+            </mat-error>
+            <mat-error *ngIf="element.get('price')?.hasError('min')">
+              Price more than zero
+            </mat-error>
+            <mat-error *ngIf="element.get('price')?.hasError('max')">
+              Price can't be greater than 1 lakhs
+            </mat-error>
           </mat-form-field>
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
@@ -86,6 +94,15 @@
           <mat-form-field floatLabel="never" class="text-right">
             <input matInput [placeholder]="element.get('product')?.value?.qty" type="number"
               formControlName="qtyOrdered" required>
+            <mat-error *ngIf="element.get('qtyOrdered')?.hasError('required')">
+              Quantity is Required!
+            </mat-error>
+            <mat-error *ngIf="element.get('qtyOrdered')?.hasError('min')">
+              Quantity more than zero
+            </mat-error>
+            <mat-error *ngIf="element.get('qtyOrdered')?.hasError('max')">
+              Quantity can't be greater than 10 thousand
+            </mat-error>
           </mat-form-field>
         </td>
         <td mat-footer-cell *matFooterCellDef></td>

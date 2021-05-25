@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {HttpClientHelper} from '../_model/http-client-helper';
+import { Category } from '../_model/category';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +16,11 @@ export class CategoryService {
 
     getCategory(id: number): Observable<any> {
         return this.http.get(`${this.baseUrl}/${id}`);
+    }
+
+    getCategoryByName(categoryName: string): any {
+        const opts = { params: {'categoryName': categoryName}};
+        return this.http.get(`${this.baseUrl}/categoryName`, opts);
     }
 
     // tslint:disable-next-line: ban-types
