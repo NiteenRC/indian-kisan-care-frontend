@@ -1,28 +1,27 @@
-
 <ng-template #test>
   <table [dataSource]="dataSource[0]?.salesOrderDetail" mat-table>
     <ng-container matColumnDef="id">
       <th *matHeaderCellDef mat-header-cell>ID</th>
-      <td *matCellDef="let element" mat-cell> 
+      <td *matCellDef="let element" mat-cell>
         {{element.product?.id}}
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="productName">
       <th *matHeaderCellDef mat-header-cell>Product Name</th>
       <td *matCellDef="let element" mat-cell> {{element.product?.productName}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="salesPrice">
       <th *matHeaderCellDef mat-header-cell>Sales Price</th>
       <td *matCellDef="let element" mat-cell> {{element.salesPrice}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="qtyOrdered">
       <th *matHeaderCellDef mat-header-cell>Order Qty</th>
       <td *matCellDef="let element" mat-cell> {{element.qtyOrdered}} </td>
     </ng-container>
-  
+
     <tr *matHeaderRowDef="productColumns;  sticky: true" mat-header-row></tr>
     <tr *matRowDef="let row; columns: productColumns;" mat-row></tr>
   </table>
@@ -31,12 +30,9 @@
 <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
   <ng-container matColumnDef="salesOrderID">
     <th *matHeaderCellDef mat-header-cell>Sales Order ID</th>
-    <td *matCellDef="let element" mat-cell> 
-      <button type="button" class="btn"
-        [ngbPopover]="test"
-        [placement]="['right', 'auto']"
-        triggers="mouseenter:mouseleave"
-      >
+    <td *matCellDef="let element" mat-cell>
+      <button type="button" class="btn" [ngbPopover]="test" [placement]="['right', 'auto']"
+        triggers="mouseenter:mouseleave">
         {{element.salesOrderID}}
       </button>
     </td>
@@ -66,12 +62,12 @@
     <th *matHeaderCellDef mat-header-cell>Status</th>
     <td *matCellDef="let element" mat-cell> {{element.status}} </td>
   </ng-container>
-  
+
   <ng-container matColumnDef="totalQty">
     <th *matHeaderCellDef mat-header-cell>Total Qty</th>
     <td *matCellDef="let element" mat-cell> {{element.totalQty}} </td>
   </ng-container>
-  
+
   <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
   <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 </table>

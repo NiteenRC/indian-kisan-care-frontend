@@ -1,13 +1,13 @@
-import {Category} from './../../_model/category';
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {autocompleteStringValidator} from 'src/app/validators/category.validator';
-import {CategoryService} from 'src/app/_services/category.service';
-import {LocationService} from 'src/app/_services/location.service';
-import {ProductService} from 'src/app/_services/product.service';
+import { Category } from './../../_model/category';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { autocompleteStringValidator } from 'src/app/validators/category.validator';
+import { CategoryService } from 'src/app/_services/category.service';
+import { LocationService } from 'src/app/_services/location.service';
+import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
     selector: 'app-create-product',
@@ -28,10 +28,10 @@ export class CreateProductComponent implements OnInit {
     companies: any;
 
     constructor(private location: LocationService,
-                private productService: ProductService,
-                private categoryService: CategoryService,
-                public dialogRef: MatDialogRef<CreateProductComponent>,
-                @Inject(MAT_DIALOG_DATA) private data) {
+        private productService: ProductService,
+        private categoryService: CategoryService,
+        public dialogRef: MatDialogRef<CreateProductComponent>,
+        @Inject(MAT_DIALOG_DATA) private data) {
         this.productForm = new FormGroup({
             categoryName: new FormControl(null, [Validators.required]),
             productName: new FormControl(null, [Validators.required]),
@@ -61,12 +61,7 @@ export class CreateProductComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.filteredOptions = this.productForm.get('categoryName')!.valueChanges
-            .pipe(
-                startWith(''),
-                map(value => this._filter(value))
-            );
-        this.getCategoryList();
+        this.fetchData();
     }
 
     onSubmit() {
@@ -80,6 +75,12 @@ export class CreateProductComponent implements OnInit {
     addProduct() {
         const selectedCategoryName = this.productForm.controls.categoryName.value;
         const category = this._findCategory(selectedCategoryName);
+
+        if (category === undefined) {
+            alert('Please select valid Category');
+            return;
+        }
+
         let data = {
             productName: this.productForm.controls.productName.value,
             //price: this.productForm.controls.price.value,
@@ -97,7 +98,6 @@ export class CreateProductComponent implements OnInit {
         }, error => {
             this.errorMsg = error.error.errorMessage;
         });
-
     }
 
     updateProduct() {
@@ -130,12 +130,30 @@ export class CreateProductComponent implements OnInit {
         });
     }
 
+    fetchData() {
+        this.categoryService.getCategoryList().subscribe(data => {
+            this.listOfCategories = data;
+            this._valueChangesListner();
+        });
+    }
+
     private _filter(value: string): Category[] {
+        if (!value) {
+            return this.listOfCategories;
+        }
         const filterValue = value.toLowerCase();
-        return this.options.filter(option => option?.categoryName?.toLowerCase().includes(filterValue));
+        const supplierList = this.listOfCategories.filter(option => option.categoryName.toLowerCase().indexOf(filterValue) === 0)
+        return supplierList;
     }
 
     private _findCategory(categoryName: string) {
-        return this.options.find(option => option?.categoryName === categoryName);
+        return this.listOfCategories.find(option => option?.categoryName === categoryName);
+    }
+
+    private _valueChangesListner() {
+        this.filteredOptions = this.productForm.controls['categoryName'].valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value))
+        );
     }
 }

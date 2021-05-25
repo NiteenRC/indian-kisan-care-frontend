@@ -10,4 +10,6 @@ export class SalesOrder {
     currentBalance: number;
     previousBalance: number;
     salesOrderDetail: Array<SalesOrderDetail>;
+    vehicleNo: string;
+    dueDate: string;
 }

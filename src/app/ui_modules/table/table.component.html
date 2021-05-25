@@ -65,12 +65,12 @@
                             <div class="text-grey-m2">
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Bill Date:</span>
-                                    {{response?.supplier?.createdDate}}
+                                    {{(response?.createdDate | date: 'dd/MM/yyyy hh:mm:ss')}}
                                 </div>
 
                                 <div class="my-2">
-                                    <span class="text-600 text-90 font-weight-bold">Bill Number:</span>
-                                    {{response?.purchaseOrderID}}
+                                    <span class="text-600 text-90 font-weight-bold">Due Date:</span>
+                                    {{response?.dueDate | date: 'dd/MM/yyyy hh:mm:ss'}}
                                 </div>
 
                                 <div class="my-2">
@@ -82,7 +82,7 @@
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Motor Vehicle no:</span>
                                     <span class="text-600 text-90">
-                                        KA01 N2341
+                                        {{response?.vehicleNo}}
                                     </span>
                                 </div>
                             </div>
@@ -147,7 +147,8 @@
                                 </span>
                             </div>
                             <br>
-                            <div>
+                            
+                            <div *ngIf="user.bankAccount != null">
                             <div>
                                 <span class="text-sm text-grey-m2 align-middle font-weight-bold">{{user?.bankAccount?.bankName}}</span>
                             </div>
@@ -188,7 +189,7 @@
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Previous Balance: </span>
                                     <span class="text-600 text-90">
-                                        ₹{{(response?.previousBalance - (response?.currentBalance)).toLocaleString('en-IN') || 0 }}
+                                        ₹{{((response?.previousBalance - (response?.currentBalance)) >= 0 ? (response?.previousBalance - (response?.currentBalance)) : 0).toLocaleString('en-IN') || 0 }}
                                     </span>
                                 </div>
                                 <div class="my-2">

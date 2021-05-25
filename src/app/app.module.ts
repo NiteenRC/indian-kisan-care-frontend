@@ -42,6 +42,7 @@ import { CreateCategoryComponent } from './categories/create-category/create-cat
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import { TableComponent } from './ui_modules/table/table.component';
+import { SalesTableComponent } from './ui_modules/table/sales-table.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 import { PurchaseReportComponent } from './reports/purchase-report/purchase-report.component';
@@ -76,6 +77,7 @@ import { PurchaseReportComponent } from './reports/purchase-report/purchase-repo
     SupplierListComponent,
     LocationListComponent,
     TableComponent,
+    SalesTableComponent,
     ReportsComponent,
     SalesReportComponent,
     PurchaseReportComponent,

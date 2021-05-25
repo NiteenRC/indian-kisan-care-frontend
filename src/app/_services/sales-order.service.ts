@@ -21,7 +21,7 @@ export class SalesOrderService {
         return this.http.get(`${this.baseUrl}`);
     }
 
-    getSalesOrderBalanceByCustomer(customerID: any): any {
+    getSalesOrderBalaceByCustomer(customerID: any): any {
         return this.http.get(`${this.baseUrl}/customer/balance/${customerID}`);
     }
 

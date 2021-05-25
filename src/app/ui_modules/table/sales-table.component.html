@@ -1,0 +1,230 @@
+<div class="page-content container">
+    <div class="page-header text-blue-d2">
+        <div class="container px-0">
+            <div class="row pt-4">
+                <div class="col-12 col-lg-10 offset-lg-1">
+                    <div class="d-flex">
+                        <img src="/assets/images/logo.png" alt="image" class="logo">
+                        <div style="text-align: center; width: 55%">
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">
+                                    <h2> {{user?.brandName}} </h2>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle">GST: {{user?.gstNo}} | PAN:
+                                    {{user?.panNo}}
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle">P: {{user?.phoneNumber}} | E:
+                                    {{user?.email}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="row brc-default-l1 mx-n1 mb-4" />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="my-2">
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold my-2">
+                                    Customer Name:
+                                </span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    {{response?.customer?.customerName}}
+                                </span>
+                            </div>
+                            <div class="my-2">
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold my-2">
+                                    GSTIN/UIN:
+                                </span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    {{response?.customer?.gstIn}}
+                                </span>
+                            </div>
+
+                            <div class="my-2">
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold my-2">
+                                    Mobile Number:
+                                </span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    {{response?.customer?.phoneNumber}}
+                                </span>
+                            </div>
+                            <div class="my-2">
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold my-2">
+                                    Address:
+                                </span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    {{response?.customer?.location?.cityName}}
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+                            <hr class="d-sm-none" />
+                            <div class="text-grey-m2">
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Bill Date:</span>
+                                    {{(response?.createdDate | date: 'dd/MM/yyyy hh:mm:ss')}}
+                                </div>
+
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Due Date:</span>
+                                    {{response?.dueDate | date: 'dd/MM/yyyy hh:mm:ss'}}
+                                </div>
+
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Bill Status:</span>
+                                    <span class="text-600 text-90">
+                                        {{response?.status}}
+                                    </span>
+                                </div>
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Motor Vehicle no:</span>
+                                    <span class="text-600 text-90">
+                                        {{response?.vehicleNo}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- ----------------------------------------- -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">SI.<br>NO</th>
+                                <th scope="col">Item & Description</th>
+                                <th scope="col">HSN/SAC</th>
+                                <th scope="col">Rate</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">
+                                    <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
+                                </th>
+                                <th scope="col">Tax Amount</th>
+                                <th scope="col">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cart of response?.salesOrderDetail; index as i;">
+                                <td>{{i + 1}}.</td>
+                                <td>{{cart?.product?.productName}}</td>
+                                <td>{{cart?.product?.hsnNo}}</td>
+                                <td>₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>
+                                <td>{{cart?.qtyOrdered || 0}}</td>
+                                <td>₹{{(cart?.price * cart?.qtyOrdered).toLocaleString('en-IN') || 0}}</td>
+                                <td>{{cart?.product?.gst}}%</td>
+                                <td>₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
+                                </td>
+                                <td>
+                                    ₹{{(cart.price * cart.qtyOrdered + cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="8">Total</th>
+                                <th>₹{{totalPrice.toLocaleString('en-IN')}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span class="text-sm text-grey-m2 align-middle">Amount chargeable(in words):</span>
+                    <span class="text-lg text-grey-m2 align-middle font-weight-bold">
+                        {{ amountInWords }}
+                    </span>
+                    <hr>
+                    <!-- ---------------- -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">Payment Mode:</span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    Cash
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-grey-m2 align-middle font-weight-bold">PhonePe:</span>
+                                <span class="text-600 text-110 text-blue align-middle">
+                                    NA
+                                </span>
+                            </div>
+                            <br>
+
+                            <div *ngIf="user.bankAccount != null">
+                                <div>
+                                    <span
+                                        class="text-sm text-grey-m2 align-middle font-weight-bold">{{user?.bankAccount?.bankName}}</span>
+                                </div>
+                                <div>
+                                    <span class="text-sm text-grey-m2 align-middle font-weight-bold">A/c no:</span>
+                                    <span class="text-600 text-110 text-blue align-middle">
+                                        {{user?.bankAccount?.accountNo}}
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span class="text-sm text-grey-m2 align-middle font-weight-bold">Branch:</span>
+                                    <span class="text-600 text-110 text-blue align-middle">
+                                        {{user?.bankAccount?.branchName}}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="text-sm text-grey-m2 align-middle font-weight-bold">IFSC code:</span>
+                                    <span class="text-600 text-110 text-blue align-middle">
+                                        {{user?.bankAccount?.ifscCode}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+                            <hr class="d-sm-none" />
+                            <div class="text-grey-m2">
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Amount Paid: </span>
+                                    ₹{{response?.amountPaid.toLocaleString('en-IN') || 0 }}
+                                </div>
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Current Balance: </span>
+                                    ₹{{response?.currentBalance.toLocaleString('en-IN') || 0 }}
+                                </div>
+
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Previous Balance: </span>
+                                    <span class="text-600 text-90">
+                                        ₹{{((response?.previousBalance - (response?.currentBalance)) >= 0 ? (response?.previousBalance - (response?.currentBalance)) : 0).toLocaleString('en-IN') || 0 }}
+                                    </span>
+                                </div>
+                                <div class="my-2">
+                                    <span class="text-600 text-90 font-weight-bold">Total Pay Balance:</span>
+                                    <span class="text-600 text-90">
+                                        ₹{{response?.previousBalance.toLocaleString('en-IN') || 0 }}
+                                    </span>
+                                </div>
+
+                                <br><br><br>
+                                <div style="text-align: center;">
+                                    <div class="my-2">
+                                        <span class="text-600 text-90 font-weight-bold">Authorised Signatory</span>
+                                    </div>
+                                    <div class="my-2">
+                                        <span class="text-600 text-90 font-weight-bold">({{user?.brandName}})</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- --------------------- -->
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-10 offset-lg-1">
+                <hr>
+                <div style="text-align: center;">
+                    <span class="text-300 text-30">This is a computer generated invoice</span>
+                </div>
+                <div style="text-align: center;" class="print-btn">
+                    <button (click)="printPDF()">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -9,10 +9,9 @@
     <form [formGroup]="productForm">
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input formControlName="categoryName" [matAutocomplete]="auto" aria-label="Number" matInput
-                       placeholder="Category"
-                       type="text">
-                <mat-autocomplete #auto="matAutocomplete">
+                <input formControlName="categoryName" [matAutocomplete]="supplierAuto" aria-label="Number" matInput
+                    placeholder="Category" type="text">
+                <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption>
                     <mat-option *ngFor="let option of filteredOptions | async" [value]="option?.categoryName">
                         {{option?.categoryName}}
                     </mat-option>
@@ -38,13 +37,11 @@
             <br>
         </div>
         <div class="button-container">
-            <button (click)="closeModal()" aria-label="Close"
-                    class="btn btn-danger"
-                    style="width: 25%;margin-left: 5px;border-radius: 10px;">Cancel
+            <button (click)="closeModal()" aria-label="Close" class="btn btn-warning"
+                style="width: 25%;margin-left: 5px;">Cancel
             </button>
-            <button (click)="onSubmit()" [disabled]="!productForm.valid"
-                    class="btn btn-primary"
-                    style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
+            <button (click)="onSubmit()" [disabled]="!productForm.valid" class="btn btn-primary"
+                style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
             </button>
         </div>
         <div class="button-container">

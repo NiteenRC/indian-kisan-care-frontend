@@ -1,4 +1,5 @@
 import { TableComponent } from './ui_modules/table/table.component';
+import { SalesTableComponent } from './ui_modules/table/sales-table.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { CreateProductComponent } from './create-product/create-product.component';
@@ -65,6 +66,7 @@ export const routes: Routes = [
     ]
     },
   { path: 'table', component: TableComponent },
+  { path: 'salesTable', component: SalesTableComponent },
   { path: '**', redirectTo: '404', pathMatch: 'full'},
 ];
 
