@@ -77,8 +77,11 @@
             <mat-error *ngIf="element.get('price')?.hasError('required')">
               Price is Required!
             </mat-error>
+            <mat-error *ngIf="element.get('price')?.hasError('min')">
+              Price more than zero
+            </mat-error>
             <mat-error *ngIf="element.get('price')?.hasError('max')">
-              Price can't be greater than 10 LAKHS
+              Price can't be greater than ten lakhs
             </mat-error>
           </mat-form-field>
         </td>
@@ -93,8 +96,11 @@
             <mat-error *ngIf="element.get('qtyOrdered')?.hasError('required')">
               Quantity is Required!
             </mat-error>
+            <mat-error *ngIf="element.get('qtyOrdered')?.hasError('min')">
+              Quantity more than zero
+            </mat-error>
             <mat-error *ngIf="element.get('qtyOrdered')?.hasError('max')">
-              Quantity can't be greater than 10 LAKHS
+              Quantity can't be greater than ten lakhs
             </mat-error>
           </mat-form-field>
         </td>
