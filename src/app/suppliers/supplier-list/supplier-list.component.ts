@@ -31,7 +31,7 @@ export class SupplierListComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(CreateSupplierComponent, {
             width: '550px',
-            // data: {name: this.name, animal: this.animal}
+            disableClose: true
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
@@ -59,6 +59,7 @@ export class SupplierListComponent implements OnInit {
     updateSuppliers(updateSupplier): void {
         const dialogRef = this.dialog.open(CreateSupplierComponent, {
             width: '550px',
+            disableClose: true,
             data: {data: updateSupplier}
         });
         dialogRef.afterClosed().subscribe(result => {

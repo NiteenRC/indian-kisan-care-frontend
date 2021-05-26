@@ -31,6 +31,7 @@ export class LocationListComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(CreateLocationComponent, {
             width: '550px',
+            disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -42,6 +43,7 @@ export class LocationListComponent implements OnInit {
     updateLocationModal(updateLocationModal): void {
         const dialogRef = this.dialog.open(CreateLocationComponent, {
             width: '550px',
+            disableClose: true,
             data: {data: updateLocationModal}
         });
 

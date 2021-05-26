@@ -31,6 +31,7 @@ export class CompanyListComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(CreateCompanyComponent, {
             width: '550px',
+            disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -42,6 +43,7 @@ export class CompanyListComponent implements OnInit {
     updateComapny(updateComapny): void {
         const dialogRef = this.dialog.open(CreateCompanyComponent, {
             width: '550px',
+            disableClose: true,
             data: {data: updateComapny}
         });
 

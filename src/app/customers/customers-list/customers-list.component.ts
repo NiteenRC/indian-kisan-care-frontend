@@ -31,6 +31,7 @@ export class CustomersListComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(CreateCustomerComponent, {
             width: '550px',
+            disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -42,6 +43,7 @@ export class CustomersListComponent implements OnInit {
     updateCustomer(updateCustomer): void {
         const dialogRef = this.dialog.open(CreateCustomerComponent, {
             width: '550px',
+            disableClose: true,
             data: {data: updateCustomer}
         });
 

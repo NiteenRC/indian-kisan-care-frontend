@@ -30,6 +30,7 @@ export class CategoryListComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateCategoryComponent, {
       width: '550px',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -41,6 +42,7 @@ export class CategoryListComponent implements OnInit {
   updateCategory(updateCategory): void {
     const dialogRef = this.dialog.open(CreateCategoryComponent, {
       width: '550px',
+      disableClose: true,
       data: { data: updateCategory }
     });
 

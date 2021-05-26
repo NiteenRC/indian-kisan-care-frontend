@@ -25,7 +25,6 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         this.getProductList();
     }
 
@@ -39,7 +38,8 @@ export class ProductListComponent implements OnInit {
 
     createProduct(): void {
         const dialogRef = this.dialog.open(CreateProductComponent, {
-            width: '550px'
+            width: '550px',
+            disableClose: true
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
@@ -50,6 +50,7 @@ export class ProductListComponent implements OnInit {
     updateProduct(updateProduct): void {
         const dialogRef = this.dialog.open(CreateProductComponent, {
           width: '550px',
+          disableClose: true,
           data: { data: updateProduct }
         });
     
@@ -66,7 +67,6 @@ export class ProductListComponent implements OnInit {
           },
           error => console.log(error));
       }
-
 }
 
 
