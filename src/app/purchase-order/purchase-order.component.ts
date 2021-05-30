@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
-import { Product } from './../_model/product';
+import { Product } from '../_model/product';
 import { Observable } from 'rxjs';
 import { ProductService } from '../_services/product.service';
 import { PurchaseOrder } from '../_model/purchaseOrder';

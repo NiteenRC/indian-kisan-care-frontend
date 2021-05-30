@@ -2,7 +2,6 @@ import { TableComponent } from './ui_modules/table/table.component';
 import { SalesTableComponent } from './ui_modules/table/sales-table.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
-import { CreateProductComponent } from './create-product/create-product.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 
@@ -39,7 +38,6 @@ export const routes: Routes = [
     children : [
       { path: 'dashboard2', component: DashboardCategoriesComponent, canActivate: [ AuthGuard] },
       { path: 'products', component: ProductListComponent, canActivate: [ AuthGuard] },
-      { path: 'add', component: CreateProductComponent },
       { path: 'category', component: CreateCategoryComponent },
       { path: 'purchaseOrder', component: PurchaseOrderComponent },
       { path: 'salesOrder', component: SalesOrderComponent },
