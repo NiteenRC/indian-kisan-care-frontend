@@ -96,37 +96,53 @@ export class SalesOrderComponent implements OnInit {
     });
 
     if (isStockAvail) {
-      const salesOrder: SalesOrder = new SalesOrder();
+      this.fetchData();
       const customerName = this.salesOrderForm.get('customerName').value;
-      const customer = this._findCustomer(customerName);
-      salesOrder.customer = customer;
-      salesOrder.currentBalance = this.getCurrentBalance();
-      salesOrder.salesOrderDetail = this.salesOrderDetailArr.value;
-      salesOrder.totalPrice = this.totalAmount;
-      salesOrder.vehicleNo = this.salesOrderForm.get('motorVehicleNo').value;
-      salesOrder.amountPaid = this.salesOrderForm.get('amountPaid').value;
-      salesOrder.dueDate = this.salesOrderForm.get('dueDate').value;
+      let customer = this._findCustomer(customerName);
 
       if (customer === undefined) {
         this.saveCustomer(customerName);
-      }
 
-      if (salesOrder.currentBalance <= 0) {
-        salesOrder.status = 'PAID';
-      } else if (salesOrder.amountPaid > 0) {
-        salesOrder.status = 'PARTIAL';
+        setTimeout(() => {
+          customer = this.customerService.getCustomerByName(customerName).subscribe(res => {
+            if (res != null) {
+              this.addSalesOrder(res);
+            }
+          }, error => {
+            console.log(error.error.errorMessage);
+          });
+        }, 500);
       } else {
-        salesOrder.status = 'DUE';
+        this.addSalesOrder(customer);
       }
-
-      this.salesOrderService
-        .createSalesOrder(salesOrder).subscribe(data => {
-          console.log(data);
-          this._printPdf(data);
-          this.refreshAfterSave();
-        },
-          error => console.log(error));
     }
+  }
+
+  addSalesOrder(customer: Customer) {
+    const salesOrder: SalesOrder = new SalesOrder();
+    salesOrder.customer = customer;
+    salesOrder.currentBalance = this.getCurrentBalance();
+    salesOrder.salesOrderDetail = this.salesOrderDetailArr.value;
+    salesOrder.totalPrice = this.totalAmount;
+    salesOrder.vehicleNo = this.salesOrderForm.get('motorVehicleNo').value;
+    salesOrder.amountPaid = this.salesOrderForm.get('amountPaid').value;
+    salesOrder.dueDate = this.salesOrderForm.get('dueDate').value;
+
+    if (salesOrder.currentBalance <= 0) {
+      salesOrder.status = 'PAID';
+    } else if (salesOrder.amountPaid > 0) {
+      salesOrder.status = 'PARTIAL';
+    } else {
+      salesOrder.status = 'DUE';
+    }
+
+    this.salesOrderService
+      .createSalesOrder(salesOrder).subscribe(data => {
+        console.log(data);
+        this._printPdf(data);
+        this.refreshAfterSave();
+      },
+        error => console.log(error));
   }
 
   saveCustomer(customerName: string) {
@@ -135,7 +151,7 @@ export class SalesOrderComponent implements OnInit {
       gstIn: 'NA',
       phoneNumber: 'NA'
     };
-    this.customerService.createCustomer(data).subscribe();
+    this.customerService.createCustomerSales(data).subscribe();
   }
 
   refreshAfterSave() {
@@ -159,10 +175,14 @@ export class SalesOrderComponent implements OnInit {
 
   private _filterCustomer(value: string): Customer[] {
     if (!value) {
+      this.previousBalance = 0.00;
       return this.customers;
     }
     const filterValue = value.toLowerCase();
     const customerList = this.customers.filter(option => option.customerName.toLowerCase().indexOf(filterValue) === 0)
+    if (customerList.length == 0) {
+      this.previousBalance = 0.00;
+    }
     return customerList;
   }
 

@@ -34,4 +34,13 @@ export class SupplierService {
     getSupplierList(): Observable<any> {
         return this.http.get(`${this.baseUrl}`);
     }
+
+    createSupplierPurchase(supplier: Object): Observable<Object> {
+        return this.http.post(`${this.baseUrl}/purchase`, supplier);
+    }
+    
+    getSupplierByName(supplierName: string): any {
+        const opts = { params: {'supplierName': supplierName}};
+        return this.http.get(`${this.baseUrl}/supplierName`, opts);
+    }
 }

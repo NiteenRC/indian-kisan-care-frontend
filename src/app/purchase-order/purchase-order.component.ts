@@ -82,15 +82,29 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   save() {
-    // console.log('this.purchaserOrderForm', this.purchaserOrderForm.value);
-    const purchaseOrder: PurchaseOrder = new PurchaseOrder();
+    this.fetchData();
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
-    const supplier = this._findSupplier(supplierName);
+    let supplier = this._findSupplier(supplierName);
 
     if (supplier === undefined) {
       this.saveSupplier(supplierName);
-    }
 
+      setTimeout(() => {
+        supplier = this.supplierService.getSupplierByName(supplierName).subscribe(res => {
+          if (res != null) {
+            this.addPurchaseOrder(res);
+          }
+        }, error => {
+          console.log(error.error.errorMessage);
+        });
+      }, 500);
+    } else {
+      this.addPurchaseOrder(supplier);
+    }
+  }
+
+  addPurchaseOrder(supplier: Supplier) {
+    const purchaseOrder: PurchaseOrder = new PurchaseOrder();
     purchaseOrder.supplier = supplier;
     purchaseOrder.currentBalance = this.getCurrentBalance();
     purchaseOrder.purchaseOrderDetail = this.purchaseOrderDetailArr.value;
@@ -122,7 +136,7 @@ export class PurchaseOrderComponent implements OnInit {
       gstIn: 'NA',
       phoneNumber: 'NA'
     };
-    this.supplierService.createSupplier(data).subscribe();
+    this.supplierService.createSupplierPurchase(data).subscribe();
   }
 
   refreshAfterSave() {
@@ -146,10 +160,14 @@ export class PurchaseOrderComponent implements OnInit {
 
   private _filterSupplier(value: string): Supplier[] {
     if (!value) {
+      this.previousBalance = 0.00;
       return this.suppliers;
     }
     const filterValue = value.toLowerCase();
     const supplierList = this.suppliers.filter(option => option.supplierName.toLowerCase().indexOf(filterValue) === 0)
+    if (supplierList.length == 0) {
+      this.previousBalance = 0.00;
+    }
     return supplierList;
   }
 
@@ -223,5 +241,4 @@ export class PurchaseOrderComponent implements OnInit {
   get amountPaid() {
     return this.purchaserOrderForm.get('amountPaid') as FormControl;
   }
-
 }

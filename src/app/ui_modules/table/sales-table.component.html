@@ -197,7 +197,7 @@
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Total Pay Balance:</span>
                                     <span class="text-600 text-90">
-                                        ₹{{response?.previousBalance.toLocaleString('en-IN') || 0 }}
+                                        ₹{{(response?.previousBalance == 0 ? response?.currentBalance : response?.previousBalance).toLocaleString('en-IN') || 0 }}
                                     </span>
                                 </div>
 

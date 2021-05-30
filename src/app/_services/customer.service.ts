@@ -34,4 +34,13 @@ export class CustomerService {
     getCustomerList(): Observable<any> {
         return this.http.get(`${this.baseUrl}`);
     }
+
+    createCustomerSales(customer: Object): Observable<Object> {
+        return this.http.post(`${this.baseUrl}/sales`, customer);
+    }
+    
+    getCustomerByName(customerName: string): any {
+        const opts = { params: {'customerName': customerName}};
+        return this.http.get(`${this.baseUrl}/customerName`, opts);
+    }
 }

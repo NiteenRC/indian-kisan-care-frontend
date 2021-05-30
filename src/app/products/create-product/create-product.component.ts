@@ -78,11 +78,16 @@ export class CreateProductComponent implements OnInit {
 
         if (category === undefined) {
             this.saveCategory(categoryName);
-            this.categoryService.getCategoryByName(categoryName).subscribe(res => {
-                this.addProductCategory(res);
-            }, error => {
-                this.errorMsg = error.error.errorMessage;
-            });
+
+            setTimeout(() => {
+                this.categoryService.getCategoryByName(categoryName).subscribe(res => {
+                    if (res != null) {
+                        this.addProductCategory(res);
+                    }
+                }, error => {
+                    console.log(error.error.errorMessage);
+                });
+            }, 500);
         } else {
             this.addProductCategory(category);
         }
