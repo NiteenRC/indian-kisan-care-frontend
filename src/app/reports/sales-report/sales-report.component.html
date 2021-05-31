@@ -1,36 +1,36 @@
-<ng-template #test>
-  <table [dataSource]="dataSource[0]?.salesOrderDetail" mat-table>
-    <ng-container matColumnDef="id">
-      <th *matHeaderCellDef mat-header-cell>ID</th>
-      <td *matCellDef="let element" mat-cell>
-        {{element.product?.id}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="productName">
-      <th *matHeaderCellDef mat-header-cell>Product Name</th>
-      <td *matCellDef="let element" mat-cell> {{element.product?.productName}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="salesPrice">
-      <th *matHeaderCellDef mat-header-cell>Sales Price</th>
-      <td *matCellDef="let element" mat-cell> {{element.salesPrice}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="qtyOrdered">
-      <th *matHeaderCellDef mat-header-cell>Order Qty</th>
-      <td *matCellDef="let element" mat-cell> {{element.qtyOrdered}} </td>
-    </ng-container>
-
-    <tr *matHeaderRowDef="productColumns;  sticky: true" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: productColumns;" mat-row></tr>
-  </table>
-</ng-template>
-
 <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
   <ng-container matColumnDef="salesOrderID">
     <th *matHeaderCellDef mat-header-cell>Sales Order ID</th>
-    <td *matCellDef="let element" mat-cell>
+    <td *matCellDef="let element; let i=index" mat-cell>
+      <ng-template #test>
+        <table [dataSource]="dataSource[i]?.salesOrderDetail" mat-table class="mat-elevation-z2">
+          <ng-container matColumnDef="id">
+            <th *matHeaderCellDef mat-header-cell>ID</th>
+            <td *matCellDef="let element" mat-cell>
+              {{element.product?.id}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="productName">
+            <th *matHeaderCellDef mat-header-cell>Product Name</th>
+            <td *matCellDef="let element" mat-cell> {{element.product?.productName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="salesPrice">
+            <th *matHeaderCellDef mat-header-cell class="text-right">Sales Price</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.price}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="qtyOrdered">
+            <th *matHeaderCellDef mat-header-cell class="text-right">Order Qty</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.qtyOrdered}} </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="productColumns;  sticky: true" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: productColumns;" mat-row></tr>
+        </table>
+      </ng-template>
+
       <button type="button" class="btn" [ngbPopover]="test" [placement]="['right', 'auto']"
         triggers="mouseenter:mouseleave">
         {{element.salesOrderID}}
@@ -44,13 +44,13 @@
   </ng-container>
 
   <ng-container matColumnDef="amountPaid">
-    <th *matHeaderCellDef mat-header-cell>Amount Paid</th>
-    <td *matCellDef="let element" mat-cell> {{element.amountPaid}} </td>
+    <th *matHeaderCellDef mat-header-cell class="text-right">Amount Paid</th>
+    <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid}} </td>
   </ng-container>
 
   <ng-container matColumnDef="totalPrice">
-    <th *matHeaderCellDef mat-header-cell>Total Price</th>
-    <td *matCellDef="let element" mat-cell> {{element.totalPrice}} </td>
+    <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Total Price</th>
+    <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.totalPrice}} </td>
   </ng-container>
 
   <ng-container matColumnDef="createdDate">
@@ -64,8 +64,8 @@
   </ng-container>
 
   <ng-container matColumnDef="totalQty">
-    <th *matHeaderCellDef mat-header-cell>Total Qty</th>
-    <td *matCellDef="let element" mat-cell> {{element.totalQty}} </td>
+    <th *matHeaderCellDef mat-header-cell class="text-right">Total Qty</th>
+    <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalQty}} </td>
   </ng-container>
 
   <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>

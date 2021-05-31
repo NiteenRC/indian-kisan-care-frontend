@@ -231,7 +231,8 @@ export class SalesReportComponent implements OnInit {
 
   getSalesOrderList() {
     this.salesOrderService.getSalesOrderList().subscribe(res => {
-        // this.dataSource = res;
+        this.dataSource = res;
+        console.log('res', res);
     }, error => console.log(error));
 }
 
