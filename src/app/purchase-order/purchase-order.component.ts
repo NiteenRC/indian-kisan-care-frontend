@@ -111,7 +111,7 @@ export class PurchaseOrderComponent implements OnInit {
     purchaseOrder.totalPrice = this.totalAmount;
     purchaseOrder.vehicleNo = this.purchaserOrderForm.get('motorVehicleNo').value;
     purchaseOrder.amountPaid = this.purchaserOrderForm.get('amountPaid').value;
-    purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value;
+    purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value.getTime();
 
     if (purchaseOrder.currentBalance <= 0) {
       purchaseOrder.status = 'PAID';
