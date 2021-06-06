@@ -63,7 +63,10 @@ export class SalesReportComponent implements OnInit {
       const startTime = start.getTime();
       const endTime = end.getTime();
       // console.log('date===', startTime, endTime, new Date(startTime), new Date(endTime));
-      filteredData = filteredData.filter(salesReport => salesReport?.dueDate >= startTime && endTime <= salesReport?.dueDate);
+      filteredData = filteredData.filter(salesReport => {
+        const dueDateTime = new Date(salesReport?.dueDate).getTime();
+        return dueDateTime >= startTime && dueDateTime <= endTime
+      });
     }
 
     if (searchText) {
