@@ -37,7 +37,7 @@ export class CreateProductComponent implements OnInit {
             productName: new FormControl(null, [Validators.required]),
             //price: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
             gst: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(0)]),
-            hsnNo: new FormControl(null, [Validators.required]),
+            hsnNo: new FormControl(null),
             //qty: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
         });
 
@@ -76,32 +76,24 @@ export class CreateProductComponent implements OnInit {
         const categoryName = this.productForm.controls.categoryName.value;
         let category = this._findCategory(categoryName);
 
-        if (category === undefined) {
-            this.saveCategory(categoryName);
-
-            setTimeout(() => {
-                this.categoryService.getCategoryByName(categoryName).subscribe(res => {
-                    if (res != null) {
-                        this.addProductCategory(res);
-                    }
-                }, error => {
-                    console.log(error.error.errorMessage);
-                });
-            }, 500);
-        } else {
-            this.addProductCategory(category);
+        if (category == undefined) {
+            category = { 'categoryName': categoryName };
         }
-    }
 
-    addProductCategory(category: string) {
+        let hsnNo = this.productForm.controls.hsnNo.value;
+        if (hsnNo === null) {
+            hsnNo = 'NA';
+        }
+
         let data = {
             productName: this.productForm.controls.productName.value,
             //price: this.productForm.controls.price.value,
             gst: this.productForm.controls.gst.value,
-            hsnNo: this.productForm.controls.hsnNo.value,
+            hsnNo: hsnNo,
             //qty: this.productForm.controls.qty.value,
             category: category
         };
+
         this.productService.createProduct(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Product Successfully Updated..!';

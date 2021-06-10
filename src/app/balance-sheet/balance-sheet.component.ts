@@ -1,12 +1,11 @@
 import { PurchaseOrderService } from '../_services/purchase-order.service';
-import { Observable } from 'rxjs';
 import { SalesOrderService } from '../_services/sales-order.service';
-import { Component, OnInit } from '@angular/core';
-import { CustomerBalanceSheet } from '../_model/customer-balance-sheet';
-import { Customer } from '../_model/customer';
-import { SupplierBalanceSheet } from '../_model/supplier-balance-sheet';
-import { Supplier } from '../_model/supplier';
-import { Location } from '../_model/location';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UpdateBalanceSheetComponent } from './update-balance-sheet/update-balance-sheet.component';
 
 @Component({
   selector: 'app-balance-sheet',
@@ -14,24 +13,97 @@ import { Location } from '../_model/location';
   styleUrls: ['./balance-sheet.component.css']
 })
 export class BalanceSheetComponent implements OnInit {
-  customerBalanceSheets: Observable<CustomerBalanceSheet>;
-  customerBalanceSheet = new CustomerBalanceSheet();
-  customer = new Customer();
-  location = new Location();
+  displayedColumns: string[] = ['customerName', 'status', 'totalPrice', 'amountPaid', 'dueAmount', 'billDate', 'dueDate', 'action'];
 
-  supplierBalanceSheets: Observable<SupplierBalanceSheet>;
-  SupplierBalanceSheet = new SupplierBalanceSheet();
-  supplier = new Supplier();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource: any;
 
-  constructor(private salesOrderService: SalesOrderService, private purchaseOrderService: PurchaseOrderService) { }
+  searchText: string;
 
-  ngOnInit() {
-    this.reloadData();
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
+
+  salesReports;
+
+  constructor(private dialog: MatDialog, private salesOrderService: SalesOrderService, private purchaseOrderService: PurchaseOrderService) { }
+
+  ngOnInit(): void {
+    this.getSalesOrderList();
+    this.range.valueChanges.subscribe(dateRange => {
+      if (this.range.valid) {
+        this.searchData();
+      }
+    })
   }
 
-  reloadData() {
-    this.customerBalanceSheets = this.salesOrderService.getAllCustomerSalesOrderBalanceSheet();
-    this.supplierBalanceSheets = this.purchaseOrderService.getAllSupplierPurchaseOrderBalanceSheet();
+  getSalesOrderList() {
+    this.salesOrderService.getAllCustomerSalesOrderBalanceSheet().subscribe(res => {
+      this.salesReports = res;
+      this._setData(res);
+    }, error => console.log(error));
   }
 
+  clearCustomerSearch() {
+    this.searchText = '';
+    this._setData(this.salesReports);
+  }
+
+  clearDate() {
+    this.range.reset();
+  }
+
+  searchData() {
+    const searchText = this.searchText;
+    const { start, end } = this.range.value || {};
+    let filteredData = this.salesReports;
+
+    if (start && end) {
+      const startTime = start.getTime();
+      const endTime = end.getTime();
+      // console.log('date===', startTime, endTime, new Date(startTime), new Date(endTime));
+      filteredData = filteredData.filter(salesReport => {
+        const dueDateTime = new Date(salesReport?.dueDate).getTime();
+        return dueDateTime >= startTime && dueDateTime <= endTime
+      });
+    }
+
+    if (searchText) {
+      filteredData = filteredData.filter(salesReport => salesReport?.customer?.customerName?.toLowerCase().indexOf(searchText?.toLowerCase()) > -1);
+    }
+    this._setData(filteredData);
+  }
+
+  private _setData(data) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+  }
+
+  pay(index: number) {
+    alert('s')
+    //this.salesOrderDetailArr.removeAt(index);
+    //this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+  }
+
+  updateBalance(updateBalance): void {
+    const dialogRef = this.dialog.open(UpdateBalanceSheetComponent, {
+      width: '450px',
+      disableClose: true,
+      data: { data: updateBalance }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getProductList();
+    });
+  }
+
+  getProductList() {
+    this.salesOrderService.getAllCustomerSalesOrderBalanceSheet().subscribe(res => {
+      this.dataSource = res;
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+    }, error => console.log(error));
+  }
 }

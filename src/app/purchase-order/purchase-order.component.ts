@@ -64,7 +64,11 @@ export class PurchaseOrderComponent implements OnInit {
 
   fetchData() {
     this.supplierService.getSupplierList().subscribe(data => {
-      this.suppliers = data;
+      data.forEach(x => {
+        if (x.supplierName != '' && !x.supplierName.startsWith('Unknown')) {
+          this.suppliers.push(x);
+        }
+      });
     });
 
     this.productService.getProductsList().subscribe(data => {
@@ -82,38 +86,24 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   save() {
-    this.fetchData();
+    //this.fetchData();
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
     let supplier = this._findSupplier(supplierName);
 
-    if (supplier === undefined) {
-      this.saveSupplier(supplierName);
-
-      setTimeout(() => {
-        supplier = this.supplierService.getSupplierByName(supplierName).subscribe(res => {
-          if (res != null) {
-            this.addPurchaseOrder(res);
-          }
-        }, error => {
-          console.log(error.error.errorMessage);
-        });
-      }, 500);
-    } else {
-      this.addPurchaseOrder(supplier);
-    }
-  }
-
-  addPurchaseOrder(supplier: Supplier) {
     const purchaseOrder: PurchaseOrder = new PurchaseOrder();
+    if(supplier === undefined){
+      supplier = this.saveSupplier(supplierName);
+    }
     purchaseOrder.supplier = supplier;
     purchaseOrder.currentBalance = this.getCurrentBalance();
     purchaseOrder.purchaseOrderDetail = this.purchaseOrderDetailArr.value;
     purchaseOrder.totalPrice = this.totalAmount;
     purchaseOrder.vehicleNo = this.purchaserOrderForm.get('motorVehicleNo').value;
     purchaseOrder.amountPaid = this.purchaserOrderForm.get('amountPaid').value;
-    purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value.getTime();
+    purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value?.getTime();;
+    purchaseOrder.billDate = this.purchaserOrderForm.get('billDate').value?.getTime();;
 
-    if (purchaseOrder.currentBalance <= 0) {
+    if (this.getTotalBalance() <= 0) {
       purchaseOrder.status = 'PAID';
     } else if (purchaseOrder.amountPaid > 0) {
       purchaseOrder.status = 'PARTIAL';
@@ -130,13 +120,13 @@ export class PurchaseOrderComponent implements OnInit {
         error => console.log(error));
   }
 
-  saveSupplier(supplierName: string) {
+  saveSupplier(supplierName: string) :any {
     let data = {
       supplierName: supplierName,
       gstIn: 'NA',
       phoneNumber: 'NA'
     };
-    this.supplierService.createSupplierPurchase(data).subscribe();
+    return data;;
   }
 
   refreshAfterSave() {
@@ -153,7 +143,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   private _printPdf(response) {
-    const url = `${location.origin}/#table`;
+    const url = `${location.origin}/praveen-traders/#table`;
     const myWindow = window.open(url);
     myWindow['response'] = response;
   }
@@ -189,8 +179,8 @@ export class PurchaseOrderComponent implements OnInit {
 
   private _initRow(product) {
     return this._fb.group({
-      price: [0, [Validators.required, Validators.min(1), Validators.max(100000)]],
-      qtyOrdered: [0, [Validators.required, Validators.min(1), Validators.max(10000)]],
+      price: [, [Validators.required, Validators.min(1), Validators.max(100000)]],
+      qtyOrdered: [, [Validators.required, Validators.min(1), Validators.max(10000)]],
       product: [product]
     });
   }
@@ -228,9 +218,10 @@ export class PurchaseOrderComponent implements OnInit {
       supplierName: [''],
       productName: [''],
       motorVehicleNo: [''],
+      billDate: [new Date()],
       dueDate: [new Date()],
       purchaseOrderDetail: this._fb.array([]),
-      amountPaid: [0],
+      amountPaid: [],
     });
   }
 

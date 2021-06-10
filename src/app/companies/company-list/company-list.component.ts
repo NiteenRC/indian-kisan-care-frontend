@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {CompanyService} from 'src/app/_services/company.service';
-import {CustomerService} from 'src/app/_services/customer.service';
-import {CreateCompanyComponent} from '../create-company/create-company.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { CompanyService } from 'src/app/_services/company.service';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { CreateCompanyComponent } from '../create-company/create-company.component';
 
 @Component({
     selector: 'app-company-list',
@@ -44,7 +44,7 @@ export class CompanyListComponent implements OnInit {
         const dialogRef = this.dialog.open(CreateCompanyComponent, {
             width: '550px',
             disableClose: true,
-            data: {data: updateComapny}
+            data: { data: updateComapny }
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -66,6 +66,9 @@ export class CompanyListComponent implements OnInit {
             response => {
                 this.getCompanyList();
             },
-            error => console.log(error));
+            error => {
+                console.log(error)
+                alert(JSON.parse(error.error).errorMessage);
+            });
     }
 }

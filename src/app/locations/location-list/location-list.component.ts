@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {CustomerService} from 'src/app/_services/customer.service';
-import {LocationService} from 'src/app/_services/location.service';
-import {CreateLocationComponent} from '../create-location/create-location.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { LocationService } from 'src/app/_services/location.service';
+import { CreateLocationComponent } from '../create-location/create-location.component';
 
 @Component({
     selector: 'app-location-list',
@@ -44,7 +44,7 @@ export class LocationListComponent implements OnInit {
         const dialogRef = this.dialog.open(CreateLocationComponent, {
             width: '550px',
             disableClose: true,
-            data: {data: updateLocationModal}
+            data: { data: updateLocationModal }
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -66,6 +66,9 @@ export class LocationListComponent implements OnInit {
             response => {
                 this.getLocationList();
             },
-            error => console.log(error));
+            error => {
+                console.log(error)
+                alert(JSON.parse(error.error).errorMessage);
+            });
     }
 }

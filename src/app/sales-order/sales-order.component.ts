@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
-import { Product } from './../_model/product';
+import { Product } from '../_model/product';
 import { Observable } from 'rxjs';
 import { ProductService } from '../_services/product.service';
 import { SalesOrder } from '../_model/sales-order';
@@ -54,6 +54,13 @@ export class SalesOrderComponent implements OnInit {
 
   selectedProduct(selectedProduct: string) {
     const product = this._findProduct(selectedProduct);
+    if (product.qty <= 0) {
+      alert('Stock is not avaiable');
+      // this.salesOrderForm = this._fb.group({
+      //productName: ['']
+      //});
+      return;
+    }
     this._addProduct(product);
   }
 
@@ -64,7 +71,11 @@ export class SalesOrderComponent implements OnInit {
 
   fetchData() {
     this.customerService.getCustomerList().subscribe(data => {
-      this.customers = data;
+      data.forEach(x => {
+        if (x.customerName != '' && !x.customerName.startsWith('Unknown')) {
+          this.customers.push(x);
+        }
+      });
     });
 
     this.productService.getProductsList().subscribe(data => {
@@ -96,62 +107,47 @@ export class SalesOrderComponent implements OnInit {
     });
 
     if (isStockAvail) {
-      this.fetchData();
       const customerName = this.salesOrderForm.get('customerName').value;
       let customer = this._findCustomer(customerName);
 
       if (customer === undefined) {
-        this.saveCustomer(customerName);
-
-        setTimeout(() => {
-          customer = this.customerService.getCustomerByName(customerName).subscribe(res => {
-            if (res != null) {
-              this.addSalesOrder(res);
-            }
-          }, error => {
-            console.log(error.error.errorMessage);
-          });
-        }, 500);
-      } else {
-        this.addSalesOrder(customer);
+        customer = this.getCustomerObj(customerName);
       }
+      const salesOrder: SalesOrder = new SalesOrder();
+      salesOrder.customer = customer;
+      salesOrder.currentBalance = this.getCurrentBalance();
+      salesOrder.salesOrderDetail = this.salesOrderDetailArr.value;
+      salesOrder.totalPrice = this.totalAmount;
+      salesOrder.vehicleNo = this.salesOrderForm.get('motorVehicleNo').value;
+      salesOrder.amountPaid = this.salesOrderForm.get('amountPaid').value;
+      salesOrder.dueDate = this.salesOrderForm.get('dueDate').value?.getTime();
+      salesOrder.billDate = this.salesOrderForm.get('billDate').value?.getTime();
+
+      if (this.getTotalBalance() <= 0 ) {
+        salesOrder.status = 'PAID';
+      } else if (salesOrder.amountPaid > 0) {
+        salesOrder.status = 'PARTIAL';
+      } else {
+        salesOrder.status = 'DUE';
+      }
+
+      this.salesOrderService
+        .createSalesOrder(salesOrder).subscribe(data => {
+          console.log(data);
+          this._printPdf(data);
+          this.refreshAfterSave();
+        },
+          error => console.log(error));
     }
   }
 
-  addSalesOrder(customer: Customer) {
-    const salesOrder: SalesOrder = new SalesOrder();
-    salesOrder.customer = customer;
-    salesOrder.currentBalance = this.getCurrentBalance();
-    salesOrder.salesOrderDetail = this.salesOrderDetailArr.value;
-    salesOrder.totalPrice = this.totalAmount;
-    salesOrder.vehicleNo = this.salesOrderForm.get('motorVehicleNo').value;
-    salesOrder.amountPaid = this.salesOrderForm.get('amountPaid').value;
-    salesOrder.dueDate = this.salesOrderForm.get('dueDate').value;
-
-    if (salesOrder.currentBalance <= 0) {
-      salesOrder.status = 'PAID';
-    } else if (salesOrder.amountPaid > 0) {
-      salesOrder.status = 'PARTIAL';
-    } else {
-      salesOrder.status = 'DUE';
-    }
-
-    this.salesOrderService
-      .createSalesOrder(salesOrder).subscribe(data => {
-        console.log(data);
-        this._printPdf(data);
-        this.refreshAfterSave();
-      },
-        error => console.log(error));
-  }
-
-  saveCustomer(customerName: string) {
+  getCustomerObj(customerName: string): any {
     let data = {
       customerName: customerName,
       gstIn: 'NA',
       phoneNumber: 'NA'
     };
-    this.customerService.createCustomerSales(data).subscribe();
+    return data;
   }
 
   refreshAfterSave() {
@@ -168,7 +164,7 @@ export class SalesOrderComponent implements OnInit {
   }
 
   private _printPdf(response) {
-    const url = `${location.origin}/#salesTable`;
+    const url = `${location.origin}/praveen-traders/#salesTable`;
     const myWindow = window.open(url);
     myWindow['response'] = response;
   }
@@ -204,8 +200,8 @@ export class SalesOrderComponent implements OnInit {
 
   private _initRow(product) {
     return this._fb.group({
-      price: [0, [Validators.required, Validators.min(1), Validators.max(100000)]],
-      qtyOrdered: [0, [Validators.required, Validators.min(1), Validators.max(10000)]],
+      price: [, [Validators.required, Validators.min(1), Validators.max(100000)]],
+      qtyOrdered: [, [Validators.required, Validators.min(1), Validators.max(10000)]],
       product: [product]
     });
   }
@@ -244,8 +240,9 @@ export class SalesOrderComponent implements OnInit {
       productName: [''],
       motorVehicleNo: [''],
       dueDate: [new Date()],
+      billDate: [new Date()],
       salesOrderDetail: this._fb.array([]),
-      amountPaid: [0],
+      amountPaid: [],
     });
   }
 

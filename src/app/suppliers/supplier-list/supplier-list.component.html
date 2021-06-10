@@ -15,6 +15,7 @@
         <ng-container matColumnDef="supplierName">
             <th *matHeaderCellDef mat-header-cell>Supplier</th>
             <td *matCellDef="let element" mat-cell> {{element.supplierName}} </td>
+            <td *matCellDef="let element" hidden mat-cell> {{element.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="GSTIN">

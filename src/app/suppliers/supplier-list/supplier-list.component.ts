@@ -42,9 +42,9 @@ export class SupplierListComponent implements OnInit {
     getSupplierList() {
         this.supplierService.getSupplierList()
             .subscribe(data => {
+                this.dataSource = data;
                 this.dataSource = new MatTableDataSource(data);
                 this.dataSource.paginator = this.paginator;
-                this.dataSource = data;
             }, error => console.log(error));
     }
 

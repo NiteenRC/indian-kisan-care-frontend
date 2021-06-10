@@ -9,6 +9,10 @@
   margin-left: 4px;
 }
 
+.example-full-width {
+  width: 100%;
+}
+
 th {
   background-color: #ababab;
   font-size: 15px;

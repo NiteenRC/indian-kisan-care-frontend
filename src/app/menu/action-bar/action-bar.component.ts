@@ -92,7 +92,7 @@ interface MasterNode {
 }
 const Order_DATA: MasterNode[] = [
   {
-    name: 'Order',
+    name: 'ORDER',
     children: [
       {
         name: 'Buy',
@@ -108,7 +108,7 @@ const Order_DATA: MasterNode[] = [
 
 const REPORTS: MasterNode[] = [
   {
-    name: 'Reports',
+    name: 'REPORTS',
     children: [
       {
         name: 'Sales Order Report',
@@ -120,16 +120,15 @@ const REPORTS: MasterNode[] = [
   },
 ];
 
-// <a class="nav-link" routerLink="/dashboard/salesOrder"><span *ngIf="expanded" class="d-none d-sm-inline">Sales
-// Order</span></a>
-// <a class="nav-link" routerLink="/dashboard/purchaseOrder"> <span *ngIf="expanded"
-// class="d-none d-sm-inline">Purchase
-// Order</span></a>
 const TREE_DATA: MasterNode[] = [
   {
     name: 'MASTER',
     children: [
       {
+        name: 'Product',
+      }, {
+        name: 'Category',
+      }, {
         name: 'Location',
       }, {
         name: 'Company',
@@ -137,10 +136,6 @@ const TREE_DATA: MasterNode[] = [
         name: 'Supplier',
       }, {
         name: 'Customer',
-      }, {
-        name: 'Category',
-      }, {
-        name: 'Product',
       }
     ]
   },

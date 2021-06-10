@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {HttpClientHelper} from '../_model/http-client-helper';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClientHelper } from '../_model/http-client-helper';
 
 @Injectable({
     providedIn: 'root'
@@ -31,5 +31,9 @@ export class SalesOrderService {
 
     getAllCustomerSalesOrderBalanceSheet(): any {
         return this.http.get(`${this.baseUrl}/customer/balance`);
+    }
+
+    updateSalesOrder(value: any): Observable<Object> {
+        return this.http.put(`${this.baseUrl}`, value);
     }
 }

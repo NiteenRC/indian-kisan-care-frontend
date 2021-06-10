@@ -28,16 +28,26 @@
 
 <div class="mat-elevation-z8">
   <table [dataSource]="dataSource" mat-table>
-    <ng-container matColumnDef="salesOrderID">
-      <th *matHeaderCellDef mat-header-cell>Sales Order ID</th>
-      <td *matCellDef="let element; let i=index" mat-cell>
-        {{element.salesOrderID}}
-      </td>
-    </ng-container>
-
     <ng-container matColumnDef="customerName">
       <th *matHeaderCellDef mat-header-cell>Customer</th>
       <td *matCellDef="let element" mat-cell> {{element.customer?.customerName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="billDate">
+      <th *matHeaderCellDef mat-header-cell>Bill date</th>
+      <td *matCellDef="let element" mat-cell>
+        {{element.billDate | date: 'dd/MM/yyyy hh:mm'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th *matHeaderCellDef mat-header-cell>Due Date</th>
+      <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy hh:mm'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueAmount">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.currentBalance}} </td>
     </ng-container>
 
     <ng-container matColumnDef="amountPaid">
@@ -46,23 +56,13 @@
     </ng-container>
 
     <ng-container matColumnDef="totalPrice">
-      <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Total Price</th>
-      <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.totalPrice}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="createdDate">
-      <th *matHeaderCellDef mat-header-cell>Created Date</th>
-      <td *matCellDef="let element" mat-cell> {{element.createdDate}} </td>
+      <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice}} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell> {{element.status}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="totalQty">
-      <th *matHeaderCellDef mat-header-cell class="text-right">Total Qty</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalQty}} </td>
     </ng-container>
 
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>

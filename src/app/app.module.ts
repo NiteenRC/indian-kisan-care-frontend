@@ -46,6 +46,8 @@ import { SalesTableComponent } from './ui_modules/table/sales-table.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 import { PurchaseReportComponent } from './reports/purchase-report/purchase-report.component';
+import { UpdateBalanceSheetComponent } from './balance-sheet/update-balance-sheet/update-balance-sheet.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -81,11 +83,13 @@ import { PurchaseReportComponent } from './reports/purchase-report/purchase-repo
     ReportsComponent,
     SalesReportComponent,
     PurchaseReportComponent,
+    UpdateBalanceSheetComponent,
   ],
   imports: [
     TableModule,
     DemoMaterialModule,
     MatTableModule,
+    MatSortModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

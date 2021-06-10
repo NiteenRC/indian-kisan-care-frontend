@@ -9,6 +9,13 @@
     <form [formGroup]="productForm">
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
+                <input formControlName="productName" matInput placeholder="Product Name">
+            </mat-form-field>
+            <br>
+        </div>
+
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
                 <input formControlName="categoryName" [matAutocomplete]="supplierAuto" aria-label="Number" matInput
                     placeholder="Category" type="text">
                 <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption>
@@ -18,24 +25,21 @@
                 </mat-autocomplete>
             </mat-form-field>
         </div>
-        <div class="addproduct-container">
-            <mat-form-field class="forms-fildes">
-                <input formControlName="productName" matInput placeholder="Product Name">
-            </mat-form-field>
-            <br>
-        </div>
+
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
                 <input formControlName="hsnNo" matInput placeholder="HSN/SAC">
             </mat-form-field>
             <br>
         </div>
+
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
                 <input formControlName="gst" matInput placeholder="GST%">
             </mat-form-field>
             <br>
         </div>
+
         <div class="button-container">
             <button (click)="closeModal()" aria-label="Close" class="btn btn-warning"
                 style="width: 25%;margin-left: 5px;">Cancel
@@ -44,6 +48,7 @@
                 style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
             </button>
         </div>
+
         <div class="button-container">
             <h4 style="color: green;">{{successMsg}}</h4>
             <h4 style="color: red;">{{errorMsg}}</h4>
