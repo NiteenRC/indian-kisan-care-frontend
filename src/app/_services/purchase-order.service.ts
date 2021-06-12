@@ -32,4 +32,8 @@ export class PurchaseOrderService {
     getAllSupplierPurchaseOrderBalanceSheet(): any {
         return this.http.get(`${this.baseUrl}/supplier/balance`);
     }
+
+    updatePurchaseOrder(value: any): Observable<Object> {
+        return this.http.put(`${this.baseUrl}`, value);
+    }
 }

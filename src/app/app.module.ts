@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
-import { BalanceSheetComponent } from './balance-sheet/customer-balance-sheet/list-balance-sheet/balance-sheet.component';
+import { BalanceSheetComponent } from './balance-sheet/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
 import { MatTableModule} from '@angular/material/table';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -46,8 +46,10 @@ import { SalesTableComponent } from './ui_modules/table/sales-table.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 import { PurchaseReportComponent } from './reports/purchase-report/purchase-report.component';
-import { UpdateBalanceSheetComponent } from './balance-sheet/customer-balance-sheet/update-balance-sheet/customer-update-balance-sheet.component';
+import { UpdateBalanceSheetComponent } from './balance-sheet/customer-balance-sheet/update-customer-balance-sheet/customer-update-balance-sheet.component';
 import { MatSortModule } from '@angular/material/sort';
+import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
+import { SupplierUpdateBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/update-supplier-balance-sheet/supplier-update-balance-sheet.component';
 
 
 @NgModule({
@@ -62,6 +64,8 @@ import { MatSortModule } from '@angular/material/sort';
     CreateLocationComponent,
     SalesOrderComponent,
     BalanceSheetComponent,
+    SupplierUpdateBalanceSheetComponent,
+    SupplierBalanceSheetComponent,
     ActionBarComponent,
     ActionBarItemComponent,
     NavigationBarComponent,

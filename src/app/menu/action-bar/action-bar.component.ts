@@ -26,11 +26,13 @@ export class ActionBarComponent {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSource_Order = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceReports = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  dataSourceBalance = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private router: Router) {
     this.dataSource.data = TREE_DATA;
     this.dataSource_Order.data = Order_DATA;
     this.dataSourceReports.data = REPORTS;
+    this.dataSourceBalance.data = BALANCESHEET;
 
     console.log('dataSourceReports', this.dataSourceReports);
   }
@@ -81,6 +83,17 @@ export class ActionBarComponent {
     }
   }
 
+  getBalanceSheet(item) {
+    if (item === "Customer Balance") {
+      console.log('1')
+      this._redirectToPage('dashboard/balance-sheet');
+    }
+    if (item === "Supplier Balance") {
+      console.log('2')
+      this._redirectToPage('dashboard/supplier-balance-sheet');
+    }
+  }
+
   private _redirectToPage(route) {
     this.router.navigate([route]);
   }
@@ -115,6 +128,20 @@ const REPORTS: MasterNode[] = [
       },
       {
         name: 'Purchase Order Report',
+      }
+    ]
+  },
+];
+
+const BALANCESHEET: MasterNode[] = [
+  {
+    name: 'BALANCE SHEET',
+    children: [
+      {
+        name: 'Customer Balance',
+      },
+      {
+        name: 'Supplier Balance',
       }
     ]
   },

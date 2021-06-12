@@ -1,6 +1,6 @@
 import { TableComponent } from './ui_modules/table/table.component';
 import { SalesTableComponent } from './ui_modules/table/sales-table.component';
-import { BalanceSheetComponent } from './balance-sheet/customer-balance-sheet/list-balance-sheet/balance-sheet.component';
+import { BalanceSheetComponent } from './balance-sheet/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
@@ -26,6 +26,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { ReportsComponent } from './reports/reports.component';
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 import { PurchaseReportComponent } from './reports/purchase-report/purchase-report.component';
+import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
 
 export const routes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' },
@@ -45,6 +46,7 @@ export const routes: Routes = [
       { path: 'customer', component: CreateCustomerComponent },
       { path: 'supplier', component: CreateSupplierComponent },
       { path: 'balance-sheet', component: BalanceSheetComponent },
+      { path: 'supplier-balance-sheet', component: SupplierBalanceSheetComponent },
       { path: 'customers-list', component: CustomersListComponent },
       { path: 'companies-list', component: CompanyListComponent },
       { path: 'suppliers-list', component: SupplierListComponent },

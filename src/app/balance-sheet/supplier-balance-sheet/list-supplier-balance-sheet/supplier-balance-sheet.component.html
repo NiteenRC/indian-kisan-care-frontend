@@ -1,0 +1,81 @@
+<div class="d-flex">
+  <div class="form-group col-3">
+    <mat-form-field class="example-form-field">
+      <mat-label>Search Supplier</mat-label>
+      <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()">
+      <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearSupplierSearch()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field> 
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker-toggle matSuffix (click)="clearDate()">
+      <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+  </mat-form-field>
+</div>
+
+<div class="mat-elevation-z8">
+  <table [dataSource]="dataSource" mat-table>
+    <ng-container matColumnDef="supplierName">
+      <th *matHeaderCellDef mat-header-cell>Supplier</th>
+      <td *matCellDef="let element" mat-cell> {{element.supplier?.supplierName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th *matHeaderCellDef mat-header-cell>Status</th>
+      <td *matCellDef="let element" mat-cell> {{element.currentBalance == 0 ? 'PAID': 'DUE'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalPrice">
+      <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amountPaid">
+      <th *matHeaderCellDef mat-header-cell class="text-right">Amount Paid</th>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueAmount">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.currentBalance}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="billDate">
+      <th *matHeaderCellDef mat-header-cell>Bill date</th>
+      <td *matCellDef="let element" mat-cell>
+        {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th *matHeaderCellDef mat-header-cell>Due Date</th>
+      <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy hh:mm a'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="updateBalance(element)" mat-icon-button aria-label="Pay Balance">
+          <mat-icon>payment</mat-icon>
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+</div>

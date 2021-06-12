@@ -2,7 +2,7 @@
   <div class="form-group col-3">
     <mat-form-field class="example-form-field">
       <mat-label>Search Customer</mat-label>
-      <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Customer">
+      <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()">
       <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearCustomerSearch()">
         <mat-icon>clear</mat-icon>
       </button>
@@ -10,7 +10,6 @@
   </div>
 
   <mat-form-field>
-    <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
       <input matStartDate formControlName="start" placeholder="Start date">
       <input matEndDate formControlName="end" placeholder="End date">
@@ -56,13 +55,13 @@
     <ng-container matColumnDef="billDate">
       <th *matHeaderCellDef mat-header-cell>Bill date</th>
       <td *matCellDef="let element" mat-cell>
-        {{element.billDate | date: 'dd/MM/yyyy hh:mm'}}
+        {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="dueDate">
       <th *matHeaderCellDef mat-header-cell>Due Date</th>
-      <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy hh:mm'}} </td>
+      <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy hh:mm a'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">

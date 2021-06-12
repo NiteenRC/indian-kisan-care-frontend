@@ -141,10 +141,28 @@
         </mat-tree-node>
       </mat-tree>
 
-      <li class="nav-item" *ngIf="true">
+      <li class="nav-item" *ngIf="false">
         <a class="nav-link" routerLink="/dashboard/balance-sheet">
           <i class="fa fa-inr "></i> <span *ngIf="expanded" class="d-none d-sm-inline">BALANCE SHEET</span></a>
       </li>
+
+      <mat-tree *ngIf="true" [dataSource]="dataSourceBalance" [treeControl]="treeControl" style="margin-right: 10px;">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button (click)="getBalanceSheet(node.name)"> {{node.name}}</button>
+
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'add'}}
+            </mat-icon>
+          </button>
+          {{node.name}}
+        </mat-tree-node>
+      </mat-tree>
 
       <li class="nav-item" *ngIf="false">
         <a class="nav-link" routerLink="/dashboard/user"><i class="fa fa-users "></i> <span *ngIf="expanded"
