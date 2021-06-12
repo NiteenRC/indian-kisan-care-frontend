@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpdateBalanceSheetComponent } from './update-balance-sheet.component';
+import { UpdateBalanceSheetComponent } from './customer-update-balance-sheet.component';
 
 describe('UpdateBalanceSheetComponent', () => {
   let component: UpdateBalanceSheetComponent;

@@ -72,7 +72,7 @@ export class SalesOrderComponent implements OnInit {
   fetchData() {
     this.customerService.getCustomerList().subscribe(data => {
       data.forEach(x => {
-        if (x.customerName != '' && !x.customerName.startsWith('Unknown')) {
+        if (x.customerName != '' && !x.customerName.startsWith('UNKNOWN')) {
           this.customers.push(x);
         }
       });
@@ -239,7 +239,7 @@ export class SalesOrderComponent implements OnInit {
       customerName: [''],
       productName: [''],
       motorVehicleNo: [''],
-      dueDate: [new Date()],
+      dueDate: [],
       billDate: [new Date()],
       salesOrderDetail: this._fb.array([]),
       amountPaid: [],

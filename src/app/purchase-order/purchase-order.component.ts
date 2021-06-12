@@ -65,7 +65,7 @@ export class PurchaseOrderComponent implements OnInit {
   fetchData() {
     this.supplierService.getSupplierList().subscribe(data => {
       data.forEach(x => {
-        if (x.supplierName != '' && !x.supplierName.startsWith('Unknown')) {
+        if (x.supplierName != '' && !x.supplierName.startsWith('UNKNOWN')) {
           this.suppliers.push(x);
         }
       });
@@ -219,7 +219,7 @@ export class PurchaseOrderComponent implements OnInit {
       productName: [''],
       motorVehicleNo: [''],
       billDate: [new Date()],
-      dueDate: [new Date()],
+      dueDate: [],
       purchaseOrderDetail: this._fb.array([]),
       amountPaid: [],
     });

@@ -7,8 +7,8 @@ import { SalesOrderService } from 'src/app/_services/sales-order.service';
 
 @Component({
   selector: 'app-update-balance-sheet',
-  templateUrl: './update-balance-sheet.component.html',
-  styleUrls: ['./update-balance-sheet.component.css']
+  templateUrl: './customer-update-balance-sheet.component.html',
+  styleUrls: ['./customer-update-balance-sheet.component.css']
 })
 export class UpdateBalanceSheetComponent implements OnInit {
   productForm: FormGroup;

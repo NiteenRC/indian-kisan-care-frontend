@@ -1,11 +1,11 @@
-import { PurchaseOrderService } from '../_services/purchase-order.service';
-import { SalesOrderService } from '../_services/sales-order.service';
+import { PurchaseOrderService } from '../../../_services/purchase-order.service';
+import { SalesOrderService } from '../../../_services/sales-order.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
-import { UpdateBalanceSheetComponent } from './update-balance-sheet/update-balance-sheet.component';
+import { UpdateBalanceSheetComponent } from '../update-balance-sheet/customer-update-balance-sheet.component';
 
 @Component({
   selector: 'app-balance-sheet',

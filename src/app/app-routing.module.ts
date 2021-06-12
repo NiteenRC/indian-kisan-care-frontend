@@ -1,6 +1,6 @@
 import { TableComponent } from './ui_modules/table/table.component';
 import { SalesTableComponent } from './ui_modules/table/sales-table.component';
-import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
+import { BalanceSheetComponent } from './balance-sheet/customer-balance-sheet/list-balance-sheet/balance-sheet.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';

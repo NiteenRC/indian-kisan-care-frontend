@@ -3,7 +3,7 @@
     <div class="form-group col-3">
       <mat-form-field class="example-full-width">
         <mat-label>Supplier</mat-label>
-        <input type="text" placeholder="Select Supplier" aria-label="Supplier" matInput formControlName="supplierName"
+        <input type="text" aria-label="Supplier" matInput formControlName="supplierName"
           [matAutocomplete]="supplierAuto">
         <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption
           (optionSelected)="selectedSupplier($event.option.value)">
@@ -17,8 +17,8 @@
     <div class="form-group col-3">
       <mat-form-field class="example-full-width">
         <mat-label>Product</mat-label>
-        <input type="text" placeholder="Select Product" aria-label="Product" matInput formControlName="productName"
-          required [matAutocomplete]="productAuto">
+        <input type="text" aria-label="Product" matInput formControlName="productName"
+          [matAutocomplete]="productAuto">
         <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
           (optionSelected)="selectedProduct($event.option.value)">
           <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
@@ -31,23 +31,23 @@
     <div class="form-group col-2">
       <mat-form-field class="forms-fildes">
         <mat-label>Motor Vehicle no</mat-label>
-        <input type="text" placeholder="Motor Vehicle No" aria-label="Motor Vehicle no" matInput
+        <input type="text" aria-label="Motor Vehicle no" matInput
           formControlName="motorVehicleNo">
       </mat-form-field>
     </div>
 
     <mat-form-field class="form-group col-2">
       <mat-label>Bill date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="billDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <input matInput [matDatepicker]="picker1" formControlName="billDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="form-group col-2">
       <mat-label>Due date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dueDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <input matInput [matDatepicker]="picker2" formControlName="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
   </div>
@@ -143,7 +143,9 @@
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
           ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value + element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100}}
         </td>
-        <td mat-footer-cell *matFooterCellDef class="text-right pr-4"><h4><b>{{ totalAmount | currency:'INR' }}</b></h4></td>
+        <td mat-footer-cell *matFooterCellDef class="text-right pr-4">
+          <h4><b>{{ totalAmount | currency:'INR' }}</b></h4>
+        </td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
