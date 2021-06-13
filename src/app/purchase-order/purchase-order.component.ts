@@ -91,7 +91,7 @@ export class PurchaseOrderComponent implements OnInit {
     let supplier = this._findSupplier(supplierName);
 
     const purchaseOrder: PurchaseOrder = new PurchaseOrder();
-    if(supplier === undefined){
+    if (supplier === undefined) {
       supplier = this.saveSupplier(supplierName);
     }
     purchaseOrder.supplier = supplier;
@@ -120,7 +120,7 @@ export class PurchaseOrderComponent implements OnInit {
         error => console.log(error));
   }
 
-  saveSupplier(supplierName: string) :any {
+  saveSupplier(supplierName: string): any {
     let data = {
       supplierName: supplierName,
       gstIn: 'NA',

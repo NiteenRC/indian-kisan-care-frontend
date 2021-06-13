@@ -27,12 +27,11 @@ export class SupplierUpdateBalanceSheetComponent implements OnInit {
 
     if (data != null) {
       this.productUpdateData = data?.data;
-      this.productForm.controls['supplierName'].disable()
-      this.productForm.controls['currentBalance'].disable()
+      //this.productForm.controls['supplierName'].disable()
+      //this.productForm.controls['currentBalance'].disable()
       this.productForm.controls['id'].setValue(this.productUpdateData.supplier.id);
       this.productForm.controls['supplierName'].setValue(this.productUpdateData.supplier.supplierName);
       this.productForm.controls['currentBalance'].setValue(this.productUpdateData.currentBalance);
-      //this.productForm.controls['payAmount'].setValue(this.productUpdateData.payAmount);
     }
   }
 
@@ -41,16 +40,33 @@ export class SupplierUpdateBalanceSheetComponent implements OnInit {
 
   onSubmit() {
     if (this.productForm.controls.id.value != null) {
-      this.updateProduct();
+      this.updateSupplierBalance();
     }
   }
 
-  updateProduct() {
-    const payAmount = this.productForm.controls.payAmount.value;
-    //const category = this._findCategory(selectedCategoryName);
+  updateSupplierBalance() {
+    let status: string = '';
+    const payAmount: number = Number(this.productForm.controls.payAmount.value);
+
+    if (payAmount < 0) {
+      alert('Pay amount should be positive');
+      return;
+    } else if (payAmount == 0) {
+      alert('Pay amount should not be ZERO');
+      return;
+    } else if (payAmount === this.productForm.controls.currentBalance.value) {
+      status = 'PAID';
+    } else if (payAmount < this.productForm.controls.currentBalance.value) {
+      status = 'DUE';
+    } else {
+      alert('Please pay amount less than due amount');
+      return;
+    }
+
     let data = {
       id: this.productForm.controls.id.value,
-      payAmount: this.productForm.controls.payAmount.value,
+      payAmount: payAmount,
+      status: status,
     };
 
     this.purchaseOrderService.updatePurchaseOrder(data).subscribe(res => {
@@ -64,5 +80,5 @@ export class SupplierUpdateBalanceSheetComponent implements OnInit {
 
   closeModal(): void {
     this.dialogRef.close();
-}
+  }
 }

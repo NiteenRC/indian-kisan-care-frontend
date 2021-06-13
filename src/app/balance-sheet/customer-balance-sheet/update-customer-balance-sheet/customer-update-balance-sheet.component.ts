@@ -26,12 +26,9 @@ export class UpdateBalanceSheetComponent implements OnInit {
 
     if (data != null) {
       this.productUpdateData = data?.data;
-      this.productForm.controls['customerName'].disable()
-      this.productForm.controls['currentBalance'].disable()
       this.productForm.controls['id'].setValue(this.productUpdateData.customer.id);
       this.productForm.controls['customerName'].setValue(this.productUpdateData.customer.customerName);
       this.productForm.controls['currentBalance'].setValue(this.productUpdateData.currentBalance);
-      //this.productForm.controls['payAmount'].setValue(this.productUpdateData.payAmount);
     }
   }
 
@@ -40,16 +37,33 @@ export class UpdateBalanceSheetComponent implements OnInit {
 
   onSubmit() {
     if (this.productForm.controls.id.value != null) {
-      this.updateProduct();
+      this.updateCustomerBalance();
     }
   }
 
-  updateProduct() {
-    const payAmount = this.productForm.controls.payAmount.value;
-    //const category = this._findCategory(selectedCategoryName);
+  updateCustomerBalance() {
+    let status: string = '';
+    const payAmount: number = Number(this.productForm.controls.payAmount.value);
+
+    if (payAmount < 0) {
+      alert('Pay amount should be positive');
+      return;
+    } else if (payAmount == 0) {
+      alert('Pay amount should not be ZERO');
+      return;
+    } else if (payAmount === this.productForm.controls.currentBalance.value) {
+      status = 'PAID';
+    } else if (payAmount < this.productForm.controls.currentBalance.value) {
+      status = 'DUE';
+    } else {
+      alert('Please pay amount less than due amount');
+      return;
+    }
+
     let data = {
       id: this.productForm.controls.id.value,
-      payAmount: this.productForm.controls.payAmount.value,
+      payAmount: payAmount,
+      status: status,
     };
 
     this.salesOrderService.updateSalesOrder(data).subscribe(res => {
@@ -63,5 +77,5 @@ export class UpdateBalanceSheetComponent implements OnInit {
 
   closeModal(): void {
     this.dialogRef.close();
-}
+  }
 }

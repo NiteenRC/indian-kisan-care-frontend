@@ -3,21 +3,21 @@
     <form [formGroup]="productForm">
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input formControlName="supplierName" matInput>
+                <input formControlName="supplierName" matInput readonly>
             </mat-form-field>
             <br>
         </div>
 
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input formControlName="currentBalance" matInput>
+                <input type="text" formControlName="currentBalance" matInput readonly>
             </mat-form-field>
             <br>
         </div>
 
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input formControlName="payAmount" matInput>
+                <input formControlName="payAmount" matInput required>
             </mat-form-field>
             <br>
         </div>

@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CustomerService} from 'src/app/_services/customer.service';
-import {LocationService} from 'src/app/_services/location.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { LocationService } from 'src/app/_services/location.service';
 
 @Component({
     selector: 'app-create-customer',
@@ -19,8 +19,8 @@ export class CreateCustomerComponent implements OnInit {
     citiesList: any;
 
     constructor(private customerService: CustomerService, private location: LocationService,
-                public dialogRef: MatDialogRef<CreateCustomerComponent>,
-                @Inject(MAT_DIALOG_DATA) private data) {
+        public dialogRef: MatDialogRef<CreateCustomerComponent>,
+        @Inject(MAT_DIALOG_DATA) private data) {
         this.customerUpdateData = data;
 
         this.customerForm = new FormGroup({
@@ -35,15 +35,18 @@ export class CreateCustomerComponent implements OnInit {
         });
 
         if (data != null) {
-            this.customerForm.controls['customerName'].setValue(this.customerUpdateData.data.customerName);
-            this.customerForm.controls['gstIn'].setValue(this.customerUpdateData.data.gstIn);
-            this.customerForm.controls['phoneNumber'].setValue(this.customerUpdateData.data.phoneNumber);
-            this.customerForm.controls['cityName'].setValue(this.customerUpdateData.data.location.cityName);
+            this.customerUpdateData = data?.data;
+            this.customerForm.controls['customerName'].setValue(this.customerUpdateData.customerName);
+            this.customerForm.controls['gstIn'].setValue(this.customerUpdateData.gstIn);
+            this.customerForm.controls['phoneNumber'].setValue(this.customerUpdateData.phoneNumber);
+            this.customerForm.controls['cityName'].setValue(this.customerUpdateData.location);
         }
     }
 
     closeModal(): void {
-        this.dialogRef.close();
+        if (this.customerForm.valid || this.customerForm.controls.customerName.value === null) {
+            this.dialogRef.close();
+        }
     }
 
     ngOnInit(): void {
@@ -51,10 +54,12 @@ export class CreateCustomerComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.customerUpdateData?.data.id != null) {
-            this.updateCustomer();
-        } else {
-            this.saveCustomer();
+        if (this.customerForm.valid) {
+            if (this.customerUpdateData?.id != null) {
+                this.updateCustomer();
+            } else {
+                this.saveCustomer();
+            }
         }
     }
 
@@ -68,44 +73,36 @@ export class CreateCustomerComponent implements OnInit {
 
         this.customerService.createCustomer(data).subscribe(res => {
             if (res != null) {
-                this.successMsg = 'Company Successfully Created..!';
-                // this.getCompanyList();
-                this.closeModal();
+                this.successMsg = 'Customer Successfully Created..!';
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;
+            alert(this.errorMsg);
         });
     }
 
-     updateCustomer() {
-       let data1 = {
-         companyID: this.customerUpdateData?.data.id,
-         companyName: this.customerForm.controls.companyName.value,
-         phoneNumber: this.customerForm.controls.phoneNumber.value
-       }
-       let data = {
-        id: this.customerUpdateData?.data.id,  
-        customerName: this.customerUpdateData.controls.customerName.value,
-        gstIn: this.customerForm.controls.gstIn.value,
-        location: this.customerForm.controls.cityName.value,
-        phoneNumber: this.customerForm.controls.phoneNumber.value,
-    };
+    updateCustomer() {
+        let data = {
+            id: this.customerUpdateData?.id,
+            customerName: this.customerForm.controls.customerName.value,
+            gstIn: this.customerForm.controls.gstIn.value,
+            location: this.customerForm.controls.cityName.value,
+            phoneNumber: this.customerForm.controls.phoneNumber.value,
+        };
 
-       this.customerService.updateCustomer(data).subscribe(res => {
-         if (res != null) {
-           this.successMsg = "Company Successfully Updated..!";
-           this.getCustomerList();
-           this.closeModal();
-         }
-       }, error => {
-         this.errorMsg = error.error.errorMessage; "Company Unsuccessfully Updated..";
-       })
-     }
+        this.customerService.updateCustomer(data).subscribe(res => {
+            if (res != null) {
+                this.successMsg = "Customer Successfully Updated..!";
+            }
+        }, error => {
+            this.errorMsg = error.error.errorMessage;
+        })
+    }
 
-     getCustomerList() {
-       this.customerService.getCustomerList().subscribe(data => {
-       }, error => console.log(error));
-     }
+    getCustomerList() {
+        this.customerService.getCustomerList().subscribe(data => {
+        }, error => console.log(error));
+    }
 
     getlocationList() {
         this.location.getLocationList().subscribe(res => {

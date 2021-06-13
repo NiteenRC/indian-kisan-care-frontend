@@ -57,8 +57,6 @@ export class CreateCompanyComponent implements OnInit {
         this.companyService.createCompany(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Company Successfully Created..!';
-                this.getCompanyList();
-                this.closeModal();
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;
@@ -74,8 +72,6 @@ export class CreateCompanyComponent implements OnInit {
         this.companyService.updateCompany(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Company Successfully Updated..!';
-                this.getCompanyList();
-                this.closeModal();
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;

@@ -39,16 +39,19 @@ export class CreateSupplierComponent implements OnInit {
         });
 
         if (data != null) {
-            this.supplierForm.controls['supplierName'].setValue(this.supplierUpdateData.data.supplierName);
-            this.supplierForm.controls['gstIn'].setValue(this.supplierUpdateData.data.gstIn);
-            this.supplierForm.controls['phoneNumber'].setValue(this.supplierUpdateData.data.phoneNumber);
-            this.supplierForm.controls['cityName'].setValue(this.supplierUpdateData.data.location.cityName);
-            this.supplierForm.controls['companyName'].setValue(this.supplierUpdateData.data.location.companyName);
+            this.supplierUpdateData = data?.data;
+            this.supplierForm.controls['supplierName'].setValue(this.supplierUpdateData.supplierName);
+            this.supplierForm.controls['gstIn'].setValue(this.supplierUpdateData.gstIn);
+            this.supplierForm.controls['phoneNumber'].setValue(this.supplierUpdateData.phoneNumber);
+            this.supplierForm.controls['cityName'].setValue(this.supplierUpdateData.location);
+            this.supplierForm.controls['companyName'].setValue(this.supplierUpdateData.company);
         }
     }
 
     closeModal(): void {
-        this.dialogRef.close();
+        if (this.supplierForm.valid || this.supplierForm.controls.supplierName.value === null) {
+            this.dialogRef.close();
+        }
     }
 
     ngOnInit(): void {
@@ -57,10 +60,12 @@ export class CreateSupplierComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.supplierUpdateData?.data.id != null) {
-            // this.updateCustomer();
-        } else {
-            this.saveSupplier();
+        if (this.supplierForm.valid) {
+            if (this.supplierUpdateData?.id != null) {
+                this.updateSupplier();
+            } else {
+                this.saveSupplier();
+            }
         }
     }
 
@@ -76,8 +81,6 @@ export class CreateSupplierComponent implements OnInit {
         this.supplierService.createSupplier(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Supplier Successfully Created..!';
-                // this.getCompanyList();
-                this.closeModal();
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;
@@ -85,22 +88,24 @@ export class CreateSupplierComponent implements OnInit {
 
     }
 
-    // updateCustomer() {
-    //   let data = {
-    //     companyID: this.companyUpdateData?.data.id,
-    //     companyName: this.customerForm.controls.companyName.value,
-    //     phoneNumber: this.customerForm.controls.phoneNumber.value
-    //   }
-    //   this.customerService.updateCompany(data).subscribe(res => {
-    //     if (res != null) {
-    //       this.successMsg = "Company Successfully Updated..!";
-    //       this.getCompanyList();
-    //       this.closeModal();
-    //     }
-    //   }, error => {
-    //     this.errorMsg = error.error.errorMessage; "Company Unsuccessfully Updated..";
-    //   })
-    // }
+    updateSupplier() {
+        let data = {
+            id: this.supplierUpdateData?.id,
+            supplierName: this.supplierForm.controls.supplierName.value,
+            gstIn: this.supplierForm.controls.gstIn.value,
+            location: this.supplierForm.controls.cityName.value,
+            phoneNumber: this.supplierForm.controls.phoneNumber.value,
+            company: this.supplierForm.controls.companyName.value,
+        };
+
+        this.supplierService.updateSupplier(data).subscribe(res => {
+            if (res != null) {
+                this.successMsg = "Supplier Successfully Updated..!";
+            }
+        }, error => {
+            this.errorMsg = error.error.errorMessage;
+        })
+    }
 
     getlocationList() {
         this.location.getLocationList().subscribe(res => {

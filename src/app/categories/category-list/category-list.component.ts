@@ -65,6 +65,9 @@ export class CategoryListComponent implements OnInit {
       response => {
         this.getCategoryList();
       },
-      error => console.log(error));
+      error => {
+        console.log(JSON.parse(error.error).errorMessage);
+        alert(JSON.parse(error.error).errorMessage);
+      });
   }
 }

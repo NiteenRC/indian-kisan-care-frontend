@@ -6,7 +6,7 @@
         <h4 class="title">Update location</h4>
     </div>
     <hr>
-    <form [formGroup]="locationForm">
+    <form [formGroup]="locationForm" (submit)="onSubmit()">
         <div class="title-header">
             <mat-form-field class="forms-fildes">
                 <input formControlName="cityName" matInput placeholder="location Name" required>
@@ -20,7 +20,7 @@
             <button (click)="closeModal()" aria-label="Close" class="btn btn-warning"
                     style="width: 25%;margin-left: 5px;">Cancel
             </button>
-            <button (click)="onSubmit()" [disabled]="!locationForm.valid" class="btn btn-primary"
+            <button [disabled]="!locationForm.valid" class="btn btn-primary"
                     style="width: 25%;margin-left: 5px;">Save
             </button>
         </div>

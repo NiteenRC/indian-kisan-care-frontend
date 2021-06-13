@@ -6,10 +6,10 @@
         <h4 class="title">Update Product</h4>
     </div>
     <hr>
-    <form [formGroup]="productForm">
+    <form [formGroup]="productForm" (submit)="onSubmit()">
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input formControlName="productName" matInput placeholder="Product Name">
+                <input formControlName="productName" matInput placeholder="Product" required>
             </mat-form-field>
             <br>
         </div>
@@ -35,7 +35,7 @@
 
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input formControlName="gst" matInput placeholder="GST%">
+                <input formControlName="gst" matInput placeholder="GST%" required>
             </mat-form-field>
             <br>
         </div>
@@ -44,7 +44,7 @@
             <button (click)="closeModal()" aria-label="Close" class="btn btn-warning"
                 style="width: 25%;margin-left: 5px;">Cancel
             </button>
-            <button (click)="onSubmit()" [disabled]="!productForm.valid" class="btn btn-primary"
+            <button [disabled]="!productForm.valid" class="btn btn-primary" type="submit"
                 style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
             </button>
         </div>

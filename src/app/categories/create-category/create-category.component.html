@@ -7,7 +7,7 @@
     </div>
     <hr>
     
-    <form [formGroup]="categoryForm">
+    <form [formGroup]="categoryForm" (submit)="onSubmit()">
         <div class="title-header">
             <mat-form-field class="forms-fildes">
                 <input matInput placeholder="Category Name" formControlName="categoryName" required>
@@ -26,7 +26,7 @@
         <div class="button-container">
             <button class="btn btn-warning" style="width: 25%;margin-left: 5px;" (click)="closeModal()"
                 aria-label="Close">Cancel</button>
-            <button class="btn btn-primary" style="width: 25%;margin-left: 5px;" (click)="onSubmit()"
+            <button class="btn btn-primary" style="width: 25%;margin-left: 5px;"
                 [disabled]="!categoryForm.valid">Save</button>
         </div>
         <div class="button-container">

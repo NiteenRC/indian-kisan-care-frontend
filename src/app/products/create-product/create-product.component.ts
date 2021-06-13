@@ -57,7 +57,9 @@ export class CreateProductComponent implements OnInit {
     }
 
     closeModal(): void {
-        this.dialogRef.close();
+        if (this.productForm.valid || this.productForm.controls.productName.value === null) {
+            this.dialogRef.close();
+        }
     }
 
     ngOnInit(): void {
@@ -65,10 +67,12 @@ export class CreateProductComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.productUpdateData?.id != null) {
-            this.updateProduct();
-        } else {
-            this.addProduct();
+        if (this.productForm.valid) {
+            if (this.productUpdateData?.id != null) {
+                this.updateProduct();
+            } else {
+                this.addProduct();
+            }
         }
     }
 

@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { BalanceSheetComponent } from './balance-sheet/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
-import { MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -23,7 +23,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MobileMenuComponent } from './menu/mobile-menu/mobile-menu.component';
-import { TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { ActionBarComponent } from './menu/action-bar/action-bar.component';
 import { ActionBarItemComponent } from './menu/action-bar-item/action-bar-item.component';
 import { NavigationBarComponent } from './menu/navigation-bar/navigation-bar.component';
@@ -50,6 +50,7 @@ import { UpdateBalanceSheetComponent } from './balance-sheet/customer-balance-sh
 import { MatSortModule } from '@angular/material/sort';
 import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
 import { SupplierUpdateBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/update-supplier-balance-sheet/supplier-update-balance-sheet.component';
+import { DateAdapter } from '@angular/material/core';
 
 
 @NgModule({
@@ -110,4 +111,8 @@ import { SupplierUpdateBalanceSheetComponent } from './balance-sheet/supplier-ba
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private dateAdapter: DateAdapter<Date>) {
+    dateAdapter.setLocale("en-in"); // DD/MM/YYYY
+  }
+}
