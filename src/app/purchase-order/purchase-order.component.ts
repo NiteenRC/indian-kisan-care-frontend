@@ -48,8 +48,10 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
-    this.purchaseOrderDetailArr.removeAt(index);
-    this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+    if (this.purchaserOrderForm.valid && index != 0) {
+      this.purchaseOrderDetailArr.removeAt(index);
+      this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+    }
   }
 
   selectedProduct(selectedProduct: string) {
@@ -86,7 +88,6 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   save() {
-    //this.fetchData();
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
     let supplier = this._findSupplier(supplierName);
 

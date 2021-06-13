@@ -48,8 +48,10 @@ export class SalesOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
+    if (this.salesOrderForm.valid && index != 0) {
     this.salesOrderDetailArr.removeAt(index);
     this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+    }
   }
 
   selectedProduct(selectedProduct: string) {

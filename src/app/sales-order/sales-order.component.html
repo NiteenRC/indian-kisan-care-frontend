@@ -1,4 +1,4 @@
-<form [formGroup]="salesOrderForm">
+<form [formGroup]="salesOrderForm" (submit)="save()">
   <div class="d-flex">
     <div class="form-group col-3">
       <mat-form-field class="example-full-width">
@@ -170,7 +170,7 @@
         <label for="name">Total Pay Balance</label>
         <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
       </div>
-      <button type="submit" class="btn btn-success" (click)="save()" [disabled]="salesOrderForm.invalid">Submit</button>
+      <button type="submit" class="btn btn-success" [disabled]="salesOrderForm.invalid">Submit</button>
     </div>
   </div>
 </form>

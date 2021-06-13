@@ -36,17 +36,21 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   closeModal(): void {
-    this.dialogRef.close();
+    if (this.categoryForm.valid || this.categoryForm.controls.categoryName.value === null) {
+      this.dialogRef.close();
+    }
   }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    if (this.categoryUpdateData?.data.id != null) {
-      this.updateCategory();
-    } else {
-      this.saveCategory();
+    if (this.categoryForm.valid) {
+      if (this.categoryUpdateData?.data.id != null) {
+        this.updateCategory();
+      } else {
+        this.saveCategory();
+      }
     }
   }
 
