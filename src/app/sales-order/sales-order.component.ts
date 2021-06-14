@@ -125,7 +125,13 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.dueDate = this.salesOrderForm.get('dueDate').value?.getTime();
       salesOrder.billDate = this.salesOrderForm.get('billDate').value?.getTime();
 
-      if (this.getTotalBalance() <= 0 ) {
+      if (salesOrder.amountPaid < 0) {
+        alert('Amount paid should be positive');
+        return;
+      } else if (this.getTotalBalance() < 0) {
+        alert('Amount paid should be equals to balance');
+        return;
+      } else if (this.getTotalBalance() <= 0 ) {
         salesOrder.status = 'PAID';
       } else if (salesOrder.amountPaid > 0) {
         salesOrder.status = 'PARTIAL';

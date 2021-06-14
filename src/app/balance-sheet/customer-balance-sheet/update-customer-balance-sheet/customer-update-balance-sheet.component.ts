@@ -36,8 +36,10 @@ export class UpdateBalanceSheetComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.productForm.controls.id.value != null) {
-      this.updateCustomerBalance();
+    if (this.productForm.valid) {
+      if (this.productForm.controls.id.value != null) {
+        this.updateCustomerBalance();
+      }
     }
   }
 
@@ -68,7 +70,7 @@ export class UpdateBalanceSheetComponent implements OnInit {
 
     this.salesOrderService.updateSalesOrder(data).subscribe(res => {
       if (res != null) {
-        this.closeModal();
+        //this.closeModal();
       }
     }, error => {
       //this.errorMsg = error.error.errorMessage;
@@ -76,6 +78,8 @@ export class UpdateBalanceSheetComponent implements OnInit {
   }
 
   closeModal(): void {
-    this.dialogRef.close();
+    if (this.productForm.valid || this.productForm.controls.payAmount.value === null) {
+      this.dialogRef.close();
+    }
   }
 }

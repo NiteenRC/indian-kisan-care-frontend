@@ -94,15 +94,7 @@ export class SupplierBalanceSheetComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getProductList();
+      this.getSalesOrderList();
     });
-  }
-
-  getProductList() {
-    this.purchaseOrderService.getAllSupplierPurchaseOrderBalanceSheet().subscribe(res => {
-      this.dataSource = res;
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-    }, error => console.log(error));
   }
 }

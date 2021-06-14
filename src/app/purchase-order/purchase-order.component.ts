@@ -104,7 +104,13 @@ export class PurchaseOrderComponent implements OnInit {
     purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value?.getTime();;
     purchaseOrder.billDate = this.purchaserOrderForm.get('billDate').value?.getTime();;
 
-    if (this.getTotalBalance() <= 0) {
+    if (purchaseOrder.amountPaid < 0) {
+      alert('Amount paid should be positive');
+      return;
+    } else if (this.getTotalBalance() < 0) {
+      alert('Amount paid should be equals to balance');
+      return;
+    } else if (this.getTotalBalance() <= 0) {
       purchaseOrder.status = 'PAID';
     } else if (purchaseOrder.amountPaid > 0) {
       purchaseOrder.status = 'PARTIAL';
