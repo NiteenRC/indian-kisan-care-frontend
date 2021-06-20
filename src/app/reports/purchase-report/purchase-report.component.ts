@@ -1,9 +1,8 @@
+import { PurchaseOrderService } from './../../_services/purchase-order.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { SalesOrderService } from './../../_services/sales-order.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
-import { PurchaseOrderService } from 'src/app/_services/purchase-order.service';
 
 @Component({
   selector: 'app-purchase-report',
@@ -12,7 +11,7 @@ import { PurchaseOrderService } from 'src/app/_services/purchase-order.service';
 })
 export class PurchaseReportComponent implements OnInit {
   displayedColumns: string[] = ['billDate', 'dueDate', 'supplierName', 'status', 'totalPrice', 'amountPaid', 'dueAmount'];
-  productColumns: string[] = ['id', 'productName', 'salesPrice', 'qtyOrdered'];
+  productColumns: string[] = ['id', 'productName', 'purchasePrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
 
@@ -23,12 +22,12 @@ export class PurchaseReportComponent implements OnInit {
     end: new FormControl()
   });
 
-  salesReports;
+  purchaseReports;
 
-  constructor(private salesOrderService: PurchaseOrderService) { }
+  constructor(private purchaseOrderService: PurchaseOrderService) { }
 
   ngOnInit(): void {
-    this.getSalesOrderList();
+    this.getPurchaseOrderList();
     this.range.valueChanges.subscribe(dateRange => {
       if (this.range.valid) {
         this.searchData();
@@ -36,16 +35,16 @@ export class PurchaseReportComponent implements OnInit {
     })
   }
 
-  getSalesOrderList() {
-    this.salesOrderService.getPurchaseOrderList().subscribe(res => {
-      this.salesReports = res;
+  getPurchaseOrderList() {
+    this.purchaseOrderService.getPurchaseOrderList().subscribe(res => {
+      this.purchaseReports = res;
       this._setData(res);
     }, error => console.log(error));
   }
 
-  clearCustomerSearch() {
+  clearSupplierSearch() {
     this.searchText = '';
-    this._setData(this.salesReports);
+    this._setData(this.purchaseReports);
   }
 
   clearDate() {
@@ -55,20 +54,20 @@ export class PurchaseReportComponent implements OnInit {
   searchData() {
     const searchText = this.searchText;
     const { start, end } = this.range.value || {};
-    let filteredData = this.salesReports;
+    let filteredData = this.purchaseReports;
 
     if (start && end) {
       const startTime = start.getTime();
       const endTime = end.getTime() + 86399999;
       // console.log('date===', startTime, endTime, new Date(startTime), new Date(endTime));
-      filteredData = filteredData.filter(salesReport => {
-        const dueDateTime = new Date(salesReport?.dueDate).getTime();
+      filteredData = filteredData.filter(purchaseReport => {
+        const dueDateTime = new Date(purchaseReport?.dueDate).getTime();
         return dueDateTime >= startTime && dueDateTime <= endTime
       });
     }
 
     if (searchText) {
-      filteredData = filteredData.filter(salesReport => salesReport?.supplier?.supplierName?.toLowerCase().indexOf(searchText?.toLowerCase()) > -1);
+      filteredData = filteredData.filter(purchaseReport => purchaseReport?.supplier?.supplierName?.toLowerCase().indexOf(searchText?.toLowerCase()) > -1);
     }
     this._setData(filteredData);
   }

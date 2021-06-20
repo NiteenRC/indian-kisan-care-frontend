@@ -74,6 +74,7 @@ export class CreateCustomerComponent implements OnInit {
         this.customerService.createCustomer(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Customer Successfully Created..!';
+                this.closeModal();
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;
@@ -93,6 +94,7 @@ export class CreateCustomerComponent implements OnInit {
         this.customerService.updateCustomer(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = "Customer Successfully Updated..!";
+                this.closeModal();
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;

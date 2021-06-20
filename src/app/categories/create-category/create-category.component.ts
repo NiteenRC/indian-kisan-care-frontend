@@ -63,6 +63,7 @@ export class CreateCategoryComponent implements OnInit {
     this.categoryService.createCategory(data).subscribe(res => {
       if (res != null) {
         this.successMsg = "Category Successfully Created..!";
+        this.closeModal();
       }
     }, error => {
       this.errorMsg = error.error.errorMessage;
@@ -78,6 +79,7 @@ export class CreateCategoryComponent implements OnInit {
     this.categoryService.updateCategory(data).subscribe(res => {
       if (res != null) {
         this.successMsg = "Category Successfully Updated..!";
+        this.closeModal();
       }
     }, error => {
       this.errorMsg = error.error.errorMessage;

@@ -57,7 +57,6 @@ export class CreateLocationComponent implements OnInit {
         this.locationService.createLocation(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Location Successfully Created..!';
-                this.getLocationList();
                 this.closeModal();
             }
         }, error => {

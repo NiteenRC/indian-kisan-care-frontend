@@ -76,7 +76,7 @@
       </ng-container>
 
       <ng-container matColumnDef="price">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Rate</th>
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Sell Price</th>
         <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
           <mat-form-field floatLabel="never">
             <input matInput type="number" formControlName="price" required class="text-right">
@@ -114,34 +114,34 @@
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
-      <ng-container matColumnDef="amount">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Amount</th>
+      <!-- <ng-container matColumnDef="amount">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Base Price</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value}}</td>
+          ₹{{element.get('price')?.value - (element.get('price')?.value * (element.get('product')?.value.gst/100) )}}</td>
         <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>
+      </ng-container> -->
 
-      <ng-container matColumnDef="taxType">
+      <!-- <ng-container matColumnDef="taxType">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">
           CGST/SGST <br> IGST Rate
         </th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
           {{element.get('product')?.value.gst}}%</td>
         <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>
+      </ng-container> -->
 
-      <ng-container matColumnDef="taxAmount">
+      <!-- <ng-container matColumnDef="taxAmount">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Tax Amount</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100}}
+          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100 | number : '1.0-2'}}
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>
+      </ng-container>-->
 
       <ng-container matColumnDef="totalAmount">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Total Amount</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value + element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100}}
+          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value | number : '1.0-2'}}
         </td>
         <td mat-footer-cell *matFooterCellDef class="text-right pr-4">
           <h4><b>{{ totalAmount | currency:'INR' }}</b></h4>

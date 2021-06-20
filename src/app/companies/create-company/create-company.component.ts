@@ -57,6 +57,7 @@ export class CreateCompanyComponent implements OnInit {
         this.companyService.createCompany(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Company Successfully Created..!';
+                this.closeModal();
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;

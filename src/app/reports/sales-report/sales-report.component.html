@@ -46,17 +46,17 @@
 
     <ng-container matColumnDef="dueAmount">
       <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
-      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.currentBalance}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.currentBalance.toLocaleString('en-IN') || 0}} </td>
     </ng-container>
 
     <ng-container matColumnDef="amountPaid">
       <th *matHeaderCellDef mat-header-cell class="text-right">Amount Paid</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid.toLocaleString('en-IN') || 0}} </td>
     </ng-container>
 
     <ng-container matColumnDef="totalPrice">
       <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -70,9 +70,9 @@
       <ng-template #test>
         <table [dataSource]="row.salesOrderDetail" mat-table class="mat-elevation-z2">
           <ng-container matColumnDef="id">
-            <th *matHeaderCellDef mat-header-cell>ID</th>
-            <td *matCellDef="let element" mat-cell>
-              {{element.product?.id}}
+            <th *matHeaderCellDef mat-header-cell>S.No</th>
+            <td *matCellDef="let element; let index = index" mat-cell>
+              {{index+1}}
             </td>
           </ng-container>
 
@@ -83,7 +83,7 @@
 
           <ng-container matColumnDef="salesPrice">
             <th *matHeaderCellDef mat-header-cell class="text-right">Sales Price</th>
-            <td *matCellDef="let element" mat-cell class="text-right"> {{element.price}} </td>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.price.toLocaleString('en-IN') || 0}} </td>
           </ng-container>
 
           <ng-container matColumnDef="qtyOrdered">

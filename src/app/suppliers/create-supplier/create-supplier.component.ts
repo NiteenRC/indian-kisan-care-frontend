@@ -81,6 +81,7 @@ export class CreateSupplierComponent implements OnInit {
         this.supplierService.createSupplier(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = 'Supplier Successfully Created..!';
+                this.closeModal();
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;
@@ -101,6 +102,7 @@ export class CreateSupplierComponent implements OnInit {
         this.supplierService.updateSupplier(data).subscribe(res => {
             if (res != null) {
                 this.successMsg = "Supplier Successfully Updated..!";
+                this.closeModal();
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;

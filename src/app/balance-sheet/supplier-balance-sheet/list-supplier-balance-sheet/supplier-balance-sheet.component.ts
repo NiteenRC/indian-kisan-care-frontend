@@ -39,6 +39,9 @@ export class SupplierBalanceSheetComponent implements OnInit {
 
   getSalesOrderList() {
     this.purchaseOrderService.getAllSupplierPurchaseOrderBalanceSheet().subscribe(res => {
+      res.sort(function(a, b) {
+        return b.billDate - a.billDate;
+      });
       this.salesReports = res;
       this._setData(res);
     }, error => console.log(error));

@@ -19,7 +19,7 @@ import { CustomerService } from '../_services/customer.service';
 })
 export class SalesOrderComponent implements OnInit {
   salesOrderDetailData: any;
-  displayedColumns: string[] = ['sno', 'action', 'item', 'price', 'quantity', 'amount', 'taxType', 'taxAmount', 'totalAmount'];
+  displayedColumns: string[] = ['sno', 'action', 'item', 'price', 'quantity', 'totalAmount'];
   filteredCustomers: Observable<Customer[]>;
   filteredProducts: Observable<Product[]>;
 
@@ -235,8 +235,8 @@ export class SalesOrderComponent implements OnInit {
       let totalAmount = 0;
       productList.forEach(product => {
         const amount = Number(product.qtyOrdered) * Number(product.price);
-        const taxAmount = amount * (product.product?.gst || 0) / 100;
-        totalAmount += amount + taxAmount;
+        //const taxAmount = amount * (product.product?.gst || 0) / 100;
+        totalAmount += amount;
       });
       this.totalAmount = Math.round(totalAmount);
     });
