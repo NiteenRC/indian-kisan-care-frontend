@@ -48,10 +48,8 @@ export class SalesOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
-    if (this.salesOrderForm.valid && index != 0) {
     this.salesOrderDetailArr.removeAt(index);
     this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
-    }
   }
 
   selectedProduct(selectedProduct: string) {
@@ -94,7 +92,12 @@ export class SalesOrderComponent implements OnInit {
     return this.previousBalance + this.getCurrentBalance();
   }
 
-  save() {
+  save(isPrintReq: boolean) {
+    if (this.salesOrderDetailArr.value.length === 0) {
+      alert('please select products, before submitting');
+      return;
+    }
+
     let isStockAvail = true;
     this.salesOrderDetailArr.value.forEach(value => {
       if (value.product.qty < value.qtyOrdered) {
@@ -131,7 +134,7 @@ export class SalesOrderComponent implements OnInit {
       } else if (this.getTotalBalance() < 0) {
         alert('Amount paid should be equals to balance');
         return;
-      } else if (this.getTotalBalance() <= 0 ) {
+      } else if (this.getTotalBalance() <= 0) {
         salesOrder.status = 'PAID';
       } else if (salesOrder.amountPaid > 0) {
         salesOrder.status = 'PARTIAL';
@@ -142,8 +145,14 @@ export class SalesOrderComponent implements OnInit {
       this.salesOrderService
         .createSalesOrder(salesOrder).subscribe(data => {
           console.log(data);
-          this._printPdf(data);
-          this.refreshAfterSave();
+          //this._printPdf(data);
+          //this.refreshAfterSave();
+
+          if (isPrintReq) {
+            this._printPdf(data);
+          } else {
+            alert('Sales Order Successfully created!!');
+          }
         },
           error => console.log(error));
     }
@@ -159,10 +168,12 @@ export class SalesOrderComponent implements OnInit {
   }
 
   refreshAfterSave() {
-    window.location.reload();
-    // this.previousBalance = 0;
-    // this.salesOrderDetailData = [];
-    // this._createForm();
+    //window.location.reload();
+    this.previousBalance = 0;
+    this.totalAmount = 0;
+    this.salesOrderDetailData = [];
+    this._createForm();
+    this.fetchData();
   }
 
   private _customerBalanceData(customerID: any) {

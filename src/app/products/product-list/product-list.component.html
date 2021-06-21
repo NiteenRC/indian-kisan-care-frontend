@@ -37,6 +37,11 @@
         <td *matCellDef="let element" mat-cell> {{element.price  | number : '1.0-2'}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="salePrice">
+        <th *matHeaderCellDef mat-header-cell> Sale Rate</th>
+        <td *matCellDef="let element" mat-cell> {{element.currentPrice  | number : '1.0-2'}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="profit">
         <th *matHeaderCellDef mat-header-cell> Profit</th>
         <td *matCellDef="let element" mat-cell> {{element.profit | number : '1.0-2'}} </td>

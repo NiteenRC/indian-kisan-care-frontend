@@ -38,6 +38,7 @@ export class CreateProductComponent implements OnInit {
             //price: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
             gst: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(0)]),
             hsnNo: new FormControl(null),
+            currentPrice: new FormControl(null),
             //qty: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
         });
 
@@ -52,6 +53,7 @@ export class CreateProductComponent implements OnInit {
             //this.productForm.controls['price'].setValue(this.productUpdateData.price);
             this.productForm.controls['gst'].setValue(this.productUpdateData.gst);
             this.productForm.controls['hsnNo'].setValue(this.productUpdateData.hsnNo);
+            this.productForm.controls['currentPrice'].setValue(this.productUpdateData.currentPrice);
             //this.productForm.controls['qty'].setValue(this.productUpdateData.qty);
         }
     }
@@ -94,6 +96,7 @@ export class CreateProductComponent implements OnInit {
             //price: this.productForm.controls.price.value,
             gst: this.productForm.controls.gst.value,
             hsnNo: hsnNo,
+            currentPrice: this.productForm.controls.currentPrice.value,
             //qty: this.productForm.controls.qty.value,
             category: category
         };
@@ -125,7 +128,7 @@ export class CreateProductComponent implements OnInit {
             //price: this.productForm.controls.price.value,
             gst: this.productForm.controls.gst.value,
             hsnNo: this.productForm.controls.hsnNo.value,
-            //qty: this.productForm.controls.qty.value,
+            currentPrice: this.productForm.controls.currentPrice.value,
             category,
         };
         this.productService.updateProduct(data).subscribe(res => {

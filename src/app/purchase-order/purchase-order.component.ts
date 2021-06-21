@@ -48,10 +48,8 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
-    if (this.purchaserOrderForm.valid && index != 0) {
-      this.purchaseOrderDetailArr.removeAt(index);
-      this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
-    }
+    this.purchaseOrderDetailArr.removeAt(index);
+    this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
   }
 
   selectedProduct(selectedProduct: string) {
@@ -87,7 +85,11 @@ export class PurchaseOrderComponent implements OnInit {
     return this.previousBalance + this.getCurrentBalance();
   }
 
-  save() {
+  save(isPrintReq: boolean) {
+    if (this.purchaseOrderDetailArr.value.length === 0) {
+      alert('please select products, before submitting');
+      return;
+    }
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
     let supplier = this._findSupplier(supplierName);
 
@@ -121,8 +123,12 @@ export class PurchaseOrderComponent implements OnInit {
     this.purchaseOrderService
       .createPurchaseOrder(purchaseOrder).subscribe(data => {
         console.log(data);
-        this._printPdf(data);
-        this.refreshAfterSave();
+
+        if (isPrintReq) {
+          this._printPdf(data);
+        } else {
+          alert('Purchase Order Successfully created!!');
+        }
       },
         error => console.log(error));
   }
@@ -137,10 +143,12 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   refreshAfterSave() {
-    window.location.reload();
-    // this.previousBalance = 0;
-    // this.purchaseOrderDetailData = [];
-    // this._createForm();
+    //window.location.reload();
+    this.previousBalance = 0;
+    this.totalAmount = 0;
+    this.purchaseOrderDetailData = [];
+    this._createForm();
+    this.fetchData();
   }
 
   private _supplierBalanceData(supplierID: any) {

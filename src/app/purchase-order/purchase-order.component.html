@@ -1,4 +1,4 @@
-<form [formGroup]="purchaserOrderForm" (submit)="save()">
+<form [formGroup]="purchaserOrderForm">
   <div class="d-flex">
     <div class="form-group col-3">
       <mat-form-field class="example-full-width">
@@ -17,8 +17,7 @@
     <div class="form-group col-3">
       <mat-form-field class="example-full-width">
         <mat-label>Product</mat-label>
-        <input type="text" aria-label="Product" matInput formControlName="productName"
-          [matAutocomplete]="productAuto">
+        <input type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
         <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
           (optionSelected)="selectedProduct($event.option.value)">
           <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
@@ -31,8 +30,7 @@
     <div class="form-group col-2">
       <mat-form-field class="forms-fildes">
         <mat-label>Motor Vehicle no</mat-label>
-        <input type="text" aria-label="Motor Vehicle no" matInput
-          formControlName="motorVehicleNo">
+        <input type="text" aria-label="Motor Vehicle no" matInput formControlName="motorVehicleNo">
       </mat-form-field>
     </div>
 
@@ -170,8 +168,12 @@
         <label for="name">Total Pay Balance</label>
         <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
       </div>
-      <button type="submit" class="btn btn-success"
-        [disabled]="purchaserOrderForm.invalid">Submit</button>
+
+      <button class="btn btn-warning" style="width: 10%;margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
+      <button type="submit" class="btn btn-primary" style="width: 10%;margin-left: 5px;"
+        (click)="save(false)">SAVE</button>
+      <button type="submit" class="btn btn-success" style="width: 10%;margin-left: 5px;"
+        (click)="save(true)">PRINT</button>
     </div>
   </div>
 </form>
