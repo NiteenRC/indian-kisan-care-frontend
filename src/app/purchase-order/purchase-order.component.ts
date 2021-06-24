@@ -11,6 +11,7 @@ import { PurchaseOrder } from '../_model/purchaseOrder';
 import { PurchaseOrderService } from '../_services/purchase-order.service';
 import { Supplier } from '../_model/supplier';
 import { SupplierService } from '../_services/supplier.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-order',
@@ -19,7 +20,7 @@ import { SupplierService } from '../_services/supplier.service';
 })
 export class PurchaseOrderComponent implements OnInit {
   purchaseOrderDetailData: any;
-  displayedColumns: string[] = ['sno', 'action', 'item', 'price', 'quantity', 'amount', 'taxType', 'taxAmount', 'totalAmount'];
+  displayedColumns: string[] = ['sno', 'action', 'item', 'price', 'quantity', 'totalAmount'];
   filteredSuppliers: Observable<Supplier[]>;
   filteredProducts: Observable<Product[]>;
 
@@ -35,7 +36,7 @@ export class PurchaseOrderComponent implements OnInit {
     private _fb: FormBuilder,
     private productService: ProductService,
     private supplierService: SupplierService,
-    private purchaseOrderService: PurchaseOrderService) {
+    private purchaseOrderService: PurchaseOrderService,private route:Router) {
 
     this.suppliers = [];
     this.products = [];
@@ -143,6 +144,8 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   refreshAfterSave() {
+    this.route.navigate(['purchaseOrder'])
+    //this.route.navigateByUrl('/dashboard');
     //window.location.reload();
     this.previousBalance = 0;
     this.totalAmount = 0;
@@ -221,8 +224,9 @@ export class PurchaseOrderComponent implements OnInit {
       let totalAmount = 0;
       productList.forEach(product => {
         const amount = Number(product.qtyOrdered) * Number(product.price);
-        const taxAmount = amount * (product.product?.gst || 0) / 100;
-        totalAmount += amount + taxAmount;
+        //const taxAmount = amount * (product.product?.gst || 0) / 100;
+        //totalAmount += amount + taxAmount;
+        totalAmount += amount;
       });
       this.totalAmount = Math.round(totalAmount);
     });

@@ -36,4 +36,8 @@ export class PurchaseOrderService {
     updatePurchaseOrder(value: any): Observable<Object> {
         return this.http.put(`${this.baseUrl}`, value);
     }
+
+    deleteOrder(id: number): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
+    }
 }

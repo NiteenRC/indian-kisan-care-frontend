@@ -35,11 +35,12 @@ export class CreateProductComponent implements OnInit {
         this.productForm = new FormGroup({
             categoryName: new FormControl(null, [Validators.required]),
             productName: new FormControl(null, [Validators.required]),
-            //price: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
+            price: new FormControl(null),
             gst: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(0)]),
             hsnNo: new FormControl(null),
             currentPrice: new FormControl(null),
-            //qty: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]),
+            qty: new FormControl(null),
+            profit: new FormControl(null),
         });
 
         this.locationForm = new FormGroup({
@@ -50,11 +51,12 @@ export class CreateProductComponent implements OnInit {
             this.productUpdateData = data?.data;
             this.productForm.controls['categoryName'].setValue(this.productUpdateData.category.categoryName);
             this.productForm.controls['productName'].setValue(this.productUpdateData.productName);
-            //this.productForm.controls['price'].setValue(this.productUpdateData.price);
+            this.productForm.controls['price'].setValue(this.productUpdateData.price);
             this.productForm.controls['gst'].setValue(this.productUpdateData.gst);
             this.productForm.controls['hsnNo'].setValue(this.productUpdateData.hsnNo);
             this.productForm.controls['currentPrice'].setValue(this.productUpdateData.currentPrice);
-            //this.productForm.controls['qty'].setValue(this.productUpdateData.qty);
+            this.productForm.controls['qty'].setValue(this.productUpdateData.qty);
+            this.productForm.controls['profit'].setValue(this.productUpdateData.profit);
         }
     }
 
@@ -125,14 +127,17 @@ export class CreateProductComponent implements OnInit {
         let data = {
             id: this.productUpdateData.id,
             productName: this.productForm.controls.productName.value,
-            //price: this.productForm.controls.price.value,
+            price: this.productForm.controls.price.value,
             gst: this.productForm.controls.gst.value,
             hsnNo: this.productForm.controls.hsnNo.value,
             currentPrice: this.productForm.controls.currentPrice.value,
+            qty: this.productForm.controls.qty.value,
+            profit: this.productForm.controls.profit.value,
             category,
         };
         this.productService.updateProduct(data).subscribe(res => {
             if (res != null) {
+                let s = 0;
                 this.successMsg = 'Product Successfully Created..!';
                 this.closeModal();
             }

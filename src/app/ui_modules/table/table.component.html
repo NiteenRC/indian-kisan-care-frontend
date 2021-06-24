@@ -96,14 +96,14 @@
                                 <th scope="col">SI.<br>NO</th>
                                 <th scope="col">Item & Description</th>
                                 <th scope="col">HSN/SAC</th>
-                                <th scope="col">Rate</th>
+                                <th scope="col">Purchase Rate</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">
+                                <th scope="col">Total Amount</th>
+                                <!--<th scope="col">
                                     <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
                                 </th>
                                 <th scope="col">Tax Amount</th>
-                                <th scope="col">Total Amount</th>
+                                <th scope="col">Total Amount</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -111,19 +111,20 @@
                                 <td>{{i + 1}}.</td>
                                 <td>{{cart?.product?.productName}}</td>
                                 <td>{{cart?.product?.hsnNo}}</td>
-                                <td>₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>
-                                <td>{{cart?.qtyOrdered || 0}}</td>
-                                <td>₹{{(cart?.price * cart?.qtyOrdered).toLocaleString('en-IN') || 0}}</td>
-                                <td>{{cart?.product?.gst}}%</td>
+                                <td class="text-right pr-4">₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>
+                                <td class="text-right pr-4">{{cart?.qtyOrdered || 0}}</td>
+                                <td class="text-right pr-4">₹{{(cart?.price * cart?.qtyOrdered).toLocaleString('en-IN') || 0}}</td>
+                                <!--<td>{{cart?.product?.gst}}%</td>
                                 <td>₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
                                 </td>
                                 <td>
                                     ₹{{(cart.price * cart.qtyOrdered + cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
-                                </td>
+                                </td>-->
                             </tr>
                             <tr>
-                                <th colspan="8">Total</th>
-                                <th>₹{{totalPrice.toLocaleString('en-IN')}}</th>
+                                <th colspan="4">Total</th>
+                                <th class="text-right pr-4">{{totalQty.toLocaleString('en-IN')}}</th>
+                                <th class="text-right pr-4">₹{{totalPrice.toLocaleString('en-IN')}}</th>
                             </tr>
                         </tbody>
                     </table>

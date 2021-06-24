@@ -9,6 +9,7 @@ import { numberInWords } from '../../utils/numToWords.js';
 export class TableComponent implements OnInit {
   response: any;
   totalPrice: number = 0;
+  totalQty: number = 0;
   amountInWords: string = '';
   user: any = null;
 
@@ -38,15 +39,18 @@ export class TableComponent implements OnInit {
 
   private _calculateTotals() {
     let totalPrice = 0;
+    let totalQty = 0;
     console.log('response?.purchaseOrderDetail', this.response?.purchaseOrderDetail);
     this.response?.purchaseOrderDetail?.forEach((purchaseOrder) => {
       const amount = purchaseOrder?.price * purchaseOrder?.qtyOrdered;
-      const taxAmount = amount * purchaseOrder?.product?.gst/100;
-      totalPrice += amount + taxAmount;
+      const qty = purchaseOrder?.qtyOrdered;
+      //const taxAmount = amount * purchaseOrder?.product?.gst/100;
+      totalQty += qty;
+      totalPrice += amount;// + taxAmount;
     });
 
     this.totalPrice = Math.round(totalPrice);
-
+    this.totalQty = totalQty;
     this.amountInWords = numberInWords(this.totalPrice);
   }
 }
