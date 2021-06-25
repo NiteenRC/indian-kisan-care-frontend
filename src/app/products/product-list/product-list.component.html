@@ -39,7 +39,7 @@
 
     <ng-container matColumnDef="salePrice">
         <th *matHeaderCellDef mat-header-cell> Selling Price</th>
-        <td *matCellDef="let element"  mat-cell><span class="badge badge-primary">{{element.currentPrice  | number : '1.0-2'}}</span> </td>
+        <td *matCellDef="let element"  mat-cell class="row-highlight"><b>{{element.currentPrice  | number : '1.0-2'}}</b></td>
     </ng-container>
 
     <ng-container matColumnDef="profit">

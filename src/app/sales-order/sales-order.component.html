@@ -61,7 +61,7 @@
         <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
         <td *matCellDef="let element; let i = index;" mat-cell>
           <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product">
-            <mat-icon>delete</mat-icon>
+            <mat-icon class="delete-button">delete</mat-icon>
           </button>
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
@@ -79,8 +79,11 @@
           <mat-form-field floatLabel="never">
             <input matInput type="number" formControlName="price" required class="text-right">
             <span matPrefix>₹&nbsp;</span>
-            <mat-error *ngIf="element.get('price')?.hasError('required')">
+            <!--<mat-error *ngIf="element.get('price')?.hasError('required')">
               Price is Required!
+            </mat-error>-->
+            <mat-error *ngIf="element.get('price')?.hasError('required')">
+              Selling Price: {{element.get('product')?.value?.currentPrice | number : '1.0-2'}}
             </mat-error>
             <mat-error *ngIf="element.get('price')?.hasError('min')">
               Price more than zero
@@ -99,7 +102,7 @@
           <mat-form-field floatLabel="never" class="text-right">
             <input matInput type="number" formControlName="qtyOrdered" required>
             <mat-error *ngIf="element.get('qtyOrdered')?.hasError('required')">
-              Available Stock is {{element.get('product')?.value?.qty}}
+              Stock: {{element.get('product')?.value?.qty}}
             </mat-error>
             <mat-error *ngIf="element.get('qtyOrdered')?.hasError('min')">
               Quantity more than zero
@@ -153,22 +156,23 @@
 
     <div class="total-container">
       <div>
-        <label for="name">Current Balance </label>
+        <label for="name">Current Balance : </label>
         <span class="amount-read-only">{{ getCurrentBalance() | currency:'INR' }}</span>
       </div>
       <div>
-        <label for="name">Previous Balance </label>
+        <label for="name">Previous Balance : </label>
         <span class="amount-read-only">{{previousBalance | currency:'INR' }}</span>
       </div>
       <div>
-        <label for="name">Total Pay Balance</label>
+        <label for="name">Total Pay Balance :</label>
         <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
       </div>
       <div>
-        <label for="name">Amount Paid </label>
+        <label for="name">Amount Paid : </label>
         <input class="amount-edit" type="number" formControlName="amountPaid" required>
       </div>
-      
+      <br>
+
       <button class="btn btn-warning" style="width: 10%;margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
       <button type="submit" class="btn btn-primary" style="width: 10%;margin-left: 5px;"
         (click)="save(false)">SAVE</button>
