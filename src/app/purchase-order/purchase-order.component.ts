@@ -36,7 +36,7 @@ export class PurchaseOrderComponent implements OnInit {
     private _fb: FormBuilder,
     private productService: ProductService,
     private supplierService: SupplierService,
-    private purchaseOrderService: PurchaseOrderService,private route:Router) {
+    private purchaseOrderService: PurchaseOrderService, private route: Router) {
 
     this.suppliers = [];
     this.products = [];
@@ -54,6 +54,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   selectedProduct(selectedProduct: string) {
+    this.purchaserOrderForm.controls['productName'].setValue(null);
     const product = this._findProduct(selectedProduct);
     this._addProduct(product);
   }
@@ -87,6 +88,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   save(isPrintReq: boolean) {
+
     if (this.purchaseOrderDetailArr.value.length === 0) {
       alert('please select products, before submitting');
       return;
@@ -121,17 +123,19 @@ export class PurchaseOrderComponent implements OnInit {
       purchaseOrder.status = 'DUE';
     }
 
-    this.purchaseOrderService
-      .createPurchaseOrder(purchaseOrder).subscribe(data => {
-        console.log(data);
+    if (confirm("Are you sure to save?")) {
+      this.purchaseOrderService
+        .createPurchaseOrder(purchaseOrder).subscribe(data => {
+          console.log(data);
 
-        if (isPrintReq) {
-          this._printPdf(data);
-        } else {
-          alert('Purchase Order Successfully created!!');
-        }
-      },
-        error => console.log(error));
+          if (isPrintReq) {
+            this._printPdf(data);
+          } else {
+            alert('Purchase Order Successfully created!!');
+          }
+        },
+          error => console.log(error));
+    }
   }
 
   saveSupplier(supplierName: string): any {
@@ -144,7 +148,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   refreshAfterSave() {
-    this.route.navigate(['purchaseOrder'])
+    //this.route.navigate(['purchaseOrder'])
     //this.route.navigateByUrl('/dashboard');
     //window.location.reload();
     this.previousBalance = 0;
@@ -161,7 +165,8 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   private _printPdf(response) {
-    const url = `${location.origin}/praveen-traders/#table`;
+    //const url = `${location.origin}/praveen-traders/#table`;
+    const url = `${location.origin}/#table`;
     const myWindow = window.open(url);
     myWindow['response'] = response;
   }
@@ -204,9 +209,19 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   private _addProduct(product: Product) {
-    const newRow = this._initRow(product);
-    this.purchaseOrderDetailArr.push(newRow);
-    this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+    let isProductAdded = true;
+    this.purchaseOrderDetailArr.value.forEach(element => {
+      if (product.productName === element.product.productName) {
+        alert('Product is already Added!!');
+        isProductAdded = false;
+      }
+    });
+
+    if (isProductAdded) {
+      const newRow = this._initRow(product);
+      this.purchaseOrderDetailArr.push(newRow);
+      this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+    }
   }
 
   private _valueChangesListner() {

@@ -53,6 +53,7 @@ export class SalesOrderComponent implements OnInit {
   }
 
   selectedProduct(selectedProduct: string) {
+    this.salesOrderForm.controls['productName'].setValue(null);
     const product = this._findProduct(selectedProduct);
     if (product.qty <= 0) {
       alert('Stock is not avaiable');
@@ -93,6 +94,7 @@ export class SalesOrderComponent implements OnInit {
   }
 
   save(isPrintReq: boolean) {
+
     if (this.salesOrderDetailArr.value.length === 0) {
       alert('please select products, before submitting');
       return;
@@ -142,19 +144,21 @@ export class SalesOrderComponent implements OnInit {
         salesOrder.status = 'DUE';
       }
 
-      this.salesOrderService
-        .createSalesOrder(salesOrder).subscribe(data => {
-          console.log(data);
-          //this._printPdf(data);
-          //this.refreshAfterSave();
+      if (confirm("Are you sure to save?")) {
+        this.salesOrderService
+          .createSalesOrder(salesOrder).subscribe(data => {
+            console.log(data);
+            //this._printPdf(data);
+            //this.refreshAfterSave();
 
-          if (isPrintReq) {
-            this._printPdf(data);
-          } else {
-            alert('Sales Order Successfully created!!');
-          }
-        },
-          error => console.log(error));
+            if (isPrintReq) {
+              this._printPdf(data);
+            } else {
+              alert('Sales Order Successfully created!!');
+            }
+          },
+            error => console.log(error));
+      }
     }
   }
 
@@ -183,7 +187,8 @@ export class SalesOrderComponent implements OnInit {
   }
 
   private _printPdf(response) {
-    const url = `${location.origin}/praveen-traders/#salesTable`;
+    //const url = `${location.origin}/praveen-traders/#salesTable`;
+    const url = `${location.origin}/#salesTable`;
     const myWindow = window.open(url);
     myWindow['response'] = response;
   }
@@ -226,9 +231,19 @@ export class SalesOrderComponent implements OnInit {
   }
 
   private _addProduct(product: Product) {
-    const newRow = this._initRow(product);
-    this.salesOrderDetailArr.push(newRow);
-    this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+    let isProductAdded = true;
+    this.salesOrderDetailArr.value.forEach(element => {
+      if (product.productName === element.product.productName) {
+        alert('Product is already Added!!');
+        isProductAdded = false;
+      }
+    });
+
+    if (isProductAdded) {
+      const newRow = this._initRow(product);
+      this.salesOrderDetailArr.push(newRow);
+      this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+    }
   }
 
   private _valueChangesListner() {

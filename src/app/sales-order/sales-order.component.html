@@ -74,7 +74,7 @@
       </ng-container>
 
       <ng-container matColumnDef="price">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Sell Price</th>
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Selling Price</th>
         <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
           <mat-form-field floatLabel="never">
             <input matInput type="number" formControlName="price" required class="text-right">
@@ -153,10 +153,6 @@
 
     <div class="total-container">
       <div>
-        <label for="name">Amount Paid </label>
-        <input class="amount-edit" type="number" formControlName="amountPaid" required>
-      </div>
-      <div>
         <label for="name">Current Balance </label>
         <span class="amount-read-only">{{ getCurrentBalance() | currency:'INR' }}</span>
       </div>
@@ -168,6 +164,11 @@
         <label for="name">Total Pay Balance</label>
         <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
       </div>
+      <div>
+        <label for="name">Amount Paid </label>
+        <input class="amount-edit" type="number" formControlName="amountPaid" required>
+      </div>
+      
       <button class="btn btn-warning" style="width: 10%;margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
       <button type="submit" class="btn btn-primary" style="width: 10%;margin-left: 5px;"
         (click)="save(false)">SAVE</button>

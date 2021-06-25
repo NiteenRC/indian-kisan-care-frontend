@@ -12,7 +12,7 @@ import {CreateProductComponent} from '../create-product/create-product.component
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-    displayedColumns: string[] = ['productName', 'category', 'price', 'salePrice','profit', 'qty', 'GST', 'HSN/SAC', 'productDesc'];
+    displayedColumns: string[] = ['productName', 'category', 'qty', 'salePrice', 'price', 'profit', 'GST', 'productDesc'];
     dataSource;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 

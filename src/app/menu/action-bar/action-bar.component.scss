@@ -1,5 +1,5 @@
 .nav-link span{
-  margin-left: 10px;
+  margin-left: 5px;
   color: white;
 }
 .span{
@@ -47,6 +47,6 @@ ul.nav li.nav-item{
   color: white;
 }
 ::ng-deep.mat-tree-node {
-  min-height: 48px;
+  min-height: 1px;
   background-color: rgb(0 0 0 / 38%);
 }

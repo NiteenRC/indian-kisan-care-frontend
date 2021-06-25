@@ -86,7 +86,7 @@
 
           <ng-container matColumnDef="purchasePrice">
             <th *matHeaderCellDef mat-header-cell class="text-right">Purchase Price</th>
-            <td *matCellDef="let element" mat-cell class="text-right"> {{(element.price + (element.price * element.product?.gst/ 100)) | number : '1.0-2'}}
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.price | number : '1.0-2'}}
             </td>
           </ng-container>
 

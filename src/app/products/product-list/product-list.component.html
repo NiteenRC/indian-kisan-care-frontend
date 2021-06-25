@@ -28,18 +28,18 @@
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="qty">
-        <th *matHeaderCellDef mat-header-cell> Qty Stock</th>
+        <th *matHeaderCellDef mat-header-cell>Stock</th>
         <td *matCellDef="let element" mat-cell> {{element.qty}} </td>
     </ng-container>
 
     <ng-container matColumnDef="price">
-        <th *matHeaderCellDef mat-header-cell> Purchase Rate</th>
-        <td *matCellDef="let element" mat-cell> {{element.price  | number : '1.0-2'}} </td>
+        <th *matHeaderCellDef mat-header-cell> Avg Price</th>
+        <td *matCellDef="let element" mat-cell> {{element.price  | number : '1.0-2'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="salePrice">
-        <th *matHeaderCellDef mat-header-cell> Sale Rate</th>
-        <td *matCellDef="let element" mat-cell> {{element.currentPrice  | number : '1.0-2'}} </td>
+        <th *matHeaderCellDef mat-header-cell> Selling Price</th>
+        <td *matCellDef="let element"  mat-cell><span class="badge badge-primary">{{element.currentPrice  | number : '1.0-2'}}</span> </td>
     </ng-container>
 
     <ng-container matColumnDef="profit">
@@ -47,10 +47,10 @@
         <td *matCellDef="let element" mat-cell> {{element.profit | number : '1.0-2'}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="HSN/SAC">
+    <!--<ng-container matColumnDef="HSN/SAC">
         <th *matHeaderCellDef mat-header-cell> HAN/SAC</th>
         <td *matCellDef="let element" mat-cell> {{element.hsnNo}}</td>
-    </ng-container>
+    </ng-container>-->
 
     <ng-container matColumnDef="GST">
         <th *matHeaderCellDef mat-header-cell> GST</th>
