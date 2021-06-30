@@ -36,4 +36,8 @@ export class SalesOrderService {
     updateSalesOrder(value: any): Observable<Object> {
         return this.http.put(`${this.baseUrl}`, value);
     }
+
+    getBarChartReport(): any {
+        return this.http.get(`${this.baseUrl}/barChart`);
+    }
 }

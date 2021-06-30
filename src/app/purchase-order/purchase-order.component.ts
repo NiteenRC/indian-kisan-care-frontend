@@ -49,8 +49,10 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
-    this.purchaseOrderDetailArr.removeAt(index);
-    this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+    if (this.purchaseOrderDetailArr.length > 1 || index > 0) {
+      this.purchaseOrderDetailArr.removeAt(index);
+      this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+    }
   }
 
   selectedProduct(selectedProduct: string) {
