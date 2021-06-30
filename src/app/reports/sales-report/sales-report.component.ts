@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./sales-report.component.css']
 })
 export class SalesReportComponent implements OnInit {
-  displayedColumns: string[] = ['billDate', 'dueDate', 'customerName', 'status', 'totalPrice', 'amountPaid', 'dueAmount'];
+  displayedColumns: string[] = ['billDate', 'dueDate', 'customerName', 'status', 'totalPrice', 'amountPaid','profit', 'dueAmount'];
   productColumns: string[] = ['id', 'productName', 'salesPrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;

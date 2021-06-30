@@ -10,13 +10,16 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ProfitSummaryComponent implements OnInit {
   displayedColumns: string[] = ['createdDate', 'totalPrice'];
+  displayedColumnsProduct: string[] = ['productName', 'qtySold','totalPrice'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
+  dataSourceProduct: any;
 
   constructor(private salesOrderService: SalesOrderService) { }
 
   ngOnInit(): void {
     this.getSalesOrderList();
+    this.getSalesOrderByProduct();
   }
 
   getSalesOrderList() {
@@ -25,8 +28,19 @@ export class ProfitSummaryComponent implements OnInit {
     }, error => console.log(error));
   }
 
+  getSalesOrderByProduct() {
+    this.salesOrderService.getSalesOrderByProductWise().subscribe(res => {
+      this._setDataProductWise(res);
+    }, error => console.log(error));
+  }
+
   private _setData(data) {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
+  }
+
+  private _setDataProductWise(data) {
+    this.dataSourceProduct = new MatTableDataSource(data);
+    this.dataSourceProduct.paginator = this.paginator;
   }
 }

@@ -1,24 +1,55 @@
 <div class="d-flex">
+  <div class="col-4 col-lg-4 offset-lg-0">
+    <div class="mat-elevation-z8">
+      <table [dataSource]="dataSource" mat-table>
 
-  <div class="mat-elevation-z8">
-    <table [dataSource]="dataSource" mat-table>
+        <ng-container matColumnDef="createdDate">
+          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Recent Dates</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.createdDate | date: 'dd/MM/yyyy'}}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="createdDate">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Created Date</th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.createdDate | date: 'dd/MM/yyyy'}}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="totalPrice">
+          <th *matHeaderCellDef mat-header-cell class="text-right">Total Profit</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4">
+            {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="totalPrice">
-        <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
-      </ng-container>
+        <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 
-      <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
 
-    </table>
-    <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>
+  <div class="col-3 col-lg-7 offset-lg-0">
+    <div class="mat-elevation-z9">
+      <table [dataSource]="dataSourceProduct" mat-table>
+
+        <ng-container matColumnDef="productName">
+          <th *matHeaderCellDef mat-header-cell>Product Name</th>
+          <td *matCellDef="let element" mat-cell> {{element.productName}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="qtySold">
+          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Sold Quantity</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.qtySold}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalPrice">
+          <th *matHeaderCellDef mat-header-cell class="text-right">Total Profit</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4">
+            {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumnsProduct;  sticky: true" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumnsProduct;" mat-row></tr>
+
+      </table>
+      <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
 </div>

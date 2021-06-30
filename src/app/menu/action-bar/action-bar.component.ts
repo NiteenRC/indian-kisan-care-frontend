@@ -78,10 +78,10 @@ export class ActionBarComponent {
 
   getReports(item) {
     if (item === "Sales Order Report") {
-      this._redirectToPage('dashboard/reports/sales-report');
+      this._redirectToPage('dashboard/sales-report');
     }
     if (item === "Purchase Order Report") {
-      this._redirectToPage('dashboard/reports/purchase-report');
+      this._redirectToPage('dashboard/purchase-report');
     }
   }
 
@@ -114,17 +114,16 @@ interface MasterNode {
   name: string;
   children?: MasterNode[];
 }
+
 const Order_DATA: MasterNode[] = [
   {
     name: 'ORDER',
     children: [
       {
         name: 'Buy',
-
       },
       {
         name: 'Sell',
-
       }
     ]
   },

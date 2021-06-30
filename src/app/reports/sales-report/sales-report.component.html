@@ -59,6 +59,11 @@
       <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="profit">
+      <th *matHeaderCellDef mat-header-cell class="text-right">Profit</th>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalProfit?.toLocaleString('en-IN') || 0}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell> {{element.status}} </td>

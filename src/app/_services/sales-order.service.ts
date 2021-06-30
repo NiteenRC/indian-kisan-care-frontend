@@ -40,4 +40,8 @@ export class SalesOrderService {
     getBarChartReport(): any {
         return this.http.get(`${this.baseUrl}/barChart`);
     }
+
+    getSalesOrderByProductWise(): any {
+        return this.http.get(`${this.baseUrl}/product`);
+    }
 }

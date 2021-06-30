@@ -43,7 +43,6 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import { TableComponent } from './ui_modules/table/table.component';
 import { SalesTableComponent } from './ui_modules/table/sales-table.component';
-import { ReportsComponent } from './reports/reports.component';
 import { SalesReportComponent } from './reports/sales-report/sales-report.component';
 import { PurchaseReportComponent } from './reports/purchase-report/purchase-report.component';
 import { UpdateBalanceSheetComponent } from './balance-sheet/customer-balance-sheet/update-customer-balance-sheet/customer-update-balance-sheet.component';
@@ -86,7 +85,6 @@ import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.
     LocationListComponent,
     TableComponent,
     SalesTableComponent,
-    ReportsComponent,
     SalesReportComponent,
     PurchaseReportComponent,
     UpdateBalanceSheetComponent,
