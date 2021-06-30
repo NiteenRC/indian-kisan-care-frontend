@@ -27,12 +27,14 @@ export class ActionBarComponent {
   dataSource_Order = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceReports = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceBalance = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  dataSourceSummary = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private router: Router) {
     this.dataSource.data = TREE_DATA;
     this.dataSource_Order.data = Order_DATA;
     this.dataSourceReports.data = REPORTS;
     this.dataSourceBalance.data = BALANCESHEET;
+    this.dataSourceSummary.data = SUMMARY;
 
     console.log('dataSourceReports', this.dataSourceReports);
   }
@@ -94,6 +96,15 @@ export class ActionBarComponent {
     }
   }
 
+  getSummary(item) {
+    if (item === "Profit Summary") {
+      this._redirectToPage('dashboard/profit-summary');
+    }
+    if (item === "Stock Book") {
+      this._redirectToPage('dashboard/stock-book');
+    }
+  }
+
   private _redirectToPage(route) {
     this.router.navigate([route]);
   }
@@ -142,6 +153,20 @@ const BALANCESHEET: MasterNode[] = [
       },
       {
         name: 'Supplier Balance',
+      }
+    ]
+  },
+];
+
+const SUMMARY: MasterNode[] = [
+  {
+    name: 'SUMMARY',
+    children: [
+      {
+        name: 'Profit Summary',
+      },
+      {
+        name: 'Stock Book',
       }
     ]
   },

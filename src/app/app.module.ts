@@ -51,6 +51,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
 import { SupplierUpdateBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/update-supplier-balance-sheet/supplier-update-balance-sheet.component';
 import { DateAdapter } from '@angular/material/core';
+import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { DateAdapter } from '@angular/material/core';
     SalesReportComponent,
     PurchaseReportComponent,
     UpdateBalanceSheetComponent,
+    ProfitSummaryComponent,
   ],
   imports: [
     TableModule,
