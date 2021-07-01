@@ -44,4 +44,9 @@ export class SalesOrderService {
     getSalesOrderByProductWise(): any {
         return this.http.get(`${this.baseUrl}/product`);
     }
+
+    getStockBook(productName: string): any {
+        const opts = { params: {'productName': productName}};
+        return this.http.get(`${this.baseUrl}/stock-book`,opts);
+    }
 }

@@ -27,6 +27,7 @@ import { SalesReportComponent } from './reports/sales-report/sales-report.compon
 import { PurchaseReportComponent } from './reports/purchase-report/purchase-report.component';
 import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
 import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.component';
+import { StockBookComponent } from './reports/stock-book/stock-book.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -55,7 +56,7 @@ export const routes: Routes = [
       { path: 'locations-list', component: LocationListComponent },
       { path: 'home', component: HomeComponent },
       { path: 'profit-summary', component: ProfitSummaryComponent },
-      { path: 'stock-book', component: ProfitSummaryComponent },
+      { path: 'stock-book', component: StockBookComponent },
       { path: 'sales-report', component: SalesReportComponent },
       { path: 'purchase-report', component: PurchaseReportComponent },
     ]

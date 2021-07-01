@@ -51,6 +51,7 @@ import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-
 import { SupplierUpdateBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/update-supplier-balance-sheet/supplier-update-balance-sheet.component';
 import { DateAdapter } from '@angular/material/core';
 import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.component';
+import { StockBookComponent } from './reports/stock-book/stock-book.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.
     PurchaseReportComponent,
     UpdateBalanceSheetComponent,
     ProfitSummaryComponent,
+    StockBookComponent
   ],
   imports: [
     TableModule,

@@ -1,0 +1,49 @@
+<form [formGroup]="productForm">
+  <div class="d-flex">
+    <div class="form-group col-5">
+      <mat-form-field class="example-full-width">
+        <mat-label>Product</mat-label>
+        <input type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
+        <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
+          (optionSelected)="selectedProduct($event.option.value)">
+          <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
+            {{product.productName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="mat-elevation-z8">
+      <table [dataSource]="dataSource" mat-table>
+
+        <ng-container matColumnDef="date">
+          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Recent Dates</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.date | date: 'dd/MM/yyyy'}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productName">
+          <th *matHeaderCellDef mat-header-cell>Product Name</th>
+          <td *matCellDef="let element" mat-cell>
+            {{element.productName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="soldStock">
+          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Sold Stock</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4">
+            {{element.soldStock.toLocaleString('en-IN') || 0}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="profit">
+          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Profit</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4">
+            {{element.profit.toLocaleString('en-IN') || 0}} </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+      </table>
+      <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</form>

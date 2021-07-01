@@ -77,10 +77,10 @@ export class ActionBarComponent {
   }
 
   getReports(item) {
-    if (item === "Sales Order Report") {
+    if (item === "Sales Report") {
       this._redirectToPage('dashboard/sales-report');
     }
-    if (item === "Purchase Order Report") {
+    if (item === "Purchase Report") {
       this._redirectToPage('dashboard/purchase-report');
     }
   }
@@ -131,13 +131,13 @@ const Order_DATA: MasterNode[] = [
 
 const REPORTS: MasterNode[] = [
   {
-    name: 'REPORTS',
+    name: 'TRANSACTION',
     children: [
       {
-        name: 'Sales Order Report',
+        name: 'Sales Report',
       },
       {
-        name: 'Purchase Order Report',
+        name: 'Purchase Report',
       }
     ]
   },
