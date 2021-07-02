@@ -2696,6 +2696,10 @@ table {
   width: 100%;
 }
 
+.mat-header-cell {
+  color: #f8f9fa;
+}
+
 @font-face {
     font-family: 'primeicons';
     font-display: auto;

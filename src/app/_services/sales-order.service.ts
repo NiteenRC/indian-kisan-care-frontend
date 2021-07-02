@@ -49,4 +49,9 @@ export class SalesOrderService {
         const opts = { params: {'productName': productName}};
         return this.http.get(`${this.baseUrl}/stock-book`,opts);
     }
+
+    getStockBookByDate(start: string, end: string): any {
+        const opts = { params: {'startDate': start, 'endDate': end}};
+        return this.http.get(`${this.baseUrl}/stock-book-by-date`,opts);
+    }
 }

@@ -23,9 +23,18 @@ export class StockBookComponent implements OnInit {
   filteredProducts: Observable<Product[]>;
   productForm: FormGroup;
 
+  searchText: string;
+
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
+
   constructor(private salesOrderService: SalesOrderService, private productService: ProductService) {
     this.productForm = new FormGroup({
       productName: new FormControl(null),
+      totalProfit: new FormControl(),
+      totalQtySold: new FormControl()
     })
   }
 
@@ -37,6 +46,12 @@ export class StockBookComponent implements OnInit {
       this.products = data;
       this._valueChangesListner();
     });
+
+    this.range.valueChanges.subscribe(dateRange => {
+      if (this.range.valid) {
+        this.searchData();
+      }
+    })
   }
 
   private _valueChangesListner() {
@@ -56,7 +71,9 @@ export class StockBookComponent implements OnInit {
 
   getSalesOrderList(productName: string) {
     this.salesOrderService.getStockBook(productName).subscribe(res => {
-      this._setData(res);
+      this._setData(res.stockBooks);
+      this.productForm.controls['totalProfit'].setValue(res.totalProfit);
+      this.productForm.controls['totalQtySold'].setValue(res.totalQtySold);
     }, error => console.log(error));
   }
 
@@ -74,4 +91,35 @@ export class StockBookComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
   }
+
+  clearDate() {
+    this.range.reset();
+  }
+
+  searchData() {
+    const searchText = this.searchText;
+    const { start, end } = this.range.value || {};
+    //let filteredData = this.purchaseReports;
+
+    if (start && end) {
+      const startTime = start.getTime();
+      const endTime = end.getTime() + 86399999;
+
+      this.getSalesOrderList1(startTime, endTime);
+      // console.log('date===', startTime, endTime, new Date(startTime), new Date(endTime));
+      //filteredData = filteredData.filter(purchaseReport => {
+      // const dueDateTime = new Date(purchaseReport?.dueDate).getTime();
+      //return dueDateTime >= startTime && dueDateTime <= endTime
+    };
+  }
+
+  getSalesOrderList1(startDate: string, endDate: string) {
+    this.salesOrderService.getStockBookByDate(startDate, endDate).subscribe(res => {
+      this._setData(res.stockBooks);
+      this.productForm.controls['totalProfit'].setValue(res.totalProfit);
+      this.productForm.controls['totalQtySold'].setValue(res.totalQtySold);
+    }, error => console.log(error));
+  }
+  //this._setData(filteredData);
+
 }

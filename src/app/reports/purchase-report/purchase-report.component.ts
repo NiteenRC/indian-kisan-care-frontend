@@ -61,7 +61,7 @@ export class PurchaseReportComponent implements OnInit {
       const endTime = end.getTime() + 86399999;
       // console.log('date===', startTime, endTime, new Date(startTime), new Date(endTime));
       filteredData = filteredData.filter(purchaseReport => {
-        const dueDateTime = new Date(purchaseReport?.dueDate).getTime();
+        const dueDateTime = new Date(purchaseReport?.billDate).getTime();
         return dueDateTime >= startTime && dueDateTime <= endTime
       });
     }
