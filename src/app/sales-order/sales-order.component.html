@@ -37,14 +37,14 @@
     <mat-form-field class="form-group col-2">
       <mat-label>Bill date</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="billDate">
-      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="picker1" ng-model-options="{timezone: 'utc'}"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="form-group col-2">
       <mat-label>Due date</mat-label>
       <input matInput [matDatepicker]="picker2" formControlName="dueDate">
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="picker2" ng-model-options="{timezone: 'utc'}"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
@@ -174,10 +174,10 @@
       <br>
 
       <button class="btn btn-warning" style="width: 10%;margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
-      <button type="submit" class="btn btn-primary" style="width: 10%;margin-left: 5px;"
+      <button type="submit" class="btn btn-primary" style="width: 10%;margin-left: 5px;" [disabled]="singleClickDisable && !salesOrderForm.valid"
         (click)="save(false)">SAVE</button>
-      <button type="submit" class="btn btn-success" style="width: 10%;margin-left: 5px;"
-        (click)="save(true)">PRINT</button>
+      <button type="submit" class="btn btn-success" style="width: 15%;margin-left: 5px;" [disabled]="singleClickDisable"
+        (click)="save(true)">SAVE & PRINT</button>
     </div>
   </div>
 </form>

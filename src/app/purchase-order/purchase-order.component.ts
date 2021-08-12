@@ -31,6 +31,7 @@ export class PurchaseOrderComponent implements OnInit {
   totalAmount = 0;
 
   purchaserOrderForm: FormGroup;
+  singleClickDisable = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -43,6 +44,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.singleClickDisable = false;
     this.fetchData();
     this._createForm();
     console.log('this.purchaserOrderForm', this.purchaserOrderForm);
@@ -90,9 +92,10 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   save(isPrintReq: boolean) {
-
+    this.singleClickDisable = true;
     if (this.purchaseOrderDetailArr.value.length === 0) {
       alert('please select products, before submitting');
+      this.singleClickDisable = false;
       return;
     }
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
@@ -113,9 +116,11 @@ export class PurchaseOrderComponent implements OnInit {
 
     if (purchaseOrder.amountPaid < 0) {
       alert('Amount paid should be positive');
+      this.singleClickDisable = false;
       return;
     } else if (this.getTotalBalance() < 0) {
       alert('Amount paid should be equals to balance');
+      this.singleClickDisable = false;
       return;
     } else if (this.getTotalBalance() <= 0) {
       purchaseOrder.status = 'PAID';
@@ -129,14 +134,19 @@ export class PurchaseOrderComponent implements OnInit {
       this.purchaseOrderService
         .createPurchaseOrder(purchaseOrder).subscribe(data => {
           console.log(data);
-
+          this.singleClickDisable = false;
           if (isPrintReq) {
             this._printPdf(data);
           } else {
             alert('Purchase Order Successfully created!!');
           }
         },
-          error => console.log(error));
+          error => {
+            console.log(error);
+            this.singleClickDisable = false;
+          });
+    } else {
+      this.singleClickDisable = false;
     }
   }
 

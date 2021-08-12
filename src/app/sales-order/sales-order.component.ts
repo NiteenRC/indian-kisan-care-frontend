@@ -30,6 +30,7 @@ export class SalesOrderComponent implements OnInit {
   totalAmount = 0;
 
   salesOrderForm: FormGroup;
+  singleClickDisable = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -42,6 +43,7 @@ export class SalesOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.singleClickDisable = false;
     this.fetchData();
     this._createForm();
     console.log('this.salesOrderForm', this.salesOrderForm);
@@ -96,9 +98,10 @@ export class SalesOrderComponent implements OnInit {
   }
 
   save(isPrintReq: boolean) {
-
+    this.singleClickDisable = true;
     if (this.salesOrderDetailArr.value.length === 0) {
       alert('please select products, before submitting');
+      this.singleClickDisable = false;
       return;
     }
 
@@ -134,9 +137,11 @@ export class SalesOrderComponent implements OnInit {
 
       if (salesOrder.amountPaid < 0) {
         alert('Amount paid should be positive');
+        this.singleClickDisable = false;
         return;
       } else if (this.getTotalBalance() < 0) {
         alert('Amount paid should be equals to balance');
+        this.singleClickDisable = false;
         return;
       } else if (this.getTotalBalance() <= 0) {
         salesOrder.status = 'PAID';
@@ -152,14 +157,19 @@ export class SalesOrderComponent implements OnInit {
             console.log(data);
             //this._printPdf(data);
             //this.refreshAfterSave();
-
+            this.singleClickDisable = false;
             if (isPrintReq) {
               this._printPdf(data);
             } else {
               alert('Sales Order Successfully created!!');
             }
           },
-            error => console.log(error));
+            error => {
+              console.log(error);
+              this.singleClickDisable = false;
+            });
+      } else {
+        this.singleClickDisable = false;
       }
     }
   }
@@ -226,11 +236,12 @@ export class SalesOrderComponent implements OnInit {
 
   private _initRow(product) {
     return this._fb.group({
-      price: [, [Validators.required, Validators.min(1), Validators.max(100000)]],
-      qtyOrdered: [, [Validators.required, Validators.min(1), Validators.max(10000)]],
+      price: [product.currentPrice, [Validators.required, Validators.min(1), Validators.max(100000)]],
+      qtyOrdered: [1, [Validators.required, Validators.min(1), Validators.max(10000)]],
       product: [product]
     });
   }
+
 
   private _addProduct(product: Product) {
     let isProductAdded = true;

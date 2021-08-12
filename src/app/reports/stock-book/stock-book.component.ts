@@ -39,7 +39,7 @@ export class StockBookComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSalesOrderList('');
+    this.getSalesOrderList('0', '0');
     //alert('Please select dropdown')
 
     this.productService.getProductsList().subscribe(data => {
@@ -69,18 +69,10 @@ export class StockBookComponent implements OnInit {
     return this.products.filter(option => option.productName.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  getSalesOrderList(productName: string) {
-    this.salesOrderService.getStockBook(productName).subscribe(res => {
-      this._setData(res.stockBooks);
-      this.productForm.controls['totalProfit'].setValue(res.totalProfit);
-      this.productForm.controls['totalQtySold'].setValue(res.totalQtySold);
-    }, error => console.log(error));
-  }
-
   selectedProduct(selectedProduct: string) {
     //this.productForm.controls['productName'].setValue(null);
     this._findProduct(selectedProduct);
-    this.getSalesOrderList(selectedProduct)
+    //this.getSalesOrderList('0','0');
   }
 
   private _findProduct(value: string): Product {
@@ -99,27 +91,19 @@ export class StockBookComponent implements OnInit {
   searchData() {
     const searchText = this.searchText;
     const { start, end } = this.range.value || {};
-    //let filteredData = this.purchaseReports;
 
     if (start && end) {
       const startTime = start.getTime();
       const endTime = end.getTime() + 86399999;
-
-      this.getSalesOrderList1(startTime, endTime);
-      // console.log('date===', startTime, endTime, new Date(startTime), new Date(endTime));
-      //filteredData = filteredData.filter(purchaseReport => {
-      // const dueDateTime = new Date(purchaseReport?.dueDate).getTime();
-      //return dueDateTime >= startTime && dueDateTime <= endTime
+      this.getSalesOrderList(startTime, endTime);
     };
   }
 
-  getSalesOrderList1(startDate: string, endDate: string) {
+  getSalesOrderList(startDate: string, endDate: string) {
     this.salesOrderService.getStockBookByDate(startDate, endDate).subscribe(res => {
       this._setData(res.stockBooks);
       this.productForm.controls['totalProfit'].setValue(res.totalProfit);
       this.productForm.controls['totalQtySold'].setValue(res.totalQtySold);
     }, error => console.log(error));
   }
-  //this._setData(filteredData);
-
 }
