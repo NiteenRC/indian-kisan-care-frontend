@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./sales-report.component.css']
 })
 export class SalesReportComponent implements OnInit {
-  displayedColumns: string[] = ['billDate', 'dueDate', 'customerName', 'status', 'totalPrice', 'amountPaid','profit', 'dueAmount'];
+  displayedColumns: string[] = ['billDate', 'dueDate', 'customerName', 'status', 'totalPrice', 'amountPaid','profit', 'dueAmount', 'action'];
   productColumns: string[] = ['id', 'productName', 'salesPrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
@@ -75,5 +75,13 @@ export class SalesReportComponent implements OnInit {
   private _setData(data) {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
+  }
+
+  deleteSalesOrder(event) {
+    this.salesOrderService.deleteSalesOrder(event.salesOrderID).subscribe(
+      response => {
+        this.getSalesOrderList();
+      },
+      error => console.log(error));
   }
 }

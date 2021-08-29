@@ -97,6 +97,8 @@ export class SalesOrderComponent implements OnInit {
     return this.previousBalance + this.getCurrentBalance();
   }
 
+  showMsg: boolean = false;
+
   save(isPrintReq: boolean) {
     this.singleClickDisable = true;
     if (this.salesOrderDetailArr.value.length === 0) {
@@ -161,7 +163,14 @@ export class SalesOrderComponent implements OnInit {
             if (isPrintReq) {
               this._printPdf(data);
             } else {
-              alert('Sales Order Successfully created!!');
+              this.showMsg= true;
+
+              setTimeout(function(){
+                //alert('as')
+                window.location.reload();
+              }, 1500);
+              
+              //alert('Sales Order Successfully created!!');
             }
           },
             error => {

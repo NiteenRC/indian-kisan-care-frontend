@@ -54,4 +54,8 @@ export class SalesOrderService {
         const opts = { params: {'startDate': start, 'endDate': end}};
         return this.http.get(`${this.baseUrl}/stock-book-by-date`,opts);
     }
+
+    deleteSalesOrder(id: number): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
+    }
 }
