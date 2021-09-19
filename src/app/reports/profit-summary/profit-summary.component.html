@@ -1,28 +1,42 @@
 <div class="d-flex">
-  <div class="col-4 col-lg-4 offset-lg-0">
+  <div class="col-4 col-lg-5 offset-lg-0">
     <div class="mat-elevation-z8">
       <table [dataSource]="dataSource" mat-table>
 
         <ng-container matColumnDef="createdDate">
-          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Recent Dates</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.createdDate}}
+          <th *matHeaderCellDef mat-header-cell class="text-right pr">Bill Date</th>
+          <td *matCellDef="let element" mat-cell class="text-right"> {{element.createdDate}}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="totalPrice">
-          <th *matHeaderCellDef mat-header-cell class="text-right">Total Profit</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          <th *matHeaderCellDef mat-header-cell class="text-right">Transaction</th>
+          <td *matCellDef="let element" mat-cell class="text-right">
             {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dueAmount">
+          <th *matHeaderCellDef mat-header-cell class="text-right">Due Amount</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4">
+            {{element.dueAmount.toLocaleString('en-IN') || 0}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="profit">
+          <th *matHeaderCellDef mat-header-cell class="text-right">Profit</th>
+          <td *matCellDef="let element" mat-cell class="text-right pr-4">
+            {{element.totalProfit.toLocaleString('en-IN') || 0}} </td>
         </ng-container>
 
         <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
         <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 
       </table>
-      <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>
+      <!-- <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>-->
     </div>
   </div>
+  <br>
 
+  <!--
   <div class="col-3 col-lg-7 offset-lg-0">
     <div class="mat-elevation-z9">
       <table [dataSource]="dataSourceProduct" mat-table>
@@ -49,7 +63,9 @@
         <tr *matRowDef="let row; columns: displayedColumnsProduct;" mat-row></tr>
 
       </table>
-      <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>
+       <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>
     </div>
+</div>
   </div>
+</div>-->
 </div>

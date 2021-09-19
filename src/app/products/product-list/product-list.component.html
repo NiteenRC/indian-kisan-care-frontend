@@ -14,6 +14,11 @@
 <div class="mat-elevation-z8">
 <table [dataSource]="dataSource" mat-table>
 
+    <ng-container matColumnDef="SNo">
+        <th *matHeaderCellDef mat-header-cell>S.No</th>
+        <td *matCellDef="let element; let i = index;" mat-cell class="text-center pr-4"> {{i + 1}}. </td>
+    </ng-container>
+    
     <!-- Name Column -->
     <ng-container matColumnDef="productName">
         <th *matHeaderCellDef mat-header-cell> Product</th>
@@ -85,5 +90,6 @@
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 </table>
-<mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>
+<!-- <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>-->
 </div>
+<br>

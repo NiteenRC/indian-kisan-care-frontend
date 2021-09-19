@@ -14,7 +14,7 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['./stock-book.component.css']
 })
 export class StockBookComponent implements OnInit {
-  displayedColumns: string[] = ['date', 'productName', 'soldStock', 'profit'];
+  displayedColumns: string[] = ['sno', 'date', 'productName', 'openingStock', 'soldStock', 'closingStock'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
   dataSourceProduct: any;
@@ -24,6 +24,8 @@ export class StockBookComponent implements OnInit {
   productForm: FormGroup;
 
   searchText: string;
+  startDate: string;
+  endDate: string;
 
   range = new FormGroup({
     start: new FormControl(),
@@ -34,12 +36,13 @@ export class StockBookComponent implements OnInit {
     this.productForm = new FormGroup({
       productName: new FormControl(null),
       totalProfit: new FormControl(),
+      totalPrice: new FormControl(),
       totalQtySold: new FormControl()
     })
   }
 
   ngOnInit(): void {
-    this.getSalesOrderList('0', '0');
+    //this.getSalesOrderList(1, '0', '0');
     //alert('Please select dropdown')
 
     this.productService.getProductsList().subscribe(data => {
@@ -63,15 +66,18 @@ export class StockBookComponent implements OnInit {
 
   private _filterProduct(value: string): Product[] {
     if (!value) {
+      this.searchText = null;
+      this.getSalesOrderList(null, this.startDate, this.endDate);
       return this.products;
     }
     const filterValue = value.toLowerCase();
-    return this.products.filter(option => option.productName.toLowerCase().indexOf(filterValue) === 0);
+    return this.products.filter(option => option.productName.toLowerCase().includes(filterValue));
   }
 
   selectedProduct(selectedProduct: string) {
     //this.productForm.controls['productName'].setValue(null);
-    this._findProduct(selectedProduct);
+    this.getSalesOrderList(selectedProduct, this.startDate, this.endDate);
+    this.searchText = selectedProduct;
     //this.getSalesOrderList('0','0');
   }
 
@@ -86,6 +92,9 @@ export class StockBookComponent implements OnInit {
 
   clearDate() {
     this.range.reset();
+    this.startDate = null;
+    this.endDate = null;
+    this.getSalesOrderList(this.searchText, null, null);
   }
 
   searchData() {
@@ -93,17 +102,31 @@ export class StockBookComponent implements OnInit {
     const { start, end } = this.range.value || {};
 
     if (start && end) {
-      const startTime = start.getTime();
-      const endTime = end.getTime() + 86399999;
-      this.getSalesOrderList(startTime, endTime);
+      this.startDate = start.getTime();
+      this.endDate = end.getTime() + 86399999;
+      if(this.searchText == undefined){
+        this.searchText = null;
+      }
+      this.getSalesOrderList(this.searchText, this.startDate, this.endDate);
     };
   }
 
-  getSalesOrderList(startDate: string, endDate: string) {
-    this.salesOrderService.getStockBookByDate(startDate, endDate).subscribe(res => {
-      this._setData(res.stockBooks);
+  getSalesOrderList(productName, startDate: string, endDate: string) {
+   // if(startDate != "0" && endDate != "0"){
+     if(startDate == undefined || endDate == undefined){
+        startDate = null;
+        endDate = null;
+     }
+     //this.searchText = productName; 
+     this.salesOrderService.getStockBookByDate(productName, startDate, endDate).subscribe(res => {
+      this.dataSource = res.stockData;
+            this.dataSource = new MatTableDataSource(res.stockData);
+            this.dataSource.paginator = this.paginator;
+      //this.clearDate();
       this.productForm.controls['totalProfit'].setValue(res.totalProfit);
+      this.productForm.controls['totalPrice'].setValue(res.totalPrice);
       this.productForm.controls['totalQtySold'].setValue(res.totalQtySold);
-    }, error => console.log(error));
-  }
+     }, error => console.log(error));
+   // }
+ }
 }

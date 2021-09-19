@@ -44,9 +44,7 @@ export class CreateCustomerComponent implements OnInit {
     }
 
     closeModal(): void {
-        if (this.customerForm.valid || this.customerForm.controls.customerName.value === null) {
             this.dialogRef.close();
-        }
     }
 
     ngOnInit(): void {

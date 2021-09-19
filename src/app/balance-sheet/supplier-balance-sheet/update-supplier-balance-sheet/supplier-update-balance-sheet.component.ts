@@ -40,9 +40,7 @@ export class SupplierUpdateBalanceSheetComponent implements OnInit {
 
   onSubmit() {
     if (this.productForm.valid) {
-      if (this.productForm.controls.id.value != null) {
         this.updateSupplierBalance();
-      }
     }
   }
 
@@ -81,8 +79,6 @@ export class SupplierUpdateBalanceSheetComponent implements OnInit {
   }
 
   closeModal(): void {
-    if (this.productForm.valid || this.productForm.controls.payAmount.value === null) {
       this.dialogRef.close();
-    }
   }
 }

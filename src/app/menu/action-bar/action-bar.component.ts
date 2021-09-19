@@ -33,7 +33,6 @@ export class ActionBarComponent {
     this.dataSource.data = TREE_DATA;
     this.dataSource_Order.data = Order_DATA;
     this.dataSourceReports.data = REPORTS;
-    this.dataSourceBalance.data = BALANCESHEET;
     this.dataSourceSummary.data = SUMMARY;
 
     console.log('dataSourceReports', this.dataSourceReports);
@@ -68,30 +67,25 @@ export class ActionBarComponent {
   }
 
   getOrder(item) {
-    if (item == "Buy") {
-      this.router.navigate(['dashboard/purchaseOrder']);
-    }
-    if (item == "Sell") {
+    if (item == "Order") {
       this.router.navigate(['dashboard/salesOrder']);
+    }
+    if (item === "Report") {
+      this._redirectToPage('dashboard/sales-report');
+    }
+    if (item === "Balance") {
+      this._redirectToPage('dashboard/balance-sheet');
     }
   }
 
   getReports(item) {
-    if (item === "Sales Report") {
-      this._redirectToPage('dashboard/sales-report');
+    if (item == "Order") {
+      this.router.navigate(['dashboard/purchaseOrder']);
     }
-    if (item === "Purchase Report") {
+    if (item === "Report") {
       this._redirectToPage('dashboard/purchase-report');
     }
-  }
-
-  getBalanceSheet(item) {
-    if (item === "Customer Balance") {
-      console.log('1')
-      this._redirectToPage('dashboard/balance-sheet');
-    }
-    if (item === "Supplier Balance") {
-      console.log('2')
+    if (item === "Balance") {
       this._redirectToPage('dashboard/supplier-balance-sheet');
     }
   }
@@ -117,13 +111,16 @@ interface MasterNode {
 
 const Order_DATA: MasterNode[] = [
   {
-    name: 'ORDER',
+    name: 'SALE',
     children: [
       {
-        name: 'Buy',
+        name: 'Order',
       },
       {
-        name: 'Sell',
+        name: 'Report',
+      },
+      {
+        name: 'Balance',
       }
     ]
   },
@@ -131,27 +128,16 @@ const Order_DATA: MasterNode[] = [
 
 const REPORTS: MasterNode[] = [
   {
-    name: 'TRANSACTION',
+    name: 'PURCHASE',
     children: [
       {
-        name: 'Sales Report',
+        name: 'Order',
       },
       {
-        name: 'Purchase Report',
-      }
-    ]
-  },
-];
-
-const BALANCESHEET: MasterNode[] = [
-  {
-    name: 'BALANCE SHEET',
-    children: [
-      {
-        name: 'Customer Balance',
+        name: 'Report',
       },
       {
-        name: 'Supplier Balance',
+        name: 'Balance',
       }
     ]
   },
@@ -173,7 +159,7 @@ const SUMMARY: MasterNode[] = [
 
 const TREE_DATA: MasterNode[] = [
   {
-    name: 'MASTER',
+    name: 'ADD DATA',
     children: [
       {
         name: 'Product',

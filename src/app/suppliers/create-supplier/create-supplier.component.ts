@@ -49,9 +49,7 @@ export class CreateSupplierComponent implements OnInit {
     }
 
     closeModal(): void {
-        if (this.supplierForm.valid || this.supplierForm.controls.supplierName.value === null) {
             this.dialogRef.close();
-        }
     }
 
     ngOnInit(): void {

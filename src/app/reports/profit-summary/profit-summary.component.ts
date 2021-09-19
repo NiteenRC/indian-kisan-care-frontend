@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./profit-summary.component.css']
 })
 export class ProfitSummaryComponent implements OnInit {
-  displayedColumns: string[] = ['createdDate', 'totalPrice'];
+  displayedColumns: string[] = ['createdDate', 'totalPrice', 'dueAmount', 'profit'];
   displayedColumnsProduct: string[] = ['productName', 'qtySold','totalPrice'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
@@ -24,7 +24,7 @@ export class ProfitSummaryComponent implements OnInit {
 
   getSalesOrderList() {
     this.salesOrderService.getBarChartReport().subscribe(res => {
-      this._setData(res.monthlyBarChart);
+      this._setData(res);
     }, error => console.log(error));
   }
 

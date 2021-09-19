@@ -61,9 +61,7 @@ export class CreateProductComponent implements OnInit {
     }
 
     closeModal(): void {
-        if (this.productForm.valid || this.productForm.controls.productName.value === null) {
             this.dialogRef.close();
-        }
     }
 
     ngOnInit(): void {
@@ -166,7 +164,7 @@ export class CreateProductComponent implements OnInit {
             return this.listOfCategories;
         }
         const filterValue = value.toLowerCase();
-        const supplierList = this.listOfCategories.filter(option => option.categoryName.toLowerCase().indexOf(filterValue) === 0)
+        const supplierList = this.listOfCategories.filter(option => option.categoryName.toLowerCase().includes(filterValue))
         return supplierList;
     }
 

@@ -1,3 +1,11 @@
+<div class="middle" *ngIf="showMsg">
+  <div class="col-xs-6">
+    <p class="alert alert-success">
+      <strong>Sales Order Successfully created!!</strong>
+    </p>
+  </div>
+</div>
+
 <form [formGroup]="purchaserOrderForm">
   <div class="d-flex">
     <div class="form-group col-3">
@@ -109,7 +117,9 @@
             </mat-error>
           </mat-form-field>
         </td>
-        <td mat-footer-cell *matFooterCellDef></td>
+        <td mat-footer-cell *matFooterCellDef class="text-right pr-5">
+          <h4><b>{{ totalQty }}</b></h4>
+        </td>
       </ng-container>
 
       <!-- <ng-container matColumnDef="amount">
@@ -171,11 +181,11 @@
       </div>
       <br>
 
-      <button class="btn btn-warning" style="width: 10%;margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
-      <button class="btn btn-primary" style="width: 10%;margin-left: 5px;" [disabled]="singleClickDisable"
-        (click)="save(false)">SAVE</button>
-      <button class="btn btn-success" style="width: 15%;margin-left: 5px;" [disabled]="singleClickDisable"
-        (click)="save(true)">SAVE & PRINT</button>
+      <button class="btn btn-warning" style="width: 10%;margin-left: 100px;" (click)="refreshAfterSave()">CLEAR</button>
+      <button type="submit" class="btn btn-primary" style="width: 12%;margin-left: 5px;"
+        [disabled]="singleClickDisable && !purchaserOrderForm.valid" (click)="save(false)">PLACE ORDER</button>
+      <button type="submit" class="btn btn-success" style="width: 18%;margin-left: 5px;" [disabled]="singleClickDisable"
+        (click)="save(true)">PLACE ORDER & PRINT</button>
     </div>
   </div>
 </form>

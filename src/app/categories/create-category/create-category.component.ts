@@ -36,9 +36,7 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   closeModal(): void {
-    if (this.categoryForm.valid || this.categoryForm.controls.categoryName.value === null) {
       this.dialogRef.close();
-    }
   }
 
   ngOnInit(): void {

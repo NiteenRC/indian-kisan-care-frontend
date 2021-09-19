@@ -28,6 +28,7 @@ export class PurchaseOrderComponent implements OnInit {
   products: Product[];
 
   previousBalance = 0;
+  totalQty = 0;
   totalAmount = 0;
 
   purchaserOrderForm: FormGroup;
@@ -51,10 +52,8 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
-    if (this.purchaseOrderDetailArr.length > 1 || index > 0) {
       this.purchaseOrderDetailArr.removeAt(index);
       this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
-    }
   }
 
   selectedProduct(selectedProduct: string) {
@@ -91,6 +90,8 @@ export class PurchaseOrderComponent implements OnInit {
     return this.previousBalance + this.getCurrentBalance();
   }
 
+  showMsg: boolean = false;
+  
   save(isPrintReq: boolean) {
     this.singleClickDisable = true;
     if (this.purchaseOrderDetailArr.value.length === 0) {
@@ -137,8 +138,16 @@ export class PurchaseOrderComponent implements OnInit {
           this.singleClickDisable = false;
           if (isPrintReq) {
             this._printPdf(data);
+            window.location.reload();
           } else {
-            alert('Purchase Order Successfully created!!');
+            this.showMsg= true;
+
+              setTimeout(function(){
+                //alert('as')
+                window.location.reload();
+              }, 1500);
+              
+              //alert('Sales Order Successfully created!!');
           }
         },
           error => {
@@ -189,7 +198,7 @@ export class PurchaseOrderComponent implements OnInit {
       return this.suppliers;
     }
     const filterValue = value.toLowerCase();
-    const supplierList = this.suppliers.filter(option => option.supplierName.toLowerCase().indexOf(filterValue) === 0)
+    const supplierList = this.suppliers.filter(option => option.supplierName.toLowerCase().includes(filterValue))
     if (supplierList.length == 0) {
       this.previousBalance = 0.00;
     }
@@ -201,7 +210,7 @@ export class PurchaseOrderComponent implements OnInit {
       return this.products;
     }
     const filterValue = value.toLowerCase();
-    return this.products.filter(option => option.productName.toLowerCase().indexOf(filterValue) === 0);
+    return this.products.filter(option => option.productName.toLowerCase().includes(filterValue));
   }
 
   private _findProduct(value: string): Product {
@@ -249,12 +258,15 @@ export class PurchaseOrderComponent implements OnInit {
 
     this.purchaseOrderDetailArr.valueChanges.subscribe((productList) => {
       let totalAmount = 0;
+      let totalQtyCal = 0;
       productList.forEach(product => {
         const amount = Number(product.qtyOrdered) * Number(product.price);
         //const taxAmount = amount * (product.product?.gst || 0) / 100;
         //totalAmount += amount + taxAmount;
+        totalQtyCal += product.qtyOrdered;
         totalAmount += amount;
       });
+      this.totalQty = totalQtyCal;
       this.totalAmount = Math.round(totalAmount);
     });
   }

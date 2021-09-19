@@ -27,6 +27,7 @@ export class SalesOrderComponent implements OnInit {
   products: Product[];
 
   previousBalance = 0;
+  totalQty = 0;
   totalAmount = 0;
 
   salesOrderForm: FormGroup;
@@ -50,10 +51,8 @@ export class SalesOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
-    if (this.salesOrderDetailArr.length > 1 || index > 0) {
       this.salesOrderDetailArr.removeAt(index);
       this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
-    }
   }
 
   selectedProduct(selectedProduct: string) {
@@ -162,6 +161,7 @@ export class SalesOrderComponent implements OnInit {
             this.singleClickDisable = false;
             if (isPrintReq) {
               this._printPdf(data);
+              window.location.reload();
             } else {
               this.showMsg= true;
 
@@ -220,7 +220,7 @@ export class SalesOrderComponent implements OnInit {
       return this.customers;
     }
     const filterValue = value.toLowerCase();
-    const customerList = this.customers.filter(option => option.customerName.toLowerCase().indexOf(filterValue) === 0)
+    const customerList = this.customers.filter(option => option.customerName.toLowerCase().includes(filterValue))
     if (customerList.length == 0) {
       this.previousBalance = 0.00;
     }
@@ -232,7 +232,7 @@ export class SalesOrderComponent implements OnInit {
       return this.products;
     }
     const filterValue = value.toLowerCase();
-    return this.products.filter(option => option.productName.toLowerCase().indexOf(filterValue) === 0);
+    return this.products.filter(option => option.productName.toLowerCase().includes(filterValue));
   }
 
   private _findProduct(value: string): Product {
@@ -281,11 +281,14 @@ export class SalesOrderComponent implements OnInit {
 
     this.salesOrderDetailArr.valueChanges.subscribe((productList) => {
       let totalAmount = 0;
+      let totalQtyCal = 0;
       productList.forEach(product => {
         const amount = Number(product.qtyOrdered) * Number(product.price);
         //const taxAmount = amount * (product.product?.gst || 0) / 100;
+        totalQtyCal += product.qtyOrdered;
         totalAmount += amount;
       });
+      this.totalQty = totalQtyCal;
       this.totalAmount = Math.round(totalAmount);
     });
   }

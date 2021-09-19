@@ -9,6 +9,11 @@
   margin-left: 30px;
 }
 
+.middle {
+  max-width: 300px;
+  margin: auto;
+}
+
 .example-full-width {
   width: 100%;
 }
