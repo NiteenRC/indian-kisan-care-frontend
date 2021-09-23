@@ -8,9 +8,15 @@ import {Component} from '@angular/core';
     styleUrls: ['./navigation-bar.component.css']
 })
 export class NavigationBarComponent {
+    username: string;
+
     constructor(private auth: AuthService, private router: Router) {
     }
 
+    ngOnInit() {
+        this.username = localStorage.getItem('username')
+    }
+    
     logout() {
         this.auth.logout();
         this.router.navigateByUrl('/login');
