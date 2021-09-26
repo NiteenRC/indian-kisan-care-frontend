@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./purchase-report.component.css']
 })
 export class PurchaseReportComponent implements OnInit {
-  displayedColumns: string[] = ['billDate', 'dueDate', 'supplierName', 'status', 'totalPrice', 'amountPaid', 'dueAmount'];
+  displayedColumns: string[] = ['billDate', 'dueDate', 'supplierName', 'status', 'totalPrice', 'amountPaid', 'dueAmount', 'action'];
   productColumns: string[] = ['id', 'productName', 'purchasePrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
@@ -75,5 +75,16 @@ export class PurchaseReportComponent implements OnInit {
   private _setData(data) {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
+  }
+
+  deleteSalesOrder(event) {
+    this.purchaseOrderService.deleteOrder(event.purchaseOrderID).subscribe(
+      response => {
+        this.getPurchaseOrderList();
+      },
+      error => {
+        console.log(error);
+        alert('Could not able to delete purchase order since used in sales order');
+    });
   }
 }

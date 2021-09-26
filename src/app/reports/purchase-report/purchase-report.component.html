@@ -46,8 +46,9 @@
 
     <ng-container matColumnDef="dueAmount">
       <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
-      <td *matCellDef="let element" mat-cell class="text-right pr-5">
-        {{element.currentBalance.toLocaleString('en-IN') || 0}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.status != 'PAID' ?
+        (element.currentBalance < 0 ? ((-1)*element.currentBalance).toLocaleString('en-IN'):
+          element.currentBalance.toLocaleString('en-IN')) : 0 || 0}} </td>
     </ng-container>
 
     <ng-container matColumnDef="amountPaid">
@@ -65,6 +66,16 @@
     <ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell> {{element.status}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
+      <td *matCellDef="let element;" mat-cell>
+        <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
+          <mat-icon class="delete-button">delete</mat-icon>
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>

@@ -46,17 +46,21 @@
 
     <ng-container matColumnDef="dueAmount">
       <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
-      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.currentBalance.toLocaleString('en-IN') || 0}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.status != 'PAID' ?
+        (element.currentBalance < 0 ? ((-1)*element.currentBalance).toLocaleString('en-IN'):
+          element.currentBalance.toLocaleString('en-IN')) : 0 || 0}} </td>
     </ng-container>
 
     <ng-container matColumnDef="amountPaid">
       <th *matHeaderCellDef mat-header-cell class="text-right">Amount Paid</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid.toLocaleString('en-IN') || 0}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid.toLocaleString('en-IN') || 0}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="totalPrice">
       <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice.toLocaleString('en-IN') || 0}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -65,14 +69,14 @@
     </ng-container>
 
     <ng-container matColumnDef="action">
-        <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
-        <td *matCellDef="let element;" mat-cell>
-          <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
-            <mat-icon class="delete-button">delete</mat-icon>
-          </button>
-        </td>
-        <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>
+      <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
+      <td *matCellDef="let element;" mat-cell>
+        <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
+          <mat-icon class="delete-button">delete</mat-icon>
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
 
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']"
@@ -93,7 +97,8 @@
 
           <ng-container matColumnDef="salesPrice">
             <th *matHeaderCellDef mat-header-cell class="text-right">Sales Price</th>
-            <td *matCellDef="let element" mat-cell class="text-right"> {{element.price.toLocaleString('en-IN') || 0}} </td>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.price.toLocaleString('en-IN') || 0}}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="qtyOrdered">
