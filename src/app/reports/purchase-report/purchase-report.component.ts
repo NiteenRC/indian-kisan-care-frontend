@@ -3,6 +3,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { SalesOrderComponent } from 'src/app/sales-order/sales-order.component';
+import { ProductListComponent } from 'src/app/products/product-list/product-list.component';
+import { PurchaseReportDetailsComponent } from '../purchase-report-details/purchase-report-details.component';
 
 @Component({
   selector: 'app-purchase-report',
@@ -24,7 +28,7 @@ export class PurchaseReportComponent implements OnInit {
 
   purchaseReports;
 
-  constructor(private purchaseOrderService: PurchaseOrderService) { }
+  constructor(public dialog: MatDialog, private purchaseOrderService: PurchaseOrderService) { }
 
   ngOnInit(): void {
     this.getPurchaseOrderList();
@@ -85,6 +89,19 @@ export class PurchaseReportComponent implements OnInit {
       error => {
         console.log(error);
         alert('Could not able to delete purchase order since used in sales order');
+      });
+  }
+
+  updateProduct(updateProduct): void {
+    const dialogRef = this.dialog.open(PurchaseReportDetailsComponent, {
+      width: '950px',
+      disableClose: false,
+      data: { data: updateProduct }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getPurchaseOrderList();
     });
   }
 }

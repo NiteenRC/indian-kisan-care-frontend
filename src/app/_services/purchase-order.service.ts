@@ -40,4 +40,12 @@ export class PurchaseOrderService {
     deleteOrder(id: number): Observable<any> {
         return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
     }
+
+    deleteOrderDetails(id: number): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/details/${id}`, {responseType: 'text'});
+    }
+
+    getPurchaseOrderDetailsList(id: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/details/${id}`);
+    }
 }
