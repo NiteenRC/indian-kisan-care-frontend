@@ -181,6 +181,7 @@ export class SalesOrderComponent implements OnInit {
         this.singleClickDisable = false;
       }
     }
+    this.singleClickDisable = false;
   }
 
   getCustomerObj(customerName: string): any {

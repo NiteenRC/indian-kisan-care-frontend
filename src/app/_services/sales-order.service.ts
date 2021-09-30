@@ -58,4 +58,8 @@ export class SalesOrderService {
     deleteSalesOrder(id: number): Observable<any> {
         return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
     }
+
+    deleteOrderDetails(id: number): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/details/${id}`, {responseType: 'text'});
+    }
 }

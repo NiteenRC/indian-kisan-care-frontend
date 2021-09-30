@@ -53,6 +53,7 @@ import { DateAdapter } from '@angular/material/core';
 import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.component';
 import { StockBookComponent } from './reports/stock-book/stock-book.component';
 import { PurchaseReportDetailsComponent } from './reports/purchase-report-details/purchase-report-details.component';
+import { SalesReportDetailsComponent } from './reports/sales-report-details/sales-report-details.component';
 
 
 @NgModule({
@@ -92,7 +93,8 @@ import { PurchaseReportDetailsComponent } from './reports/purchase-report-detail
     UpdateBalanceSheetComponent,
     ProfitSummaryComponent,
     StockBookComponent,
-    PurchaseReportDetailsComponent
+    PurchaseReportDetailsComponent,
+    SalesReportDetailsComponent
   ],
   imports: [
     TableModule,

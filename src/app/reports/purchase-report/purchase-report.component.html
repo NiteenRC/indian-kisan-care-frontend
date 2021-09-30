@@ -36,13 +36,13 @@
       <th *matHeaderCellDef mat-header-cell>Bill date</th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="updateProduct(element)">
-                          {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
-                  </button>
+          {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
+        </button>
       </td>
     </ng-container>
 
 
-   <!--<ng-container matColumnDef="productDesc">
+    <!--<ng-container matColumnDef="productDesc">
       <th *matHeaderCellDef mat-header-cell> Action</th>
       <td *matCellDef="let element" mat-cell>
 
@@ -65,7 +65,7 @@
           
 
       </td>
-  </ng-container>--> 
+  </ng-container>-->
 
 
     <ng-container matColumnDef="dueDate">
@@ -75,9 +75,8 @@
 
     <ng-container matColumnDef="dueAmount">
       <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
-      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.status != 'PAID' ?
-        (element.currentBalance < 0 ? ((-1)*element.currentBalance).toLocaleString('en-IN'):
-          element.currentBalance.toLocaleString('en-IN')) : 0 || 0}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.previousBalance.toLocaleString('en-IN')
+        || 0}} </td>
     </ng-container>
 
     <ng-container matColumnDef="amountPaid">

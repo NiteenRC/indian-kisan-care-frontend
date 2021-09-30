@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
+import { SalesReportDetailsComponent } from '../sales-report-details/sales-report-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sales-report',
@@ -24,7 +26,7 @@ export class SalesReportComponent implements OnInit {
 
   salesReports;
 
-  constructor(private salesOrderService: SalesOrderService) { }
+  constructor(public dialog: MatDialog, private salesOrderService: SalesOrderService) { }
 
   ngOnInit(): void {
     this.getSalesOrderList();
@@ -83,5 +85,18 @@ export class SalesReportComponent implements OnInit {
         this.getSalesOrderList();
       },
       error => console.log(error));
+  }
+
+  updateProduct(updateProduct): void {
+    const dialogRef = this.dialog.open(SalesReportDetailsComponent, {
+      width: '950px',
+      disableClose: false,
+      data: { data: updateProduct }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getSalesOrderList();
+    });
   }
 }
