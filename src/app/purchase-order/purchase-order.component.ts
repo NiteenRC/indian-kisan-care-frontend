@@ -101,16 +101,17 @@ export class PurchaseOrderComponent implements OnInit {
     }
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
     let supplier = this._findSupplier(supplierName);
-
+    
     const purchaseOrder: PurchaseOrder = new PurchaseOrder();
     if (supplier === undefined) {
       supplier = this.saveSupplier(supplierName);
     }
+    supplier.phoneNumber = this.purchaserOrderForm.get('motorVehicleNo').value;
     purchaseOrder.supplier = supplier;
     purchaseOrder.currentBalance = this.getCurrentBalance();
     purchaseOrder.purchaseOrderDetail = this.purchaseOrderDetailArr.value;
     purchaseOrder.totalPrice = this.totalAmount;
-    purchaseOrder.vehicleNo = this.purchaserOrderForm.get('motorVehicleNo').value;
+    //purchaseOrder.vehicleNo = this.purchaserOrderForm.get('motorVehicleNo').value;
     purchaseOrder.amountPaid = this.purchaserOrderForm.get('amountPaid').value;
     purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value?.getTime();;
     purchaseOrder.billDate = this.purchaserOrderForm.get('billDate').value?.getTime();;

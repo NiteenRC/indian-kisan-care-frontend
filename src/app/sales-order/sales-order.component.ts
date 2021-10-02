@@ -126,12 +126,13 @@ export class SalesOrderComponent implements OnInit {
       if (customer === undefined) {
         customer = this.getCustomerObj(customerName);
       }
+      customer.phoneNumber = this.salesOrderForm.get('motorVehicleNo').value;
       const salesOrder: SalesOrder = new SalesOrder();
       salesOrder.customer = customer;
       salesOrder.currentBalance = this.getCurrentBalance();
       salesOrder.salesOrderDetail = this.salesOrderDetailArr.value;
       salesOrder.totalPrice = this.totalAmount;
-      salesOrder.vehicleNo = this.salesOrderForm.get('motorVehicleNo').value;
+      //salesOrder.vehicleNo = this.salesOrderForm.get('motorVehicleNo').value;
       salesOrder.amountPaid = this.salesOrderForm.get('amountPaid').value;
       salesOrder.dueDate = this.salesOrderForm.get('dueDate').value?.getTime();
       salesOrder.billDate = this.salesOrderForm.get('billDate').value?.getTime();
