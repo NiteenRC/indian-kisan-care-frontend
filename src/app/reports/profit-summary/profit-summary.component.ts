@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./profit-summary.component.css']
 })
 export class ProfitSummaryComponent implements OnInit {
-  displayedColumns: string[] = ['createdDate', 'totalPrice', 'dueAmount', 'profit'];
+  displayedColumns: string[] = ['createdDate', 'totalPrice', 'dueAmount', 'profit', 'dueCollection'];
   displayedColumnsProduct: string[] = ['productName', 'qtySold','totalPrice'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
