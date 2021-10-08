@@ -10,6 +10,19 @@
   <div class="d-flex">
     <div class="form-group col-3">
       <mat-form-field class="example-full-width">
+        <mat-label>Product</mat-label>
+        <input type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
+        <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
+          (optionSelected)="selectedProduct($event.option.value)">
+          <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
+            {{product.productName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    
+    <div class="form-group col-3">
+      <mat-form-field class="example-full-width">
         <mat-label>Customer</mat-label>
         <input type="text" aria-label="Customer" matInput formControlName="customerName"
           [matAutocomplete]="customerAuto">
@@ -17,19 +30,6 @@
           (optionSelected)="selectedCustomer($event.option.value)">
           <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.customerName">
             {{customer.customerName}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
-
-    <div class="form-group col-3">
-      <mat-form-field class="example-full-width">
-        <mat-label>Product</mat-label>
-        <input type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
-        <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
-          (optionSelected)="selectedProduct($event.option.value)">
-          <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
-            {{product.productName}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

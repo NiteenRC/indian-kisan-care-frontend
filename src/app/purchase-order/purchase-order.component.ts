@@ -52,8 +52,8 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
-      this.purchaseOrderDetailArr.removeAt(index);
-      this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
+    this.purchaseOrderDetailArr.removeAt(index);
+    this.purchaseOrderDetailData = new MatTableDataSource(this.purchaseOrderDetailArr.controls);
   }
 
   selectedProduct(selectedProduct: string) {
@@ -91,7 +91,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   showMsg: boolean = false;
-  
+
   save(isPrintReq: boolean) {
     this.singleClickDisable = true;
     if (this.purchaseOrderDetailArr.value.length === 0) {
@@ -101,7 +101,7 @@ export class PurchaseOrderComponent implements OnInit {
     }
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
     let supplier = this._findSupplier(supplierName);
-    
+
     const purchaseOrder: PurchaseOrder = new PurchaseOrder();
     if (supplier === undefined) {
       supplier = this.saveSupplier(supplierName);
@@ -132,7 +132,17 @@ export class PurchaseOrderComponent implements OnInit {
       purchaseOrder.status = 'DUE';
     }
 
-    if (confirm("Are you sure to save?")) {
+    if ((purchaseOrder.status === 'DUE' || purchaseOrder.status === 'PARTIAL') &&
+        (supplier.supplierName === "" || supplier.phoneNumber === "")) {
+        alert("Please don't buy products from unknowns.\nplease add supplier name and phone number to proceed.")
+        this.singleClickDisable = false;
+        return;
+      }
+
+    if (purchaseOrder.amountPaid == null) {
+      purchaseOrder.amountPaid = 0.0;
+    }
+    if (confirm("Please confirm below details before save? \n Order status: " + purchaseOrder.status + " \n Amount paid: " + purchaseOrder.amountPaid + "\n Balance amount: " + this.getTotalBalance() + "\n\n Note: Order placed can't be deleted later!")) {
       this.purchaseOrderService
         .createPurchaseOrder(purchaseOrder).subscribe(data => {
           console.log(data);
@@ -141,14 +151,10 @@ export class PurchaseOrderComponent implements OnInit {
             this._printPdf(data);
             window.location.reload();
           } else {
-            this.showMsg= true;
-
-              setTimeout(function(){
-                //alert('as')
-                window.location.reload();
-              }, 1500);
-              
-              //alert('Sales Order Successfully created!!');
+            this.showMsg = true;
+            setTimeout(function () {
+              window.location.reload();
+            }, 1000);
           }
         },
           error => {
@@ -181,8 +187,9 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   private _supplierBalanceData(supplierID: any) {
-    this.purchaseOrderService.getPurchaseOrderBalaceBySupplier(supplierID).subscribe((data: number) => {
-      this.previousBalance = data;
+    this.purchaseOrderService.getPurchaseOrderBalaceBySupplier(supplierID).subscribe((data: any) => {
+      this.previousBalance = data.balance;
+      this.purchaserOrderForm.get('motorVehicleNo').setValue(data.supplier.phoneNumber);
     }, (error: any) => console.log(error));
   }
 

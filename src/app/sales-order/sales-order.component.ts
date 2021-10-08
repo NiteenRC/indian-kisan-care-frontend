@@ -32,6 +32,7 @@ export class SalesOrderComponent implements OnInit {
 
   salesOrderForm: FormGroup;
   singleClickDisable = false;
+  motorVehicleNo: any;
 
   constructor(
     private _fb: FormBuilder,
@@ -51,8 +52,8 @@ export class SalesOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
-      this.salesOrderDetailArr.removeAt(index);
-      this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+    this.salesOrderDetailArr.removeAt(index);
+    this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
   }
 
   selectedProduct(selectedProduct: string) {
@@ -153,7 +154,17 @@ export class SalesOrderComponent implements OnInit {
         salesOrder.status = 'DUE';
       }
 
-      if (confirm("Are you sure to save?")) {
+      if ((salesOrder.status === 'DUE' || salesOrder.status === 'PARTIAL') &&
+        (customer.customerName === "" || customer.phoneNumber === "")) {
+        alert("Please don't sell products to unknowns.\nplease add customer name and phone number to proceed.")
+        this.singleClickDisable = false;
+        return;
+      }
+
+      if (salesOrder.amountPaid == null) {
+        salesOrder.amountPaid = 0.0;
+      }
+      if (confirm("Please confirm below details before save? \n Order status: " + salesOrder.status + " \n Amount paid: " + salesOrder.amountPaid + "\n Balance amount: " + this.getTotalBalance() + "\n\n Note: Order placed can't be deleted later!")) {
         this.salesOrderService
           .createSalesOrder(salesOrder).subscribe(data => {
             console.log(data);
@@ -164,14 +175,10 @@ export class SalesOrderComponent implements OnInit {
               this._printPdf(data);
               window.location.reload();
             } else {
-              this.showMsg= true;
-
-              setTimeout(function(){
-                //alert('as')
+              this.showMsg = true;
+              setTimeout(function () {
                 window.location.reload();
-              }, 1500);
-              
-              //alert('Sales Order Successfully created!!');
+              }, 1000);
             }
           },
             error => {
@@ -204,8 +211,9 @@ export class SalesOrderComponent implements OnInit {
   }
 
   private _customerBalanceData(customerID: any) {
-    this.salesOrderService.getSalesOrderBalaceByCustomer(customerID).subscribe((data: number) => {
-      this.previousBalance = data;
+    this.salesOrderService.getSalesOrderBalaceByCustomer(customerID).subscribe((data: any) => {
+      this.previousBalance = data.balance;
+      this.salesOrderForm.get('motorVehicleNo').setValue(data.customer.phoneNumber);
     }, (error: any) => console.log(error));
   }
 
