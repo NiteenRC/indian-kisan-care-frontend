@@ -1,4 +1,7 @@
-
+.main-container {
+    max-height: 650px;
+    overflow: auto;
+}
 .close {
     width: 100%;
     font-size: 20px;

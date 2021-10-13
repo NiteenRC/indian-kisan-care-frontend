@@ -133,11 +133,11 @@ export class PurchaseOrderComponent implements OnInit {
     }
 
     if ((purchaseOrder.status === 'DUE' || purchaseOrder.status === 'PARTIAL') &&
-        (supplier.supplierName === "" || supplier.phoneNumber === "")) {
-        alert("Please don't buy products from unknowns.\nplease add supplier name and phone number to proceed.")
-        this.singleClickDisable = false;
-        return;
-      }
+      (supplier.supplierName === "" || supplier.phoneNumber === "")) {
+      alert("Please don't buy products from unknowns.\nplease add supplier name and phone number to proceed.")
+      this.singleClickDisable = false;
+      return;
+    }
 
     if (purchaseOrder.amountPaid == null) {
       purchaseOrder.amountPaid = 0.0;
@@ -152,8 +152,8 @@ export class PurchaseOrderComponent implements OnInit {
             window.location.reload();
           } else {
             this.showMsg = true;
-            setTimeout(function () {
-              window.location.reload();
+            setTimeout(() => {
+              this.showMsg = false;
             }, 1000);
           }
         },

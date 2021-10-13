@@ -176,8 +176,8 @@ export class SalesOrderComponent implements OnInit {
               window.location.reload();
             } else {
               this.showMsg = true;
-              setTimeout(function () {
-                window.location.reload();
+              setTimeout(() => {
+                this.showMsg = false;
               }, 1000);
             }
           },

@@ -41,11 +41,13 @@ export class ActionBarComponent {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   expanded = true;
+  selected = '';
 
   goTohome() {
     this.router.navigate(['dashboard']);
   }
   getComponent(item) {
+    this.selected = TREE_DATA[0].name + item;
     if (item == "Product") {
       this.router.navigate(['dashboard/products']);
     }
@@ -67,6 +69,7 @@ export class ActionBarComponent {
   }
 
   getOrder(item) {
+    this.selected = Order_DATA[0].name + item;
     if (item == "Order") {
       this.router.navigate(['dashboard/salesOrder']);
     }
@@ -79,6 +82,7 @@ export class ActionBarComponent {
   }
 
   getReports(item) {
+    this.selected = REPORTS[0].name + item;
     if (item == "Order") {
       this.router.navigate(['dashboard/purchaseOrder']);
     }
@@ -91,6 +95,7 @@ export class ActionBarComponent {
   }
 
   getSummary(item) {
+    this.selected = SUMMARY[0].name + item;
     if (item === "Profit Summary") {
       this._redirectToPage('dashboard/profit-summary');
     }

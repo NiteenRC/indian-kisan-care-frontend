@@ -1,4 +1,4 @@
-<div class="middle" *ngIf="showMsg">
+<div class="middle" [style.visibility]="showMsg ? 'visible' : 'hidden'">
   <div class="col-xs-6">
     <p class="alert alert-success">
       <strong>Sales Order Successfully created!!</strong>
@@ -20,7 +20,7 @@
         </mat-autocomplete>
       </mat-form-field>
     </div>
-    
+
     <div class="form-group col-3">
       <mat-form-field class="example-full-width">
         <mat-label>Customer</mat-label>
