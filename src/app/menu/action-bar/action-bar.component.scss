@@ -62,5 +62,9 @@ ul.nav li.nav-item{
 }
 
 .selected {
-  color: #000000;
+  color: #5999d2;
+  background: white;
+  width: fit-content !important;
+  border-radius: 5px;
+  padding: 0 5px;
 }
