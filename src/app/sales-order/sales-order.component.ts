@@ -137,6 +137,7 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.amountPaid = this.salesOrderForm.get('amountPaid').value;
       salesOrder.dueDate = this.salesOrderForm.get('dueDate').value?.getTime();
       salesOrder.billDate = this.salesOrderForm.get('billDate').value?.getTime();
+      salesOrder.previousBalance = this.getTotalBalance();
 
       if (salesOrder.amountPaid < 0) {
         alert('Amount paid should be positive');
@@ -169,15 +170,15 @@ export class SalesOrderComponent implements OnInit {
           .createSalesOrder(salesOrder).subscribe(data => {
             console.log(data);
             //this._printPdf(data);
-            //this.refreshAfterSave();
+            this.refreshAfterSave();
             this.singleClickDisable = false;
             if (isPrintReq) {
               this._printPdf(data);
-              window.location.reload();
+              //window.location.reload();
             } else {
               this.showMsg = true;
-              setTimeout(function () {
-                window.location.reload();
+              setTimeout(() => {
+                this.showMsg = false;
               }, 1000);
             }
           },

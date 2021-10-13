@@ -1,35 +1,35 @@
 <div class="app-container">
 
-    <app-action-bar class="d-none d-sm-block"></app-action-bar>
+  <app-action-bar class="d-none d-sm-block"></app-action-bar>
 
-    <div class="main-container flex-fill">
-        <app-navigation-bar class="d-none d-sm-block"></app-navigation-bar>
-        <!-- only Mobile and Tab View -->
-        <app-mobile-menu class="d-block d-sm-none"></app-mobile-menu>
-        <div class="container-fluid mt-2">
-            <div class="row">
-                <nav aria-label="breadcrumb">
-                    <!-- <ol *ngIf="urlPath.length < 2; else visibleCrum" class="breadcrumb">
+  <div class="main-container flex-fill">
+    <app-navigation-bar class="d-none d-sm-block"></app-navigation-bar>
+    <!-- only Mobile and Tab View -->
+    <app-mobile-menu class="d-block d-sm-none"></app-mobile-menu>
+    <div class="container-fluid mt-2">
+      <div class="row">
+        <nav aria-label="breadcrumb">
+          <!-- <ol *ngIf="urlPath.length < 2; else visibleCrum" class="breadcrumb">
                         <li class="breadcrumb-item active">
                             <span>{{urlPath[0] | titlecase}}</span>
                         </li>
                     </ol> -->
-                    <ng-template #visibleCrum>
-                        <ol class="breadcrumb">
-                            <li *ngFor="let item of urlPath" class="breadcrumb-item">
-                                {{urlPath.pop()}}  {{item}}
-                                <!-- <a [routerLink]="[item]" *ngIf="urlPath.pop() != item; else activeMenu" >{{ item | titlecase}}</a>
+          <ng-template #visibleCrum>
+            <ol class="breadcrumb">
+              <li *ngFor="let item of urlPath" class="breadcrumb-item">
+                {{urlPath.pop()}} {{item}}
+                <!-- <a [routerLink]="[item]" *ngIf="urlPath.pop() != item; else activeMenu" >{{ item | titlecase}}</a>
                                 <ng-template #activeMenu><span>{{ item | titlecase }}</span></ng-template> -->
-                            </li>
-                        </ol>
-                    </ng-template>
+              </li>
+            </ol>
+          </ng-template>
 
-                </nav>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
 
-                    <!-- <div class="row" *ngIf="isVisible">
+          <!-- <div class="row" *ngIf="isVisible">
 
                     <div class="col-md-3">
                       <div class="card-counter primary">
@@ -63,9 +63,9 @@
                       </div>
                     </div>
                   </div> -->
-                    <router-outlet></router-outlet>
-                </div>
-            </div>
+          <router-outlet></router-outlet>
         </div>
+      </div>
     </div>
+  </div>
 </div>

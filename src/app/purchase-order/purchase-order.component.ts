@@ -113,8 +113,9 @@ export class PurchaseOrderComponent implements OnInit {
     purchaseOrder.totalPrice = this.totalAmount;
     //purchaseOrder.vehicleNo = this.purchaserOrderForm.get('motorVehicleNo').value;
     purchaseOrder.amountPaid = this.purchaserOrderForm.get('amountPaid').value;
-    purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value?.getTime();;
-    purchaseOrder.billDate = this.purchaserOrderForm.get('billDate').value?.getTime();;
+    purchaseOrder.dueDate = this.purchaserOrderForm.get('dueDate').value?.getTime();
+    purchaseOrder.billDate = this.purchaserOrderForm.get('billDate').value?.getTime();
+    purchaseOrder.previousBalance = this.getTotalBalance();
 
     if (purchaseOrder.amountPaid < 0) {
       alert('Amount paid should be positive');
@@ -133,11 +134,11 @@ export class PurchaseOrderComponent implements OnInit {
     }
 
     if ((purchaseOrder.status === 'DUE' || purchaseOrder.status === 'PARTIAL') &&
-        (supplier.supplierName === "" || supplier.phoneNumber === "")) {
-        alert("Please don't buy products from unknowns.\nplease add supplier name and phone number to proceed.")
-        this.singleClickDisable = false;
-        return;
-      }
+      (supplier.supplierName === "" || supplier.phoneNumber === "")) {
+      alert("Please don't buy products from unknowns.\nplease add supplier name and phone number to proceed.")
+      this.singleClickDisable = false;
+      return;
+    }
 
     if (purchaseOrder.amountPaid == null) {
       purchaseOrder.amountPaid = 0.0;
@@ -147,13 +148,14 @@ export class PurchaseOrderComponent implements OnInit {
         .createPurchaseOrder(purchaseOrder).subscribe(data => {
           console.log(data);
           this.singleClickDisable = false;
+          this.refreshAfterSave();
           if (isPrintReq) {
             this._printPdf(data);
-            window.location.reload();
+            //window.location.reload();
           } else {
             this.showMsg = true;
-            setTimeout(function () {
-              window.location.reload();
+            setTimeout(() => {
+              this.showMsg = false;
             }, 1000);
           }
         },

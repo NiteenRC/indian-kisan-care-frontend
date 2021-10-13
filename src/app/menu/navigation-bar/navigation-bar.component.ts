@@ -1,6 +1,6 @@
-import {Router} from '@angular/router';
-import {AuthService} from '../../_services/auth.service';
-import {Component} from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../_services/auth.service';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-navigation-bar',
@@ -16,7 +16,7 @@ export class NavigationBarComponent {
     ngOnInit() {
         this.username = localStorage.getItem('username')
     }
-    
+
     logout() {
         this.auth.logout();
         this.router.navigateByUrl('/login');

@@ -25,7 +25,10 @@
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
-          <button mat-icon-button (click)="getOrder(node.name)"> {{node.name}}</button>
+          <button mat-icon-button
+            [ngClass]="{ 'selected': (dataSource_Order._flattenedData | async)[0].name + node.name === selected} "
+            (click)="getOrder(node.name)">
+            {{node.name}}</button>
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
         <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
@@ -34,7 +37,10 @@
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          {{node.name}}
+          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+            {{node.name}}
+          </span>
+
         </mat-tree-node>
       </mat-tree>
 
@@ -42,7 +48,10 @@
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
-          <button mat-icon-button (click)="getReports(node.name)"> {{node.name}}</button>
+          <button mat-icon-button
+            [ngClass]="{ 'selected': (dataSourceReports._flattenedData | async)[0].name + node.name === selected} "
+            (click)="getReports(node.name)">
+            {{node.name}}</button>
 
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
@@ -52,7 +61,9 @@
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          {{node.name}}
+          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+            {{node.name}}
+          </span>
         </mat-tree-node>
       </mat-tree>
 
@@ -60,7 +71,10 @@
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
-          <button mat-icon-button (click)="getComponent(node.name)"> {{node.name}}</button>
+          <button mat-icon-button
+            [ngClass]="{ 'selected': (dataSource._flattenedData | async)[0].name + node.name === selected} "
+            (click)="getComponent(node.name)">
+            {{node.name}}</button>
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
         <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
@@ -69,7 +83,9 @@
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          {{node.name}}
+          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+            {{node.name}}
+          </span>
         </mat-tree-node>
       </mat-tree>
 
@@ -77,7 +93,10 @@
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
-          <button mat-icon-button (click)="getSummary(node.name)"> {{node.name}}</button>
+          <button mat-icon-button
+            [ngClass]="{ 'selected': (dataSourceSummary._flattenedData | async)[0].name + node.name === selected} "
+            (click)="getSummary(node.name)">
+            {{node.name}}</button>
 
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
@@ -87,7 +106,9 @@
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          {{node.name}}
+          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+            {{node.name}}
+          </span>
         </mat-tree-node>
       </mat-tree>
 

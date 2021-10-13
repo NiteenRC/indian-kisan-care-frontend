@@ -50,3 +50,21 @@ ul.nav li.nav-item{
   min-height: 1px;
   background-color: #5999d2;
 }
+
+::ng-deep.mat-icon-button {
+  height: 30px !important;
+  width: 30px !important;
+  line-height: 30px !important;
+}
+
+.menu-item-name {
+  cursor: pointer;
+}
+
+.selected {
+  color: #5999d2;
+  background: white;
+  width: fit-content !important;
+  border-radius: 5px;
+  padding: 0 5px;
+}

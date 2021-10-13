@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {CompanyService} from 'src/app/_services/company.service';
-import {ProductService} from 'src/app/_services/product.service';
-import {CreateProductComponent} from '../create-product/create-product.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { CompanyService } from 'src/app/_services/company.service';
+import { ProductService } from 'src/app/_services/product.service';
+import { CreateProductComponent } from '../create-product/create-product.component';
 
 @Component({
     selector: 'app-product-list',
@@ -12,7 +12,7 @@ import {CreateProductComponent} from '../create-product/create-product.component
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-    displayedColumns: string[] = ['SNo','productName', 'category', 'qty', 'salePrice', 'price', 'GST', 'productDesc'];
+    displayedColumns: string[] = ['SNo', 'productName', 'category', 'qty', 'salePrice', 'price', 'GST', 'productDesc'];
     dataSource;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -49,24 +49,24 @@ export class ProductListComponent implements OnInit {
 
     updateProduct(updateProduct): void {
         const dialogRef = this.dialog.open(CreateProductComponent, {
-          width: '550px',
-          disableClose: true,
-          data: { data: updateProduct }
+            width: '550px',
+            disableClose: true,
+            data: { data: updateProduct }
         });
-    
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          this.getProductList();
-        });
-      }
 
-      deleteProduct(productId) {
-        this.productService.deleteProduct(productId).subscribe(
-          response => {
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
             this.getProductList();
-          },
-          error => console.log(error));
-      }
+        });
+    }
+
+    deleteProduct(productId) {
+        this.productService.deleteProduct(productId).subscribe(
+            response => {
+                this.getProductList();
+            },
+            error => console.log(error));
+    }
 }
 
 
