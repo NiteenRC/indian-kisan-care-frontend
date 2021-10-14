@@ -186,6 +186,7 @@ export class PurchaseOrderComponent implements OnInit {
     this.purchaseOrderDetailData = [];
     this._createForm();
     this.fetchData();
+    this.totalQty = 0;
   }
 
   private _supplierBalanceData(supplierID: any) {

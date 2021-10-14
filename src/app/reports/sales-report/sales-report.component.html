@@ -46,8 +46,14 @@
       <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy hh:mm a'}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="dueAmount">
-      <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
+    <ng-container matColumnDef="currentDueAmount">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Current Due</th>
+      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{(element.currentBalance < 0) ? 0 :  element.currentBalance.toLocaleString('en-IN')
+        || 0}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalDueAmount">
+      <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Total Due</th>
       <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.previousBalance.toLocaleString('en-IN')
         || 0}} </td>
     </ng-container>

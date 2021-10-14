@@ -156,8 +156,8 @@ export class SalesOrderComponent implements OnInit {
       }
 
       if ((salesOrder.status === 'DUE' || salesOrder.status === 'PARTIAL') &&
-        (customer.customerName === "" || customer.phoneNumber === "")) {
-        alert("Please don't sell products to unknowns.\nplease add customer name and phone number to proceed.")
+        (customer.customerName === "" || customer.phoneNumber === null || customer.phoneNumber === "" || salesOrder.dueDate === undefined)) {
+        alert("Please don't sell products to unknowns.\nplease add Customer name, Phone number and Due date to proceed.")
         this.singleClickDisable = false;
         return;
       }
@@ -209,6 +209,7 @@ export class SalesOrderComponent implements OnInit {
     this.salesOrderDetailData = [];
     this._createForm();
     this.fetchData();
+    this.totalQty = 0;
   }
 
   private _customerBalanceData(customerID: any) {

@@ -165,7 +165,7 @@
     <div class="total-container">
       <div>
         <label for="name">Current Balance : </label>
-        <span class="amount-read-only">{{ getCurrentBalance() | currency:'INR' }}</span>
+        <span class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR' }}</span>
       </div>
       <div>
         <label for="name">Previous Balance :</label>

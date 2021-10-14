@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Current Balance: </span>
-                                    ₹{{response?.currentBalance.toLocaleString('en-IN') || 0 }}
+                                    ₹{{(response?.currentBalance < 0 ) ? 0 : response?.currentBalance.toLocaleString('en-IN') || 0 }}
                                 </div>
 
                                 <div class="my-2">
