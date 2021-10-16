@@ -66,6 +66,7 @@ export class UpdateBalanceSheetComponent implements OnInit {
       id: this.productForm.controls.id.value,
       payAmount: payAmount,
       status: status,
+      currentBalance: this.productForm.controls.currentBalance.value
     };
 
     this.salesOrderService.updateSalesOrder(data).subscribe(res => {
