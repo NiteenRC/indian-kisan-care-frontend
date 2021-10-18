@@ -96,14 +96,12 @@
                                 <th scope="col">SI.<br>NO</th>
                                 <th scope="col">Item & Description</th>
                                 <th scope="col">HSN/SAC</th>
-                                <th scope="col">Base Price</th>
-                                <th scope="col">
-                                    <div style="text-align: center;">CGST/SGST <br> IGST Rate</div>
-                                </th>
-                                <th scope="col">Sell Price</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Tax Amount</th>
-                                <th scope="col">Total Amount</th>
+                                <th scope="col">Basic Rate</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">GST%</th>
+                                <th scope="col">Rate</th>
+                                <!--<th scope="col">Tax Amount</th>-->
+                                <th scope="col">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,19 +109,33 @@
                                 <td>{{i + 1}}.</td>
                                 <td>{{cart?.product?.productName}}</td>
                                 <td>{{cart?.product?.hsnNo}}</td>
-                                <td class="text-right pr-4">₹{{(cart?.price - (cart?.price * (cart?.product?.gst/100))).toLocaleString('en-IN') || 0}}
-                                </td>
-                                <td>{{cart?.product?.gst}}%</td>
                                 <td class="text-right pr-4">₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>
                                 <td class="text-right pr-4">{{cart?.qtyOrdered || 0}}</td>
-                                <td class="text-right pr-4">₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
+                                <td>{{cart?.product?.gst}}%</td>
+                                <td class="text-right pr-4">₹{{(cart?.price - (cart?.price * (cart?.product?.gst/100))).toLocaleString('en-IN') || 0}}
                                 </td>
-                                <td class="text-right pr-4">₹{{(cart?.price * cart?.qtyOrdered).toLocaleString('en-IN') || 0}}</td>
+                               <!-- <td class="text-right pr-4">₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
+                                </td>-->
+                                <td class="text-right pr-4">₹{{((cart?.price - (cart?.price * (cart?.product?.gst/100))) * cart?.qtyOrdered).toLocaleString('en-IN') || 0}}</td>
+                            </tr>
+                            
+                            <tr>
+                                <th colspan="7"></th>
+                                <th class="text-right pr-4">₹{{(totalPrice-totalTaxAmount).toLocaleString('en-IN')}}</th>
                             </tr>
                             <tr>
-                                <th colspan="6">Total</th>
+                                <th colspan="7" style="text-align: center;">CGST</th>
+                                <th class="text-right pr-4">₹{{(totalTaxAmount * 0.5).toLocaleString('en-IN')}}</th>
+                            </tr>
+                            <tr>
+                                <th colspan="7" style="text-align: center;">SGST</th>
+                                <th class="text-right pr-4">₹{{(totalTaxAmount * 0.5).toLocaleString('en-IN')}}</th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">Total</th>
                                 <th class="text-right pr-4">{{totalQty.toLocaleString('en-IN')}}</th>
-                                <th class="text-right pr-4">₹{{totalTaxAmount.toLocaleString('en-IN')}}</th>
+                                <th class="text-right pr-4"></th>
+                                <th class="text-right pr-4"></th>
                                 <th class="text-right pr-4">₹{{totalPrice.toLocaleString('en-IN')}}</th>
                             </tr>
                         </tbody>

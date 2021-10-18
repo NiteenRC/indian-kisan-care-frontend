@@ -1,77 +1,177 @@
-<div class="d-flex">
-  <div class="col-4 col-lg-5 offset-lg-0">
-    <div class="mat-elevation-z8">
-      <table [dataSource]="dataSource" mat-table>
-
-        <ng-container matColumnDef="createdDate">
-          <th *matHeaderCellDef mat-header-cell class="text-right-4">Bill Date</th>
-          <td *matCellDef="let element" mat-cell class="text-right-4"> {{element.createdDate}}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="totalPrice">
-          <th *matHeaderCellDef mat-header-cell class="text-right-4">Transaction</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
-            {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="dueAmount">
-          <th *matHeaderCellDef mat-header-cell class="text-right pr-8">Due Amount</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
-            {{element.dueAmount.toLocaleString('en-IN') || 0}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="profit">
-          <th *matHeaderCellDef mat-header-cell class="text-right-8">Profit</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
-            {{element.totalProfit.toLocaleString('en-IN') || 0}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="dueCollection">
-          <th *matHeaderCellDef mat-header-cell class="text-right-">Due Collection</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
-            {{element.dueCollection.toLocaleString('en-IN') || 0}} </td>
-        </ng-container>
-
-        <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
-        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-
-      </table>
-      <!-- <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>-->
+<div class="row">
+  <div class="col-6">
+    <table [dataSource]="dataSource1" mat-table>
+       <ng-container matColumnDef="createdDate">
+        <th *matHeaderCellDef mat-header-cell class="text-right-4">Bill Date</th>
+        <td *matCellDef="let element" mat-cell class="text-right-4" (click)=getData(element) style="cursor: pointer;"> {{element.createdDate}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="totalPrice">
+        <th *matHeaderCellDef mat-header-cell class="text-right-4">Transaction</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dueAmount">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-8">Due Amount</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.dueAmount.toLocaleString('en-IN') || 0}} </td>
+      </ng-container>
+      <ng-container matColumnDef="totalProfit">
+        <th *matHeaderCellDef mat-header-cell class="text-right-8">Profit</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.totalProfit.toLocaleString('en-IN') || 0}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dueCollection">
+        <th *matHeaderCellDef mat-header-cell class="text-right-">Due Collection</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.dueCollection.toLocaleString('en-IN') || 0}} </td>
+      </ng-container>
+      <tr *matHeaderRowDef="displayedColumns1;  sticky: true" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns1;" mat-row></tr>
+    </table>
+    </div>
+  <div class="col-3">
+    <div style="display: flex;justify-content: center;">
+      <mat-card
+        style="border:2px solid #5999d2;width:260px;border-top: 25px solid #5999d2;background-color: whitesmoke;padding: 0px;">
+  
+         <div class="container" style="margin-top:20px">
+          <div class="row">
+            <div class="col-4 " style="padding-left: 0px;padding-right: 0px;">
+              <h3 style="margin-top: 5px" class="example-right-align">2000 X</h3>
+              <h3 style="" class="example-right-align">500 X</h3>
+              <h3 style="margin-top: 0px ;" class="example-right-align">200 X</h3>
+              <h3 style="margin-top: 0px;" class="example-right-align">100 X</h3>
+              <h3 style="margin-top: 0px;" class="example-right-align">50 X</h3>
+              <h3 style="margin-top: 0px;" class="example-right-align">20 X</h3>
+              <h3 style="margin-top: 0px;" class="example-right-align">10 X</h3>
+            </div>
+            <div class="col-4" style="padding-right: 0px;padding-left: 0px;width: 180px;">
+              <form [formGroup]="reactiveForm" >
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%" >
+                    <input matInput type="number" class="example-right-align"  (ngModelChange)="calculate()" formControlName="notesOfNotes2000" maxlength="3">
+                  </mat-form-field>
+                 <span style="margin-left: 21px;font-size:20px">=</span>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()" formControlName="notesOfNotes500">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()" formControlName="notesOfNotes200">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()" formControlName="notesOfNotes100">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align"  (ngModelChange)="calculate()" formControlName="notesOfNotes50">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number"class="example-right-align"  (ngModelChange)="calculate()" formControlName="notesOfNotes20">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number"class="example-right-align"  (ngModelChange)="calculate()" formControlName="notesOfNotes10">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+              </form>
+            </div>
+            <div class="col-4 " style="padding-right: 40px;width: 20px;">
+              <h4 class="example-right-align">{{total}} </h4>
+              <h4 style="margin-top: 24px;" class="example-right-align">{{notesOf500sTotal}} </h4>
+              <h4 style="margin-top: 24px;" class="example-right-align">{{notesOf200sTotal}} </h4>
+              <h4 style="margin-top: 20px;" class="example-right-align">{{notesOf100sTotal}} </h4>
+              <h4 style="margin-top: 20px;" class="example-right-align">{{notesOf50sTotal}} </h4>
+              <h4 style="margin-top: 20px;" class="example-right-align">{{notesOf20sTotal}} </h4>
+              <h4 style="margin-top: 20px;" class="example-right-align">{{notesOf10sTotal}} </h4>
+            </div>
+          </div>
+          <hr style="border-top: 1px solid rgb(89 153 210);margin-top:'0px';margin-bottom:5px;padding:0px">
+          <div style="display: flex;justify-content:space-between">
+            <div> <h3 class="example-right-align">Notes</h3></div>
+            <div> <h3 class="example-right-align">{{noOfNotes}}</h3></div>
+            <div> <h3 class="example-right-align">Total <span class="example-right-align">=</span> {{totalNoOfNotesCount}}</h3></div>
+          </div>
+          <hr style="border-top: 1px solid rgb(89 153 210);margin-top:'0px';margin-bottom:10px">
+        </div> 
+        
+      </mat-card>
     </div>
   </div>
-  <br>
-
-  <!--
-  <div class="col-3 col-lg-7 offset-lg-0">
-    <div class="mat-elevation-z9">
-      <table [dataSource]="dataSourceProduct" mat-table>
-
-        <ng-container matColumnDef="productName">
-          <th *matHeaderCellDef mat-header-cell>Product Name</th>
-          <td *matCellDef="let element" mat-cell> {{element.productName}}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="qtySold">
-          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Sold Quantity</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.qtySold}}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="totalPrice">
-          <th *matHeaderCellDef mat-header-cell class="text-right">Total Profit</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
-            {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
-        </ng-container>
-
-        <tr *matHeaderRowDef="displayedColumnsProduct;  sticky: true" mat-header-row></tr>
-        <tr *matRowDef="let row; columns: displayedColumnsProduct;" mat-row></tr>
-
-      </table>
-       <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="30" showFirstLastButtons></mat-paginator>
-    </div>
-</div>
+  
+  <div class="col-3">
+      <div style="display: flex;justify-content: center;">
+          <mat-card style="background-color: whitesmoke; border:2px solid #5999d2;;border-top: 25px solid #5999d2;">
+            <div class="container">
+              <div class="row">
+                <!-- <div class="col-6">
+                  <h3 style="margin-top: 3px;">Date</h3>
+                  <h3 style="margin-top: 25px;">Transaction</h3>
+                  <h3 style="margin-top: 21px;">Due Amount</h3>
+                  <h3 style="margin-top: 24px;">Profit</h3>
+                  <h3 style="margin-top: 21px;">Due collection</h3>
+                  <h3 style="margin-top: 24px;">Cash</h3>
+                  <h3 style="margin-top: 24px;">Difference</h3>
+                </div> -->
+                <div class="col-12">
+                  <div>
+                  <p class="profitformCalculation">
+                    <mat-form-field class="forms-fildes" style="width:67%">
+                      <input matInput type="date" max="3" placeholder="date" [(ngModel)]="dateData" readonly>
+                    </mat-form-field>
+                  
+                  </p>
+                  <p class="profitformCalculation">
+                    <mat-form-field class="forms-fildes" style="width:67%">
+                      <input matInput type="number" placeholder="transaction " [(ngModel)]="transaction" class="example-right-align" readonly>
+                    </mat-form-field>
+                  </p>
+                  <p class="profitformCalculation">
+                    <mat-form-field class="forms-fildes" style="width:67%">
+                      <input matInput type="number"  placeholder="dueAmount " [(ngModel)]="dueAmount" class="example-right-align" readonly>
+                    </mat-form-field>
+                  </p>
+                  <p class="profitformCalculation">
+                    <mat-form-field class="forms-fildes" style="width:67%">
+                      <input matInput type="number"  placeholder="profit " [(ngModel)]="profit" class="example-right-align" readonly>
+                    </mat-form-field>
+                  </p>
+                  <p class="profitformCalculation">
+                    <mat-form-field class="forms-fildes" style="width:67%">
+                      <input matInput type="number"  placeholder="dueCollection " [(ngModel)]="dueCollection" class="example-right-align" readonly>
+                    </mat-form-field>
+                  </p>
+                  <p class="profitformCalculation">
+                    <mat-form-field class="forms-fildes" style="width:67%">
+                      <input matInput placeholder="cash "  [(ngModel)]="totalNoOfNotesCount" class="example-right-align" readonly>
+                    </mat-form-field>
+                  </p>
+                  <p class="profitformCalculation">
+                    <mat-form-field class="forms-fildes" style="width:67%">
+                      <input matInput placeholder="difference "  [(ngModel)]="difference" class="example-right-align" readonly>
+                    </mat-form-field>
+                  </p>
+                </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
   </div>
-</div>-->
-</div>

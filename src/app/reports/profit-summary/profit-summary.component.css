@@ -5,4 +5,30 @@ table {
 th {
   background-color: #5999d2;
   font-size: 15px;
+  cursor: pointer;
+}
+.profitform{
+  margin-top:-12px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+}
+.profitformCalculation{
+  margin-top:-17px;
+  text-align: center;
+}
+
+.example-right-align {
+  text-align: right;
+}
+.example-left-align{
+  text-align: left;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
 }

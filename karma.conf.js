@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/indian-kisan-care-frontend'),
+      dir: require('path').join(__dirname, './coverage/smart-accounting-book'),
       subdir: '.',
       reporters: [
         { type: 'html' },

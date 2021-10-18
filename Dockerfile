@@ -12,4 +12,4 @@ COPY . /app
 # Stage 2
 FROM nginx:1.20.0-alpine
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=build-step /app/dist/indian-kisan-care-frontend /usr/share/nginx/html
+COPY --from=build-step /app/dist/smart-accounting-book /usr/share/nginx/html
