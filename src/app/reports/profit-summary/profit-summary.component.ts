@@ -22,7 +22,9 @@ export class ProfitSummaryComponent implements OnInit {
   dateData: Date;
   transaction = 0;
   dueAmount = 0;
-  profit = 0;
+  upi = 0;
+  expense = 0;
+  openingBalance = 0;
   dueCollection = 0;
   difference = 0;
   noOfNotes = 0;
@@ -99,7 +101,7 @@ export class ProfitSummaryComponent implements OnInit {
   calculate() {
     this.noOfNotes = this.notesCount2000 + this.notesCount500 + this.notesCount200 + this.notesCount100 + this.notesCount50 + this.notesCount20 + this.notesCount10;
     this.totalNoOfNotesCount = this.total + this.notesOf500sTotal + this.notesOf200sTotal + this.notesOf100sTotal + this.notesOf50sTotal + this.notesOf20sTotal + this.notesOf10sTotal;
-    this.difference = this.transaction + this.dueAmount + this.dueCollection - this.totalNoOfNotesCount;
+    this.difference = this.transaction + this.dueAmount - this.dueCollection - this.totalNoOfNotesCount + this.upi + this.expense - this.openingBalance;
   }
   getSalesOrderList() {
     this.salesOrderService.getBarChartReport().subscribe(res => {
@@ -123,7 +125,7 @@ export class ProfitSummaryComponent implements OnInit {
     this.dateData = event.createdDate;
     this.transaction = event.totalPrice;
     this.dueAmount = event.dueAmount;
-    this.profit = event.totalProfit;
+    //this.profit = event.totalProfit;
     this.dueCollection = event.dueCollection;
     this.difference = this.transaction + this.dueAmount + this.dueCollection - this.totalNoOfNotesCount;
     console.log(event);
