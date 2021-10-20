@@ -101,7 +101,7 @@ export class ProfitSummaryComponent implements OnInit {
   calculate() {
     this.noOfNotes = this.notesCount2000 + this.notesCount500 + this.notesCount200 + this.notesCount100 + this.notesCount50 + this.notesCount20 + this.notesCount10;
     this.totalNoOfNotesCount = this.total + this.notesOf500sTotal + this.notesOf200sTotal + this.notesOf100sTotal + this.notesOf50sTotal + this.notesOf20sTotal + this.notesOf10sTotal;
-    this.difference = this.transaction + this.dueAmount - this.dueCollection - this.totalNoOfNotesCount + this.upi + this.expense - this.openingBalance;
+    this.difference =  (this.dueAmount - this.dueCollection + this.totalNoOfNotesCount + this.upi + this.expense - this.openingBalance) - this.transaction;
   }
   getSalesOrderList() {
     this.salesOrderService.getBarChartReport().subscribe(res => {
