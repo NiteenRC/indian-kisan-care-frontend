@@ -13,7 +13,7 @@ import { UpdateBalanceSheetComponent } from '../update-customer-balance-sheet/cu
   styleUrls: ['./balance-sheet.component.css']
 })
 export class BalanceSheetComponent implements OnInit {
-  displayedColumns: string[] = ['customerName', 'status', 'totalPrice', 'amountPaid', 'dueAmount', 'billDate', 'dueDate', 'action'];
+  displayedColumns: string[] = ['customerName', 'totalPrice', 'amountPaid', 'dueAmount', 'billDate', 'dueDate', 'action'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;

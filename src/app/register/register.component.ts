@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../_services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
     selector: 'app-register',
@@ -19,7 +19,16 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        this.authService.register(this.form).subscribe(
+        console.log(this.selection);
+        
+        let data = {
+            "username" : this.form.username,
+            "email": this.form.email,
+            "password" : this.form.password,
+            "role" : this.selection.map(x=> x.role),
+        };
+
+        this.authService.register(data).subscribe(
             data => {
                 console.log(data);
                 this.isSuccessful = true;
@@ -30,5 +39,37 @@ export class RegisterComponent implements OnInit {
                 this.isSignUpFailed = true;
             }
         );
+    }
+
+    selection = [];
+
+    list = [
+        { id: 1, role: 'admin' },
+        { id: 2, role: 'user' }
+    ];
+
+    getSelection(item) {
+        return this.selection.findIndex(s => s.id === item.id) !== -1;
+    }
+
+    changeHandler(item: any, event: KeyboardEvent) {
+        const id = item.id;
+
+        const index = this.selection.findIndex(u => u.id === id);
+        if (index === -1) {
+            // ADD TO SELECTION
+            // this.selection.push(item);
+            this.selection = [...this.selection, item];
+        } else {
+            // REMOVE FROM SELECTION
+            this.selection = this.selection.filter(user => user.id !== item.id)
+            // this.selection.splice(index, 1)
+        }
+    }
+
+    save() {
+        this.form;
+        this.form.controls['role'].setValue(this.selection);
+        console.log(this.selection);
     }
 }

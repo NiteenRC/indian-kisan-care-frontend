@@ -1,3 +1,4 @@
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
 
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
+  static role_admin: boolean;
 
   constructor(private tokenStorageService: TokenStorageService) { }
 
@@ -25,7 +27,8 @@ export class AppComponent implements OnInit {
       this.roles = user.roles;
 
 
-      // this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      //this.showAdminBoard = this.roles.includes('ROLE_SUPER_ADMIN');
+      AppComponent.role_admin = this.roles.includes('ROLE_SUPER_ADMIN') || this.roles.includes('ROLE_ADMIN');
       // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
       //this.username = user.username;

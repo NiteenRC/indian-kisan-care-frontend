@@ -4,8 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { SalesOrderComponent } from 'src/app/sales-order/sales-order.component';
-import { ProductListComponent } from 'src/app/products/product-list/product-list.component';
 import { PurchaseReportDetailsComponent } from '../purchase-report-details/purchase-report-details.component';
 
 @Component({
@@ -14,7 +12,7 @@ import { PurchaseReportDetailsComponent } from '../purchase-report-details/purch
   styleUrls: ['./purchase-report.component.css']
 })
 export class PurchaseReportComponent implements OnInit {
-  displayedColumns: string[] = ['billDate', 'dueDate', 'supplierName', 'status', 'totalPrice', 'amountPaid', 'dueAmount', 'action'];
+  displayedColumns: string[] = ['billDate', 'dueDate', 'supplierName', 'totalPrice', 'amountPaid', 'dueAmount'];
   productColumns: string[] = ['id', 'productName', 'purchasePrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;

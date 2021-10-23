@@ -150,7 +150,7 @@
       </ng-container>-->
 
       <ng-container matColumnDef="totalAmount">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Total Amount</th>
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Amount</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
           ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value | number : '1.0-2'}}
         </td>

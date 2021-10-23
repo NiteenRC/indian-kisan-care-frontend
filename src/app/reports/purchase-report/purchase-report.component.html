@@ -91,12 +91,12 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="status">
+   <!-- <ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell> {{element.status}} </td>
-    </ng-container>
+    </ng-container>-->
 
-    <ng-container matColumnDef="action">
+    <!-- <ng-container matColumnDef="action">
       <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
       <td *matCellDef="let element;" mat-cell>
         <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
@@ -104,7 +104,7 @@
         </button>
       </td>
       <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
+    </ng-container>-->
 
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']"

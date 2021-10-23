@@ -32,11 +32,6 @@
       <td *matCellDef="let element" mat-cell> {{element.supplier?.supplierName}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="status">
-      <th *matHeaderCellDef mat-header-cell>Status</th>
-      <td *matCellDef="let element" mat-cell> {{element.currentBalance == 0 ? 'PAID': 'DUE'}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="totalPrice">
       <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
       <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>

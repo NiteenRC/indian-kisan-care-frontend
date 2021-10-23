@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./sales-report.component.css']
 })
 export class SalesReportComponent implements OnInit {
-  displayedColumns: string[] = ['billDate', 'dueDate', 'customerName', 'status', 'totalPrice', 'amountPaid', 'currentDueAmount', 'totalDueAmount', 'action'];
+  displayedColumns: string[] = ['billDate', 'dueDate', 'customerName', 'totalPrice', 'amountPaid', 'currentDueAmount', 'totalDueAmount', 'action'];
   productColumns: string[] = ['id', 'productName', 'salesPrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;

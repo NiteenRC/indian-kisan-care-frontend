@@ -32,10 +32,10 @@
       <td *matCellDef="let element" mat-cell> {{element.customer?.customerName}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="status">
+    <!--<ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell> {{element.currentBalance == 0 ? 'PAID': 'DUE'}} </td>
-    </ng-container>
+    </ng-container>-->
 
     <ng-container matColumnDef="totalPrice">
       <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>

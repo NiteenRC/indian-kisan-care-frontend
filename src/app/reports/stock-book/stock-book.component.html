@@ -34,13 +34,13 @@
       <br><br>
       <div class="product-conatiner">
         <form [formGroup]="productForm">
-          <div class="addproduct-container">
+          <!--<div class="addproduct-container">
             <mat-form-field class="example-full-width">
               <mat-label>Total Transaction</mat-label>
               <input type="text" formControlName="totalPrice" matInput readonly>
             </mat-form-field>
             <br>
-          </div>
+          </div>-->
 
           <div class="addproduct-container">
             <mat-form-field class="example-full-width">
@@ -76,8 +76,8 @@
         </ng-container>
 
         <ng-container matColumnDef="productName">
-          <th *matHeaderCellDef mat-header-cell>Product Name</th>
-          <td *matCellDef="let element" mat-cell>
+          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Product Name</th>
+          <td *matCellDef="let element" mat-cell class="text-left pr-4">
             {{element.stockBook.productName}} </td>
         </ng-container>
 

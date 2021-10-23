@@ -1,14 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-action-bar',
   templateUrl: './action-bar.component.html',
   styleUrls: ['./action-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActionBarComponent {
+export class ActionBarComponent implements OnInit{
   private _transformer = (node: MasterNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -28,6 +29,7 @@ export class ActionBarComponent {
   dataSourceReports = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceBalance = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceSummary = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  role: boolean;
 
   constructor(private router: Router) {
     this.dataSource.data = TREE_DATA;
@@ -36,6 +38,9 @@ export class ActionBarComponent {
     this.dataSourceSummary.data = SUMMARY;
 
     console.log('dataSourceReports', this.dataSourceReports);
+  }
+  ngOnInit(): void {
+    this.role = AppComponent.role_admin;
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;

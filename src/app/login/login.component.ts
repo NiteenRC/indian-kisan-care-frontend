@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
     selector: 'app-login',
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit {
                 this.tokenStorage.saveUser(data);
                 localStorage.setItem('username', data.username);
                 this.roles = this.tokenStorage.getUser().roles;
-                this.router.navigate(['dashboard/home']);
+                this.router.navigate(['dashboard/home']);      
+                AppComponent.role_admin = this.roles.includes('ROLE_SUPER_ADMIN') || this.roles.includes('ROLE_ADMIN');
             },
             err => {
                 this.errorMessage = err.error.message;

@@ -12,7 +12,7 @@ import { SupplierUpdateBalanceSheetComponent } from '../update-supplier-balance-
   styleUrls: ['./supplier-balance-sheet.component.css']
 })
 export class SupplierBalanceSheetComponent implements OnInit {
-  displayedColumns: string[] = ['supplierName', 'status', 'totalPrice', 'amountPaid', 'dueAmount', 'billDate', 'dueDate', 'action'];
+  displayedColumns: string[] = ['supplierName', 'totalPrice', 'amountPaid', 'dueAmount', 'billDate', 'dueDate', 'action'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
