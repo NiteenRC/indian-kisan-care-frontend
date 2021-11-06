@@ -165,9 +165,20 @@
     </table>
 
     <div class="total-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option value="DELIVERED">DELIVERED</mat-option>
+          <mat-option value="NOT_DELIVERED">NOT DELIVERED</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="total-container">
       <div>
         <label for="name">Current Balance : </label>
-        <span class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR' }}</span>
+        <span
+          class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR' }}</span>
       </div>
       <div>
         <label for="name">Previous Balance : </label>

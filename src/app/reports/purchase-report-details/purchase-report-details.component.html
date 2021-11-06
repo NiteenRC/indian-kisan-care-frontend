@@ -16,7 +16,7 @@
       <td *matCellDef="let element" mat-cell class="text-right"> {{element.qtyOrdered}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="action">
+    <!-- <ng-container matColumnDef="action">
       <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
       <td *matCellDef="let element;" mat-cell>
         <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
@@ -24,12 +24,12 @@
         </button>
       </td>
       <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
+    </ng-container>-->
 
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']">
     </tr>
   </table>
-  <!-- <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>-->
+  <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
 </div>
 <br>

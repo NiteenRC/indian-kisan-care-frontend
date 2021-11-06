@@ -33,6 +33,7 @@ export class SalesOrderComponent implements OnInit {
   salesOrderForm: FormGroup;
   singleClickDisable = false;
   motorVehicleNo: any;
+  selected = 'DELIVERED';
 
   constructor(
     private _fb: FormBuilder,
@@ -75,6 +76,7 @@ export class SalesOrderComponent implements OnInit {
   }
 
   fetchData() {
+    this.customers = [];
     this.customerService.getCustomerList().subscribe(data => {
       data.forEach(x => {
         if (x.customerName != '' && !x.customerName.startsWith('UNKNOWN')) {
@@ -138,6 +140,7 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.dueDate = this.salesOrderForm.get('dueDate').value?.getTime();
       salesOrder.billDate = this.salesOrderForm.get('billDate').value?.getTime();
       salesOrder.previousBalance = this.getTotalBalance();
+      salesOrder.deliverStatus= this.selected;
 
       if (salesOrder.amountPaid < 0) {
         alert('Amount paid should be positive');

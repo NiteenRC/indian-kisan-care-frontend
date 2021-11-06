@@ -13,4 +13,5 @@ export class SalesOrder {
     vehicleNo: string;
     dueDate: string;
     billDate: string;
+    deliverStatus: string;
 }

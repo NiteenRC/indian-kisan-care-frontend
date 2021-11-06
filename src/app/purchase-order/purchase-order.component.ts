@@ -68,6 +68,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   fetchData() {
+    this.suppliers = [];
     this.supplierService.getSupplierList().subscribe(data => {
       data.forEach(x => {
         if (x.supplierName != '' && !x.supplierName.startsWith('UNKNOWN')) {

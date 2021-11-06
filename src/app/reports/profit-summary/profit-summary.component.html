@@ -2,7 +2,7 @@
   <div class="col-6">
     <table [dataSource]="dataSource1" mat-table>
       <ng-container matColumnDef="createdDate">
-        <th *matHeaderCellDef mat-header-cell class="text-right-4">Bill Date</th>
+        <th *matHeaderCellDef mat-header-cell class="text-right-4">Bill date</th>
         <td *matCellDef="let element" mat-cell class="text-right-4" (click)=getData(element) style="cursor: pointer;">
           {{element.createdDate}}
         </td>
@@ -139,7 +139,7 @@
               <div>
                 <p class="profitformCalculation">
                   <mat-form-field class="forms-fildes" style="width:67%">
-                    <input matInput type="date" max="3" placeholder="date" [(ngModel)]="dateData" readonly>
+                    <input matInput type="date" max="3" placeholder="Bill date" [(ngModel)]="dateData" readonly>
                   </mat-form-field>
                 </p>
 
