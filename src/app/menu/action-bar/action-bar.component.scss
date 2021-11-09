@@ -1,70 +1,83 @@
-.nav-link span{
-  margin-left: 5px;
-  color: white;
-}
-.span{
-  color: white;
+.nav-link span {
+    margin-left: 5px;
+    color: white;
 }
 
-.fa{
-  font-size: 20px !important;
-  margin-left: 10px;
+.span {
+    color: white;
 }
 
+.fa {
+    font-size: 20px !important;
+    margin-left: 10px;
+}
 
-ul.nav li.nav-item{
-  width: 100%;
-  float: left;
+ul.nav li.nav-item {
+    width: 100%;
+    float: left;
 }
-.nav-item .nav-link{
-  color: #fff !important;
+
+.nav-item .nav-link {
+    color: #fff !important;
 }
+
 ::ng-deep.mat-menu-content:not(:empty) {
-  /* padding-top: 8px; */
-  /* padding-bottom: 8px; */
-  background-color: #5999d2;
-  /* color: white; */
+    /* padding-top: 8px; */
+    /* padding-bottom: 8px; */
+    background-color: #5999d2;
+    /* color: white; */
 }
-::ng-deep.a{
-  color: white;
+
+::ng-deep.a {
+    color: white;
 }
+
 ::ng-deep.d-sm-inline {
-  display: inline!important;
-  color: white;
+    display: inline!important;
+    color: white;
 }
+
 ::ng-deep.mat-tree-node {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  word-wrap: break-word;
-  color: white;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    word-wrap: break-word;
+    color: white;
 }
+
 ::ng-deep.mat-tree-node {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  word-wrap: break-word;
-  color: white;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    word-wrap: break-word;
+    color: white;
 }
+
 ::ng-deep.mat-tree-node {
-  min-height: 1px;
-  background-color: #5999d2;
+    min-height: 1px;
+    background-color: #5999d2;
 }
 
 ::ng-deep.mat-icon-button {
-  height: 30px !important;
-  width: 30px !important;
-  line-height: 30px !important;
+    height: 30px !important;
+    width: 30px !important;
+    line-height: 30px !important;
 }
 
 .menu-item-name {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .selected {
-  color: #5999d2;
-  background: white;
-  width: fit-content !important;
-  border-radius: 5px;
-  padding: 0 5px;
+    color: #5999d2;
+    background: white;
+    width: fit-content !important;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.home-icon {
+    margin-left: 8px;
+    margin-right: 4px;
+    margin-bottom: 3px;
 }

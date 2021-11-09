@@ -1,123 +1,126 @@
 <div class="action-bar" [class.action-bar-expanded]="expanded">
 
-  <!-- Menu Button -->
-  <!-- <button class="action-bar-item shadow-sm" (click)="expanded = !expanded">
+    <!-- Menu Button -->
+    <!-- <button class="action-bar-item shadow-sm" (click)="expanded = !expanded">
 		<span class="action-bar-item-icon jam jam-bar-chart transform-rotate-90"></span>
     <span class="action-bar-item-text">Menu</span>
 	</button> -->
 
-  <app-action-bar-item [shadow]="true" (click)="expanded = !expanded">
-    <span class="action-bar-item-icon jam jam-bar-chart transform-rotate-90"></span>
-    <span class="action-bar-item-text">Menu</span>
-  </app-action-bar-item>
+    <app-action-bar-item [shadow]="true" (click)="expanded = !expanded">
+        <span class="action-bar-item-icon jam jam-bar-chart transform-rotate-90"></span>
+        <span class="action-bar-item-text">Menu</span>
+    </app-action-bar-item>
 
-  <!-- A vertical navbar -->
-  <nav class="navbar navbar-light">
+    <!-- A vertical navbar -->
+    <nav class="navbar navbar-light">
 
-    <!-- Links -->
-    <ul class="navbar-nav nav">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard/home" routerLinkActive="active" style="cursor: pointer;"> <i
-            class="fa fa-home "></i> <span *ngIf="expanded" class="d-none d-sm-inline">DASHBOARDS</span> </a>
-      </li>
+        <!-- Links -->
+        <ul class="navbar-nav nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/dashboard/home" routerLinkActive="active" style="cursor: pointer;">
+                    <!-- <i class="fa fa-home "></i>  -->
+                    <img src="../../assets/home-icon.png" class="home-icon" alt="" width="15px" height="15px">
+                    <span *ngIf="expanded" class="d-none d-sm-inline">DASHBOARDS</span> </a>
+            </li>
 
-      <mat-tree [dataSource]="dataSource_Order" [treeControl]="treeControl">
-        <!-- This is the tree node template for leaf nodes -->
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <!-- use a disabled button to provide padding for tree leaf -->
-          <button mat-icon-button
-            [ngClass]="{ 'selected': (dataSource_Order._flattenedData | async)[0].name + node.name === selected} "
-            (click)="getOrder(node.name)">
+            <mat-tree [dataSource]="dataSource_Order" [treeControl]="treeControl">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                    <!-- use a disabled button to provide padding for tree leaf -->
+                    <button mat-icon-button [ngClass]="{ 'selected': (dataSource_Order._flattenedData | async)[0].name + node.name === selected} " (click)="getOrder(node.name)">
             {{node.name}}</button>
-        </mat-tree-node>
-        <!-- This is the tree node template for expandable nodes -->
-        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <!-- <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
+            </mat-icon> -->
+            <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
+            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px">
+
           </button>
-          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+                    <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
             {{node.name}}
           </span>
 
-        </mat-tree-node>
-      </mat-tree>
+                </mat-tree-node>
+            </mat-tree>
 
-      <mat-tree *ngIf="true" [dataSource]="dataSourceReports" [treeControl]="treeControl" style="margin-right: 10px;">
-        <!-- This is the tree node template for leaf nodes -->
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <!-- use a disabled button to provide padding for tree leaf -->
-          <button mat-icon-button
-            [ngClass]="{ 'selected': (dataSourceReports._flattenedData | async)[0].name + node.name === selected} "
-            (click)="getReports(node.name)">
+            <mat-tree *ngIf="true" [dataSource]="dataSourceReports" [treeControl]="treeControl" style="margin-right: 10px;">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                    <!-- use a disabled button to provide padding for tree leaf -->
+                    <button mat-icon-button [ngClass]="{ 'selected': (dataSourceReports._flattenedData | async)[0].name + node.name === selected} " (click)="getReports(node.name)">
             {{node.name}}</button>
 
-        </mat-tree-node>
-        <!-- This is the tree node template for expandable nodes -->
-        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <!-- <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
+            </mat-icon> -->
+            <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
+            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px">
           </button>
-          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+                    <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
             {{node.name}}
           </span>
-        </mat-tree-node>
-      </mat-tree>
+                </mat-tree-node>
+            </mat-tree>
 
-      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <!-- This is the tree node template for leaf nodes -->
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <!-- use a disabled button to provide padding for tree leaf -->
-          <button mat-icon-button
-            [ngClass]="{ 'selected': (dataSource._flattenedData | async)[0].name + node.name === selected} "
-            (click)="getComponent(node.name)">
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                    <!-- use a disabled button to provide padding for tree leaf -->
+                    <button mat-icon-button [ngClass]="{ 'selected': (dataSource._flattenedData | async)[0].name + node.name === selected} " (click)="getComponent(node.name)">
             {{node.name}}</button>
-        </mat-tree-node>
-        <!-- This is the tree node template for expandable nodes -->
-        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <!-- <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
+            </mat-icon> -->
+            <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
+            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px">
           </button>
-          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+                    <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
             {{node.name}}
           </span>
-        </mat-tree-node>
-      </mat-tree>
+                </mat-tree-node>
+            </mat-tree>
 
-      <mat-tree *ngIf="role" [dataSource]="dataSourceSummary" [treeControl]="treeControl" style="margin-right: 10px;">
-        <!-- This is the tree node template for leaf nodes -->
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <!-- use a disabled button to provide padding for tree leaf -->
-          <button mat-icon-button
-            [ngClass]="{ 'selected': (dataSourceSummary._flattenedData | async)[0].name + node.name === selected} "
-            (click)="getSummary(node.name)">
+            <mat-tree *ngIf="role" [dataSource]="dataSourceSummary" [treeControl]="treeControl" style="margin-right: 10px;">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                    <!-- use a disabled button to provide padding for tree leaf -->
+                    <button mat-icon-button [ngClass]="{ 'selected': (dataSourceSummary._flattenedData | async)[0].name + node.name === selected} " (click)="getSummary(node.name)">
             {{node.name}}</button>
 
-        </mat-tree-node>
-        <!-- This is the tree node template for expandable nodes -->
-        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <!-- <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
+            </mat-icon> -->
+            <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
+            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px">
           </button>
-          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+                    <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
             {{node.name}}
           </span>
-        </mat-tree-node>
-      </mat-tree>
+                </mat-tree-node>
+            </mat-tree>
 
-      <li class="nav-item" *ngIf="false">
-        <a class="nav-link" routerLink="/dashboard/user"><i class="fa fa-users "></i> <span *ngIf="expanded"
+            <li class="nav-item" *ngIf="false">
+                <a class="nav-link" routerLink="/dashboard/user"><i class="fa fa-users "></i> <span *ngIf="expanded"
             class="d-none d-sm-inline">USERS</span></a>
-      </li>
+            </li>
 
-    </ul>
+        </ul>
 
-  </nav>
+    </nav>
 </div>

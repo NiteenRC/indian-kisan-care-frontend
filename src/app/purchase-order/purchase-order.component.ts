@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
@@ -12,6 +12,7 @@ import { PurchaseOrderService } from '../_services/purchase-order.service';
 import { Supplier } from '../_model/supplier';
 import { SupplierService } from '../_services/supplier.service';
 import { Router } from '@angular/router';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-purchase-order',
@@ -34,12 +35,22 @@ export class PurchaseOrderComponent implements OnInit {
   purchaserOrderForm: FormGroup;
   singleClickDisable = false;
 
+  minStartDate = new Date();
+  purchaseOrder: PurchaseOrder = new PurchaseOrder();
+  @ViewChild('searchProduct') searchProduct: ElementRef;
+  popupTitle = "";
+  popupsubtitle = "";
+  popupDescription = "";
+  @ViewChild('modalContent') modalContent: ElementRef;
+
+
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
     private supplierService: SupplierService,
+    private modalService: NgbModal,
     private purchaseOrderService: PurchaseOrderService, private route: Router) {
-
+    
     this.suppliers = [];
     this.products = [];
   }
@@ -60,6 +71,7 @@ export class PurchaseOrderComponent implements OnInit {
     this.purchaserOrderForm.controls['productName'].setValue(null);
     const product = this._findProduct(selectedProduct);
     this._addProduct(product);
+    this.searchProduct.nativeElement.blur()
   }
 
   selectedSupplier(selectedSupplier: string) {
@@ -93,10 +105,22 @@ export class PurchaseOrderComponent implements OnInit {
 
   showMsg: boolean = false;
 
-  save(isPrintReq: boolean) {
+
+  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string) {
+    this.popupTitle = popupTitle;
+    this.popupsubtitle = popupsubtitle;
+    this.popupDescription = popupDescription;
+   
+    this.modalService.open(this.modalContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    }, (reason) => {
+    });
+  }
+
+  save(isPrintReq: boolean, content: any) {
     this.singleClickDisable = true;
     if (this.purchaseOrderDetailArr.value.length === 0) {
-      alert('please select products, before submitting');
+      // alert('please select products, before submitting');
+      this.showAlert("Error", 'please select products, before submitting', "");
       this.singleClickDisable = false;
       return;
     }
@@ -104,6 +128,7 @@ export class PurchaseOrderComponent implements OnInit {
     let supplier = this._findSupplier(supplierName);
 
     const purchaseOrder: PurchaseOrder = new PurchaseOrder();
+
     if (supplier === undefined) {
       supplier = this.saveSupplier(supplierName);
     }
@@ -119,11 +144,13 @@ export class PurchaseOrderComponent implements OnInit {
     purchaseOrder.previousBalance = this.getTotalBalance();
 
     if (purchaseOrder.amountPaid < 0) {
-      alert('Amount paid should be positive');
+      // alert('Amount paid should be positive');
+      this.showAlert("Error", 'Amount paid should be positive', "");
       this.singleClickDisable = false;
       return;
     } else if (this.getTotalBalance() < 0) {
-      alert('Amount paid should be equals to balance');
+      // alert('Amount paid should be equals to balance');
+      this.showAlert("Error", 'Amount paid should be equals to balance', "");
       this.singleClickDisable = false;
       return;
     } else if (this.getTotalBalance() <= 0) {
@@ -136,7 +163,17 @@ export class PurchaseOrderComponent implements OnInit {
 
     if ((purchaseOrder.status === 'DUE' || purchaseOrder.status === 'PARTIAL') &&
       (supplier.supplierName === "" || supplier.phoneNumber === "")) {
-      alert("Please don't buy products from unknowns.\nplease add supplier name and phone number to proceed.")
+        let alertMsg = "Please don't buy products from unknowns.Please add ";
+        let fields = [];
+        if (supplier.supplierName === "") {
+          fields.push("supplier name");
+        }
+        if (supplier.phoneNumber === "") {
+          fields.push("phone number");
+        }
+        alertMsg = alertMsg + fields.join(" and ") + " to proceed";
+        this.showAlert("Error", alertMsg, "");
+        // alert("Please don't buy products from unknowns.\nplease add supplier name and phone number to proceed.")
       this.singleClickDisable = false;
       return;
     }
@@ -144,29 +181,56 @@ export class PurchaseOrderComponent implements OnInit {
     if (purchaseOrder.amountPaid == null) {
       purchaseOrder.amountPaid = 0.0;
     }
-    if (confirm("Please confirm below details before save? \n Order status: " + purchaseOrder.status + " \n Amount paid: " + purchaseOrder.amountPaid + "\n Balance amount: " + this.getTotalBalance() + "\n\n Note: Order placed can't be deleted later!")) {
+
+    this.purchaseOrder = purchaseOrder;
+
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm'}).result.then((result) => {
       this.purchaseOrderService
-        .createPurchaseOrder(purchaseOrder).subscribe(data => {
-          console.log(data);
+      .createPurchaseOrder(purchaseOrder).subscribe(data => {
+        console.log(data);
+        this.singleClickDisable = false;
+        this.refreshAfterSave();
+        if (isPrintReq) {
+          this._printPdf(data);
+          //window.location.reload();
+        } else {
+          this.showMsg = true;
+          setTimeout(() => {
+            this.showMsg = false;
+          }, 1.5*1000);
+        }
+      },
+        error => {
+          console.log(error);
           this.singleClickDisable = false;
-          this.refreshAfterSave();
-          if (isPrintReq) {
-            this._printPdf(data);
-            //window.location.reload();
-          } else {
-            this.showMsg = true;
-            setTimeout(() => {
-              this.showMsg = false;
-            }, 1000);
-          }
-        },
-          error => {
-            console.log(error);
-            this.singleClickDisable = false;
-          });
-    } else {
+        });
+    }, (reason) => {
       this.singleClickDisable = false;
-    }
+    });
+
+    // if (confirm("Please confirm below details before save? \n Order status: " + purchaseOrder.status + " \n Amount paid: " + purchaseOrder.amountPaid + "\n Balance amount: " + this.getTotalBalance() + "\n\n Note: Order placed can't be deleted later!")) {
+    //   this.purchaseOrderService
+    //     .createPurchaseOrder(purchaseOrder).subscribe(data => {
+    //       console.log(data);
+    //       this.singleClickDisable = false;
+    //       this.refreshAfterSave();
+    //       if (isPrintReq) {
+    //         this._printPdf(data);
+    //         //window.location.reload();
+    //       } else {
+    //         this.showMsg = true;
+    //         setTimeout(() => {
+    //           this.showMsg = false;
+    //         }, 1.5*1000);
+    //       }
+    //     },
+    //       error => {
+    //         console.log(error);
+    //         this.singleClickDisable = false;
+    //       });
+    // } else {
+    //   this.singleClickDisable = false;
+    // }
   }
 
   saveSupplier(supplierName: string): any {

@@ -1,45 +1,63 @@
 .amount-read-only {
-  width: 100px;
-  display: inline-block;
+    width: 100px;
+    display: inline-block;
 }
 
 .amount-edit {
-  width: 100px;
-  text-align: right;
-  margin-left: 30px;
+    width: 100px;
+    text-align: right;
+    margin-left: 30px;
 }
 
 .middle {
-  max-width: 300px;
-  margin: auto;
+    /* max-width: 300px;
+    margin: auto; */
+    position: fixed;
+    left: 50%;
+    top: 30px;
+    transform: translate(-40%, 0%)
 }
 
 .example-full-width {
-  width: 100%;
+    width: 100%;
 }
 
 th {
-  background-color: #5999d2;
-  font-size: 15px;
+    background-color: #5999d2;
+    font-size: 15px;
 }
 
 .delete-button {
-  color: #bd2929a1;
+    color: #bd2929a1;
 }
 
 .total-container {
-  padding: 12px;
-  text-align: right;
+    padding: 12px;
+    text-align: right;
 }
 
 .purchase-order-container {
-  height: calc(100vh - 150px);
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    height: calc(100vh - 150px);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .forms-fildes {
-  width: 200px;
+    width: 200px;
+}
+
+.modal-title-custom {
+    margin-bottom: 0 !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+    line-height: 1.5 !important;
+    font-size: 1.5rem !important;
+}
+
+.custom-row {
+    display: flex;
+    justify-content: space-between;
 }
