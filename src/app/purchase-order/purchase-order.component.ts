@@ -12,7 +12,7 @@ import { PurchaseOrderService } from '../_services/purchase-order.service';
 import { Supplier } from '../_model/supplier';
 import { SupplierService } from '../_services/supplier.service';
 import { Router } from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-purchase-order',
@@ -50,7 +50,7 @@ export class PurchaseOrderComponent implements OnInit {
     private supplierService: SupplierService,
     private modalService: NgbModal,
     private purchaseOrderService: PurchaseOrderService, private route: Router) {
-    
+
     this.suppliers = [];
     this.products = [];
   }
@@ -110,8 +110,8 @@ export class PurchaseOrderComponent implements OnInit {
     this.popupTitle = popupTitle;
     this.popupsubtitle = popupsubtitle;
     this.popupDescription = popupDescription;
-   
-    this.modalService.open(this.modalContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+
+    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     }, (reason) => {
     });
   }
@@ -163,17 +163,16 @@ export class PurchaseOrderComponent implements OnInit {
 
     if ((purchaseOrder.status === 'DUE' || purchaseOrder.status === 'PARTIAL') &&
       (supplier.supplierName === "" || supplier.phoneNumber === "")) {
-        let alertMsg = "Please don't buy products from unknowns.Please add ";
-        let fields = [];
-        if (supplier.supplierName === "") {
-          fields.push("supplier name");
-        }
-        if (supplier.phoneNumber === "") {
-          fields.push("phone number");
-        }
-        alertMsg = alertMsg + fields.join(" and ") + " to proceed";
-        this.showAlert("Error", alertMsg, "");
-        // alert("Please don't buy products from unknowns.\nplease add supplier name and phone number to proceed.")
+      let alertMsg = "Please provide below. \n";
+      let fields = [];
+      if (supplier.supplierName === "") {
+        fields.push("supplier name");
+      }
+      if (supplier.phoneNumber === "") {
+        fields.push("phone number");
+      }
+      alertMsg = alertMsg + fields.join(" and ") + " to proceed";
+      this.showAlert("Error", alertMsg, "");
       this.singleClickDisable = false;
       return;
     }
@@ -184,26 +183,26 @@ export class PurchaseOrderComponent implements OnInit {
 
     this.purchaseOrder = purchaseOrder;
 
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'sm'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       this.purchaseOrderService
-      .createPurchaseOrder(purchaseOrder).subscribe(data => {
-        console.log(data);
-        this.singleClickDisable = false;
-        this.refreshAfterSave();
-        if (isPrintReq) {
-          this._printPdf(data);
-          //window.location.reload();
-        } else {
-          this.showMsg = true;
-          setTimeout(() => {
-            this.showMsg = false;
-          }, 1.5*1000);
-        }
-      },
-        error => {
-          console.log(error);
+        .createPurchaseOrder(purchaseOrder).subscribe(data => {
+          console.log(data);
           this.singleClickDisable = false;
-        });
+          this.refreshAfterSave();
+          if (isPrintReq) {
+            this._printPdf(data);
+            //window.location.reload();
+          } else {
+            this.showMsg = true;
+            setTimeout(() => {
+              this.showMsg = false;
+            }, 1.5 * 1000);
+          }
+        },
+          error => {
+            console.log(error);
+            this.singleClickDisable = false;
+          });
     }, (reason) => {
       this.singleClickDisable = false;
     });

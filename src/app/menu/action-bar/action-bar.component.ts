@@ -78,10 +78,10 @@ export class ActionBarComponent implements OnInit{
     if (item == "Order") {
       this.router.navigate(['dashboard/salesOrder']);
     }
-    if (item === "Report") {
+    if (item === "Transactions") {
       this._redirectToPage('dashboard/sales-report');
     }
-    if (item === "Balance") {
+    if (item === "Dues") {
       this._redirectToPage('dashboard/balance-sheet');
     }
   }
@@ -91,17 +91,17 @@ export class ActionBarComponent implements OnInit{
     if (item == "Order") {
       this.router.navigate(['dashboard/purchaseOrder']);
     }
-    if (item === "Report") {
+    if (item === "Transactions") {
       this._redirectToPage('dashboard/purchase-report');
     }
-    if (item === "Balance") {
+    if (item === "Dues") {
       this._redirectToPage('dashboard/supplier-balance-sheet');
     }
   }
 
   getSummary(item) {
     this.selected = SUMMARY[0].name + item;
-    if (item === "Profit Summary") {
+    if (item === "Daily Summary") {
       this._redirectToPage('dashboard/profit-summary');
     }
     if (item === "Stock Book") {
@@ -121,16 +121,16 @@ interface MasterNode {
 
 const Order_DATA: MasterNode[] = [
   {
-    name: 'SALE',
+    name: 'SALES',
     children: [
       {
         name: 'Order',
       },
       {
-        name: 'Report',
+        name: 'Transactions',
       },
       {
-        name: 'Balance',
+        name: 'Dues',
       }
     ]
   },
@@ -144,10 +144,10 @@ const REPORTS: MasterNode[] = [
         name: 'Order',
       },
       {
-        name: 'Report',
+        name: 'Transactions',
       },
       {
-        name: 'Balance',
+        name: 'Dues',
       }
     ]
   },
@@ -158,7 +158,7 @@ const SUMMARY: MasterNode[] = [
     name: 'SUMMARY',
     children: [
       {
-        name: 'Profit Summary',
+        name: 'Daily Summary',
       },
       {
         name: 'Stock Book',
@@ -175,10 +175,6 @@ const TREE_DATA: MasterNode[] = [
         name: 'Product',
       }, {
         name: 'Category',
-      }, {
-        name: 'Location',
-      }, {
-        name: 'Company',
       }, {
         name: 'Supplier',
       }, {

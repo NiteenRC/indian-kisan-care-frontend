@@ -12,7 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class ProfitSummaryComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight',];
-  displayedColumns1: string[] = ['createdDate', 'totalPrice', 'dueAmount', 'totalProfit', 'dueCollection'];
+  displayedColumns1: string[] = ['createdDate', 'totalPrice', 'totalProfit', 'dueAmount', 'dueCollection'];
   displayedColumnsProduct: string[] = ['productName', 'qtySold', 'totalPrice'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   reactiveForm: FormGroup;
@@ -122,8 +122,8 @@ export class ProfitSummaryComponent implements OnInit {
   getData(event) {
     this.calculate();
 
-    this.dateData = event.createdDate;
-    this.transaction = event.totalPrice;
+    this.dateData = event.billDate;
+    this.transaction = event.transaction;
     this.dueAmount = event.dueAmount;
     //this.profit = event.totalProfit;
     this.dueCollection = event.dueCollection;

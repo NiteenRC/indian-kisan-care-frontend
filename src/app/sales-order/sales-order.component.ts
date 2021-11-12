@@ -141,6 +141,7 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.billDate = this.salesOrderForm.get('billDate').value?.getTime();
       salesOrder.previousBalance = this.getTotalBalance();
       salesOrder.deliverStatus= this.selected;
+      salesOrder.currentDue = this.previousBalance;
 
       if (salesOrder.amountPaid < 0) {
         alert('Amount paid should be positive');

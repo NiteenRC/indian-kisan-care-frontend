@@ -4,13 +4,13 @@
       <ng-container matColumnDef="createdDate">
         <th *matHeaderCellDef mat-header-cell class="text-right-4">Bill date</th>
         <td *matCellDef="let element" mat-cell class="text-right-4" (click)=getData(element) style="cursor: pointer;">
-          {{element.createdDate}}
+          {{element.billDate}}
         </td>
       </ng-container>
       <ng-container matColumnDef="totalPrice">
         <th *matHeaderCellDef mat-header-cell class="text-right-4">Transaction</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
+          {{element.transaction.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
       <ng-container matColumnDef="dueAmount">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Due Amount</th>
@@ -20,7 +20,7 @@
       <ng-container matColumnDef="totalProfit">
         <th *matHeaderCellDef mat-header-cell class="text-right-6">Profit</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          {{element.totalProfit.toLocaleString('en-IN') || 0}} </td>
+          {{element.profit.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
       <ng-container matColumnDef="dueCollection">
         <th *matHeaderCellDef mat-header-cell class="text-right-6">Due Collection</th>
@@ -30,6 +30,7 @@
       <tr *matHeaderRowDef="displayedColumns1;  sticky: true" mat-header-row></tr>
       <tr *matRowDef="let row; columns: displayedColumns1;" mat-row></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
   </div>
   <div class="col-3">
     <div style="display: flex;justify-content: center;">

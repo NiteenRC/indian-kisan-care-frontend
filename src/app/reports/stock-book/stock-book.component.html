@@ -1,40 +1,39 @@
-<form [formGroup]="productForm">
-  <div class="d-flex">
-    <div class="form-group col-4">
-      <b><span>Search by Product and Billing date</span></b>
-      <br><br>
-      <mat-form-field class="example-full-width">
-        <mat-label>Product</mat-label>
-        <input type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
-        <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
-          (optionSelected)="selectedProduct($event.option.value)">
-          <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
-            {{product.productName}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+<div class="d-flex">
+  <div class="form-group col-4">
+    <b><span>Search by Product and Billing date</span></b>
+    <br><br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Product</mat-label>
+      <input type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
+      <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
+        (optionSelected)="selectedProduct($event.option.value)">
+        <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
+          {{product.productName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
 
-      <mat-form-field>
-        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-          <input matStartDate formControlName="start" placeholder="Start date">
-          <input matEndDate formControlName="end" placeholder="End date">
-        </mat-date-range-input>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker-toggle matSuffix (click)="clearDate()">
-          <mat-icon matDatepickerToggleIcon>clear</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-form-field>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date">
+        <input matEndDate formControlName="end" placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix (click)="clearDate()">
+        <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
 
-        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-      </mat-form-field>
+      <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
 
-      <br><br><br><br>
-      <b><span>Stock Summary</span></b>
-      <br><br>
-      <div class="product-conatiner">
-        <form [formGroup]="productForm">
-          <!--<div class="addproduct-container">
+    <br><br><br><br>
+    <b><span>Stock Summary</span></b>
+    <br><br>
+    <div class="product-conatiner">
+      <form [formGroup]="productForm">
+        <!--<div class="addproduct-container">
             <mat-form-field class="example-full-width">
               <mat-label>Total Transaction</mat-label>
               <input type="text" formControlName="totalPrice" matInput readonly>
@@ -42,69 +41,67 @@
             <br>
           </div>-->
 
-          <div class="addproduct-container">
-            <mat-form-field class="example-full-width">
-              <mat-label>Total Qty Sold</mat-label>
-              <input type="text" formControlName="totalQtySold" matInput readonly>
-            </mat-form-field>
-            <br>
-          </div>
+        <div class="addproduct-container">
+          <mat-form-field class="example-full-width">
+            <mat-label>Total Qty Sold</mat-label>
+            <input type="text" formControlName="totalQtySold" matInput readonly>
+          </mat-form-field>
+          <br>
+        </div>
 
-          <div class="addproduct-container">
-            <mat-form-field class="example-full-width">
-              <mat-label>Total Profit</mat-label>
-              <input type="text" formControlName="totalProfit" matInput readonly>
-            </mat-form-field>
-            <br>
-          </div>
-        </form>
+        <div class="addproduct-container">
+          <mat-form-field class="example-full-width">
+            <mat-label>Total Profit</mat-label>
+            <input type="text" formControlName="totalProfit" matInput readonly>
+          </mat-form-field>
+          <br>
+        </div>
+      </form>
 
-      </div>
-    </div>
-    <div class="mat-elevation-z8">
-      <table [dataSource]="dataSource" mat-table>
-        <ng-container matColumnDef="sno">
-          <th *matHeaderCellDef mat-header-cell class="text-left pr-2">S.No</th>
-          <td *matCellDef="let element; let i = index;" mat-cell class="text-right pr-4"> {{i + 1}}. </td>
-          <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
-        </ng-container>
-
-        <ng-container matColumnDef="date">
-          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Billing Date</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.date | date: 'dd/MM/yyyy'}}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="productName">
-          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Product Name</th>
-          <td *matCellDef="let element" mat-cell class="text-left pr-4">
-            {{element.stockBook.productName}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="openingStock">
-          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Opening Stock</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
-            {{element.stockBook.openingStock}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="soldStock">
-          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Qty Sold</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
-            {{element.stockBook.soldStock}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="closingStock">
-          <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Closing Stock</th>
-          <td *matCellDef="let element" mat-cell class="text-right pr-4">
-            {{element.stockBook.closingStock}} </td>
-        </ng-container>
-
-        <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
-        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-
-      </table>
-      <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>
     </div>
   </div>
-</form>
-<br>
+  <div class="mat-elevation-z8">
+    <table [dataSource]="dataSource" mat-table>
+      <ng-container matColumnDef="sno">
+        <th *matHeaderCellDef mat-header-cell class="text-left pr-2">S.No</th>
+        <td *matCellDef="let element; let i = index;" mat-cell class="text-right pr-4"> {{i + 1}}. </td>
+        <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Billing Date</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4"> {{element.date | date: 'dd/MM/yyyy'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="productName">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Product Name</th>
+        <td *matCellDef="let element" mat-cell class="text-left pr-4">
+          {{element.stockBook.productName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="openingStock">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Opening Stock</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.stockBook.openingStock}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="soldStock">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Qty Sold</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.stockBook.soldStock}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="closingStock">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Closing Stock</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.stockBook.closingStock}} </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
