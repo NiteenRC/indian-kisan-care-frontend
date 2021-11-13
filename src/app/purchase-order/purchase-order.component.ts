@@ -42,7 +42,7 @@ export class PurchaseOrderComponent implements OnInit {
   popupsubtitle = "";
   popupDescription = "";
   @ViewChild('modalContent') modalContent: ElementRef;
-
+  popupMarkup = "";
 
   constructor(
     private _fb: FormBuilder,
@@ -106,10 +106,11 @@ export class PurchaseOrderComponent implements OnInit {
   showMsg: boolean = false;
 
 
-  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string) {
+  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "") {
     this.popupTitle = popupTitle;
     this.popupsubtitle = popupsubtitle;
     this.popupDescription = popupDescription;
+    this.popupMarkup = popupMarkup;
 
     this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     }, (reason) => {
@@ -163,16 +164,16 @@ export class PurchaseOrderComponent implements OnInit {
 
     if ((purchaseOrder.status === 'DUE' || purchaseOrder.status === 'PARTIAL') &&
       (supplier.supplierName === "" || supplier.phoneNumber === "")) {
-      let alertMsg = "Please provide below. \n";
+      let alertMsg = "<p>Please provide below. <br>";
       let fields = [];
       if (supplier.supplierName === "") {
-        fields.push("supplier name");
+        fields.push(`<span class="text-danger">supplier name</span>`);
       }
       if (supplier.phoneNumber === "") {
-        fields.push("phone number");
+        fields.push(`<span class="text-danger">phone number</span>`);
       }
-      alertMsg = alertMsg + fields.join(" and ") + " to proceed";
-      this.showAlert("Error", alertMsg, "");
+      alertMsg = alertMsg + fields.join(" and ") + " to proceed </p>";
+      this.showAlert("Error", "", "", alertMsg);
       this.singleClickDisable = false;
       return;
     }
