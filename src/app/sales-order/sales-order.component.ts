@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
@@ -11,6 +11,7 @@ import { SalesOrder } from '../_model/sales-order';
 import { SalesOrderService } from '../_services/sales-order.service';
 import { Customer } from '../_model/customer';
 import { CustomerService } from '../_services/customer.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-sales-order',
@@ -34,10 +35,19 @@ export class SalesOrderComponent implements OnInit {
   singleClickDisable = false;
   motorVehicleNo: any;
   selected = 'DELIVERED';
+  @ViewChild('searchProduct') searchProduct: ElementRef;
+  minStartDate = new Date();
+  popupTitle = "";
+  popupsubtitle = "";
+  popupDescription = "";
+  @ViewChild('modalContent') modalContent: ElementRef;
+  popupMarkup = "";
+  salesOrder: SalesOrder = new SalesOrder();
 
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
+    private modalService: NgbModal,
     private customerService: CustomerService,
     private salesOrderService: SalesOrderService) {
 
@@ -59,9 +69,12 @@ export class SalesOrderComponent implements OnInit {
 
   selectedProduct(selectedProduct: string) {
     this.salesOrderForm.controls['productName'].setValue(null);
+    this.searchProduct.nativeElement.blur();
+
     const product = this._findProduct(selectedProduct);
     if (product.qty <= 0) {
-      alert('Stock is not avaiable');
+      // alert('Stock is not avaiable');
+      this.showAlert("Error", "Stock is not avaiable", "");
       // this.salesOrderForm = this._fb.group({
       //productName: ['']
       //});
@@ -99,12 +112,24 @@ export class SalesOrderComponent implements OnInit {
     return this.previousBalance + this.getCurrentBalance();
   }
 
+  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "") {
+    this.popupTitle = popupTitle;
+    this.popupsubtitle = popupsubtitle;
+    this.popupDescription = popupDescription;
+    this.popupMarkup = popupMarkup;
+
+    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    }, (reason) => {
+    });
+  }
+
   showMsg: boolean = false;
 
-  save(isPrintReq: boolean) {
+  save(isPrintReq: boolean, content: any) {
     this.singleClickDisable = true;
     if (this.salesOrderDetailArr.value.length === 0) {
-      alert('please select products, before submitting');
+      // alert('please select products, before submitting');
+      this.showAlert("Error", "please select products, before submitting", "");
       this.singleClickDisable = false;
       return;
     }
@@ -112,12 +137,15 @@ export class SalesOrderComponent implements OnInit {
     let isStockAvail = true;
     this.salesOrderDetailArr.value.forEach(value => {
       if (value.product.qty < value.qtyOrdered) {
-        alert('No Stock for product: ' + value.product.productName);
+        // alert('No Stock for product: ' + value.product.productName);
+        this.showAlert("Error", 'No Stock for product: ' + value.product.productName, "");
+
         isStockAvail = false;
       }
 
       if (value.qtyOrdered === 0) {
-        alert('Please add Quantity to : ' + value.product.productName);
+        // alert('Please add Quantity to : ' + value.product.productName);
+        this.showAlert("Error", "Please add Quantity to : " + value.product.productName, "");
         isStockAvail = false;
       }
     });
@@ -144,11 +172,13 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.currentDue = this.previousBalance;
 
       if (salesOrder.amountPaid < 0) {
-        alert('Amount paid should be positive');
+        // alert('Amount paid should be positive');
+        this.showAlert("Error", "Amount paid should be positive", "");
         this.singleClickDisable = false;
         return;
       } else if (this.getTotalBalance() < 0) {
-        alert('Amount paid should be equals to balance');
+        // alert('Amount paid should be equals to balance');
+        this.showAlert("Error", "Amount paid should be equals to balance", "");
         this.singleClickDisable = false;
         return;
       } else if (this.getTotalBalance() <= 0) {
@@ -161,7 +191,22 @@ export class SalesOrderComponent implements OnInit {
 
       if ((salesOrder.status === 'DUE' || salesOrder.status === 'PARTIAL') &&
         (customer.customerName === "" || customer.phoneNumber === null || customer.phoneNumber === "" || salesOrder.dueDate === undefined)) {
-        alert("Please don't sell products to unknowns.\nplease add Customer name, Phone number and Due date to proceed.")
+        // alert("Please don't sell products to unknowns.\nplease add Customer name, Phone number and Due date to proceed.")
+
+        let alertMsg = "<p>Please don't sell products to unknowns  <br> Please add ";
+        let fields = [];
+        if (customer.customerName === "") {
+          fields.push(`<span class="text-danger">Customer name</span>`);
+        }
+        if (customer.phoneNumber === "") {
+          fields.push(`<span class="text-danger">phone number</span>`);
+        }
+        if (salesOrder.dueDate === undefined) {
+          fields.push(`<span class="text-danger"> Due date</span>`);
+        }
+        alertMsg = alertMsg + fields.join(" and ") + " to proceed </p>";
+        this.showAlert("Error", "", "", alertMsg);
+
         this.singleClickDisable = false;
         return;
       }
@@ -169,30 +214,60 @@ export class SalesOrderComponent implements OnInit {
       if (salesOrder.amountPaid == null) {
         salesOrder.amountPaid = 0.0;
       }
-      if (confirm("Please confirm below details before save? \n Order status: " + salesOrder.status + " \n Amount paid: " + salesOrder.amountPaid + "\n Balance amount: " + this.getTotalBalance() + "\n\n Note: Order placed can't be deleted later!")) {
+
+      this.salesOrder = salesOrder;
+
+      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
         this.salesOrderService
-          .createSalesOrder(salesOrder).subscribe(data => {
-            console.log(data);
-            //this._printPdf(data);
-            this.refreshAfterSave();
-            this.singleClickDisable = false;
-            if (isPrintReq) {
-              this._printPdf(data);
-              //window.location.reload();
-            } else {
-              this.showMsg = true;
-              setTimeout(() => {
-                this.showMsg = false;
-              }, 1000);
-            }
-          },
+        .createSalesOrder(salesOrder).subscribe(data => {
+          console.log(data);
+          //this._printPdf(data);
+          this.refreshAfterSave();
+          this.singleClickDisable = false;
+          if (isPrintReq) {
+            this._printPdf(data);
+            //window.location.reload();
+          } else {
+            this.showMsg = true;
+            setTimeout(() => {
+              this.showMsg = false;
+            }, 1.5*1000);
+          }
+        },
             error => {
               console.log(error);
               this.singleClickDisable = false;
             });
-      } else {
+      }, (reason) => {
         this.singleClickDisable = false;
-      }
+      });
+
+      // if (confirm("Please confirm below details before save? \n Order status: " + salesOrder.status + " \n Amount paid: " + salesOrder.amountPaid + "\n Balance amount: " + this.getTotalBalance() + "\n\n Note: Order placed can't be deleted later!")) {
+      //   this.salesOrderService
+      //     .createSalesOrder(salesOrder).subscribe(data => {
+      //       console.log(data);
+      //       //this._printPdf(data);
+      //       this.refreshAfterSave();
+      //       this.singleClickDisable = false;
+      //       if (isPrintReq) {
+      //         this._printPdf(data);
+      //         //window.location.reload();
+      //       } else {
+      //         this.showMsg = true;
+      //         setTimeout(() => {
+      //           this.showMsg = false;
+      //         }, 1000);
+      //       }
+      //     },
+      //       error => {
+      //         console.log(error);
+      //         this.singleClickDisable = false;
+      //       });
+      // } else {
+      //   this.singleClickDisable = false;
+      // }
+
+
     }
     this.singleClickDisable = false;
   }
@@ -272,7 +347,9 @@ export class SalesOrderComponent implements OnInit {
     let isProductAdded = true;
     this.salesOrderDetailArr.value.forEach(element => {
       if (product.productName === element.product.productName) {
-        alert('Product is already Added!!');
+        // alert('Product is already Added!!');
+        this.showAlert("Error", "Product is already Added!!", "");
+
         isProductAdded = false;
       }
     });
