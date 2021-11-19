@@ -43,7 +43,7 @@
 
     <ng-container matColumnDef="dueDate">
       <th *matHeaderCellDef mat-header-cell>Due Date</th>
-      <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy hh:mm a'}} </td>
+      <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="currentDueAmount">

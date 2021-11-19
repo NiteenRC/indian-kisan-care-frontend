@@ -167,12 +167,15 @@ export class PurchaseOrderComponent implements OnInit {
       let alertMsg = "<p>Please provide below. <br>";
       let fields = [];
       if (supplier.supplierName === "") {
-        fields.push(`<span class="text-danger">supplier name</span>`);
+        fields.push(`<span class="text-danger">Supplier name</span>`);
       }
       if (supplier.phoneNumber === "") {
-        fields.push(`<span class="text-danger">phone number</span>`);
+        fields.push(`<span class="text-danger">Phone number</span>`);
       }
-      alertMsg = alertMsg + fields.join(" and ") + " to proceed </p>";
+      if (purchaseOrder.dueDate === undefined) {
+        fields.push(`<span class="text-danger">Due date</span>`);
+      }
+      alertMsg = alertMsg + fields.join("<br>") + "</p>";
       this.showAlert("Error", "", "", alertMsg);
       this.singleClickDisable = false;
       return;
@@ -183,6 +186,13 @@ export class PurchaseOrderComponent implements OnInit {
     }
 
     this.purchaseOrder = purchaseOrder;
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
+      console.log('s')
+        , (reason) => {
+          this.singleClickDisable = false;
+        }
+    });
 
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       this.purchaseOrderService
@@ -197,7 +207,7 @@ export class PurchaseOrderComponent implements OnInit {
             this.showMsg = true;
             setTimeout(() => {
               this.showMsg = false;
-            }, 1.5 * 1000);
+            }, 2000);
           }
         },
           error => {
@@ -207,30 +217,6 @@ export class PurchaseOrderComponent implements OnInit {
     }, (reason) => {
       this.singleClickDisable = false;
     });
-
-    // if (confirm("Please confirm below details before save? \n Order status: " + purchaseOrder.status + " \n Amount paid: " + purchaseOrder.amountPaid + "\n Balance amount: " + this.getTotalBalance() + "\n\n Note: Order placed can't be deleted later!")) {
-    //   this.purchaseOrderService
-    //     .createPurchaseOrder(purchaseOrder).subscribe(data => {
-    //       console.log(data);
-    //       this.singleClickDisable = false;
-    //       this.refreshAfterSave();
-    //       if (isPrintReq) {
-    //         this._printPdf(data);
-    //         //window.location.reload();
-    //       } else {
-    //         this.showMsg = true;
-    //         setTimeout(() => {
-    //           this.showMsg = false;
-    //         }, 1.5*1000);
-    //       }
-    //     },
-    //       error => {
-    //         console.log(error);
-    //         this.singleClickDisable = false;
-    //       });
-    // } else {
-    //   this.singleClickDisable = false;
-    // }
   }
 
   saveSupplier(supplierName: string): any {
@@ -299,8 +285,8 @@ export class PurchaseOrderComponent implements OnInit {
 
   private _initRow(product) {
     return this._fb.group({
-      price: [, [Validators.required, Validators.min(1), Validators.max(100000)]],
-      qtyOrdered: [, [Validators.required, Validators.min(1), Validators.max(10000)]],
+      price: [product.price, [Validators.required, Validators.min(1), Validators.max(100000)]],
+      qtyOrdered: [1, [Validators.required, Validators.min(1), Validators.max(10000)]],
       product: [product]
     });
   }

@@ -11,8 +11,10 @@
         <div class="form-group col-3">
             <mat-form-field class="example-full-width">
                 <mat-label>Product</mat-label>
-                <input #searchProduct type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
-                <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedProduct($event.option.value)">
+                <input #searchProduct type="text" aria-label="Product" matInput formControlName="productName"
+                    [matAutocomplete]="productAuto">
+                <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
+                    (optionSelected)="selectedProduct($event.option.value)">
                     <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
                         {{product.productName}}
                     </mat-option>
@@ -23,8 +25,10 @@
         <div class="form-group col-3">
             <mat-form-field class="example-full-width">
                 <mat-label>Customer</mat-label>
-                <input type="text" aria-label="Customer" matInput formControlName="customerName" [matAutocomplete]="customerAuto">
-                <mat-autocomplete #customerAuto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedCustomer($event.option.value)">
+                <input type="text" aria-label="Customer" matInput formControlName="customerName"
+                    [matAutocomplete]="customerAuto">
+                <mat-autocomplete #customerAuto="matAutocomplete" autoActiveFirstOption
+                    (optionSelected)="selectedCustomer($event.option.value)">
                     <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.customerName">
                         {{customer.customerName}}
                     </mat-option>
@@ -42,14 +46,16 @@
         <mat-form-field class="form-group col-2">
             <mat-label>Bill date</mat-label>
             <input matInput [matDatepicker]="picker1" formControlName="billDate">
-            <mat-datepicker-toggle matSuffix [for]="picker1" ng-model-options="{timezone: 'utc'}"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="picker1" ng-model-options="{timezone: 'utc'}">
+            </mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="form-group col-2">
             <mat-label>Due date</mat-label>
             <input matInput [matDatepicker]="picker2" [min]="minStartDate" formControlName="dueDate">
-            <mat-datepicker-toggle matSuffix [for]="picker2" ng-model-options="{timezone: 'utc'}"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="picker2" ng-model-options="{timezone: 'utc'}">
+            </mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
 
@@ -66,8 +72,8 @@
                 <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
                 <td *matCellDef="let element; let i = index;" mat-cell>
                     <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product">
-            <mat-icon class="delete-button">delete</mat-icon>
-          </button>
+                        <mat-icon class="delete-button">delete</mat-icon>
+                    </button>
                 </td>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
@@ -80,7 +86,8 @@
 
             <ng-container matColumnDef="price">
                 <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Selling Price</th>
-                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
+                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4"
+                    [formGroupName]="index">
                     <mat-form-field floatLabel="never">
                         <input matInput type="number" formControlName="price" required class="text-right">
                         <span matPrefix>₹&nbsp;</span>
@@ -103,7 +110,8 @@
 
             <ng-container matColumnDef="quantity">
                 <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Quantity</th>
-                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
+                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4"
+                    [formGroupName]="index">
                     <mat-form-field floatLabel="never" class="text-right">
                         <input matInput type="number" formControlName="qtyOrdered" required>
                         <mat-error *ngIf="element.get('qtyOrdered')?.hasError('required')">
@@ -163,19 +171,32 @@
 
         <div style="display: flex; justify-content: space-between">
             <div class="total-container">
-                <mat-form-field appearance="fill">
-                    <mat-label>Select an option</mat-label>
-                    <mat-select [(value)]="selected">
-                        <mat-option value="DELIVERED">DELIVERED</mat-option>
-                        <mat-option value="NOT_DELIVERED">NOT DELIVERED</mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div>
+                    <mat-form-field>
+                        <mat-label>select delivery</mat-label>
+                        <mat-select [(value)]="selected_deliver_status">
+                            <mat-option value="DELIVERED">DELIVERED</mat-option>
+                            <mat-option value="NOT_DELIVERED">NOT DELIVERED</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>select payment</mat-label>
+                        <mat-select [(value)]="selected_payment_mode">
+                            <mat-option value="CASH">CASH</mat-option>
+                            <mat-option value="UPI">UPI/ONLINE</mat-option>
+                            <mat-option value="CASH_UPI">CASH & UPI</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
 
             <div class="total-container">
                 <div>
                     <label for="name">Current Balance : </label>
-                    <span class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR' }}</span>
+                    <span
+                        class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR' }}</span>
                 </div>
                 <div>
                     <label for="name">Previous Balance : </label>
@@ -192,8 +213,11 @@
                 <br>
 
                 <button class="btn btn-warning" style="margin-left: 100px;" (click)="refreshAfterSave()">CLEAR</button>
-                <button type="submit" class="btn btn-primary" style="margin-left: 5px;" [disabled]="singleClickDisable && !salesOrderForm.valid" (click)="save(false, content)">PLACE ORDER</button>
-                <button type="submit" class="btn btn-success" style="margin-left: 5px;" [disabled]="singleClickDisable" (click)="save(true, content)">PLACE ORDER & PRINT</button>
+                <button type="submit" class="btn btn-primary" style="margin-left: 5px;"
+                    [disabled]="singleClickDisable && !salesOrderForm.valid" (click)="save(false, content)">PLACE
+                    ORDER</button>
+                <button type="submit" class="btn btn-success" style="margin-left: 5px;" [disabled]="singleClickDisable"
+                    (click)="save(true, content)">PLACE ORDER & PRINT</button>
             </div>
         </div>
     </div>
@@ -203,8 +227,8 @@
     <div class="modal-header">
         <h4 class="modal-title modal-title-custom" id="modal-basic-title">Order Summary</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <p style="font-weight: 500;">Please confirm below details before save?</p>
@@ -239,8 +263,8 @@
     <div class="modal-header">
         <h4 class="modal-title modal-title-custom" id="modal-basic-title">{{popupTitle}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <p><strong>{{popupsubtitle}}</strong></p>

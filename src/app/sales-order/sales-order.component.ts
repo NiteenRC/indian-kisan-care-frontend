@@ -34,7 +34,8 @@ export class SalesOrderComponent implements OnInit {
   salesOrderForm: FormGroup;
   singleClickDisable = false;
   motorVehicleNo: any;
-  selected = 'DELIVERED';
+  selected_deliver_status = 'DELIVERED';
+  selected_payment_mode = 'CASH';
   @ViewChild('searchProduct') searchProduct: ElementRef;
   minStartDate = new Date();
   popupTitle = "";
@@ -44,6 +45,8 @@ export class SalesOrderComponent implements OnInit {
   popupMarkup = "";
   salesOrder: SalesOrder = new SalesOrder();
 
+  changeText: boolean;
+
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
@@ -51,6 +54,7 @@ export class SalesOrderComponent implements OnInit {
     private customerService: CustomerService,
     private salesOrderService: SalesOrderService) {
 
+    this.changeText = false;
     this.customers = [];
     this.products = [];
   }
@@ -168,7 +172,8 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.dueDate = this.salesOrderForm.get('dueDate').value?.getTime();
       salesOrder.billDate = this.salesOrderForm.get('billDate').value?.getTime();
       salesOrder.previousBalance = this.getTotalBalance();
-      salesOrder.deliverStatus= this.selected;
+      salesOrder.deliverStatus = this.selected_deliver_status;
+      salesOrder.paymentMode = this.selected_payment_mode;
       salesOrder.currentDue = this.previousBalance;
 
       if (salesOrder.amountPaid < 0) {
@@ -193,18 +198,18 @@ export class SalesOrderComponent implements OnInit {
         (customer.customerName === "" || customer.phoneNumber === null || customer.phoneNumber === "" || salesOrder.dueDate === undefined)) {
         // alert("Please don't sell products to unknowns.\nplease add Customer name, Phone number and Due date to proceed.")
 
-        let alertMsg = "<p>Please don't sell products to unknowns  <br> Please add ";
+        let alertMsg = "<p>Please provide below details.<br>";
         let fields = [];
         if (customer.customerName === "") {
           fields.push(`<span class="text-danger">Customer name</span>`);
         }
         if (customer.phoneNumber === "") {
-          fields.push(`<span class="text-danger">phone number</span>`);
+          fields.push(`<span class="text-danger">Phone number</span>`);
         }
         if (salesOrder.dueDate === undefined) {
-          fields.push(`<span class="text-danger"> Due date</span>`);
+          fields.push(`<span class="text-danger">Due date</span>`);
         }
-        alertMsg = alertMsg + fields.join(" and ") + " to proceed </p>";
+        alertMsg = alertMsg + fields.join("<br>") + "</p>";
         this.showAlert("Error", "", "", alertMsg);
 
         this.singleClickDisable = false;
@@ -219,21 +224,21 @@ export class SalesOrderComponent implements OnInit {
 
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
         this.salesOrderService
-        .createSalesOrder(salesOrder).subscribe(data => {
-          console.log(data);
-          //this._printPdf(data);
-          this.refreshAfterSave();
-          this.singleClickDisable = false;
-          if (isPrintReq) {
-            this._printPdf(data);
-            //window.location.reload();
-          } else {
-            this.showMsg = true;
-            setTimeout(() => {
-              this.showMsg = false;
-            }, 1.5*1000);
-          }
-        },
+          .createSalesOrder(salesOrder).subscribe(data => {
+            console.log(data);
+            //this._printPdf(data);
+            this.refreshAfterSave();
+            this.singleClickDisable = false;
+            if (isPrintReq) {
+              this._printPdf(data);
+              //window.location.reload();
+            } else {
+              this.showMsg = true;
+              setTimeout(() => {
+                this.showMsg = false;
+              }, 2000);
+            }
+          },
             error => {
               console.log(error);
               this.singleClickDisable = false;
@@ -241,33 +246,6 @@ export class SalesOrderComponent implements OnInit {
       }, (reason) => {
         this.singleClickDisable = false;
       });
-
-      // if (confirm("Please confirm below details before save? \n Order status: " + salesOrder.status + " \n Amount paid: " + salesOrder.amountPaid + "\n Balance amount: " + this.getTotalBalance() + "\n\n Note: Order placed can't be deleted later!")) {
-      //   this.salesOrderService
-      //     .createSalesOrder(salesOrder).subscribe(data => {
-      //       console.log(data);
-      //       //this._printPdf(data);
-      //       this.refreshAfterSave();
-      //       this.singleClickDisable = false;
-      //       if (isPrintReq) {
-      //         this._printPdf(data);
-      //         //window.location.reload();
-      //       } else {
-      //         this.showMsg = true;
-      //         setTimeout(() => {
-      //           this.showMsg = false;
-      //         }, 1000);
-      //       }
-      //     },
-      //       error => {
-      //         console.log(error);
-      //         this.singleClickDisable = false;
-      //       });
-      // } else {
-      //   this.singleClickDisable = false;
-      // }
-
-
     }
     this.singleClickDisable = false;
   }

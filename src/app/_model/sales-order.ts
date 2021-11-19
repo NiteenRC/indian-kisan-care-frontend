@@ -15,4 +15,5 @@ export class SalesOrder {
     dueDate: string;
     billDate: string;
     deliverStatus: string;
+    paymentMode: string;
 }
