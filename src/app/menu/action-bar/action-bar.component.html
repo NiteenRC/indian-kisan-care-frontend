@@ -19,6 +19,7 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/dashboard/home" routerLinkActive="active" style="cursor: pointer;">
                     <!-- <i class="fa fa-home "></i>  -->
+                    <!-- <mat-icon class="edit">home</mat-icon> -->
                     <img src="../../assets/home-icon.png" class="home-icon" alt="" width="15px" height="15px">
                     <span *ngIf="expanded" class="d-none d-sm-inline">DASHBOARDS</span> </a>
             </li>
@@ -33,11 +34,11 @@
                 <!-- This is the tree node template for expandable nodes -->
                 <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <!-- <mat-icon class="mat-icon-rtl-mirror">
+            <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon> -->
-            <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
-            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px">
+            </mat-icon>
+            <!-- <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
+            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px"> -->
 
           </button>
                     <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
@@ -58,11 +59,11 @@
                 <!-- This is the tree node template for expandable nodes -->
                 <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <!-- <mat-icon class="mat-icon-rtl-mirror">
+            <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon> -->
-            <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
-            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px">
+            </mat-icon>
+            <!-- <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
+            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px"> -->
           </button>
                     <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
             {{node.name}}

@@ -66,15 +66,16 @@
             <td *matCellDef="let element" mat-cell>
 
                 <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
-                <!-- <mat-icon class="kebab-menu">more_vert</mat-icon> -->
-                <img src="../../assets/ellipse.png" class="home-icon" alt="" width="25px" height="25px">
+                <mat-icon class="kebab-menu">more_vert</mat-icon>
+                <!-- <img src="../../assets/ellipse.png" class="home-icon" alt="" width="25px" height="25px"> -->
             </button>
                 <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
                     <div>
                         <div>
                             <button (click)="updateProduct(element) " class="btn btn-info " style="padding: 0 20px;margin-left: 15px;margin-right: 15px;height:40px  ">
                             <div style="display:flex">
-                                <img src="../../assets/edit.png " class="home-icon " alt=" " width="18px" height="18px">
+                                <mat-icon class="edit">edit</mat-icon>
+                                <!-- <img src="../../assets/edit.png " class="home-icon " alt=" " width="18px" height="18px"> -->
                                 <div style="margin-left: 10px; ">Update </div>
                             </div>
                         </button>
@@ -84,7 +85,8 @@
                         <div>
                             <button (click)="deleteProduct(element.id) " class="btn btn-danger " style="padding: 0 20px;margin-top:-10px;margin-left: 15px;margin-right: 15px;height:40px ">
                                 <div style="display:flex ">
-                                    <img src="../../assets/delete.png " class="home-icon " alt=" " width="25px " height="25px ">
+                                    <!-- <img src="../../assets/delete.png " class="home-icon " alt=" " width="25px " height="25px "> -->
+                                    <mat-icon>delete</mat-icon>
                                     <div style="margin-left: 5px; ">Delete </div>
                                 </div>
                             </button>
