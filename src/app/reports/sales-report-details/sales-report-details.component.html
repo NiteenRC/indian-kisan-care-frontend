@@ -1,35 +1,36 @@
 <div class="mat-elevation-z8">
-  <table [dataSource]="dataSource" mat-table>
-    <ng-container matColumnDef="productName">
-      <th *matHeaderCellDef mat-header-cell>Product Name</th>
-      <td *matCellDef="let element" mat-cell> {{element.product?.productName}} </td>
-    </ng-container>
+    <table [dataSource]="dataSource" mat-table>
+        <ng-container matColumnDef="productName">
+            <th *matHeaderCellDef mat-header-cell>Product Name</th>
+            <td *matCellDef="let element" mat-cell> {{element.product?.productName}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="price">
-      <th *matHeaderCellDef mat-header-cell class="text-right">Purchase Price</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.price | number : '1.0-2'}}
-      </td>
-    </ng-container>
+        <ng-container matColumnDef="price">
+            <th *matHeaderCellDef mat-header-cell class="text-right">Purchase Price</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.price | number : '1.0-2'}}
+            </td>
+        </ng-container>
 
-    <ng-container matColumnDef="qtyOrdered">
-      <th *matHeaderCellDef mat-header-cell class="text-right">Order Qty</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.qtyOrdered}} </td>
-    </ng-container>
+        <ng-container matColumnDef="qtyOrdered">
+            <th *matHeaderCellDef mat-header-cell class="text-right">Order Qty</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.qtyOrdered}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="action">
-      <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
-      <td *matCellDef="let element;" mat-cell>
-        <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
-          <mat-icon class="delete-button">delete</mat-icon>
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
+            <td *matCellDef="let element;" mat-cell>
+                <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
+          <!-- <mat-icon class="delete-button">delete</mat-icon> -->
+          <img src="../../assets/delete.png" class="home-icon" alt="" width="25px" height="25px">
         </button>
-      </td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
+            </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
 
-    <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']">
-    </tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>
+        <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']">
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>
 </div>
 <br>

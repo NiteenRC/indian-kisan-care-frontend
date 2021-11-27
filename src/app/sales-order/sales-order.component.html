@@ -11,10 +11,8 @@
         <div class="form-group col-3">
             <mat-form-field class="example-full-width">
                 <mat-label>Product</mat-label>
-                <input #searchProduct type="text" aria-label="Product" matInput formControlName="productName"
-                    [matAutocomplete]="productAuto">
-                <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
-                    (optionSelected)="selectedProduct($event.option.value)">
+                <input #searchProduct type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
+                <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedProduct($event.option.value)">
                     <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
                         {{product.productName}}
                     </mat-option>
@@ -25,10 +23,8 @@
         <div class="form-group col-3">
             <mat-form-field class="example-full-width">
                 <mat-label>Customer</mat-label>
-                <input type="text" aria-label="Customer" matInput formControlName="customerName"
-                    [matAutocomplete]="customerAuto">
-                <mat-autocomplete #customerAuto="matAutocomplete" autoActiveFirstOption
-                    (optionSelected)="selectedCustomer($event.option.value)">
+                <input type="text" aria-label="Customer" matInput formControlName="customerName" [matAutocomplete]="customerAuto">
+                <mat-autocomplete #customerAuto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedCustomer($event.option.value)">
                     <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.customerName">
                         {{customer.customerName}}
                     </mat-option>
@@ -72,7 +68,8 @@
                 <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
                 <td *matCellDef="let element; let i = index;" mat-cell>
                     <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product">
-                        <mat-icon class="delete-button">delete</mat-icon>
+                        <!-- <mat-icon class="delete-button">delete</mat-icon> -->
+                        <img src="../../assets/delete.png" class="home-icon" alt="" width="25px" height="25px">
                     </button>
                 </td>
                 <td mat-footer-cell *matFooterCellDef></td>
@@ -86,10 +83,9 @@
 
             <ng-container matColumnDef="price">
                 <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Selling Price</th>
-                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4"
-                    [formGroupName]="index">
+                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
                     <mat-form-field floatLabel="never">
-                        <input matInput type="number" formControlName="price" required class="text-right">
+                        <input matInput type="number" formControlName="price" required class="text-right" (blur)="onChangePrice($event, element)">
                         <span matPrefix>₹&nbsp;</span>
                         <!--<mat-error *ngIf="element.get('price')?.hasError('required')">
               Price is Required!
@@ -110,10 +106,9 @@
 
             <ng-container matColumnDef="quantity">
                 <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Quantity</th>
-                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4"
-                    [formGroupName]="index">
+                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
                     <mat-form-field floatLabel="never" class="text-right">
-                        <input matInput type="number" formControlName="qtyOrdered" required>
+                        <input matInput type="number" formControlName="qtyOrdered" required (change)="onChangeQuantity($event, element)">
                         <mat-error *ngIf="element.get('qtyOrdered')?.hasError('required')">
                             Stock: {{element.get('product')?.value?.qty}}
                         </mat-error>
@@ -195,8 +190,7 @@
             <div class="total-container">
                 <div>
                     <label for="name">Current Balance : </label>
-                    <span
-                        class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR' }}</span>
+                    <span class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR' }}</span>
                 </div>
                 <div>
                     <label for="name">Previous Balance : </label>
@@ -213,11 +207,9 @@
                 <br>
 
                 <button class="btn btn-warning" style="margin-left: 100px;" (click)="refreshAfterSave()">CLEAR</button>
-                <button type="submit" class="btn btn-primary" style="margin-left: 5px;"
-                    [disabled]="singleClickDisable && !salesOrderForm.valid" (click)="save(false, content)">PLACE
+                <button type="submit" class="btn btn-primary" style="margin-left: 5px;" [disabled]="singleClickDisable && !salesOrderForm.valid" (click)="save(false, content)">PLACE
                     ORDER</button>
-                <button type="submit" class="btn btn-success" style="margin-left: 5px;" [disabled]="singleClickDisable"
-                    (click)="save(true, content)">PLACE ORDER & PRINT</button>
+                <button type="submit" class="btn btn-success" style="margin-left: 5px;" [disabled]="singleClickDisable" (click)="save(true, content)">PLACE ORDER & PRINT</button>
             </div>
         </div>
     </div>

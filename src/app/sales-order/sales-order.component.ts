@@ -69,6 +69,7 @@ export class SalesOrderComponent implements OnInit {
   removeProduct(index: number) {
     this.salesOrderDetailArr.removeAt(index);
     this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+    this.calculateAllAmounts(this.salesOrderDetailArr.value);
   }
 
   selectedProduct(selectedProduct: string) {
@@ -85,6 +86,7 @@ export class SalesOrderComponent implements OnInit {
       return;
     }
     this._addProduct(product);
+    this.calculateAllAmounts(this.salesOrderDetailArr.value)
   }
 
   selectedCustomer(selectedCustomer: string) {
@@ -109,21 +111,23 @@ export class SalesOrderComponent implements OnInit {
   }
 
   getCurrentBalance() {
-    return this.totalAmount - this.amountPaid.value;
+   return this.totalAmount - this.amountPaid.value;
   }
 
   getTotalBalance() {
     return this.previousBalance + this.getCurrentBalance();
   }
 
-  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "") {
+  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "", callback: any = () => {}) {
     this.popupTitle = popupTitle;
     this.popupsubtitle = popupsubtitle;
     this.popupDescription = popupDescription;
     this.popupMarkup = popupMarkup;
 
     this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      callback("ok");
     }, (reason) => {
+      callback("cancel");
     });
   }
 
@@ -339,6 +343,49 @@ export class SalesOrderComponent implements OnInit {
     }
   }
 
+  onChangePrice(event: any, product: any): void {
+    console.log(event);
+    console.log(product.value.product.productName);
+    const updatedPrice = event.target.value;
+    if(updatedPrice != product.value.product.currentPrice) {
+      this.showAlert("Confirm", "Are you sure you want to update the price?","","", (data) => {
+        console.log(data);
+        const productList = this.salesOrderDetailArr.value;
+
+        if(data === "ok") {
+          this.calculateAllAmounts(productList)
+        } else {
+         const res = productList.find(item => item.product.productName === product.value.product.productName);
+         res.price =  product.value.product.currentPrice;
+         console.log(res);
+         product.controls.price.setValue(product.value.product.currentPrice);
+         this.calculateAllAmounts(productList);
+        }
+      })
+    }
+  }
+
+  onChangeQuantity(event: any, product: any): void {
+    console.log(this.salesOrderDetailArr);
+    console.log(event);
+    console.log(product.value.product.productName);
+    const productList = this.salesOrderDetailArr.value;
+    this.calculateAllAmounts(productList)
+  }
+
+  calculateAllAmounts(productList: any[]): void {
+    let totalAmount = 0;
+    let totalQtyCal = 0;
+    productList.forEach(product => {
+      const amount = Number(product.qtyOrdered) * Number(product.price);
+      //const taxAmount = amount * (product.product?.gst || 0) / 100;
+      totalQtyCal += product.qtyOrdered;
+      totalAmount += amount;
+    });
+    this.totalQty = totalQtyCal;
+    this.totalAmount = Math.round(totalAmount);
+  }
+
   private _valueChangesListner() {
     this.filteredCustomers = this.salesOrderForm.controls['customerName'].valueChanges.pipe(
       startWith(''),
@@ -350,7 +397,10 @@ export class SalesOrderComponent implements OnInit {
       map(value => this._filterProduct(value))
     );
 
+   
+
     this.salesOrderDetailArr.valueChanges.subscribe((productList) => {
+     return;
       let totalAmount = 0;
       let totalQtyCal = 0;
       productList.forEach(product => {
@@ -363,6 +413,8 @@ export class SalesOrderComponent implements OnInit {
       this.totalAmount = Math.round(totalAmount);
     });
   }
+
+
 
   private _createForm() {
     this.salesOrderForm = this._fb.group({
