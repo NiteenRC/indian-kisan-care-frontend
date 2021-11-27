@@ -6,3 +6,9 @@ th {
     background-color: #5999d2;
     font-size: 15px;
 }
+
+.inline-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -7,7 +7,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Product } from '../_model/product';
 import { Observable } from 'rxjs';
 import { ProductService } from '../_services/product.service';
-import { SalesOrder } from '../_model/sales-order';
+import { SalesOrder, UpdateProduct } from '../_model/sales-order';
 import { SalesOrderService } from '../_services/sales-order.service';
 import { Customer } from '../_model/customer';
 import { CustomerService } from '../_services/customer.service';
@@ -46,6 +46,7 @@ export class SalesOrderComponent implements OnInit {
   salesOrder: SalesOrder = new SalesOrder();
 
   changeText: boolean;
+  updatedProductSalePriceList: UpdateProduct[] = [];
 
   constructor(
     private _fb: FormBuilder,
@@ -225,6 +226,7 @@ export class SalesOrderComponent implements OnInit {
       }
 
       this.salesOrder = salesOrder;
+      this.salesOrder.updatedProductSalePriceList = this.updatedProductSalePriceList;
 
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
         this.salesOrderService
@@ -268,6 +270,7 @@ export class SalesOrderComponent implements OnInit {
     this.previousBalance = 0;
     this.totalAmount = 0;
     this.salesOrderDetailData = [];
+    this.updatedProductSalePriceList = [];
     this._createForm();
     this.fetchData();
     this.totalQty = 0;
@@ -351,16 +354,23 @@ export class SalesOrderComponent implements OnInit {
       this.showAlert("Confirm", "Are you sure you want to update the price?","","", (data) => {
         console.log(data);
         const productList = this.salesOrderDetailArr.value;
+        this.calculateAllAmounts(productList)
 
         if(data === "ok") {
-          this.calculateAllAmounts(productList)
-        } else {
-         const res = productList.find(item => item.product.productName === product.value.product.productName);
-         res.price =  product.value.product.currentPrice;
-         console.log(res);
-         product.controls.price.setValue(product.value.product.currentPrice);
-         this.calculateAllAmounts(productList);
-        }
+         const productItem = {
+           price: updatedPrice,
+           productName: product.value.product.productName,
+           productId: product.value.product.id,
+         }
+
+    
+         const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.productId == productItem.productId);
+         if(existingProduct) {
+          existingProduct.price = updatedPrice;
+         } else {
+          this.updatedProductSalePriceList.push(productItem);
+         }
+        } 
       })
     }
   }

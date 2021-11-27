@@ -16,4 +16,11 @@ export class SalesOrder {
     billDate: string;
     deliverStatus: string;
     paymentMode: string;
+    updatedProductSalePriceList: Array<UpdateProduct>;
+}
+
+export class UpdateProduct {
+    price: number;
+    productId: number;
+    productName: string;
 }
