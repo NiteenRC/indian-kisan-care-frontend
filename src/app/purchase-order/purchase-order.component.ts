@@ -188,13 +188,6 @@ export class PurchaseOrderComponent implements OnInit {
     this.purchaseOrder = purchaseOrder;
 
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
-      console.log('s')
-        , (reason) => {
-          this.singleClickDisable = false;
-        }
-    });
-
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       this.purchaseOrderService
         .createPurchaseOrder(purchaseOrder).subscribe(data => {
           console.log(data);
