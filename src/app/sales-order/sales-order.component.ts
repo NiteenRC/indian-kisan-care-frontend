@@ -68,6 +68,12 @@ export class SalesOrderComponent implements OnInit {
   }
 
   removeProduct(index: number) {
+    const temp = this.salesOrderDetailArr.value[index];
+    const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.productId === temp.product.id);
+    if(tempIndex !== -1) {
+      this.updatedProductSalePriceList.splice(tempIndex, 1);
+    }
+
     this.salesOrderDetailArr.removeAt(index);
     this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
     this.calculateAllAmounts(this.salesOrderDetailArr.value);
@@ -350,7 +356,9 @@ export class SalesOrderComponent implements OnInit {
     console.log(event);
     console.log(product.value.product.productName);
     const updatedPrice = event.target.value;
-    if(updatedPrice != product.value.product.currentPrice) {
+    const previousPrice = this.updatedProductSalePriceList.find((item: any) => item.productId == product.value.product.id)?.price;
+
+    if((previousPrice != updatedPrice) && (updatedPrice != product.value.product.currentPrice)) {
       this.showAlert("Confirm", "Are you sure you want to update the price?","","", (data) => {
         console.log(data);
         const productList = this.salesOrderDetailArr.value;
@@ -370,8 +378,17 @@ export class SalesOrderComponent implements OnInit {
          } else {
           this.updatedProductSalePriceList.push(productItem);
          }
-        } 
-      })
+        }
+        
+        console.log("new prices", this.updatedProductSalePriceList);
+      });
+    }
+
+    else if (updatedPrice == product.value.product.currentPrice) {
+      const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.productId === product.value.product.id);
+      if(tempIndex !== -1) {
+        this.updatedProductSalePriceList.splice(tempIndex, 1);
+      }
     }
   }
 
