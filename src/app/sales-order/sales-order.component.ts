@@ -70,8 +70,8 @@ export class SalesOrderComponent implements OnInit {
 
   removeProduct(index: number) {
     const temp = this.salesOrderDetailArr.value[index];
-    const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.productId === temp.product.id);
-    if(tempIndex !== -1) {
+    const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.id === temp.product.id);
+    if (tempIndex !== -1) {
       this.updatedProductSalePriceList.splice(tempIndex, 1);
     }
 
@@ -121,14 +121,14 @@ export class SalesOrderComponent implements OnInit {
   }
 
   getCurrentBalance() {
-   return this.totalAmount - this.amountPaid.value;
+    return this.totalAmount - this.amountPaid.value;
   }
 
   getTotalBalance() {
     return this.previousBalance + this.getCurrentBalance();
   }
 
-  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "", callback: any = () => {}) {
+  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "", callback: any = () => { }) {
     this.popupTitle = popupTitle;
     this.popupsubtitle = popupsubtitle;
     this.popupDescription = popupDescription;
@@ -240,6 +240,7 @@ export class SalesOrderComponent implements OnInit {
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
         this.salesOrderService
           .createSalesOrder(salesOrder).subscribe(data => {
+            this.productService.updateProductList(this.updatedProductSalePriceList).subscribe();
             console.log(data);
             //this._printPdf(data);
             this.refreshAfterSave();
@@ -374,11 +375,10 @@ export class SalesOrderComponent implements OnInit {
           const productItem = {
             price: updatedPrice,
             productName: product.value.product.productName,
-            productId: product.value.product.id,
+            id: product.value.product.id,
           }
 
-
-          const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.productId == productItem.productId);
+          const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.id == productItem.id);
           if (existingProduct) {
             existingProduct.price = updatedPrice;
           } else {
@@ -389,12 +389,11 @@ export class SalesOrderComponent implements OnInit {
         }
 
         console.log("new prices", this.updatedProductSalePriceList);
+        
       });
-    }
-
-    else if (updatedPrice == product.value.product.currentPrice) {
-      const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.productId === product.value.product.id);
-      if(tempIndex !== -1) {
+    } else if (updatedPrice == product.value.product.currentPrice) {
+      const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.id === product.value.product.id);
+      if (tempIndex !== -1) {
         this.updatedProductSalePriceList.splice(tempIndex, 1);
       }
     }
@@ -434,10 +433,10 @@ export class SalesOrderComponent implements OnInit {
       map(value => this._filterProduct(value))
     );
 
-   
+
 
     this.salesOrderDetailArr.valueChanges.subscribe((productList) => {
-     return;
+      return;
       let totalAmount = 0;
       let totalQtyCal = 0;
       productList.forEach(product => {
