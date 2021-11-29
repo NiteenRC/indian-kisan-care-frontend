@@ -47,6 +47,7 @@ export class SalesOrderComponent implements OnInit {
 
   changeText: boolean;
   updatedProductSalePriceList: UpdateProduct[] = [];
+  priceChangeHistory: any = {};
 
   constructor(
     private _fb: FormBuilder,
@@ -73,6 +74,8 @@ export class SalesOrderComponent implements OnInit {
     if(tempIndex !== -1) {
       this.updatedProductSalePriceList.splice(tempIndex, 1);
     }
+
+    this.priceChangeHistory[temp.product.id] = undefined;
 
     this.salesOrderDetailArr.removeAt(index);
     this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
@@ -277,6 +280,7 @@ export class SalesOrderComponent implements OnInit {
     this.totalAmount = 0;
     this.salesOrderDetailData = [];
     this.updatedProductSalePriceList = [];
+    this.priceChangeHistory = {};
     this._createForm();
     this.fetchData();
     this.totalQty = 0;
@@ -355,31 +359,35 @@ export class SalesOrderComponent implements OnInit {
   onChangePrice(event: any, product: any): void {
     console.log(event);
     console.log(product.value.product.productName);
+    const productId = product.value.product.id;
     const updatedPrice = event.target.value;
-    const previousPrice = this.updatedProductSalePriceList.find((item: any) => item.productId == product.value.product.id)?.price;
+    //const previousPrice = this.updatedProductSalePriceList.find((item: any) => item.productId == product.value.product.id)?.price;
+    const previousPrice = this.priceChangeHistory[productId];
 
-    if((previousPrice != updatedPrice) && (updatedPrice != product.value.product.currentPrice)) {
-      this.showAlert("Confirm", "Are you sure you want to update the price?","","", (data) => {
+    if ((previousPrice != updatedPrice) && (updatedPrice != product.value.product.currentPrice)) {
+      this.showAlert("Confirm", "Are you sure you want to update the price?", "", "", (data) => {
         console.log(data);
         const productList = this.salesOrderDetailArr.value;
         this.calculateAllAmounts(productList)
 
-        if(data === "ok") {
-         const productItem = {
-           price: updatedPrice,
-           productName: product.value.product.productName,
-           productId: product.value.product.id,
-         }
+        if (data === "ok") {
+          const productItem = {
+            price: updatedPrice,
+            productName: product.value.product.productName,
+            productId: product.value.product.id,
+          }
 
-    
-         const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.productId == productItem.productId);
-         if(existingProduct) {
-          existingProduct.price = updatedPrice;
-         } else {
-          this.updatedProductSalePriceList.push(productItem);
-         }
+
+          const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.productId == productItem.productId);
+          if (existingProduct) {
+            existingProduct.price = updatedPrice;
+          } else {
+            this.updatedProductSalePriceList.push(productItem);
+          }
+        } else {
+          //cancel
         }
-        
+
         console.log("new prices", this.updatedProductSalePriceList);
       });
     }
@@ -390,6 +398,8 @@ export class SalesOrderComponent implements OnInit {
         this.updatedProductSalePriceList.splice(tempIndex, 1);
       }
     }
+
+    this.priceChangeHistory[productId] = updatedPrice;
   }
 
   onChangeQuantity(event: any, product: any): void {
