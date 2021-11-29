@@ -21,6 +21,6 @@ export class SalesOrder {
 
 export class UpdateProduct {
     price: number;
-    productId: number;
+    id: number;
     productName: string;
 }

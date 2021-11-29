@@ -189,10 +189,10 @@
             </div>
             <br>
 
-            <button class="btn btn-warning" style="width: 10%;margin-left: 100px;" (click)="refreshAfterSave()">CLEAR</button>
             <button type="submit" class="btn btn-primary" style="width: 12%;margin-left: 5px;" [disabled]="singleClickDisable && !purchaserOrderForm.valid" (click)="save(false, content)">PLACE
                 ORDER</button>
             <button type="submit" class="btn btn-success" style="width: 18%;margin-left: 5px;" [disabled]="singleClickDisable" (click)="save(true, content)">PLACE ORDER & PRINT</button>
+            <button class="btn btn-warning" style="width: 10%;margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
         </div>
     </div>
 </form>

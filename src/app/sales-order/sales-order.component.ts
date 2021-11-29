@@ -69,8 +69,8 @@ export class SalesOrderComponent implements OnInit {
 
   removeProduct(index: number) {
     const temp = this.salesOrderDetailArr.value[index];
-    const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.productId === temp.product.id);
-    if(tempIndex !== -1) {
+    const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.id === temp.product.id);
+    if (tempIndex !== -1) {
       this.updatedProductSalePriceList.splice(tempIndex, 1);
     }
 
@@ -118,14 +118,14 @@ export class SalesOrderComponent implements OnInit {
   }
 
   getCurrentBalance() {
-   return this.totalAmount - this.amountPaid.value;
+    return this.totalAmount - this.amountPaid.value;
   }
 
   getTotalBalance() {
     return this.previousBalance + this.getCurrentBalance();
   }
 
-  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "", callback: any = () => {}) {
+  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "", callback: any = () => { }) {
     this.popupTitle = popupTitle;
     this.popupsubtitle = popupsubtitle;
     this.popupDescription = popupDescription;
@@ -237,6 +237,7 @@ export class SalesOrderComponent implements OnInit {
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
         this.salesOrderService
           .createSalesOrder(salesOrder).subscribe(data => {
+            this.productService.updateProductList(this.updatedProductSalePriceList).subscribe();
             console.log(data);
             //this._printPdf(data);
             this.refreshAfterSave();
@@ -358,35 +359,31 @@ export class SalesOrderComponent implements OnInit {
     const updatedPrice = event.target.value;
     const previousPrice = this.updatedProductSalePriceList.find((item: any) => item.productId == product.value.product.id)?.price;
 
-    if((previousPrice != updatedPrice) && (updatedPrice != product.value.product.currentPrice)) {
-      this.showAlert("Confirm", "Are you sure you want to update the price?","","", (data) => {
+    if ((previousPrice != updatedPrice) && (updatedPrice != product.value.product.currentPrice)) {
+      this.showAlert("Confirm", "Are you sure you want to update the price?", "", "", (data) => {
         console.log(data);
         const productList = this.salesOrderDetailArr.value;
         this.calculateAllAmounts(productList)
 
-        if(data === "ok") {
-         const productItem = {
-           price: updatedPrice,
-           productName: product.value.product.productName,
-           productId: product.value.product.id,
-         }
+        if (data === "ok") {
+          const productItem = {
+            price: updatedPrice,
+            productName: product.value.product.productName,
+            id: product.value.product.id,
+          }
 
-    
-         const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.productId == productItem.productId);
-         if(existingProduct) {
-          existingProduct.price = updatedPrice;
-         } else {
-          this.updatedProductSalePriceList.push(productItem);
-         }
+          const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.productId == productItem.id);
+          if (existingProduct) {
+            existingProduct.price = updatedPrice;
+          } else {
+            this.updatedProductSalePriceList.push(productItem);
+          }
         }
-        
         console.log("new prices", this.updatedProductSalePriceList);
       });
-    }
-
-    else if (updatedPrice == product.value.product.currentPrice) {
-      const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.productId === product.value.product.id);
-      if(tempIndex !== -1) {
+    } else if (updatedPrice == product.value.product.currentPrice) {
+      const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.id === product.value.product.id);
+      if (tempIndex !== -1) {
         this.updatedProductSalePriceList.splice(tempIndex, 1);
       }
     }
@@ -424,10 +421,10 @@ export class SalesOrderComponent implements OnInit {
       map(value => this._filterProduct(value))
     );
 
-   
+
 
     this.salesOrderDetailArr.valueChanges.subscribe((productList) => {
-     return;
+      return;
       let totalAmount = 0;
       let totalQtyCal = 0;
       productList.forEach(product => {
