@@ -354,14 +354,11 @@ export class SalesOrderComponent implements OnInit {
   }
 
   onChangePrice(event: any, product: any): void {
-    console.log(event);
-    console.log(product.value.product.productName);
     const updatedPrice = event.target.value;
-    const previousPrice = this.updatedProductSalePriceList.find((item: any) => item.productId == product.value.product.id)?.price;
+    const previousPrice = this.updatedProductSalePriceList.find((item: any) => item.id == product.value.product.id)?.price;
 
     if ((previousPrice != updatedPrice) && (updatedPrice != product.value.product.currentPrice)) {
       this.showAlert("Confirm", "Are you sure you want to update the price?", "", "", (data) => {
-        console.log(data);
         const productList = this.salesOrderDetailArr.value;
         this.calculateAllAmounts(productList)
 
@@ -372,14 +369,13 @@ export class SalesOrderComponent implements OnInit {
             id: product.value.product.id,
           }
 
-          const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.productId == productItem.id);
+          const existingProduct = this.updatedProductSalePriceList.find((item: any) => item.id == productItem.id);
           if (existingProduct) {
             existingProduct.price = updatedPrice;
           } else {
             this.updatedProductSalePriceList.push(productItem);
           }
         }
-        console.log("new prices", this.updatedProductSalePriceList);
       });
     } else if (updatedPrice == product.value.product.currentPrice) {
       const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.id === product.value.product.id);
