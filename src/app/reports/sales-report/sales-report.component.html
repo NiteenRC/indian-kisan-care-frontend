@@ -4,8 +4,8 @@
             <mat-label>Search Customer</mat-label>
             <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Customer">
             <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearCustomerSearch()">
-        <mat-icon>clear</mat-icon>
-      </button>
+                <mat-icon>clear</mat-icon>
+            </button>
         </mat-form-field>
     </div>
 
@@ -36,8 +36,8 @@
             <th *matHeaderCellDef mat-header-cell>Bill date</th>
             <td *matCellDef="let element" mat-cell>
                 <button (click)="updateProduct(element)">
-          {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
-        </button>
+                    {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
+                </button>
             </td>
         </ng-container>
 
@@ -54,34 +54,48 @@
 
         <ng-container matColumnDef="totalDueAmount">
             <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Total Due</th>
-            <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.previousBalance.toLocaleString('en-IN') || 0}} </td>
+            <td *matCellDef="let element" mat-cell class="text-right pr-5">
+                {{element.previousBalance.toLocaleString('en-IN') || 0}} </td>
         </ng-container>
 
         <ng-container matColumnDef="amountPaid">
             <th *matHeaderCellDef mat-header-cell class="text-right">Amount Paid</th>
-            <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid.toLocaleString('en-IN') || 0}}
+            <td *matCellDef="let element" mat-cell class="text-right">
+                {{element.amountPaid.toLocaleString('en-IN') || 0}}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="totalPrice">
             <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
-            <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice.toLocaleString('en-IN') || 0}}
+            <td *matCellDef="let element" mat-cell class="text-right">
+                {{element.totalPrice.toLocaleString('en-IN') || 0}}
             </td>
         </ng-container>
 
-        <ng-container matColumnDef="action">
+        <ng-container matColumnDef="Action">
             <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
             <td *matCellDef="let element;" mat-cell>
                 <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
-          <mat-icon class="delete-button">delete</mat-icon>
-          <!-- <img src="../../assets/delete.png" class="home-icon" alt="" width="25px" height="25px"> -->
-        </button>
+                    <mat-icon class="delete-button">delete</mat-icon>
+                </button>
+            </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="Print">
+            <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Print</th>
+            <td *matCellDef="let element;" mat-cell>
+                <button (click)="getSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
+                    <mat-icon class="delete-button">print</mat-icon>
+                    <!-- <img src="../../assets/delete.png" class="home-icon" alt="" width="25px" height="25px"> -->
+                </button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
-        <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']" triggers="mouseenter:mouseleave">
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']"
+            triggers="mouseenter:mouseleave">
             <ng-template #test>
                 <table [dataSource]="row.salesOrderDetail" mat-table class="mat-elevation-z2">
                     <ng-container matColumnDef="id">
@@ -98,7 +112,8 @@
 
                     <ng-container matColumnDef="salesPrice">
                         <th *matHeaderCellDef mat-header-cell class="text-right">Sales Price</th>
-                        <td *matCellDef="let element" mat-cell class="text-right"> {{element.price.toLocaleString('en-IN') || 0}}
+                        <td *matCellDef="let element" mat-cell class="text-right">
+                            {{element.price.toLocaleString('en-IN') || 0}}
                         </td>
                     </ng-container>
 

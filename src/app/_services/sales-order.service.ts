@@ -62,4 +62,8 @@ export class SalesOrderService {
     deleteOrderDetails(id: number): Observable<any> {
         return this.http.delete(`${this.baseUrl}/details/${id}`, {responseType: 'text'});
     }
+
+    getSalesOrder(salesOrderID: any): Observable<any> {
+        return this.http.get(`${this.baseUrl}/${salesOrderID}`);
+    }
 }

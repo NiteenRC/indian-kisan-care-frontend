@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./sales-report.component.css']
 })
 export class SalesReportComponent implements OnInit {
-  displayedColumns: string[] = ['billDate', 'dueDate', 'customerName', 'totalPrice', 'amountPaid', 'currentDueAmount', 'totalDueAmount', 'action'];
+  displayedColumns: string[] = ['billDate', 'dueDate', 'customerName', 'totalPrice', 'amountPaid', 'currentDueAmount', 'totalDueAmount', 'Action', 'Print'];
   productColumns: string[] = ['id', 'productName', 'salesPrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
@@ -85,6 +85,21 @@ export class SalesReportComponent implements OnInit {
         this.getSalesOrderList();
       },
       error => console.log(error));
+  }
+
+  getSalesOrder(event) {
+    this.salesOrderService.getSalesOrder(event.salesOrderID).subscribe(
+      response => {
+        this._printPdf(response);
+      },
+      error => console.log(error));
+  }
+
+  private _printPdf(response) {
+    //const url = `${location.origin}/praveen-traders/#salesTable`;
+    const url = `${location.origin}/#salesTable`;
+    const myWindow = window.open(url);
+    myWindow['response'] = response;
   }
 
   updateProduct(updateProduct): void {
