@@ -176,6 +176,10 @@ const TREE_DATA: MasterNode[] = [
       }, {
         name: 'Category',
       }, {
+        name: 'Location',
+      }, {
+        name: 'Company',
+      }, {
         name: 'Supplier',
       }, {
         name: 'Customer',

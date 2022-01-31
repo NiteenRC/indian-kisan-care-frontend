@@ -6,3 +6,15 @@ th {
   background-color: #5999d2;
   font-size: 15px;
 }
+
+.delete-button {
+  color: #bd2929a1;
+}
+
+.blue-button {
+  color: #0e13cf;
+}
+
+.due-button {
+  color: #e4500b;
+}

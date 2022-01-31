@@ -163,8 +163,11 @@
             <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
         </table>
-
-        <div style="display: flex; justify-content: space-between">
+        
+        
+            <!--<div style="display: flex; justify-content: space-between">-->
+            <!-- TODO-->
+            <!--
             <div class="total-container">
                 <div>
                     <mat-form-field>
@@ -186,7 +189,7 @@
                     </mat-form-field>
                 </div>
             </div>
-
+            -->
             <div class="total-container">
                 <div>
                     <label for="name">Current Balance : </label>
@@ -211,7 +214,7 @@
                 <button type="submit" class="btn btn-success" style="margin-left: 5px;" [disabled]="singleClickDisable" (click)="save(true, content)">PLACE ORDER & PRINT</button>
                 <button class="btn btn-warning" style="margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 </form>
 
