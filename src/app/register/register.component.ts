@@ -48,8 +48,8 @@ export class RegisterComponent implements OnInit {
     selection = [];
 
     list = [
-        { id: 1, role: 'admin' },
-        { id: 2, role: 'user' }
+        { id: 1, role: 'Admin' },
+        { id: 2, role: 'User' }
     ];
 
     getSelection(item) {
