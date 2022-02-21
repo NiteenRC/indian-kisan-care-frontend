@@ -37,7 +37,7 @@ export class SalesReportComponent implements OnInit {
     })
   }
 
-  getSalesOrderList() {
+  getSalesOrderList(): void {
     this.salesOrderService.getSalesOrderList().subscribe(res => {
       this.salesReports = res;
       this._setData(res);
@@ -98,7 +98,7 @@ export class SalesReportComponent implements OnInit {
   private _printPdf(response) {
     //const url = `${location.origin}/praveen-traders/#salesTable`;
     const url = `${location.origin}/#salesTable`;
-    const myWindow = window.open(url);
+    const myWindow = window.open(url, "_blank", "width=800,height=600,left=250,right=150");
     myWindow['response'] = response;
   }
 

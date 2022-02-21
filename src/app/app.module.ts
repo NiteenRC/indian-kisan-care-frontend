@@ -27,7 +27,6 @@ import { TableModule } from 'primeng/table';
 import { ActionBarComponent } from './menu/action-bar/action-bar.component';
 import { ActionBarItemComponent } from './menu/action-bar-item/action-bar-item.component';
 import { NavigationBarComponent } from './menu/navigation-bar/navigation-bar.component';
-import { DashboardCategoriesComponent } from './pages/dashboard-categories/dashboard-categories.component';
 import { DemoMaterialModule } from './material.module';
 import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
 import { CustomersListComponent } from './customers/customers-list/customers-list.component';
@@ -78,7 +77,6 @@ import { SalesReportDetailsComponent } from './reports/sales-report-details/sale
     DashboardComponent,
     NotfoundComponent,
     MobileMenuComponent,
-    DashboardCategoriesComponent,
     CustomersListComponent,
     CreateCompanyComponent,
     CompanyListComponent,

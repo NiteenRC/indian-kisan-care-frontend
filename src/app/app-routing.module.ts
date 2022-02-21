@@ -11,7 +11,6 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AuthGuard } from './auth.guard';
-import { DashboardCategoriesComponent } from './pages/dashboard-categories/dashboard-categories.component';
 import { CustomersListComponent } from './customers/customers-list/customers-list.component';
 import { CompanyListComponent } from './companies/company-list/company-list.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
@@ -39,7 +38,6 @@ export const routes: Routes = [
     path: 'dashboard', pathMatch: 'prefix', canActivate: [AuthGuard],
     component: DashboardComponent,
     children: [
-      { path: 'dashboard2', component: DashboardCategoriesComponent, canActivate: [AuthGuard] },
       { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
       { path: 'category', component: CreateCategoryComponent },
       { path: 'purchaseOrder', component: PurchaseOrderComponent },

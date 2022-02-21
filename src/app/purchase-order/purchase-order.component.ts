@@ -243,7 +243,7 @@ export class PurchaseOrderComponent implements OnInit {
   private _printPdf(response) {
     //const url = `${location.origin}/praveen-traders/#table`;
     const url = `${location.origin}/#table`;
-    const myWindow = window.open(url);
+    const myWindow = window.open(url, "_blank", "width=800,height=600,left=250,right=150");
     myWindow['response'] = response;
   }
 

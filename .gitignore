@@ -7,6 +7,9 @@
 
 # dependencies
 /node_modules
+/electron
+/www
+package-lock.json
 
 # IDEs and editors
 /.idea
