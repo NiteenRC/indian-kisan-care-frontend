@@ -53,6 +53,9 @@ import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.
 import { StockBookComponent } from './reports/stock-book/stock-book.component';
 import { PurchaseReportDetailsComponent } from './reports/purchase-report-details/purchase-report-details.component';
 import { SalesReportDetailsComponent } from './reports/sales-report-details/sales-report-details.component';
+import { UpdateBankInfoComponent } from './update-bank-info/update-bank-info.component';
+import { MatCardModule } from '@angular/material/card';
+import { UpdateBankDetails } from './UpdateBankDetails/UpdateBankDetails.component';
 
 
 @NgModule({
@@ -92,7 +95,10 @@ import { SalesReportDetailsComponent } from './reports/sales-report-details/sale
     ProfitSummaryComponent,
     StockBookComponent,
     PurchaseReportDetailsComponent,
-    SalesReportDetailsComponent
+    SalesReportDetailsComponent,
+    UpdateBankInfoComponent,
+    UpdateBankInfoComponent,
+    UpdateBankDetails
   ],
   imports: [
     TableModule,
@@ -110,7 +116,8 @@ import { SalesReportDetailsComponent } from './reports/sales-report-details/sale
     MatInputModule,
     NgbModule,
     NgxPaginationModule,
-    RouterModule
+    RouterModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

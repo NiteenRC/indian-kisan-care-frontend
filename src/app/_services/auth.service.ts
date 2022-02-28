@@ -30,18 +30,6 @@ export class AuthService {
             email: user.email,
             password: user.password,
             role : user.role,
-            bankAccount:{
-                bankName: user.bankAccount.bankName,
-                branchName: user.bankAccount.branchName,
-                accountNo: user.bankAccount.accountNo,
-                ifscCode: user.bankAccount.ifscCode
-            },
-            user: {
-                gstNo: user.user.gstNo,
-                panNo: user.user.panNo,
-                phoneNumber:  user.user.phoneNumber,
-                brandName:  user.user.brandName
-            }
         }, httpOptions);
     }
 
