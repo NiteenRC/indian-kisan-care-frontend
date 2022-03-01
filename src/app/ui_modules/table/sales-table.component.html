@@ -8,17 +8,17 @@
                         <div style="text-align: center; width: 55%">
                             <div>
                                 <span class="text-sm text-grey-m2 align-middle font-weight-bold">
-                                    <h2> {{user?.brandName}} </h2>
+                                    <h2> {{user?.bankAccount?.brandName}} </h2>
                                 </span>
                             </div>
                             <div>
-                                <span class="text-sm text-grey-m2 align-middle">GST: {{user?.gstNo}} | PAN:
-                                    {{user?.panNo}}
+                                <span class="text-sm text-grey-m2 align-middle">GST: {{user?.bankAccount?.gstNo}} | PAN:
+                                    {{user?.bankAccount?.panNo}}
                                 </span>
                             </div>
                             <div>
-                                <span class="text-sm text-grey-m2 align-middle">P: {{user?.phoneNumber}} | E:
-                                    {{user?.email}}</span>
+                                <span class="text-sm text-grey-m2 align-middle">P: {{user?.bankAccount?.phoneNumber}} | E:
+                                    {{user?.bankAccount?.email}}</span>
                             </div>
                         </div>
                     </div>
@@ -164,8 +164,9 @@
 
                             <div *ngIf="user.bankAccount != null">
                                 <div>
-                                    <span
-                                        class="text-sm text-grey-m2 align-middle font-weight-bold">{{user?.bankAccount?.bankName}}</span>
+                                    <span class="text-sm text-grey-m2 align-middle font-weight-bold">Bank:</span>
+                                    <span class="text-600 text-110 text-blue align-middle">
+                                        {{user?.bankAccount?.bankName}}</span>
                                 </div>
                                 <div>
                                     <span class="text-sm text-grey-m2 align-middle font-weight-bold">A/c no:</span>
@@ -220,7 +221,7 @@
                                         <span class="text-600 text-90 font-weight-bold">Authorised Signatory</span>
                                     </div>
                                     <div class="my-2">
-                                        <span class="text-600 text-90 font-weight-bold">({{user?.brandName}})</span>
+                                        <span class="text-600 text-90 font-weight-bold">({{user?.bankAccount?.brandName}})</span>
                                     </div>
                                 </div>
                             </div>

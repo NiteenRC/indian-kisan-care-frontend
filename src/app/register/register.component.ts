@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -10,6 +11,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
     form: any = {};
+    showMsg: boolean = false;
     isSuccessful = false;
     isSignUpFailed = false;
     errorMessage = '';
@@ -54,6 +56,11 @@ export class RegisterComponent implements OnInit {
                 this.isSuccessful = true;
                 this.isSignUpFailed = false;
                 this.clear();
+
+                this.showMsg = true;
+                setTimeout(() => {
+                    this.showMsg = false;
+                }, 2000);
             },
             err => {
                 this.errorMessage = err.error.error;

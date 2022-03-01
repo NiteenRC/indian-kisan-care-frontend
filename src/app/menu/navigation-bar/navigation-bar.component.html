@@ -2,8 +2,12 @@
     <div class="container-fluid">
         <span class="navbar-brand"></span>
         <div class="navbar-nav">
-            <b><span class="nav-item nav-link">Welcome, {{username}}</span></b>
-            <span (click)="logout()" class="nav-item nav-link" style="cursor: pointer;">Logout</span>
+            <mat-icon class="person-img" [matMenuTriggerFor]="menu">person</mat-icon>
+            <mat-menu #menu="matMenu">
+                <p *ngIf="super_admin" mat-menu-item (click)="openDialog()" style="border: white;">Manage Account</p>
+                <p *ngIf="super_admin || admin" mat-menu-item (click)="updateBankDetails()" style="border: white;">Update Bank Details</p>
+                <p mat-menu-item style="border: white;" (click)="logout()">Log Out</p>
+            </mat-menu>
         </div>
     </div>
 </nav>

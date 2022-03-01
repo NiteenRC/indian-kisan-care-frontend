@@ -27,6 +27,8 @@ import { PurchaseReportComponent } from './reports/purchase-report/purchase-repo
 import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
 import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.component';
 import { StockBookComponent } from './reports/stock-book/stock-book.component';
+import { UpdateBankDetails } from './UpdateBankDetails/UpdateBankDetails.component';
+import { UpdateBankInfoComponent } from './update-bank-info/update-bank-info.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -57,6 +59,8 @@ export const routes: Routes = [
       { path: 'stock-book', component: StockBookComponent },
       { path: 'sales-report', component: SalesReportComponent },
       { path: 'purchase-report', component: PurchaseReportComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'updateBankDetails', component: UpdateBankInfoComponent }
     ]
   },
   { path: 'table', component: TableComponent },

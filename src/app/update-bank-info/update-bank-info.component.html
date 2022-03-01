@@ -22,13 +22,13 @@
 
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 251px;">
-                                    <mat-label>IFSC Code</mat-label>
+                                    <mat-label>IFSC code</mat-label>
                                     <input matInput formControlName="ifscCode">
                                 </mat-form-field>
                             </p>
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 251px;">
-                                    <mat-label>Branch Name</mat-label>
+                                    <mat-label>Branch name</mat-label>
                                     <input matInput formControlName="branchName">
                                 </mat-form-field>
                             </p>
@@ -48,13 +48,13 @@
                             </p>
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 251px;">
-                                    <mat-label>Brand Name</mat-label>
+                                    <mat-label>Brand name</mat-label>
                                     <input matInput formControlName="brandName">
                                 </mat-form-field>
                             </p>
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 250px;">
-                                    <mat-label>Phone Number</mat-label>
+                                    <mat-label>Phone number</mat-label>
                                     <input matInput formControlName="phoneNumber">
                                 </mat-form-field>
                             </p>
@@ -75,5 +75,13 @@
             </form>
 
         </mat-card>
+    </div>
+</div>
+
+<div class="middle" *ngIf="showMsg">
+    <div class="col-xs-6">
+        <p class="alert alert-success">
+            <strong>Sales Order Successfully created!!</strong>
+        </p>
     </div>
 </div>

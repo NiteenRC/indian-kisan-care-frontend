@@ -16,7 +16,6 @@ import { PurchaseOrderComponent } from './purchase-order/purchase-order.componen
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { BalanceSheetComponent } from './balance-sheet/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
 import { MatTableModule } from '@angular/material/table';
-import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
@@ -56,6 +55,7 @@ import { SalesReportDetailsComponent } from './reports/sales-report-details/sale
 import { UpdateBankInfoComponent } from './update-bank-info/update-bank-info.component';
 import { MatCardModule } from '@angular/material/card';
 import { UpdateBankDetails } from './UpdateBankDetails/UpdateBankDetails.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({

@@ -8,14 +8,14 @@ import { TokenStorageService } from './_services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'RK FERTILIZER';
-
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
+  static role_super_admin: boolean;
   static role_admin: boolean;
+  static role_user: boolean;
 
   constructor(private tokenStorageService: TokenStorageService) { }
 
@@ -25,15 +25,9 @@ export class AppComponent implements OnInit {
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
-
-
-      //this.showAdminBoard = this.roles.includes('ROLE_SUPER_ADMIN');
-      AppComponent.role_admin = this.roles.includes('ROLE_SUPER_ADMIN') || this.roles.includes('ROLE_ADMIN');
-      // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
-      //this.username = user.username;
+      AppComponent.role_super_admin = this.roles.includes('ROLE_SUPER_ADMIN');
+      AppComponent.role_admin = this.roles.includes('ROLE_ADMIN');
+      AppComponent.role_user = this.roles.includes('ROLE_USER');
     }
   }
-
-
 }

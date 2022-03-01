@@ -40,7 +40,7 @@ export class ActionBarComponent implements OnInit{
     console.log('dataSourceReports', this.dataSourceReports);
   }
   ngOnInit(): void {
-    this.role = AppComponent.role_admin;
+    this.role = AppComponent.role_admin || AppComponent.role_super_admin;
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;

@@ -1,251 +1,65 @@
-
-<div class="col-md-12">
-    <div class="">
-        <!-- <img class="profile-img-card" id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
-       <mat-card style="width: 90%;">
-        <form [formGroup]="registerForm"(ngSubmit)="onSubmit()">
-           <h1 style="text-align: center;">Registration</h1>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <p style="text-align: center;">
-                            <mat-form-field appearance="legacy" style="width: 250px;">
-                                <mat-label>User Name</mat-label>
-                                <input matInput formControlName="username">
-                            </mat-form-field>
-                        </p>
-                        <p style="text-align: center;">
-                            <mat-form-field appearance="legacy" style="width: 250px;">
-                                <mat-label>Email</mat-label>
-                                <input matInput formControlName="email">
-                            </mat-form-field>
-                        </p>
-                        <p style="text-align: center;">
-                            <mat-form-field appearance="legacy" style="width: 250px;">
-                                <mat-label>Phone Number</mat-label>
-                                <input matInput formControlName="phoneNumber">
-                            </mat-form-field>
-                        </p>
-                    </div>
-                    <div class="col-6">
-                        <p style="text-align: center;">
-                            <mat-form-field appearance="legacy" style="width: 250px;">
-                                <mat-label>Password</mat-label>
-                                <input matInput formControlName="password">
-        
-                            </mat-form-field>
-                        </p>
-                        <p style="text-align: center;">
-                            <mat-form-field appearance="legacy" style="width: 250px;">
-                                <mat-label>Role</mat-label>
-                                <mat-select formControlName="role">
-                                    <mat-option value="admin">Admin</mat-option>
-                                    <mat-option value="user">User</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </p>
-        
-                    </div>
-                   
-                </div>
-            </div>
-            <div class="button-container">
-             <span style="color: red;">  {{errorMessage}}</span>
-            </div>
-
-
-           
-            <div class="button-container">
-                <button  class="btn btn-primary" type="submit"
-                    style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
-                </button>
-            </div>
-        </form>
-        
-    </mat-card>
+<div class="middle" *ngIf="showMsg">
+    <div class="col-xs-6">
+        <p class="alert alert-success">
+            <strong>Sales Order Successfully created!!</strong>
+        </p>
     </div>
 </div>
-
- <!-- <div class="col-md-12">
-    <div class="card card-container">
-        <img class="profile-img-card" id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-        <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" *ngIf="!isSuccessful" name="form" novalidate>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input #username="ngModel" [(ngModel)]="form.username" class="form-control" maxlength="20" minlength="3"
-                    name="username" required type="text" />
-                <div *ngIf="f.submitted && username.invalid" class="alert-danger">
-                    <div *ngIf="username.errors.required">Username is required</div>
-                    <div *ngIf="username.errors.minlength">
-                        Username must be at least 3 characters
-                    </div>
-                    <div *ngIf="username.errors.maxlength">
-                        Username must be at most 20 characters
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input #email="ngModel" [(ngModel)]="form.email" class="form-control" email name="email" required
-                    type="email" />
-                <div *ngIf="f.submitted && email.invalid" class="alert-danger">
-                    <div *ngIf="email.errors.required">Email is required</div>
-                    <div *ngIf="email.errors.email">
-                        Email must be a valid email address
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input #password="ngModel" [(ngModel)]="form.password" class="form-control" minlength="6"
-                    name="password" required type="password" />
-                <div *ngIf="f.submitted && password.invalid" class="alert-danger">
-                    <div *ngIf="password.errors.required">Password is required</div>
-                    <div *ngIf="password.errors.minlength">
-                        Password must be at least 6 characters
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="role">Roles</label>
-                    <ul *ngFor="let item of list">
-                        <label>{{item.role}}</label>
-                        <input type="checkbox" [checked]="getSelection(item)" (change)="changeHandler(item, $event)">
-                    </ul>
-            </div>
-
-            <div class="form-group">
-                <label for="bankName">Bank name</label>
-                <input #bankName="ngModel" [(ngModel)]="form.bankName" class="form-control" maxlength="20" minlength="3"
-                    name="bankName" required type="text" />
-                <div *ngIf="f.submitted && bankName.invalid" class="alert-danger">
-                    <div *ngIf="bankName.errors.required">Bank name is required</div>
-                    <div *ngIf="bankName.errors.minlength">
-                        Bank name must be at least 3 characters
-                    </div>
-                    <div *ngIf="bankName.errors.maxlength">
-                        Bank name must be at most 20 characters
+<div class="col-md-12">
+    <div class="">
+        <mat-card style="width: 90%;">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <h1 style="text-align: center;">Registration</h1>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Username</mat-label>
+                                    <input matInput formControlName="username" required>
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput formControlName="password" required>
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email" required>
+                                </mat-form-field>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Phone number</mat-label>
+                                    <input matInput formControlName="phoneNumber">
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Role</mat-label>
+                                    <mat-select formControlName="role">
+                                        <mat-option value="admin">Admin</mat-option>
+                                        <mat-option value="user">User</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="accountNo">Account number</label>
-                <input #accountNo="ngModel" [(ngModel)]="form.accountNo" class="form-control" maxlength="20" minlength="3"
-                    name="accountNo" required type="text" />
-                <div *ngIf="f.submitted && accountNo.invalid" class="alert-danger">
-                    <div *ngIf="accountNo.errors.required">Account number is required</div>
-                    <div *ngIf="accountNo.errors.minlength">
-                        Account number must be at least 3 characters
-                    </div>
-                    <div *ngIf="accountNo.errors.maxlength">
-                        Account number must be at most 20 characters
-                    </div>
+                <div class="button-container">
+                    <span style="color: red;"> {{errorMessage}}</span>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="ifscCode">IFSC Code</label>
-                <input #ifscCode="ngModel" [(ngModel)]="form.ifscCode" class="form-control" maxlength="20" minlength="3"
-                    name="ifscCode" required type="text" />
-                <div *ngIf="f.submitted && ifscCode.invalid" class="alert-danger">
-                    <div *ngIf="ifscCode.errors.required">IFSC Code is required</div>
-                    <div *ngIf="ifscCode.errors.minlength">
-                        IFSC Code must be at least 3 characters
-                    </div>
-                    <div *ngIf="ifscCode.errors.maxlength">
-                        IFSC Code must be at most 20 characters
-                    </div>
+                <div class="button-container">
+                    <button class="btn btn-primary" type="submit"
+                        style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
+                    </button>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="branchName">Branch name</label>
-                <input #branchName="ngModel" [(ngModel)]="form.branchName" class="form-control" maxlength="20" minlength="3"
-                    name="branchName" required type="text" />
-                <div *ngIf="f.submitted && branchName.invalid" class="alert-danger">
-                    <div *ngIf="branchName.errors.required">Branch name is required</div>
-                    <div *ngIf="branchName.errors.minlength">
-                        Branch name must be at least 3 characters
-                    </div>
-                    <div *ngIf="branchName.errors.maxlength">
-                        Branch name must be at most 20 characters
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="gstNo">GST number</label>
-                <input #gstNo="ngModel" [(ngModel)]="form.gstNo" class="form-control" maxlength="20" minlength="3"
-                    name="gstNo" required type="text" />
-                <div *ngIf="f.submitted && gstNo.invalid" class="alert-danger">
-                    <div *ngIf="gstNo.errors.required">GST number is required</div>
-                    <div *ngIf="gstNo.errors.minlength">
-                        GST number must be at least 3 characters
-                    </div>
-                    <div *ngIf="gstNo.errors.maxlength">
-                        GST number must be at most 20 characters
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="panNo">PAN number</label>
-                <input #panNo="ngModel" [(ngModel)]="form.panNo" class="form-control" maxlength="20" minlength="3"
-                    name="panNo" required type="text" />
-                <div *ngIf="f.submitted && panNo.invalid" class="alert-danger">
-                    <div *ngIf="panNo.errors.required">PAN number is required</div>
-                    <div *ngIf="panNo.errors.minlength">
-                        PAN number must be at least 3 characters
-                    </div>
-                    <div *ngIf="panNo.errors.maxlength">
-                        PAN number must be at most 20 characters
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="phoneNumber">Phone number</label>
-                <input #phoneNumber="ngModel" [(ngModel)]="form.phoneNumber" class="form-control" maxlength="20" minlength="3"
-                    name="phoneNumber" required type="text" />
-                <div *ngIf="f.submitted && phoneNumber.invalid" class="alert-danger">
-                    <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
-                    <div *ngIf="phoneNumber.errors.minlength">
-                        Phone number must be at least 3 characters
-                    </div>
-                    <div *ngIf="phoneNumber.errors.maxlength">
-                        Phone number must be at most 20 characters
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="brandName">Brand name</label>
-                <input #brandName="ngModel" [(ngModel)]="form.brandName" class="form-control" maxlength="20" minlength="3"
-                    name="brandName" required type="text" />
-                <div *ngIf="f.submitted && brandName.invalid" class="alert-danger">
-                    <div *ngIf="brandName.errors.required">Brand name is required</div>
-                    <div *ngIf="brandName.errors.minlength">
-                        Brand name must be at least 3 characters
-                    </div>
-                    <div *ngIf="brandName.errors.maxlength">
-                        Brand name must be at most 20 characters
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-primary btn-block">Sign Up</button>
-            </div>
-
-            <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
-                Signup failed!<br />{{ errorMessage }}
-            </div>
-        </form>
-
-        <div *ngIf="isSuccessful" class="alert alert-success">
-            Your registration is successful!
-        </div>
+            </form>
+        </mat-card>
     </div>
-</div>  -->
+</div>

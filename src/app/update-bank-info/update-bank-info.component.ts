@@ -10,7 +10,7 @@ import { BankService } from '../_services/bank.service';
   styleUrls: ['./update-bank-info.component.css']
 })
 export class UpdateBankInfoComponent implements OnInit {
-
+  showMsg: boolean = false;
   form: any = {};
   errorMessage = '';
   roles: string[] = [];
@@ -37,14 +37,14 @@ export class UpdateBankInfoComponent implements OnInit {
 
   onSubmit() {
     let data = {
-      "bankName": this.registerForm.controls.bankName.value.toUpperCase(),
+      "bankName": this.registerForm.controls.bankName.value ? this.registerForm.controls.bankName.value.toUpperCase() : '',
       "branchName": this.registerForm.controls.branchName.value,
       "accountNo": this.registerForm.controls.accountNo.value,
-      "ifscCode": this.registerForm.controls.ifscCode.value.toUpperCase(),
+      "ifscCode": this.registerForm.controls.ifscCode.value ? this.registerForm.controls.ifscCode.value.toUpperCase() : '',
       "phoneNumber": this.registerForm.controls.phoneNumber.value,
-      "gstNo": this.registerForm.controls.gstNo.value.toUpperCase(),
-      "panNo": this.registerForm.controls.panNo.value.toUpperCase(),
-      "brandName": this.registerForm.controls.brandName.value.toUpperCase(),
+      "gstNo": this.registerForm.controls.gstNo.value ? this.registerForm.controls.gstNo.value.toUpperCase() : '',
+      "panNo": this.registerForm.controls.panNo.value ? this.registerForm.controls.panNo.value.toUpperCase() : '',
+      "brandName": this.registerForm.controls.brandName.value ? this.registerForm.controls.brandName.value.toUpperCase() : '',
     };
 
     this.bankService.createBank(data).subscribe(
@@ -52,6 +52,11 @@ export class UpdateBankInfoComponent implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+
+        this.showMsg = true;
+        setTimeout(() => {
+          this.showMsg = false;
+        }, 2000);
       },
       err => {
         this.errorMessage = err.error.error;
