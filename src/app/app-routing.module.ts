@@ -7,7 +7,6 @@ import { Routes, RouterModule, Router } from '@angular/router';
 
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AuthGuard } from './auth.guard';
@@ -27,8 +26,8 @@ import { PurchaseReportComponent } from './reports/purchase-report/purchase-repo
 import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
 import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.component';
 import { StockBookComponent } from './reports/stock-book/stock-book.component';
-import { UpdateBankDetails } from './UpdateBankDetails/UpdateBankDetails.component';
 import { UpdateBankInfoComponent } from './update-bank-info/update-bank-info.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
