@@ -5,9 +5,12 @@
             <mat-icon class="person-img" [matMenuTriggerFor]="menu">person</mat-icon>
             <mat-menu #menu="matMenu">
                 <p *ngIf="super_admin" mat-menu-item (click)="openDialog()" style="border: white;">Manage Account</p>
-                <p *ngIf="super_admin || admin" mat-menu-item (click)="updateBankDetails()" style="border: white;">Update Bank Details</p>
+                <p *ngIf="super_admin || admin" mat-menu-item (click)="updateBankDetails()" style="border: white;">
+                    Update Bank Details</p>
                 <p mat-menu-item style="border: white;" (click)="logout()">Log Out</p>
             </mat-menu>
+            <span class="person-img" [matMenuTriggerFor]="menu">{{username.substr(0,1).toUpperCase() +
+                username.substr(1)}}</span>
         </div>
     </div>
 </nav>
