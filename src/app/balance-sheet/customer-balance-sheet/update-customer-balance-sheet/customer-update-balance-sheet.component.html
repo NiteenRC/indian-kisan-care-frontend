@@ -20,9 +20,21 @@
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
                 <mat-label>Pay amount</mat-label>
-                <input formControlName="payAmount" matInput required>
+                <input formControlName="payAmount" type="number" matInput required>
             </mat-form-field>
             <br>
+        </div>
+
+        <mat-form-field>
+            <mat-label>Due date</mat-label>
+            <input matInput [matDatepicker]="picker2" [min]="minStartDate" formControlName="dueDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2" ng-model-options="{timezone: 'utc'}">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <div class="button-container">
+            <span style="color: red;">{{errorMessage}}</span>
         </div>
 
         <div class="button-container">

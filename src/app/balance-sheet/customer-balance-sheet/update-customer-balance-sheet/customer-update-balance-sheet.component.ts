@@ -13,6 +13,8 @@ import { SalesOrderService } from 'src/app/_services/sales-order.service';
 export class UpdateBalanceSheetComponent implements OnInit {
   productForm: FormGroup;
   productUpdateData: any;
+  minStartDate = new Date();
+  errorMessage = '';
 
   constructor(private salesOrderService: SalesOrderService,
     public dialogRef: MatDialogRef<UpdateBalanceSheetComponent>,
@@ -22,6 +24,7 @@ export class UpdateBalanceSheetComponent implements OnInit {
       customerName: new FormControl(),
       currentBalance: new FormControl(),
       payAmount: new FormControl(),
+      dueDate: new FormControl(),
     });
 
     if (data != null) {
@@ -62,11 +65,19 @@ export class UpdateBalanceSheetComponent implements OnInit {
       return;
     }
 
+    if (payAmount !== this.productForm.controls.currentBalance.value) {
+      if (!this.productForm.controls.dueDate.value) {
+        this.errorMessage = 'Please select Due date';
+        return;
+      }
+    }
+
     let data = {
       id: this.productForm.controls.id.value,
       payAmount: payAmount,
       status: status,
-      currentBalance: this.productForm.controls.currentBalance.value
+      currentBalance: this.productForm.controls.currentBalance.value,
+      dueDate: this.productForm.controls.dueDate.value,
     };
 
     this.salesOrderService.updateSalesOrder(data).subscribe(res => {
@@ -79,6 +90,6 @@ export class UpdateBalanceSheetComponent implements OnInit {
   }
 
   closeModal(): void {
-      this.dialogRef.close();
+    this.dialogRef.close();
   }
 }
