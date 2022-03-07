@@ -4,6 +4,7 @@ import { AuthService } from '../_services/auth.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { BankService } from '../_services/bank.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-update-bank-info',
   templateUrl: './update-bank-info.component.html',
@@ -19,7 +20,7 @@ export class UpdateBankInfoComponent implements OnInit {
   isSignUpFailed = false;
 
   favoriteSeason: string;
-  constructor(private bankService: BankService, private router: Router) {
+  constructor(private bankService: BankService, private router: Router, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -33,6 +34,43 @@ export class UpdateBankInfoComponent implements OnInit {
       'brandName': new FormControl(null),
       'phoneNumber': new FormControl(null),
     });
+  }
+
+  uploadedImage: File;
+  dbImage: any;
+  postResponse: any;
+  successResponse: string;
+  image: any;
+
+  public onImageUpload(event) {
+    this.uploadedImage = event.target.files[0];
+  }
+
+  imageUploadAction() {
+    const imageFormData = new FormData();
+    imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
+
+
+    this.http.post('http://localhost:8080/bank/image', imageFormData, { observe: 'response' })
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.postResponse = response;
+          this.successResponse = this.postResponse.body.message;
+        } else {
+          this.successResponse = 'Image not uploaded due to some error!';
+        }
+      }
+      );
+  }
+
+  viewImage() {
+    this.http.get('http://localhost:8080/bank/image/info/logo3.jfif')
+      .subscribe(
+        res => {
+          this.postResponse = res;
+          this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
+        }
+      );
   }
 
   onSubmit() {

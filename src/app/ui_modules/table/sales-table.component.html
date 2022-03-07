@@ -4,7 +4,11 @@
             <div class="row pt-4">
                 <div class="col-12 col-lg-10 offset-lg-1">
                     <div class="d-flex">
-                        <img src="/assets/images/indian-kisan-care.png" alt="image" class="logo"
+                        <!--<div *ngIf=dbImage>
+                            <img [src]="dbImage" class="logo"
+                            style="width: 70px; height: 90%">
+                        </div> -->
+                        <img src="/assets/images/indian-kisan-care.png" class="logo"
                             style="width: 10%; height: 10%">
                         <div style="text-align: center; width: 70%">
                             <div>
@@ -40,7 +44,7 @@
                                     GSTIN/UIN:
                                 </span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    {{response?.customer?.gstIn}}
+                                    {{response?.customer?.gstIn !== '' ? response?.customer?.gstIn : 'NA'}}
                                 </span>
                             </div>
 
@@ -49,7 +53,7 @@
                                     Mobile Number:
                                 </span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    {{response?.customer?.phoneNumber}}
+                                    {{response?.customer?.phoneNumber !== '' ? response?.customer?.phoneNumber : 'NA'}}
                                 </span>
                             </div>
                             <div class="my-2">
@@ -57,7 +61,7 @@
                                     Address:
                                 </span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    {{response?.customer?.location?.cityName}}
+                                    {{response?.customer?.location?.cityName !== null ? response?.customer?.location?.cityName : 'NA'}}
                                 </span>
                             </div>
                         </div>
@@ -72,19 +76,13 @@
 
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Due Date:</span>
-                                    {{response?.dueDate | date: 'dd/MM/yyyy'}}
+                                    {{(response?.dueDate !== null ? (response?.dueDate | date : 'dd/MM/yyyy'): 'NA')}}
                                 </div>
 
                                 <div class="my-2">
                                     <span class="text-600 text-90 font-weight-bold">Bill Status:</span>
                                     <span class="text-600 text-90">
                                         {{response?.status}}
-                                    </span>
-                                </div>
-                                <div class="my-2">
-                                    <span class="text-600 text-90 font-weight-bold">Motor Vehicle no:</span>
-                                    <span class="text-600 text-90">
-                                        {{response?.vehicleNo}}
                                     </span>
                                 </div>
                             </div>
@@ -98,10 +96,10 @@
                                 <th scope="col">S.No</th>
                                 <th scope="col">Item & Description</th>
                                 <th scope="col">HSN/SAC</th>
-                                <th scope="col">Basic Rate</th>
+                                <th scope="col">Sell Price</th>
                                 <th scope="col">Qty</th>
                                 <th scope="col">GST%</th>
-                                <th scope="col">Rate</th>
+                                <th scope="col">Tax Amt</th>
                                 <!--<th scope="col">Tax Amount</th>-->
                                 <th scope="col">Amount</th>
                             </tr>
@@ -114,7 +112,7 @@
                                 <td class="text-right pr-4">₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>
                                 <td class="text-right pr-4">{{cart?.qtyOrdered || 0}}</td>
                                 <td>{{cart?.product?.gst}}%</td>
-                                <td class="text-right pr-4">₹{{(cart?.price - (cart?.price *
+                                <td class="text-right pr-4">₹{{(cart?.qtyOrdered * (cart?.price *
                                     (cart?.product?.gst/100))).toLocaleString('en-IN') || 0}}
                                 </td>
                                 <!-- <td class="text-right pr-4">₹{{(cart?.product?.gst * cart.price * cart.qtyOrdered / 100).toLocaleString('en-IN')}}
@@ -147,7 +145,7 @@
                     </table>
                     <span class="text-sm text-grey-m2 align-middle">Amount chargeable(in words):</span>
                     <span class="text-lg text-grey-m2 align-middle font-weight-bold">
-                        {{ amountInWords }}
+                        {{ amountInWords }} only.
                     </span>
                     <hr>
                     <!-- ---------------- -->

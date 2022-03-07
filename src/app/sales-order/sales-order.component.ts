@@ -108,7 +108,7 @@ export class SalesOrderComponent implements OnInit {
     this.customers = [];
     this.customerService.getCustomerList().subscribe(data => {
       data.forEach(x => {
-        if (x.customerName != '' && !x.customerName.startsWith('UNKNOWN')) {
+        if (x.customerName != '') {
           this.customers.push(x);
         }
       });
@@ -297,8 +297,12 @@ export class SalesOrderComponent implements OnInit {
   private _printPdf(response) {
     //const url = `${location.origin}/praveen-traders/#salesTable`;
     const url = `${location.origin}/#salesTable`;
+    console.log('this.response1', JSON.stringify((window['response'])));
+    console.log("url ", url);
     const myWindow = window.open(url, "_blank", "width=800,height=600,left=250,right=150");
+    console.log("response", response);
     myWindow['response'] = response;
+    console.log('this.response2', JSON.stringify((window['response'])));
   }
 
   private _filterCustomer(value: string): Customer[] {

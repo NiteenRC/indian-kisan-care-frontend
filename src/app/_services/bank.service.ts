@@ -20,4 +20,8 @@ export class BankService {
     createBank(bank: Object): Observable<Object> {
         return this.http.post(`${baseUrl}`, bank);
     }
+
+    uploadImage(bank: Object): Observable<Object> {
+        return this.http.post(`${baseUrl}/image`, bank);
+    }
 }

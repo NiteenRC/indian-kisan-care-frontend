@@ -58,6 +58,24 @@
                                     <input matInput formControlName="phoneNumber">
                                 </mat-form-field>
                             </p>
+
+                            <div class="form-group">
+                                <input type="text" id="image" placeholder="Search Image" [(ngModel)]="image" name="image" />
+                                <input type="button" (click)="viewImage()" value="View Image" class="btn1"> 
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="file" (change)="onImageUpload($event)">
+                                <input type="button" (click)="imageUploadAction()" value="Upload Image" class="btn1">
+                            </div>
+                            <div>
+                                <output *ngIf=successResponse class="success"><b>{{successResponse}}</b></output>
+                            </div>
+                            <br>
+
+                            <div *ngIf=dbImage>
+                                <img [src]="dbImage">
+                            </div>
                         </div>
 
                     </div>
@@ -81,7 +99,7 @@
 <div class="middle" *ngIf="showMsg">
     <div class="col-xs-6">
         <p class="alert alert-success">
-            <strong>Sales Order Successfully created!!</strong>
+            <strong>Bank details Successfully updated!!</strong>
         </p>
     </div>
 </div>

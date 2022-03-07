@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SalesReportDetailsComponent } from '../sales-report-details/sales-report-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sales-report',
@@ -26,7 +27,7 @@ export class SalesReportComponent implements OnInit {
 
   salesReports;
 
-  constructor(public dialog: MatDialog, private salesOrderService: SalesOrderService) { }
+  constructor(public dialog: MatDialog, private salesOrderService: SalesOrderService, private router: Router) { }
 
   ngOnInit(): void {
     this.getSalesOrderList();
@@ -96,9 +97,23 @@ export class SalesReportComponent implements OnInit {
   }
 
   private _printPdf(response) {
+    const winHtml = `<a href="/dashboard/products" target="_blank"></a>`;
+    const winUrl = URL.createObjectURL(
+      new Blob([winHtml], { type: "text/html" })
+    );
+
+    const url = `/#/salesTable`;
+
+    console.log("url ", url);
+    const myWindow = window.open(url, "win", "width=800,height=600,left=250,right=150, nodeIntegration=no");
+    console.log("response", response);
+    console.log('this.response2', JSON.stringify((window['response'])));
+    //myWindow.document.body.innerHTML
+    
+    //old
     //const url = `${location.origin}/praveen-traders/#salesTable`;
-    const url = `${location.origin}/#salesTable`;
-    const myWindow = window.open(url, "_blank", "width=800,height=600,left=250,right=150");
+    //const url = `${location.origin}/#salesTable`;
+    //const myWindow = window.open(url, "_blank", "width=800,height=600,left=250,right=150");
     myWindow['response'] = response;
   }
 

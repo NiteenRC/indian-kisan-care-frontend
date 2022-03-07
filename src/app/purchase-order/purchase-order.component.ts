@@ -83,7 +83,7 @@ export class PurchaseOrderComponent implements OnInit {
     this.suppliers = [];
     this.supplierService.getSupplierList().subscribe(data => {
       data.forEach(x => {
-        if (x.supplierName != '' && !x.supplierName.startsWith('UNKNOWN')) {
+        if (x.supplierName != '') {
           this.suppliers.push(x);
         }
       });
@@ -278,7 +278,7 @@ export class PurchaseOrderComponent implements OnInit {
 
   private _initRow(product) {
     return this._fb.group({
-      price: [product.price, [Validators.required, Validators.min(1), Validators.max(100000)]],
+      price: [product.price, [Validators.required, Validators.min(1), Validators.max(1000000)]],
       qtyOrdered: [1, [Validators.required, Validators.min(1), Validators.max(10000)]],
       product: [product]
     });

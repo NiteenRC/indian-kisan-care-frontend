@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/_services/token-storage.service.js';
 import { numberInWords } from '../../utils/numToWords.js';
@@ -14,9 +15,10 @@ export class SalesTableComponent implements OnInit {
   amountInWords: string = '';
   user: any = null;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, private httpClient : HttpClient) { }
 
   ngOnInit(): void {
+    //this.viewImage();
     console.log('this.response', JSON.stringify((window['response'])));
     let salesOrder = window['response'];
     if (!salesOrder) {
@@ -57,5 +59,21 @@ export class SalesTableComponent implements OnInit {
     this.totalTaxAmount = Math.round(totalTaxAmount);
 
     this.amountInWords = numberInWords(this.totalPrice);
+  }
+
+  uploadedImage: File;
+  dbImage: any;
+  postResponse: any;
+  successResponse: string;
+  image: any;
+
+  viewImage() {  
+    this.httpClient.get('http://localhost:8080/bank/image/info/logo3.jfif')
+      .subscribe(
+        res => {
+          this.postResponse = res;
+          this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
+        }
+      );
   }
 }
