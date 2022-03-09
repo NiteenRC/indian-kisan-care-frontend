@@ -31,7 +31,7 @@ label {
     border-radius: 50%;
 }
 .background-image{
-    background-image: url("../../assets/images/logo2.jpg") ;
+    background-image: url("../../../assets/images/logo2.jpg") ;
     min-height: 530px;
     background-repeat:no-repeat
 }

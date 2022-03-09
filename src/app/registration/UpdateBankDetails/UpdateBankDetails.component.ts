@@ -1,47 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../_services/auth.service';
-import { MatRadioModule } from '@angular/material/radio';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-
+import { AuthService } from 'src/app/_services/auth.service';
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css']
+    selector: 'app-bank',
+    templateUrl: './UpdateBankDetails.component.html',
+    styleUrls: ['./UpdateBankDetails.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class UpdateBankDetails implements OnInit {
     form: any = {};
-    showMsg: boolean = false;
     isSuccessful = false;
     isSignUpFailed = false;
     errorMessage = '';
-    registerForm: FormGroup;
     favoriteSeason: string;
     seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
     constructor(private authService: AuthService, private router: Router) {
     }
 
     ngOnInit() {
-        this.registerForm = new FormGroup({
-            'username': new FormControl(null, [Validators.required]),
-            'password': new FormControl(null, [Validators.required]),
-            'role': new FormControl(null, [Validators.required]),
-        });
-    }
-
-    clear() {
-        this.registerForm = new FormGroup({
-            'username': new FormControl(null),
-            'password': new FormControl(null),
-            'role': new FormControl(null),
-        });
     }
 
     onSubmit() {
+        console.log(this.selection);
+
         let data = {
-            "username": this.registerForm.controls.username.value,
-            "password": this.registerForm.controls.password.value,
-            "role": [this.registerForm.controls.role.value],
+            "username": this.form.username,
+            "email": this.form.email,
+            "password": this.form.password,
+            "role": this.selection.map(x => x.role),
+            "bankAccount": {
+                "bankName": this.form.bankName,
+                "branchName": this.form.branchName,
+                "accountNo": this.form.accountNo,
+                "ifscCode": this.form.ifscCode,
+            },
+            "user": {
+                "gstNo": this.form.gstNo,
+                "panNo": this.form.panNo,
+                "phoneNumber": this.form.phoneNumber,
+                "brandName": this.form.brandName,
+            }
         };
 
         this.authService.register(data).subscribe(
@@ -49,15 +46,12 @@ export class RegisterComponent implements OnInit {
                 console.log(data);
                 this.isSuccessful = true;
                 this.isSignUpFailed = false;
-                this.clear();
-
-                this.showMsg = true;
                 setTimeout(() => {
-                    this.showMsg = false;
-                }, 2000);
+                    this.router.navigate(['login']);
+                }, 2500);
             },
             err => {
-                this.errorMessage = err.error.error;
+                this.errorMessage = err.error.message;
                 this.isSignUpFailed = true;
             }
         );

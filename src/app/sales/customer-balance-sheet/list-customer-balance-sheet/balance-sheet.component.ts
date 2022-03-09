@@ -1,11 +1,11 @@
-import { PurchaseOrderService } from '../../../_services/purchase-order.service';
-import { SalesOrderService } from '../../../_services/sales-order.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UpdateBalanceSheetComponent } from '../update-customer-balance-sheet/customer-update-balance-sheet.component';
+import { SalesOrderService } from 'src/app/_services/sales-order.service';
+import { PurchaseOrderService } from 'src/app/_services/purchase-order.service';
 
 @Component({
   selector: 'app-balance-sheet',
@@ -27,7 +27,7 @@ export class BalanceSheetComponent implements OnInit {
 
   salesReports;
 
-  constructor(private dialog: MatDialog, private salesOrderService: SalesOrderService, private purchaseOrderService: PurchaseOrderService) { }
+  constructor(private dialog: MatDialog, private salesOrderService: SalesOrderService) { }
 
   ngOnInit(): void {
     this.getSalesOrderList();

@@ -1,4 +1,4 @@
-import { PurchaseOrderService } from './../../_services/purchase-order.service';
+import { PurchaseOrderService } from '../../_services/purchase-order.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';

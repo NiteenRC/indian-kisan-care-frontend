@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../../_services/auth.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { BankService } from '../_services/bank.service';
+import { BankService } from '../../_services/bank.service';
 import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-update-bank-info',

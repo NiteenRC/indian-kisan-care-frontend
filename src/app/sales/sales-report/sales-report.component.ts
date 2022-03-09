@@ -1,4 +1,4 @@
-import { SalesOrderService } from './../../_services/sales-order.service';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { SalesReportDetailsComponent } from '../sales-report-details/sales-report-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { SalesOrderService } from 'src/app/_services/sales-order.service';
 
 @Component({
   selector: 'app-sales-report',

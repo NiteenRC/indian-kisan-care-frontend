@@ -4,13 +4,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
-import { Product } from '../_model/product';
+import { Product } from '../../_model/product';
 import { Observable } from 'rxjs';
-import { ProductService } from '../_services/product.service';
-import { PurchaseOrder } from '../_model/purchaseOrder';
-import { PurchaseOrderService } from '../_services/purchase-order.service';
-import { Supplier } from '../_model/supplier';
-import { SupplierService } from '../_services/supplier.service';
+import { ProductService } from '../../_services/product.service';
+import { PurchaseOrder } from '../../_model/purchaseOrder';
+import { PurchaseOrderService } from '../../_services/purchase-order.service';
+import { Supplier } from '../../_model/supplier';
+import { SupplierService } from '../../_services/supplier.service';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
