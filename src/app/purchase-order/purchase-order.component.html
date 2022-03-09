@@ -1,7 +1,7 @@
 <div class="middle" *ngIf="showMsg">
     <div class="col-xs-6">
         <p class="alert alert-success">
-            <strong>Sales Order Successfully created!!</strong>
+            <strong>Purchase Order Successfully created!!</strong>
         </p>
     </div>
 </div>
@@ -113,7 +113,7 @@
                 <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Quantity</th>
                 <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
                     <mat-form-field floatLabel="never" class="text-right">
-                        <input matInput type="number" formControlName="qtyOrdered" required>
+                        <input matInput type="number"  formControlName="qtyOrdered" required>
                         <mat-error *ngIf="element.get('qtyOrdered')?.hasError('required')">
                             Quantity is required!
                         </mat-error>

@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { LocationService } from 'src/app/_services/location.service';
 
@@ -10,7 +12,9 @@ import { LocationService } from 'src/app/_services/location.service';
     styleUrls: ['./create-customer.component.css']
 })
 export class CreateCustomerComponent implements OnInit {
-
+    listOfCategories = [];
+    options: Location[] = [];
+    filteredOptions: Observable<Location[]>;
     customerForm: FormGroup;
     locationForm: FormGroup;
     customerUpdateData: any;
@@ -18,7 +22,7 @@ export class CreateCustomerComponent implements OnInit {
     errorMsg: any;
     citiesList: any;
 
-    constructor(private customerService: CustomerService, private location: LocationService,
+    constructor(private customerService: CustomerService, private locationService: LocationService,
         public dialogRef: MatDialogRef<CreateCustomerComponent>,
         @Inject(MAT_DIALOG_DATA) private data) {
         this.customerUpdateData = data;
@@ -39,16 +43,16 @@ export class CreateCustomerComponent implements OnInit {
             this.customerForm.controls['customerName'].setValue(this.customerUpdateData.customerName);
             this.customerForm.controls['gstIn'].setValue(this.customerUpdateData.gstIn);
             this.customerForm.controls['phoneNumber'].setValue(this.customerUpdateData.phoneNumber);
-            this.customerForm.controls['cityName'].setValue(this.customerUpdateData.location);
+            this.customerForm.controls['cityName'].setValue(this.customerUpdateData.location.cityName);
         }
     }
 
     closeModal(): void {
-            this.dialogRef.close();
+        this.dialogRef.close();
     }
 
     ngOnInit(): void {
-        this.getlocationList();
+        this.fetchData();
     }
 
     onSubmit() {
@@ -62,10 +66,17 @@ export class CreateCustomerComponent implements OnInit {
     }
 
     saveCustomer() {
+        const selectedCategoryName = this.customerForm.controls.cityName.value;
+        let location = this._findCategory(selectedCategoryName);
+
+        if (location == undefined) {
+            location = { 'cityName': selectedCategoryName };
+        }
+
         let data = {
             customerName: this.customerForm.controls.customerName.value,
             gstIn: this.customerForm.controls.gstIn.value,
-            location: this.customerForm.controls.cityName.value,
+            location,
             phoneNumber: this.customerForm.controls.phoneNumber.value,
         };
 
@@ -81,11 +92,18 @@ export class CreateCustomerComponent implements OnInit {
     }
 
     updateCustomer() {
+        const selectedCategoryName = this.customerForm.controls.cityName.value;
+        let location = this._findCategory(selectedCategoryName);
+
+        if (location == undefined) {
+            location = { 'cityName': selectedCategoryName };
+        }
+
         let data = {
             id: this.customerUpdateData?.id,
             customerName: this.customerForm.controls.customerName.value,
             gstIn: this.customerForm.controls.gstIn.value,
-            location: this.customerForm.controls.cityName.value,
+            location,
             phoneNumber: this.customerForm.controls.phoneNumber.value,
         };
 
@@ -104,9 +122,31 @@ export class CreateCustomerComponent implements OnInit {
         }, error => console.log(error));
     }
 
-    getlocationList() {
-        this.location.getLocationList().subscribe(res => {
-            this.citiesList = res;
+    fetchData() {
+        this.locationService.getLocationList().subscribe(data => {
+            //this.citiesList = res;
+            this.listOfCategories = data;
+            this._valueChangesListner();
         });
+    }
+
+    private _filter(value: string): Location[] {
+        if (!value) {
+            return this.listOfCategories;
+        }
+        const filterValue = value.toLowerCase();
+        const supplierList = this.listOfCategories.filter(option => option.cityName.toLowerCase().includes(filterValue))
+        return supplierList;
+    }
+
+    private _findCategory(categoryName: string) {
+        return this.listOfCategories.find(option => option?.cityName === categoryName);
+    }
+
+    private _valueChangesListner() {
+        this.filteredOptions = this.customerForm.controls['cityName'].valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value))
+        );
     }
 }

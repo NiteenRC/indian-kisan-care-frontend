@@ -13,7 +13,7 @@ import {CreateSupplierComponent} from '../create-supplier/create-supplier.compon
 })
 export class SupplierListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    displayedColumns: string[] = ['supplierName', 'phoneNumber', 'company', 'location', 'GSTIN', 'id'];
+    displayedColumns: string[] = ['supplierName', 'phoneNumber', 'location', 'GSTIN', 'id'];
     dataSource;
 
     constructor(public dialog: MatDialog, private supplierService: SupplierService) {

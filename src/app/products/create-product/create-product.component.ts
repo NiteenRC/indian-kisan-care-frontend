@@ -27,8 +27,7 @@ export class CreateProductComponent implements OnInit {
     citiesList: any;
     companies: any;
 
-    constructor(private location: LocationService,
-        private productService: ProductService,
+    constructor(private productService: ProductService,
         private categoryService: CategoryService,
         public dialogRef: MatDialogRef<CreateProductComponent>,
         @Inject(MAT_DIALOG_DATA) private data) {
@@ -121,7 +120,12 @@ export class CreateProductComponent implements OnInit {
 
     updateProduct() {
         const selectedCategoryName = this.productForm.controls.categoryName.value;
-        const category = this._findCategory(selectedCategoryName);
+        let category = this._findCategory(selectedCategoryName);
+
+        if (category == undefined) {
+            category = { 'categoryName': selectedCategoryName };
+        }
+
         let data = {
             id: this.productUpdateData.id,
             productName: this.productForm.controls.productName.value,

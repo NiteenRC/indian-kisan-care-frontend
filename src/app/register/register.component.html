@@ -1,7 +1,7 @@
 <div class="middle" *ngIf="showMsg">
     <div class="col-xs-6">
         <p class="alert alert-success">
-            <strong>Sales Order Successfully created!!</strong>
+            <strong>User added Successfully!!</strong>
         </p>
     </div>
 </div>
@@ -12,7 +12,16 @@
                 <h1 style="text-align: center;">Registration</h1>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Role</mat-label>
+                                    <mat-select formControlName="role">
+                                        <mat-option value="admin">Admin</mat-option>
+                                        <mat-option value="user">User</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </p>
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 250px;">
                                     <mat-label>Username</mat-label>
@@ -23,29 +32,6 @@
                                 <mat-form-field appearance="legacy" style="width: 250px;">
                                     <mat-label>Password</mat-label>
                                     <input matInput formControlName="password" required>
-                                </mat-form-field>
-                            </p>
-                            <p style="text-align: center;">
-                                <mat-form-field appearance="legacy" style="width: 250px;">
-                                    <mat-label>Email</mat-label>
-                                    <input matInput formControlName="email" required>
-                                </mat-form-field>
-                            </p>
-                        </div>
-                        <div class="col-6">
-                            <p style="text-align: center;">
-                                <mat-form-field appearance="legacy" style="width: 250px;">
-                                    <mat-label>Phone number</mat-label>
-                                    <input matInput formControlName="phoneNumber">
-                                </mat-form-field>
-                            </p>
-                            <p style="text-align: center;">
-                                <mat-form-field appearance="legacy" style="width: 250px;">
-                                    <mat-label>Role</mat-label>
-                                    <mat-select formControlName="role">
-                                        <mat-option value="admin">Admin</mat-option>
-                                        <mat-option value="user">User</mat-option>
-                                    </mat-select>
                                 </mat-form-field>
                             </p>
                         </div>

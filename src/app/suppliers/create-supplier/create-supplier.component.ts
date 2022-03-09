@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { CompanyService } from 'src/app/_services/company.service';
 import { LocationService } from 'src/app/_services/location.service';
 import { SupplierService } from 'src/app/_services/supplier.service';
@@ -11,7 +13,9 @@ import { SupplierService } from 'src/app/_services/supplier.service';
     styleUrls: ['./create-supplier.component.css']
 })
 export class CreateSupplierComponent implements OnInit {
-
+    listOfCategories = [];
+    options: Location[] = [];
+    filteredOptions: Observable<Location[]>;
     supplierForm: FormGroup;
     locationForm: FormGroup;
     supplierUpdateData: any;
@@ -20,7 +24,7 @@ export class CreateSupplierComponent implements OnInit {
     citiesList: any;
     companies: any;
 
-    constructor(private supplierService: SupplierService, private location: LocationService,
+    constructor(private supplierService: SupplierService, private locationService: LocationService,
         private companyService: CompanyService,
         public dialogRef: MatDialogRef<CreateSupplierComponent>,
         @Inject(MAT_DIALOG_DATA) private data) {
@@ -30,7 +34,7 @@ export class CreateSupplierComponent implements OnInit {
             cityName: new FormControl(null),
             supplierName: new FormControl(null, [Validators.required]),
             gstIn: new FormControl(null),
-            companyName: new FormControl(null),
+            //companyName: new FormControl(null),
             phoneNumber: new FormControl(null),
         });
 
@@ -43,8 +47,8 @@ export class CreateSupplierComponent implements OnInit {
             this.supplierForm.controls['supplierName'].setValue(this.supplierUpdateData.supplierName);
             this.supplierForm.controls['gstIn'].setValue(this.supplierUpdateData.gstIn);
             this.supplierForm.controls['phoneNumber'].setValue(this.supplierUpdateData.phoneNumber);
-            this.supplierForm.controls['cityName'].setValue(this.supplierUpdateData.location);
-            this.supplierForm.controls['companyName'].setValue(this.supplierUpdateData.company);
+            this.supplierForm.controls['cityName'].setValue(this.supplierUpdateData.location.cityName);
+            //this.supplierForm.controls['companyName'].setValue(this.supplierUpdateData.company);
         }
     }
 
@@ -54,7 +58,7 @@ export class CreateSupplierComponent implements OnInit {
 
     ngOnInit(): void {
         this.getCompanyList();
-        this.getlocationList();
+        this.fetchData();
     }
 
     onSubmit() {
@@ -68,11 +72,18 @@ export class CreateSupplierComponent implements OnInit {
     }
 
     saveSupplier() {
+        const selectedCategoryName = this.supplierForm.controls.cityName.value;
+        let location = this._findCategory(selectedCategoryName);
+
+        if (location == undefined) {
+            location = { 'cityName': selectedCategoryName };
+        }
+
         let data = {
             supplierName: this.supplierForm.controls.supplierName.value,
             gstIn: this.supplierForm.controls.gstIn.value,
-            location: this.supplierForm.controls.cityName.value,
-            company: this.supplierForm.controls.companyName.value,
+            location,
+            //company: this.supplierForm.controls.companyName.value,
             phoneNumber: this.supplierForm.controls.phoneNumber.value,
         };
 
@@ -88,13 +99,20 @@ export class CreateSupplierComponent implements OnInit {
     }
 
     updateSupplier() {
+        const selectedCategoryName = this.supplierForm.controls.cityName.value;
+        let location = this._findCategory(selectedCategoryName);
+
+        if (location == undefined) {
+            location = { 'cityName': selectedCategoryName };
+        }
+
         let data = {
             id: this.supplierUpdateData?.id,
             supplierName: this.supplierForm.controls.supplierName.value,
             gstIn: this.supplierForm.controls.gstIn.value,
-            location: this.supplierForm.controls.cityName.value,
+            location,
             phoneNumber: this.supplierForm.controls.phoneNumber.value,
-            company: this.supplierForm.controls.companyName.value,
+            //company: this.supplierForm.controls.companyName.value,
         };
 
         this.supplierService.updateSupplier(data).subscribe(res => {
@@ -107,15 +125,37 @@ export class CreateSupplierComponent implements OnInit {
         })
     }
 
-    getlocationList() {
-        this.location.getLocationList().subscribe(res => {
-            this.citiesList = res;
-        });
-    }
-
     getCompanyList() {
         this.companyService.getCompanyList().subscribe(res => {
             this.companies = res;
         });
+    }
+
+    fetchData() {
+        this.locationService.getLocationList().subscribe(data => {
+            //this.citiesList = res;
+            this.listOfCategories = data;
+            this._valueChangesListner();
+        });
+    }
+
+    private _filter(value: string): Location[] {
+        if (!value) {
+            return this.listOfCategories;
+        }
+        const filterValue = value.toLowerCase();
+        const supplierList = this.listOfCategories.filter(option => option.cityName.toLowerCase().includes(filterValue))
+        return supplierList;
+    }
+
+    private _findCategory(categoryName: string) {
+        return this.listOfCategories.find(option => option?.cityName === categoryName);
+    }
+
+    private _valueChangesListner() {
+        this.filteredOptions = this.supplierForm.controls['cityName'].valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value))
+        );
     }
 }

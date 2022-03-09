@@ -33,6 +33,7 @@ export class UpdateBankInfoComponent implements OnInit {
       'panNo': new FormControl(null),
       'brandName': new FormControl(null),
       'phoneNumber': new FormControl(null),
+      'email': new FormControl(null),
     });
   }
 
@@ -83,6 +84,7 @@ export class UpdateBankInfoComponent implements OnInit {
       "gstNo": this.registerForm.controls.gstNo.value ? this.registerForm.controls.gstNo.value.toUpperCase() : '',
       "panNo": this.registerForm.controls.panNo.value ? this.registerForm.controls.panNo.value.toUpperCase() : '',
       "brandName": this.registerForm.controls.brandName.value ? this.registerForm.controls.brandName.value.toUpperCase() : '',
+      "email": this.registerForm.controls.email.value,
     };
 
     this.bankService.createBank(data).subscribe(

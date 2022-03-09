@@ -17,12 +17,15 @@
                 <input formControlName="gstIn" matInput placeholder="GSTIN">
             </mat-form-field>
         </div>
-        <div class="title-header">
+        <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <mat-select formControlName="cityName" placeholder="City">
-                    <mat-option *ngFor="let location of citiesList" [value]="location">{{location.cityName}}
+                <input formControlName="cityName" [matAutocomplete]="supplierAuto" aria-label="Number" matInput
+                    placeholder="City" type="text">
+                <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option?.cityName">
+                        {{option?.cityName}}
                     </mat-option>
-                </mat-select>
+                </mat-autocomplete>
             </mat-form-field>
         </div>
         <div class="title-header">

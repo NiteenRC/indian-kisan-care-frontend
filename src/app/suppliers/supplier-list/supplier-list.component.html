@@ -23,11 +23,6 @@
             <td *matCellDef="let element" mat-cell> {{element.gstIn}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="company">
-            <th *matHeaderCellDef mat-header-cell> Company</th>
-            <td *matCellDef="let element" mat-cell> {{element.company?.companyName}} </td>
-        </ng-container>
-
         <ng-container matColumnDef="location">
             <th *matHeaderCellDef mat-header-cell> Location</th>
             <td *matCellDef="let element" mat-cell> {{element.location?.cityName}} </td>

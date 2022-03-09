@@ -14,19 +14,15 @@
                 <input matInput placeholder="GSTIN" formControlName="gstIn">
             </mat-form-field>
         </div>
-        <div class="title-header">
+        <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <mat-select placeholder="City" formControlName="cityName">
-                    <mat-option [value]="location" *ngFor="let location of citiesList">{{location.cityName}}
+                <input formControlName="cityName" [matAutocomplete]="supplierAuto" aria-label="Number" matInput
+                    placeholder="City" type="text">
+                <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option?.cityName">
+                        {{option?.cityName}}
                     </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="title-header">
-            <mat-form-field class="forms-fildes">
-                <mat-select placeholder="company" formControlName="companyName">
-                    <mat-option [value]="company" *ngFor="let company of companies">{{company.companyName}}</mat-option>
-                </mat-select>
+                </mat-autocomplete>
             </mat-form-field>
         </div>
         <div class="title-header">

@@ -59,7 +59,13 @@
                                 </mat-form-field>
                             </p>
 
-                            <div class="form-group">
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email" required>
+                                </mat-form-field>
+                            </p>
+                            <!-- <div class="form-group">
                                 <input type="text" id="image" placeholder="Search Image" [(ngModel)]="image" name="image" />
                                 <input type="button" (click)="viewImage()" value="View Image" class="btn1"> 
                             </div>
@@ -72,26 +78,21 @@
                                 <output *ngIf=successResponse class="success"><b>{{successResponse}}</b></output>
                             </div>
                             <br>
-
                             <div *ngIf=dbImage>
                                 <img [src]="dbImage">
-                            </div>
+                            </div>-->
                         </div>
-
                     </div>
                 </div>
                 <div class="button-container">
                     <span style="color: red;">{{errorMessage}}</span>
-
                 </div>
                 <div class="button-container">
-
                     <button class="btn btn-primary" type="submit"
                         style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
                     </button>
                 </div>
             </form>
-
         </mat-card>
     </div>
 </div>
