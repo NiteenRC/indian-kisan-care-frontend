@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('username', data.username);
                 this.roles = this.tokenStorage.getUser().roles;
                 this.router.navigate(['dashboard/home']);
-
+                localStorage.setItem('bankData', JSON.stringify(data));
                 AppComponent.role_super_admin = this.roles.includes('ROLE_SUPER_ADMIN');
                 AppComponent.role_admin = this.roles.includes('ROLE_ADMIN');
                 AppComponent.role_user = this.roles.includes('ROLE_USER');
