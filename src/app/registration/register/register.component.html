@@ -1,0 +1,51 @@
+<div class="middle" *ngIf="showMsg">
+    <div class="col-xs-6">
+        <p class="alert alert-success">
+            <strong>User added Successfully!!</strong>
+        </p>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="">
+        <mat-card style="width: 90%;">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <h1 style="text-align: center;">Registration</h1>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Role</mat-label>
+                                    <mat-select formControlName="role">
+                                        <mat-option value="admin">Admin</mat-option>
+                                        <mat-option value="user">User</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Username</mat-label>
+                                    <input matInput formControlName="username" required>
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput formControlName="password" required>
+                                </mat-form-field>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <span style="color: red;"> {{errorMessage}}</span>
+                </div>
+                <div class="button-container">
+                    <button class="btn btn-primary" type="submit"
+                        style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
+                    </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>

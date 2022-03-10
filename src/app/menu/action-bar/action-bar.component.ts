@@ -56,20 +56,11 @@ export class ActionBarComponent implements OnInit{
     if (item == "Product") {
       this.router.navigate(['dashboard/products']);
     }
-    if (item == "Category") {
-      this.router.navigate(['dashboard/categories-list']);
-    }
     if (item == "Supplier") {
       this.router.navigate(['dashboard/suppliers-list']);
     }
     if (item == "Customer") {
       this.router.navigate(['dashboard/customers-list']);
-    }
-    if (item == "Company") {
-      this.router.navigate(['dashboard/companies-list']);
-    }
-    if (item == "Location") {
-      this.router.navigate(['dashboard/locations-list']);
     }
   }
 
@@ -169,16 +160,10 @@ const SUMMARY: MasterNode[] = [
 
 const TREE_DATA: MasterNode[] = [
   {
-    name: 'ADD DATA',
+    name: 'DATA',
     children: [
       {
         name: 'Product',
-      }, {
-        name: 'Category',
-      }, {
-        name: 'Location',
-      }, {
-        name: 'Company',
       }, {
         name: 'Supplier',
       }, {

@@ -1,33 +1,33 @@
 import { TableComponent } from './ui_modules/table/table.component';
 import { SalesTableComponent } from './ui_modules/table/sales-table.component';
-import { BalanceSheetComponent } from './balance-sheet/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
-import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 
-import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
-import { RegisterComponent } from './register/register.component';
+import { PurchaseOrderComponent } from './purchase/purchase-order/purchase-order.component';
+import { RegisterComponent } from './registration/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AuthGuard } from './auth.guard';
-import { CustomersListComponent } from './customers/customers-list/customers-list.component';
-import { CompanyListComponent } from './companies/company-list/company-list.component';
-import { CategoryListComponent } from './categories/category-list/category-list.component';
-import { SupplierListComponent } from './suppliers/supplier-list/supplier-list.component';
-import { LocationListComponent } from './locations/location-list/location-list.component';
-import { CreateLocationComponent } from './locations/create-location/create-location.component';
-import { CreateCategoryComponent } from './categories/create-category/create-category.component';
-import { CreateSupplierComponent } from './suppliers/create-supplier/create-supplier.component';
-import { CreateCustomerComponent } from './customers/create-customer/create-customer.component';
+import { CustomersListComponent } from './data/customers/customers-list/customers-list.component';
+import { CompanyListComponent } from './data/companies/company-list/company-list.component';
+import { CategoryListComponent } from './data/categories/category-list/category-list.component';
+import { SupplierListComponent } from './data/suppliers/supplier-list/supplier-list.component';
+import { LocationListComponent } from './data/locations/location-list/location-list.component';
+import { CreateLocationComponent } from './data/locations/create-location/create-location.component';
+import { CreateCategoryComponent } from './data/categories/create-category/create-category.component';
+import { CreateSupplierComponent } from './data/suppliers/create-supplier/create-supplier.component';
+import { CreateCustomerComponent } from './data/customers/create-customer/create-customer.component';
 import { HomeComponent } from './home/home.component';
-import { ProductListComponent } from './products/product-list/product-list.component';
-import { SalesReportComponent } from './reports/sales-report/sales-report.component';
-import { PurchaseReportComponent } from './reports/purchase-report/purchase-report.component';
+import { ProductListComponent } from './data/products/product-list/product-list.component';
+import { PurchaseReportComponent } from './purchase/purchase-report/purchase-report.component';
 import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
 import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.component';
 import { StockBookComponent } from './reports/stock-book/stock-book.component';
-import { UpdateBankInfoComponent } from './update-bank-info/update-bank-info.component';
-import { LoginComponent } from './login/login.component';
+import { UpdateBankInfoComponent } from './registration/update-bank-info/update-bank-info.component';
+import { LoginComponent } from './registration/login/login.component';
+import { BalanceSheetComponent } from './sales/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
+import { SalesOrderComponent } from './sales/salesoder/sales-order.component';
+import { SalesReportComponent } from './sales/sales-report/sales-report.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

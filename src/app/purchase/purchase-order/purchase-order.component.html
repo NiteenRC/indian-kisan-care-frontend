@@ -1,0 +1,254 @@
+<div class="middle" *ngIf="showMsg">
+    <div class="col-xs-6">
+        <p class="alert alert-success">
+            <strong>Purchase Order Successfully created!!</strong>
+        </p>
+    </div>
+</div>
+<form [formGroup]="purchaserOrderForm">
+    <div class="d-flex">
+        <div class="form-group col-3">
+            <mat-form-field class="example-full-width">
+                <mat-label>Product</mat-label>
+                <input type="text" #searchProduct aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
+                <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedProduct($event.option.value)">
+                    <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
+                        {{product.productName}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="fill" style="width:100%">
+                <mat-label>Product</mat-label>
+                <mat-select (selectionChange)="selectedProduct($event.value)">
+                    <mat-option *ngFor="let product of products" [value]="product.productName">
+                        {{product.productName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+        </div>
+
+        <div class="form-group col-3">
+            <mat-form-field class="example-full-width">
+                <mat-label>Supplier</mat-label>
+                <input type="text" aria-label="Supplier" matInput formControlName="supplierName" [matAutocomplete]="supplierAuto">
+                <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedSupplier($event.option.value)">
+                    <mat-option *ngFor="let supplier of filteredSuppliers | async" [value]="supplier.supplierName">
+                        {{supplier.supplierName}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group col-2">
+            <mat-form-field class="forms-fildes">
+                <mat-label>Phone number</mat-label>
+                <input type="text" aria-label="Motor Vehicle no" matInput formControlName="motorVehicleNo">
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="form-group col-2">
+            <mat-label>Bill date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="billDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1" ng-model-options="{timezone: 'utc'}">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-2">
+            <mat-label>Due date</mat-label>
+            <input matInput [matDatepicker]="picker2" [min]="minStartDate" formControlName="dueDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2" ng-model-options="{timezone: 'utc'}">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+    </div>
+    <div class="mat-elevation-z8 purchase-order-container">
+        <table formArrayName="purchaseOrderDetail" [dataSource]="purchaseOrderDetailData" mat-table>
+            <ng-container matColumnDef="sno">
+                <th *matHeaderCellDef mat-header-cell class="text-left pr-4">S. No</th>
+                <td *matCellDef="let element; let i = index;" mat-cell class="text-right pr-4"> {{i + 1}}. </td>
+                <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
+                <td *matCellDef="let element; let i = index;" mat-cell>
+                    <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product">
+                        <mat-icon class="delete-button">delete</mat-icon>
+                        <!-- <img src="../../assets/delete.png" class="home-icon" alt="" width="25px" height="25px"> -->
+                    </button>
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="item">
+                <th *matHeaderCellDef mat-header-cell>Item & Description</th>
+                <td *matCellDef="let element" mat-cell>{{element.get('product').value?.productName}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+                <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Purchase Price</th>
+                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
+                    <mat-form-field floatLabel="never">
+                        <input matInput type="number" formControlName="price" required class="text-right">
+                        <span matPrefix>₹&nbsp;</span>
+                        <mat-error *ngIf="element.get('price')?.hasError('required')">
+                            Price is Required!
+                        </mat-error>
+                        <mat-error *ngIf="element.get('price')?.hasError('min')">
+                            Price more than zero
+                        </mat-error>
+                        <mat-error *ngIf="element.get('price')?.hasError('max')">
+                            Price can't be greater than 10 lakhs
+                        </mat-error>
+                    </mat-form-field>
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+                <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Quantity</th>
+                <td *matCellDef="let element; let index = index" mat-cell class="text-right pr-4" [formGroupName]="index">
+                    <mat-form-field floatLabel="never" class="text-right">
+                        <input matInput type="number"  formControlName="qtyOrdered" required>
+                        <mat-error *ngIf="element.get('qtyOrdered')?.hasError('required')">
+                            Quantity is required!
+                        </mat-error>
+                        <mat-error *ngIf="element.get('qtyOrdered')?.hasError('min')">
+                            Quantity more than zero
+                        </mat-error>
+                        <mat-error *ngIf="element.get('qtyOrdered')?.hasError('max')">
+                            Quantity can't be greater than 10 thousand
+                        </mat-error>
+                    </mat-form-field>
+                </td>
+                <td mat-footer-cell *matFooterCellDef class="text-right pr-5">
+                    <h4><b>{{ totalQty }}</b></h4>
+                </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="amount">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Amount</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value | number : '1.0-2'}}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="taxType">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">
+          CGST/SGST <br> IGST Rate
+        </th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.get('product')?.value.gst}}%</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="taxAmount">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Tax Amount</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100 | number : '1.0-2'}}
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>-->
+
+            <ng-container matColumnDef="totalAmount">
+                <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Amount</th>
+                <td *matCellDef="let element" mat-cell class="text-right pr-4">
+                    <!--₹{{element.get('price')?.value * element.get('qtyOrdered')?.value + element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100 | number : '1.0-2'}} -->
+                    ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value | number : '1.0-2'}}
+                </td>
+                <td mat-footer-cell *matFooterCellDef class="text-right pr-4">
+                    <h4><b>{{ totalAmount | currency:'INR' }}</b></h4>
+                </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+
+        <div class="total-container">
+            <div>
+                <label for="name">Current Balance : </label>
+                <span class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR' }}</span>
+            </div>
+            <div>
+                <label for="name">Previous Balance :</label>
+                <span class="amount-read-only">{{previousBalance | currency:'INR' }}</span>
+            </div>
+            <div>
+                <label for="name">Total Pay Balance :</label>
+                <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
+            </div>
+            <div>
+                <label for="name">Amount Paid : </label>
+                <input class="amount-edit" type="number" formControlName="amountPaid" required>
+            </div>
+            <br>
+
+            <button type="submit" class="btn btn-primary" style="width: 12%;margin-left: 5px;" [disabled]="singleClickDisable && !purchaserOrderForm.valid" (click)="save(false, content)">PLACE
+                ORDER</button>
+            <button type="submit" class="btn btn-success" style="width: 18%;margin-left: 5px;" [disabled]="singleClickDisable" (click)="save(true, content)">PLACE ORDER & PRINT</button>
+            <button class="btn btn-warning" style="width: 10%;margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
+        </div>
+    </div>
+</form>
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title modal-title-custom" id="modal-basic-title">Order Summary</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p style="font-weight: 500;">Please confirm below details before placing order</p>
+
+        <div style="width: 210px;margin: 25px 0px;">
+            <div class="custom-row">
+                <p>Order Status</p>
+                <p><span class="text-primary" style="color: green !important">{{purchaseOrder?.status}}</span></p>
+            </div>
+            <div class="custom-row">
+                <p>Amount Paid</p>
+                <p>₹{{purchaseOrder?.amountPaid}}</p>
+            </div>
+            <div class="custom-row">
+                <p>Balance amount</p>
+                <p>₹{{getTotalBalance()}}</p>
+            </div>
+        </div>
+
+        <p>
+            <span class="text-danger">Note: Order placed can't be deleted later!</span>
+        </p>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #modalContent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title modal-title-custom" id="modal-basic-title">{{popupTitle}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>{{popupsubtitle}}</strong></p>
+        <p>{{popupDescription}}</p>
+        <div [innerHTML]="popupMarkup"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-primary" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>

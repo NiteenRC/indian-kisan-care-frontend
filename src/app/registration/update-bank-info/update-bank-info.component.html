@@ -1,0 +1,106 @@
+<div class="col-md-12">
+    <div class="">
+        <!-- <img class="profile-img-card" id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
+        <mat-card style="width: 90%;">
+            <form [formGroup]="registerForm" (submit)="onSubmit()">
+                <h1 style="text-align: center;">Update Bank Details</h1>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>Bank name</mat-label>
+                                    <input matInput formControlName="bankName">
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>Account number</mat-label>
+                                    <input matInput formControlName="accountNo">
+                                </mat-form-field>
+                            </p>
+
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>IFSC code</mat-label>
+                                    <input matInput formControlName="ifscCode">
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>Branch name</mat-label>
+                                    <input matInput formControlName="branchName">
+                                </mat-form-field>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>PAN number</mat-label>
+                                    <input matInput formControlName="panNo">
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>GST number</mat-label>
+                                    <input matInput formControlName="gstNo">
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>Brand name</mat-label>
+                                    <input matInput formControlName="brandName">
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Phone number</mat-label>
+                                    <input matInput formControlName="phoneNumber">
+                                </mat-form-field>
+                            </p>
+
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email" required>
+                                </mat-form-field>
+                            </p>
+                            <!-- <div class="form-group">
+                                <input type="text" id="image" placeholder="Search Image" [(ngModel)]="image" name="image" />
+                                <input type="button" (click)="viewImage()" value="View Image" class="btn1"> 
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="file" (change)="onImageUpload($event)">
+                                <input type="button" (click)="imageUploadAction()" value="Upload Image" class="btn1">
+                            </div>
+                            <div>
+                                <output *ngIf=successResponse class="success"><b>{{successResponse}}</b></output>
+                            </div>
+                            <br>
+                            <div *ngIf=dbImage>
+                                <img [src]="dbImage">
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <span style="color: red;">{{errorMessage}}</span>
+                </div>
+                <div class="button-container">
+                    <button class="btn btn-primary" type="submit"
+                        style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
+                    </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>
+
+<div class="middle" *ngIf="showMsg">
+    <div class="col-xs-6">
+        <p class="alert alert-success">
+            <strong>Bank details Successfully updated!!</strong>
+        </p>
+    </div>
+</div>

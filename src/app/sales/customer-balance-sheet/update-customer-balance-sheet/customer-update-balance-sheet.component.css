@@ -1,0 +1,9 @@
+.title {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.addproduct-container {
+    display: flex;
+    justify-content: center;
+}
