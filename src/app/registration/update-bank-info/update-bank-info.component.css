@@ -4,3 +4,7 @@
     top: 10px;
     transform: translate(-40%, 0%)
 }
+.bank-container{
+    display: flex;
+    justify-content: center;
+}

@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
     errorMessage = '';
     registerForm: FormGroup;
     favoriteSeason: string;
+    hide = true;
     seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
     constructor(private authService: AuthService, private router: Router) {
     }
@@ -57,7 +58,7 @@ export class RegisterComponent implements OnInit {
                 }, 2000);
             },
             err => {
-                this.errorMessage = err.error.error;
+                this.errorMessage = err.error.message;
                 this.isSignUpFailed = true;
             }
         );

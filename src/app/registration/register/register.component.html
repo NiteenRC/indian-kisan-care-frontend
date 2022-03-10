@@ -6,10 +6,13 @@
     </div>
 </div>
 <div class="col-md-12">
-    <div class="">
-        <mat-card style="width: 90%;">
+    <div class="registration-container">
+        <mat-card style="width: 70%;box-shadow: rgb(0 0 0 / 10%) 0px 3px 7px 4px;padding: 0px;">
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <h1 style="text-align: center;">Registration</h1>
+               
+                <div style="background: #5999d2;">
+                    <h1 style="text-align: center;line-height: 40px;color: white;">Registration</h1>
+                </div>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
@@ -31,7 +34,11 @@
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 250px;">
                                     <mat-label>Password</mat-label>
-                                    <input matInput formControlName="password" required>
+                                    <input matInput formControlName="password" required [type]="hide ? 'password' : 'text'">
+                                    <button mat-icon-button matSuffix (click)="hide = !hide"
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
                                 </mat-form-field>
                             </p>
                         </div>
@@ -42,7 +49,7 @@
                 </div>
                 <div class="button-container">
                     <button class="btn btn-primary" type="submit"
-                        style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
+                        style="width: 25%;margin-left: 5px;border-radius: 10px;margin-bottom: 20px;">Save
                     </button>
                 </div>
             </form>

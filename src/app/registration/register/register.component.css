@@ -52,4 +52,7 @@ label,input{
   .example-radio-button {
     margin: 5px;
   }
-  
+  .registration-container{
+      display: flex;
+      justify-content: center;
+  }

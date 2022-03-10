@@ -57,4 +57,12 @@ label {
     opacity: 1;
   }
  
-  
+  .background-image{
+    background-image: url("/assets/images/logo.jpg") ;
+    min-height: 524px;
+    background-repeat:no-repeat
+}
+.login-card{
+  display: flex;
+  justify-content: center;
+}

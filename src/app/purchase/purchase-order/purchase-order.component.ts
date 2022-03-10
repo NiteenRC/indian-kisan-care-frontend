@@ -112,7 +112,7 @@ export class PurchaseOrderComponent implements OnInit {
     this.popupDescription = popupDescription;
     this.popupMarkup = popupMarkup;
 
-    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
     }, (reason) => {
     });
   }
