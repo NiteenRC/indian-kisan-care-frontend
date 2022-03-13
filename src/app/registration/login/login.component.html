@@ -1,50 +1,47 @@
 <div class="login-container" style="padding:'50px 100px';background:#c5c5cd">
     <div class="container-fluid">
         <div class="row" style="padding:'0px';background:#ffffff">
-            <div class="col-6 background-image" >
+            <div class="col-6 background-image">
             </div>
             <div class="col-6" style="background-color: #3ab397;">
                 <div class="login-card">
-                    <h1 style="text-align: center;margin-top: 50px;color: white;font-weight: 700;">Wellcome to xxxxxxxxx
+                    <h1 style="text-align: center;margin-top: 50px;color: white;font-weight: 700;">Welcome to Smart
+                        Accouting Book
                     </h1>
                 </div>
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="login-card">
-                    <mat-card style="margin-top: 50px;width: 75%;">
+                        <mat-card style="margin-top: 50px;width: 75%;">
 
-                        <div style="text-align: center;">
-                            <mat-form-field appearance="legacy" style="width: 251px;">
-                                <mat-label>Username</mat-label>
-                                <input matInput formControlName="username" required>
-                                <mat-icon matPrefix style="width: 1.3em;">person</mat-icon>
-                            </mat-form-field>
-                            <br>
-                        </div>
-                        <div style="text-align: center;">
-                            <mat-form-field appearance="legacy" style="width: 251px;">
-                                <mat-label>Password</mat-label>
-                                <mat-icon matPrefix style="width: 1.3em;">lock</mat-icon>
-                                <input matInput formControlName="password" required [type]="hide ? 'password' : 'text'">
-                                <!-- <button mat-icon-button matSuffix (click)="hide = !hide"
+                            <div style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>Username</mat-label>
+                                    <input matInput formControlName="username" required>
+                                    <mat-icon matPrefix style="width: 1.3em;">person</mat-icon>
+                                </mat-form-field>
+                                <br>
+                            </div>
+                            <div style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>Password</mat-label>
+                                    <mat-icon matPrefix style="width: 1.3em;">lock</mat-icon>
+                                    <input matInput formControlName="password" required
+                                        [type]="hide ? 'password' : 'text'">
+                                    <!-- <button mat-icon-button matSuffix (click)="hide = !hide"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button> -->
-                            </mat-form-field>
-                            <br>
-                        </div>
-                        <div class="button-container">
-                            <span style="color: red;text-align: center;">{{errorMessage}}</span>
-                        </div>
-                        <div class="button-container">
-                            <button class="btn btn-primary" type="submit"
-                                style="width: 50%;margin-left: 5px;border-radius: 10px;background-color: #3ab397;margin-bottom: 20px;">Login
-                            </button>
-                        </div>
+                                </mat-form-field>
+                                <br>
+                            </div>
+                            <div class="button-container">
+                                <span style="color: red;text-align: center;">{{errorMessage}}</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="btn btn-primary" type="submit"
+                                    style="width: 50%;margin-left: 5px;border-radius: 10px;background-color: #3ab397;margin-bottom: 20px;">Login
+                                </button>
+                            </div>
 
-                    </mat-card>
-</div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                        </mat-card>
+                    </div>

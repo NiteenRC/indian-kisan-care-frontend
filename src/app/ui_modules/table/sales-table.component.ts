@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { BankService } from 'src/app/_services/bank.service.js';
 import { TokenStorageService } from 'src/app/_services/token-storage.service.js';
 import { numberInWords } from '../../utils/numToWords.js';
 @Component({
@@ -14,8 +15,10 @@ export class SalesTableComponent implements OnInit {
   totalQty: number = 0;
   amountInWords: string = '';
   user: any = null;
+  bankAccount: any;
 
-  constructor(private tokenStorageService: TokenStorageService, private httpClient : HttpClient) { }
+  constructor(private tokenStorageService: TokenStorageService, private httpClient : HttpClient,
+    private bankService: BankService) { }
 
   ngOnInit(): void {
     //this.viewImage();
@@ -34,6 +37,8 @@ export class SalesTableComponent implements OnInit {
     document.title = 'Tax Invoice';
     this._calculateTotals();
     this.user = this.tokenStorageService.getUser();
+
+    this.getBankDetails();
   }
 
   printPDF() {
@@ -75,5 +80,11 @@ export class SalesTableComponent implements OnInit {
           this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
         }
       );
+  }
+
+  getBankDetails() {
+    this.bankService.getBankDetails(1).subscribe(data => {
+      this.bankAccount = data;
+    });
   }
 }

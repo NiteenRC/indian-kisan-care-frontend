@@ -24,4 +24,8 @@ export class BankService {
     uploadImage(bank: Object): Observable<Object> {
         return this.http.post(`${baseUrl}/image`, bank);
     }
+
+    getBankDetails(id: number): Observable<any> {
+        return this.http.get(`${baseUrl}/${id}`);
+    }
 }

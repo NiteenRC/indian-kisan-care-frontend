@@ -18,23 +18,20 @@ export class UpdateBankInfoComponent implements OnInit {
   registerForm: FormGroup;
   isSuccessful = false;
   isSignUpFailed = false;
-  bankDetails:any;
+  bankDetails: any;
   favoriteSeason: string;
-  constructor(private bankService: BankService, private router: Router, private http: HttpClient) {
-
-    this.bankDetails = JSON.parse(localStorage.getItem('bankData'));
   
-   // this.registerForm.controls['bankName'].setValue(retrievedPerson.bankAccount.bankName);
-    console.log("bank Details"+JSON.stringify(this.bankDetails.bankAccount));
+  uploadedImage: File;
+  dbImage: any;
+  postResponse: any;
+  successResponse: string;
+  image: any;
+
+  constructor(private bankService: BankService, private http: HttpClient) {
   }
 
   ngOnInit() {
-
-   
-    // var retrievedPerson = JSON.parse(localStorage.getItem('bankData'));
-   
-    // this.registerForm.controls['bankName'].setValue(retrievedPerson.bankName);
-    // console.log("bank Details"+JSON.stringify(retrievedPerson));
+    this.getBankDetails();
 
     this.registerForm = new FormGroup({
       'bankName': new FormControl(null),
@@ -47,25 +44,24 @@ export class UpdateBankInfoComponent implements OnInit {
       'phoneNumber': new FormControl(null),
       'email': new FormControl(null),
     });
-
-    if(this.bankDetails.bankAccount!=null) {
-      this.registerForm.controls['bankName'].setValue(this.bankDetails.bankAccount.bankName);
-      this.registerForm.controls['branchName'].setValue(this.bankDetails.bankAccount.branchName);
-      this.registerForm.controls['accountNo'].setValue(this.bankDetails.bankAccount.accountNo);
-      this.registerForm.controls['ifscCode'].setValue(this.bankDetails.bankAccount.ifscCode);
-      this.registerForm.controls['gstNo'].setValue(this.bankDetails.bankAccount.gstNo);
-      this.registerForm.controls['brandName'].setValue(this.bankDetails.bankAccount.brandName);
-      this.registerForm.controls['phoneNumber'].setValue(this.bankDetails.bankAccount.phoneNumber);
-      this.registerForm.controls['panNo'].setValue(this.bankDetails.bankAccount.panNo);
-
-    }
   }
 
-  uploadedImage: File;
-  dbImage: any;
-  postResponse: any;
-  successResponse: string;
-  image: any;
+  getBankDetails() {
+    this.bankService.getBankDetails(1).subscribe(data => {
+      this.bankDetails = data;
+      if (this.bankDetails != null) {
+        this.registerForm.controls['bankName'].setValue(this.bankDetails.bankName);
+        this.registerForm.controls['branchName'].setValue(this.bankDetails.branchName);
+        this.registerForm.controls['accountNo'].setValue(this.bankDetails.accountNo);
+        this.registerForm.controls['ifscCode'].setValue(this.bankDetails.ifscCode);
+        this.registerForm.controls['gstNo'].setValue(this.bankDetails.gstNo);
+        this.registerForm.controls['brandName'].setValue(this.bankDetails.brandName);
+        this.registerForm.controls['phoneNumber'].setValue(this.bankDetails.phoneNumber);
+        this.registerForm.controls['panNo'].setValue(this.bankDetails.panNo);
+        this.registerForm.controls['email'].setValue(this.bankDetails.email);
+      }
+    });
+  }
 
   public onImageUpload(event) {
     this.uploadedImage = event.target.files[0];
@@ -128,14 +124,4 @@ export class UpdateBankInfoComponent implements OnInit {
       }
     );
   }
-
-
-
-
-
-
-
-
-
-
 }

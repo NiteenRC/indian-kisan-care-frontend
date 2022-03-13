@@ -17,11 +17,20 @@ export class NavigationBarComponent {
   admin = AppComponent.role_admin;
   user = AppComponent.role_user;
 
+  userType;
+
   constructor(public dialog: MatDialog, private auth: AuthService, private router: Router) {
   }
 
   ngOnInit() {
     this.username = localStorage.getItem('username')
+    if (this.super_admin === true) {
+      this.userType = 'Super';
+    } else if (this.admin === true) {
+      this.userType = 'Admin';
+    } else {
+      this.userType = 'User';
+    }
   }
 
   logout() {
@@ -32,7 +41,7 @@ export class NavigationBarComponent {
   openDialog() {
     this.router.navigate(['dashboard/register']);
   }
-  
+
   updateBankDetails() {
     this.router.navigate(['dashboard/updateBankDetails']);
   }

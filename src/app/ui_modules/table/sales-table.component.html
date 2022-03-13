@@ -8,23 +8,22 @@
                             <img [src]="dbImage" class="logo"
                             style="width: 70px; height: 90%">
                         </div> -->
-                        <img src="/assets/images/indian-kisan-care.png" class="logo"
-                            style="width: 10%; height: 10%">
+                        <img src="/assets/images/indian-kisan-care.png" class="logo" style="width: 10%; height: 10%">
                         <div style="text-align: center; width: 70%">
                             <div>
                                 <span class="text-sm text-grey-m2 align-middle font-weight-bold">
-                                    {{user?.bankAccount?.brandName}}
+                                    {{bankAccount?.brandName}}
                                 </span>
                             </div>
                             <div>
-                                <span class="text-sm text-grey-m2 align-middle">GST: {{user?.bankAccount?.gstNo}} | PAN:
-                                    {{user?.bankAccount?.panNo}}
+                                <span class="text-sm text-grey-m2 align-middle">GST: {{bankAccount?.gstNo}} | PAN:
+                                    {{bankAccount?.panNo}}
                                 </span>
                             </div>
                             <div>
-                                <span class="text-sm text-grey-m2 align-middle">P: {{user?.bankAccount?.phoneNumber}} |
+                                <span class="text-sm text-grey-m2 align-middle">P: {{bankAccount?.phoneNumber}} |
                                     E:
-                                    {{user?.bankAccount?.email}}</span>
+                                    {{bankAccount?.email}}</span>
                             </div>
                         </div>
                     </div>
@@ -61,7 +60,8 @@
                                     Address:
                                 </span>
                                 <span class="text-600 text-110 text-blue align-middle">
-                                    {{response?.customer?.location?.cityName !== null ? response?.customer?.location?.cityName : 'NA'}}
+                                    {{response?.customer?.location?.cityName !== null ?
+                                    response?.customer?.location?.cityName : 'NA'}}
                                 </span>
                             </div>
                         </div>
@@ -165,29 +165,29 @@
                             </div>
                             <br>
 
-                            <div *ngIf="user.bankAccount != null">
+                            <div *ngIf="bankAccount != null">
                                 <div>
                                     <span class="text-sm text-grey-m2 align-middle font-weight-bold">Bank:</span>
                                     <span class="text-600 text-110 text-blue align-middle">
-                                        {{user?.bankAccount?.bankName}}</span>
+                                        {{bankAccount?.bankName}}</span>
                                 </div>
                                 <div>
                                     <span class="text-sm text-grey-m2 align-middle font-weight-bold">A/c no:</span>
                                     <span class="text-600 text-110 text-blue align-middle">
-                                        {{user?.bankAccount?.accountNo}}
+                                        {{bankAccount?.accountNo}}
                                     </span>
                                 </div>
 
                                 <div>
                                     <span class="text-sm text-grey-m2 align-middle font-weight-bold">Branch:</span>
                                     <span class="text-600 text-110 text-blue align-middle">
-                                        {{user?.bankAccount?.branchName}}
+                                        {{bankAccount?.branchName}}
                                     </span>
                                 </div>
                                 <div>
                                     <span class="text-sm text-grey-m2 align-middle font-weight-bold">IFSC code:</span>
                                     <span class="text-600 text-110 text-blue align-middle">
-                                        {{user?.bankAccount?.ifscCode}}
+                                        {{bankAccount?.ifscCode}}
                                     </span>
                                 </div>
                             </div>

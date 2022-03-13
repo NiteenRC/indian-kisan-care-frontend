@@ -73,7 +73,7 @@
           </span>
         </mat-tree-node>
       </mat-tree>
-      
+
       <mat-tree [dataSource]="dataSource_Order" [treeControl]="treeControl">
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
@@ -111,6 +111,31 @@
           <button mat-icon-button
             [ngClass]="{ 'selected': (dataSourceSummary._flattenedData | async)[0].name + node.name === selected} "
             (click)="getSummary(node.name)">
+            {{node.name}}</button>
+
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+            <!-- <img *ngIf="treeControl.isExpanded(node)" src="../../assets/expand.png" alt="" width="15px" height="15px">
+            <img *ngIf="!treeControl.isExpanded(node)" src="../../assets/right-arrow.png" alt="" width="15px" height="15px"> -->
+          </button>
+          <span matTreeNodeToggle class='menu-item-name' [attr.aria-label]="'Toggle ' + node.name">
+            {{node.name}}
+          </span>
+        </mat-tree-node>
+      </mat-tree>
+
+      <mat-tree *ngIf="role" [dataSource]="dataSourceSetting" [treeControl]="treeControl" style="margin-right: 10px;">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button
+            [ngClass]="{ 'selected': (dataSourceSetting._flattenedData | async)[0].name + node.name === selected} "
+            (click)="getSetting(node.name)">
             {{node.name}}</button>
 
         </mat-tree-node>

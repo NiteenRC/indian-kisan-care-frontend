@@ -47,7 +47,6 @@ import { UpdateBankInfoComponent } from './registration/update-bank-info/update-
 import { MatCardModule } from '@angular/material/card';
 import { LoginComponent } from './registration/login/login.component';
 import { NavigationBarComponent } from './menu/navigation-bar/navigation-bar.component';
-import { UpdateBankDetails } from './registration/UpdateBankDetails/UpdateBankDetails.component';
 import { SalesReportComponent } from './sales/sales-report/sales-report.component';
 import { UpdateBalanceSheetComponent } from './sales/customer-balance-sheet/update-customer-balance-sheet/customer-update-balance-sheet.component';
 import { PurchaseReportDetailsComponent } from './purchase/purchase-report-details/purchase-report-details.component';
@@ -95,7 +94,6 @@ import { BalanceSheetComponent } from './sales/customer-balance-sheet/list-custo
     SalesReportDetailsComponent,
     UpdateBankInfoComponent,
     UpdateBankInfoComponent,
-    UpdateBankDetails
   ],
   imports: [
     TableModule,

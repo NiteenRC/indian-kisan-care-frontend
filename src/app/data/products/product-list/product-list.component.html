@@ -36,25 +36,16 @@
             <td *matCellDef="let element" mat-cell> {{element.qty}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="price">
+        <ng-container matColumnDef="price" *ngIf="super_admin || admin">
             <th *matHeaderCellDef mat-header-cell> Purchase Price</th>
             <td *matCellDef="let element" mat-cell> {{element.price | number : '1.0-2'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="salePrice">
             <th *matHeaderCellDef mat-header-cell> Selling Price</th>
-            <td *matCellDef="let element" mat-cell class="row-highlight"><b>{{element.currentPrice  | number : '1.0-2'}}</b></td>
+            <td *matCellDef="let element" mat-cell class="row-highlight"><b>{{element.currentPrice | number :
+                    '1.0-2'}}</b></td>
         </ng-container>
-
-        <!-- <ng-container matColumnDef="profit">
-        <th *matHeaderCellDef mat-header-cell> Profit</th>
-        <td *matCellDef="let element" mat-cell> {{element.profit | number : '1.0-2'}} </td>
-    </ng-container> -->
-
-        <!--<ng-container matColumnDef="HSN/SAC">
-        <th *matHeaderCellDef mat-header-cell> HAN/SAC</th>
-        <td *matCellDef="let element" mat-cell> {{element.hsnNo}}</td>
-    </ng-container>-->
 
         <ng-container matColumnDef="GST">
             <th *matHeaderCellDef mat-header-cell> GST</th>
@@ -65,25 +56,28 @@
             <th *matHeaderCellDef mat-header-cell> Action</th>
             <td *matCellDef="let element" mat-cell>
 
-                <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
-                <mat-icon class="kebab-menu">more_vert</mat-icon>
-                <!-- <img src="../../assets/ellipse.png" class="home-icon" alt="" width="25px" height="25px"> -->
-            </button>
+                <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+                    mat-icon-button>
+                    <mat-icon class="kebab-menu">more_vert</mat-icon>
+                    <!-- <img src="../../assets/ellipse.png" class="home-icon" alt="" width="25px" height="25px"> -->
+                </button>
                 <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
                     <div>
                         <div>
-                            <button (click)="updateProduct(element) " class="btn btn-info " style="padding: 0 20px;margin-left: 15px;margin-right: 15px;height:40px  ">
-                            <div style="display:flex">
-                                <mat-icon class="edit">edit</mat-icon>
-                                <!-- <img src="../../assets/edit.png " class="home-icon " alt=" " width="18px" height="18px"> -->
-                                <div style="margin-left: 10px; ">Update </div>
-                            </div>
-                        </button>
+                            <button (click)="updateProduct(element) " class="btn btn-info "
+                                style="padding: 0 20px;margin-left: 15px;margin-right: 15px;height:40px  ">
+                                <div style="display:flex">
+                                    <mat-icon class="edit">edit</mat-icon>
+                                    <!-- <img src="../../assets/edit.png " class="home-icon " alt=" " width="18px" height="18px"> -->
+                                    <div style="margin-left: 10px; ">Update </div>
+                                </div>
+                            </button>
                         </div>
 
                         <br>
                         <div>
-                            <button (click)="deleteProduct(element.id) " class="btn btn-danger " style="padding: 0 20px;margin-top:-10px;margin-left: 15px;margin-right: 15px;height:40px ">
+                            <button (click)="deleteProduct(element.id) " class="btn btn-danger "
+                                style="padding: 0 20px;margin-top:-10px;margin-left: 15px;margin-right: 15px;height:40px ">
                                 <div style="display:flex ">
                                     <!-- <img src="../../assets/delete.png " class="home-icon " alt=" " width="25px " height="25px "> -->
                                     <mat-icon>delete</mat-icon>

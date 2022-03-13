@@ -3,15 +3,19 @@
         <span class="navbar-brand"></span>
         <div class="navbar-nav">
             <span class="person-img" [matMenuTriggerFor]="menu">{{username.substr(0,1).toUpperCase() +
-                username.substr(1)}}</span>
+                username.substr(1)}} ({{userType}})</span>
             <mat-icon class="person-img" [matMenuTriggerFor]="menu">person</mat-icon>
             <mat-menu #menu="matMenu">
-                <p *ngIf="super_admin"   onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'" (click)="openDialog()" class="menu-title">Manage Account</p>
-                <p *ngIf="super_admin || admin"  onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'"  (click)="updateBankDetails()" class="menu-title">
+                <p *ngIf="super_admin" onmouseover="style='text-decoration:underline'"
+                    onmouseout="style='text-decoration:none'" (click)="openDialog()" class="menu-title">Manage Account
+                </p>
+                <p *ngIf="super_admin || admin" onmouseover="style='text-decoration:underline'"
+                    onmouseout="style='text-decoration:none'" (click)="updateBankDetails()" class="menu-title">
                     Update Bank Details</p>
-                <p  style="border: white;" class="menu-title"  onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'" (click)="logout()">Log Out</p>
+                <p style="border: white;" class="menu-title" onmouseover="style='text-decoration:underline'"
+                    onmouseout="style='text-decoration:none'" (click)="logout()">Log Out</p>
             </mat-menu>
-            
+
         </div>
     </div>
 </nav>

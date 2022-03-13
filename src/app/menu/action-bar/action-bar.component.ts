@@ -29,6 +29,7 @@ export class ActionBarComponent implements OnInit{
   dataSourceReports = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceBalance = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceSummary = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  dataSourceSetting = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   role: boolean;
 
   constructor(private router: Router) {
@@ -36,6 +37,7 @@ export class ActionBarComponent implements OnInit{
     this.dataSource_Order.data = Order_DATA;
     this.dataSourceReports.data = REPORTS;
     this.dataSourceSummary.data = SUMMARY;
+    this.dataSourceSetting.data = SETTING;
 
     console.log('dataSourceReports', this.dataSourceReports);
   }
@@ -100,6 +102,16 @@ export class ActionBarComponent implements OnInit{
     }
   }
 
+  getSetting(item) {
+    this.selected = SETTING[0].name + item;
+    if (item === "Registration") {
+      this._redirectToPage('dashboard/register');
+    }
+    if (item === "Update Bank") {
+      this._redirectToPage('dashboard/updateBankDetails');
+    }
+  }
+
   private _redirectToPage(route) {
     this.router.navigate([route]);
   }
@@ -154,6 +166,20 @@ const SUMMARY: MasterNode[] = [
       {
         name: 'Stock Book',
       }
+    ]
+  },
+];
+
+const SETTING: MasterNode[] = [
+  {
+    name: 'SETTING',
+    children: [
+      {
+        name: 'Registration',
+      },
+      {
+        name: 'Update Bank',
+      },
     ]
   },
 ];

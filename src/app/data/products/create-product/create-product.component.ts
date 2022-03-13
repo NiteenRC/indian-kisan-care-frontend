@@ -35,9 +35,9 @@ export class CreateProductComponent implements OnInit {
             categoryName: new FormControl(null, [Validators.required]),
             productName: new FormControl(null, [Validators.required]),
             price: new FormControl(null),
-            gst: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(0)]),
+            gst: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(0), Validators.max(100)]),
             hsnNo: new FormControl(null),
-            currentPrice: new FormControl(null),
+            currentPrice: new FormControl(null, [Validators.pattern('^[0-9]*$'), Validators.min(0)]),
             qty: new FormControl(null),
             profit: new FormControl(null),
         });

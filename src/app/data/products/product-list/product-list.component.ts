@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AppComponent } from 'src/app/app.component';
 import { CompanyService } from 'src/app/_services/company.service';
 import { ProductService } from 'src/app/_services/product.service';
 import { CreateProductComponent } from '../create-product/create-product.component';
@@ -12,7 +13,13 @@ import { CreateProductComponent } from '../create-product/create-product.compone
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-    displayedColumns: string[] = ['SNo', 'productName', 'category', 'qty', 'salePrice', 'price', 'GST', 'productDesc'];
+    super_admin = AppComponent.role_super_admin;
+    admin = AppComponent.role_admin;
+    user = AppComponent.role_user;
+    displayedColumns: string[] ;
+
+   
+    
     dataSource;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -25,8 +32,17 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.displayColumns();
         this.getProductList();
     }
+
+    displayColumns(){
+    if(this.super_admin || this.admin){
+        this.displayedColumns= ['SNo', 'productName', 'category', 'qty', 'salePrice','price', 'GST', 'productDesc'];
+    } else {
+        this.displayedColumns = ['SNo', 'productName', 'category', 'qty', 'salePrice', 'GST', 'productDesc'];
+    }
+}
 
     getProductList() {
         this.productService.getProductsList().subscribe(res => {
