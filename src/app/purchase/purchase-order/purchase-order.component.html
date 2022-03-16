@@ -182,16 +182,16 @@
                 <input class="amount-edit" type="number" formControlName="amountPaid" required>
             </div>
             <div>
-                <label for="name">Current Balance : </label>
+                <label for="name">Current Due : </label>
                 <span class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR'
                         }}</span>
             </div>
             <div>
-                <label for="name">Previous Balance :</label>
+                <label for="name">Previous Due :</label>
                 <span class="amount-read-only">{{previousBalance | currency:'INR' }}</span>
             </div>
             <div>
-                <label for="name">Total Pay Balance :</label>
+                <label for="name">Total(Curr+Prev) Due :</label>
                 <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
             </div>
             <br>

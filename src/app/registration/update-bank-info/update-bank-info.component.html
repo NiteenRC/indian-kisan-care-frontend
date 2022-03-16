@@ -3,14 +3,49 @@
         <!-- <img class="profile-img-card" id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
         <mat-card style="width: 80%;box-shadow: rgb(0 0 0 / 10%) 0px 3px 7px 4px;padding: 0px;">
             <form [formGroup]="registerForm" (submit)="onSubmit()">
-
-             <div style="background: #5999d2;">
-                <h1 style="text-align: center;line-height: 40px;color: white;">Update Bank Details</h1>
-            </div>
-
+                <div style="background: #5999d2;">
+                    <h1 style="text-align: center;line-height: 40px;color: white;">Update Bank Details</h1>
+                </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 251px;">
+                                    <mat-label>Shop/Brand name</mat-label>
+                                    <input matInput formControlName="brandName">
+                                </mat-form-field>
+                            </p>
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Phone number</mat-label>
+                                    <input matInput formControlName="phoneNumber">
+                                </mat-form-field>
+                            </p>
+
+                            <p style="text-align: center;">
+                                <mat-form-field appearance="legacy" style="width: 250px;">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email">
+                                </mat-form-field>
+                            </p>
+                            <!-- <div class="form-group">
+                                <input type="text" id="image" placeholder="Search Image" [(ngModel)]="image" name="image" />
+                                <input type="button" (click)="viewImage()" value="View Image" class="btn1"> 
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="file" (change)="onImageUpload($event)">
+                                <input type="button" (click)="imageUploadAction()" value="Upload Image" class="btn1">
+                            </div>
+                            <div>
+                                <output *ngIf=successResponse class="success"><b>{{successResponse}}</b></output>
+                            </div>
+                            <br>
+                            <div *ngIf=dbImage>
+                                <img [src]="dbImage">
+                            </div>-->
+                        </div>
+                        <div class="col-4">
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 251px;">
                                     <mat-label>Bank name</mat-label>
@@ -37,7 +72,7 @@
                                 </mat-form-field>
                             </p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 251px;">
                                     <mat-label>PAN number</mat-label>
@@ -50,41 +85,6 @@
                                     <input matInput formControlName="gstNo">
                                 </mat-form-field>
                             </p>
-                            <p style="text-align: center;">
-                                <mat-form-field appearance="legacy" style="width: 251px;">
-                                    <mat-label>Brand name</mat-label>
-                                    <input matInput formControlName="brandName">
-                                </mat-form-field>
-                            </p>
-                            <p style="text-align: center;">
-                                <mat-form-field appearance="legacy" style="width: 250px;">
-                                    <mat-label>Phone number</mat-label>
-                                    <input matInput formControlName="phoneNumber">
-                                </mat-form-field>
-                            </p>
-
-                            <p style="text-align: center;">
-                                <mat-form-field appearance="legacy" style="width: 250px;">
-                                    <mat-label>Email</mat-label>
-                                    <input matInput formControlName="email" required>
-                                </mat-form-field>
-                            </p>
-                            <!-- <div class="form-group">
-                                <input type="text" id="image" placeholder="Search Image" [(ngModel)]="image" name="image" />
-                                <input type="button" (click)="viewImage()" value="View Image" class="btn1"> 
-                            </div>
-                            
-                            <div class="form-group">
-                                <input type="file" (change)="onImageUpload($event)">
-                                <input type="button" (click)="imageUploadAction()" value="Upload Image" class="btn1">
-                            </div>
-                            <div>
-                                <output *ngIf=successResponse class="success"><b>{{successResponse}}</b></output>
-                            </div>
-                            <br>
-                            <div *ngIf=dbImage>
-                                <img [src]="dbImage">
-                            </div>-->
                         </div>
                     </div>
                 </div>
