@@ -1,9 +1,7 @@
 import { Router } from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { RegisterComponent } from 'src/app/registration/register/register.component';
 import { AppComponent } from 'src/app/app.component';
 
 @Component({

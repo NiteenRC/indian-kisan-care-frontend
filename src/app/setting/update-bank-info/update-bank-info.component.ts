@@ -59,6 +59,7 @@ export class UpdateBankInfoComponent implements OnInit {
         this.registerForm.controls['phoneNumber'].setValue(this.bankDetails.phoneNumber);
         this.registerForm.controls['panNo'].setValue(this.bankDetails.panNo);
         this.registerForm.controls['email'].setValue(this.bankDetails.email);
+        this.dbImage = this.viewImage();
       }
     });
   }
@@ -70,7 +71,6 @@ export class UpdateBankInfoComponent implements OnInit {
   imageUploadAction() {
     const imageFormData = new FormData();
     imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
-
 
     this.http.post('http://localhost:8080/bank/image', imageFormData, { observe: 'response' })
       .subscribe((response) => {
@@ -85,7 +85,7 @@ export class UpdateBankInfoComponent implements OnInit {
   }
 
   viewImage() {
-    this.http.get('http://localhost:8080/bank/image/info/logo3.jfif')
+    this.http.get('http://localhost:8080/bank/image')
       .subscribe(
         res => {
           this.postResponse = res;
@@ -112,6 +112,10 @@ export class UpdateBankInfoComponent implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+
+        this.imageUploadAction();
+      
+        this.viewImage();
 
         this.showMsg = true;
         setTimeout(() => {

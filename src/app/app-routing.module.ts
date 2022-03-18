@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 
 import { PurchaseOrderComponent } from './purchase/purchase-order/purchase-order.component';
-import { RegisterComponent } from './registration/register/register.component';
+import { RegisterComponent } from './setting/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { AuthGuard } from './auth.guard';
@@ -23,8 +23,8 @@ import { PurchaseReportComponent } from './purchase/purchase-report/purchase-rep
 import { SupplierBalanceSheetComponent } from './balance-sheet/supplier-balance-sheet/list-supplier-balance-sheet/supplier-balance-sheet.component';
 import { ProfitSummaryComponent } from './reports/profit-summary/profit-summary.component';
 import { StockBookComponent } from './reports/stock-book/stock-book.component';
-import { UpdateBankInfoComponent } from './registration/update-bank-info/update-bank-info.component';
-import { LoginComponent } from './registration/login/login.component';
+import { UpdateBankInfoComponent } from './setting/update-bank-info/update-bank-info.component';
+import { LoginComponent } from './setting/login/login.component';
 import { BalanceSheetComponent } from './sales/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
 import { SalesOrderComponent } from './sales/salesoder/sales-order.component';
 import { SalesReportComponent } from './sales/sales-report/sales-report.component';
