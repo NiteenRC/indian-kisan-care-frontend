@@ -37,7 +37,13 @@ export class NavigationBarComponent {
   }
 
   openDialog() {
-    this.router.navigate(['dashboard/register']);
+    //this.router.navigate(['dashboard/register']);
+    alert('Need to implement pop up for update password\n by default username should populate and it should be non editable mode and password should be blank and update button')
+    let data = {
+      "username": this.username,
+      "password": '123', // currentlyt hard coded
+    };
+    this.auth.updateUser(data).subscribe();
   }
 
   updateBankDetails() {

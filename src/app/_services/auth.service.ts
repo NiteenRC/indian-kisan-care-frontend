@@ -33,6 +33,13 @@ export class AuthService {
         }, httpOptions);
     }
 
+    updateUser(user: any): Observable<Object> {
+        return this.http.put(AUTH_API, {
+            username: user.username,
+            password: user.password
+        }, httpOptions);
+    }
+
     logout() {
         localStorage.clear();
     }

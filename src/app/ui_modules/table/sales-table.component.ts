@@ -21,7 +21,7 @@ export class SalesTableComponent implements OnInit {
     private bankService: BankService) { }
 
   ngOnInit(): void {
-    //this.viewImage();
+    this.viewImage();
     console.log('this.response', JSON.stringify((window['response'])));
     let salesOrder = window['response'];
     if (!salesOrder) {
@@ -72,19 +72,19 @@ export class SalesTableComponent implements OnInit {
   successResponse: string;
   image: any;
 
-  viewImage() {  
-    this.httpClient.get('http://localhost:8080/bank/image/info/logo3.jfif')
+  getBankDetails() {
+    this.bankService.getBankDetails(1).subscribe(data => {
+      this.bankAccount = data;
+    });
+  }
+
+  viewImage() {
+    this.httpClient.get('http://localhost:8080/bank/image')
       .subscribe(
         res => {
           this.postResponse = res;
           this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
         }
       );
-  }
-
-  getBankDetails() {
-    this.bankService.getBankDetails(1).subscribe(data => {
-      this.bankAccount = data;
-    });
   }
 }

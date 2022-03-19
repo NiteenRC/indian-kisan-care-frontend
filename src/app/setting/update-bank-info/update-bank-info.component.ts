@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../_services/auth.service';
-import { MatRadioModule } from '@angular/material/radio';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { BankService } from '../../_services/bank.service';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +17,7 @@ export class UpdateBankInfoComponent implements OnInit {
   isSignUpFailed = false;
   bankDetails: any;
   favoriteSeason: string;
-  
+
   uploadedImage: File;
   dbImage: any;
   postResponse: any;
@@ -107,14 +104,15 @@ export class UpdateBankInfoComponent implements OnInit {
       "email": this.registerForm.controls.email.value,
     };
 
+    this.imageUploadAction();
+
     this.bankService.createBank(data).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
 
-        this.imageUploadAction();
-      
+        window.location.reload();
         this.viewImage();
 
         this.showMsg = true;
