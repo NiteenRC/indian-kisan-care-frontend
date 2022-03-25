@@ -66,6 +66,9 @@ export class UpdateBankInfoComponent implements OnInit {
   }
 
   imageUploadAction() {
+    if (this.uploadedImage === undefined) {
+      return;
+    }
     const imageFormData = new FormData();
     imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
 
