@@ -23,11 +23,11 @@ export class NavigationBarComponent {
   ngOnInit() {
     this.username = localStorage.getItem('username')
     if (this.super_admin === true) {
-      this.userType = 'Super';
+      this.userType = 'Owner';
     } else if (this.admin === true) {
-      this.userType = 'Admin';
+      this.userType = 'Manager';
     } else {
-      this.userType = 'User';
+      this.userType = 'Operator';
     }
   }
 

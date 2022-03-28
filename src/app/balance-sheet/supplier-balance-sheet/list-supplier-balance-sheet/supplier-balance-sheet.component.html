@@ -1,7 +1,8 @@
 <div class="d-flex">
   <div class="form-group col-3">
     <mat-form-field class="example-form-field">
-      <mat-label>Search Supplier</mat-label>
+      <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+      <mat-label>Search</mat-label>
       <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()">
       <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearSupplierSearch()">
         <mat-icon>clear</mat-icon>

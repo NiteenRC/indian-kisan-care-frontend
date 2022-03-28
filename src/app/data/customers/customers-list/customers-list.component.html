@@ -1,5 +1,6 @@
 <div class="inline-center">
     <mat-form-field style="width: 300px;">
+        <button matSuffix mat-button><mat-icon >search</mat-icon></button>
         <mat-label>Search</mat-label>
         <input #input (keyup)="applyFilter($event)" matInput>
     </mat-form-field>
