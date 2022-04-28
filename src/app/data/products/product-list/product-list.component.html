@@ -38,7 +38,7 @@
 
         <ng-container matColumnDef="price" *ngIf="super_admin || admin">
             <th *matHeaderCellDef mat-header-cell> Purchase Price</th>
-            <td *matCellDef="let element" mat-cell> {{element.price | number : '1.0-2'}}</td>
+            <td *matCellDef="let element" mat-cell> {{element.purchasePrice | number : '1.0-2'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="salePrice">

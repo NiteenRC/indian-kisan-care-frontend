@@ -7,7 +7,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Product } from '../../_model/product';
 import { Observable } from 'rxjs';
 import { ProductService } from '../../_services/product.service';
-import { PurchaseOrder } from '../../_model/purchaseOrder';
+import { PurchaseOrder, UpdateProduct } from '../../_model/purchaseOrder';
 import { PurchaseOrderService } from '../../_services/purchase-order.service';
 import { Supplier } from '../../_model/supplier';
 import { SupplierService } from '../../_services/supplier.service';
@@ -43,6 +43,7 @@ export class PurchaseOrderComponent implements OnInit {
   popupDescription = "";
   @ViewChild('modalContent') modalContent: ElementRef;
   popupMarkup = "";
+  updatedProductSalePriceList: UpdateProduct[] = [];
 
   constructor(
     private _fb: FormBuilder,
@@ -133,7 +134,7 @@ export class PurchaseOrderComponent implements OnInit {
       }
     });
 
-    if(isValidPrice){
+    if (isValidPrice) {
       this.showAlert("Error", 'Product price should be more than 0', "");
       this.singleClickDisable = false;
       return;
@@ -201,10 +202,21 @@ export class PurchaseOrderComponent implements OnInit {
 
     this.purchaseOrder = purchaseOrder;
 
+
+    this.purchaseOrderDetailArr.value.forEach(element => {
+      const productItem = {
+        purchasePrice: element.price,
+        productName: element.product.productName,
+        id: element.product.id,
+      }
+      this.updatedProductSalePriceList.push(productItem);
+    });
+
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       this.purchaseOrderService
         .createPurchaseOrder(purchaseOrder).subscribe(data => {
           console.log(data);
+          this.productService.updateProductList(this.updatedProductSalePriceList).subscribe();
           this.singleClickDisable = false;
           this.refreshAfterSave();
           if (isPrintReq) {
@@ -292,7 +304,7 @@ export class PurchaseOrderComponent implements OnInit {
 
   private _initRow(product) {
     return this._fb.group({
-      price: [product.price, [Validators.required, Validators.min(1), Validators.max(1000000)]],
+      price: [product.purchasePrice, [Validators.required, Validators.min(1), Validators.max(1000000)]],
       qtyOrdered: [1, [Validators.required, Validators.min(1), Validators.max(10000)]],
       product: [product]
     });

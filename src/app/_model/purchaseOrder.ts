@@ -14,3 +14,9 @@ export class PurchaseOrder {
     dueDate: string;
     billDate: string;
 }
+
+export class UpdateProduct {
+    purchasePrice: number;
+    id: number;
+    productName: string;
+}

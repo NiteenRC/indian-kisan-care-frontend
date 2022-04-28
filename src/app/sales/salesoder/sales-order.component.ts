@@ -134,7 +134,7 @@ export class SalesOrderComponent implements OnInit {
     this.popupDescription = popupDescription;
     this.popupMarkup = popupMarkup;
 
-    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size:'sm' }).result.then((result) => {
+    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       callback("ok");
     }, (reason) => {
       callback("cancel");
@@ -159,7 +159,7 @@ export class SalesOrderComponent implements OnInit {
       }
     });
 
-    if(isValidPrice){
+    if (isValidPrice) {
       this.showAlert("Error", 'Product price should be more than 0', "");
       this.singleClickDisable = false;
       return;
@@ -406,7 +406,6 @@ export class SalesOrderComponent implements OnInit {
         }
 
         console.log("new prices", this.updatedProductSalePriceList);
-        
       });
     } else if (updatedPrice == product.value.product.currentPrice) {
       const tempIndex = this.updatedProductSalePriceList.findIndex(item => item.id === product.value.product.id);
@@ -450,8 +449,6 @@ export class SalesOrderComponent implements OnInit {
       map(value => this._filterProduct(value))
     );
 
-
-
     this.salesOrderDetailArr.valueChanges.subscribe((productList) => {
       return;
       let totalAmount = 0;
@@ -466,8 +463,6 @@ export class SalesOrderComponent implements OnInit {
       this.totalAmount = Math.round(totalAmount);
     });
   }
-
-
 
   private _createForm() {
     this.salesOrderForm = this._fb.group({

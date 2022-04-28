@@ -38,9 +38,10 @@ export class CreateProductComponent implements OnInit {
             categoryName: new FormControl(null, [Validators.required]),
             productName: new FormControl(null, [Validators.required]),
             price: new FormControl(null),
-            gst: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(0), Validators.max(100)]),
+            gst: new FormControl(null, [Validators.pattern('^[0-9]*$'), Validators.min(0), Validators.max(100)]),
             hsnNo: new FormControl(null),
             currentPrice: new FormControl(null, [Validators.pattern('^[0-9]*$'), Validators.min(0)]),
+            purchasePrice: new FormControl(null, [Validators.pattern('^[0-9]*$'), Validators.min(0)]),
             qty: new FormControl(null),
             profit: new FormControl(null),
         });
@@ -57,6 +58,7 @@ export class CreateProductComponent implements OnInit {
             this.productForm.controls['gst'].setValue(this.productUpdateData.gst);
             this.productForm.controls['hsnNo'].setValue(this.productUpdateData.hsnNo);
             this.productForm.controls['currentPrice'].setValue(this.productUpdateData.currentPrice);
+            this.productForm.controls['purchasePrice'].setValue(this.productUpdateData.purchasePrice);
             this.productForm.controls['qty'].setValue(this.productUpdateData.qty);
             this.productForm.controls['profit'].setValue(this.productUpdateData.profit);
         }
@@ -99,6 +101,7 @@ export class CreateProductComponent implements OnInit {
             gst: this.productForm.controls.gst.value,
             hsnNo: hsnNo,
             currentPrice: this.productForm.controls.currentPrice.value,
+            purchasePrice: this.productForm.controls.purchasePrice.value,
             //qty: this.productForm.controls.qty.value,
             category: category
         };
@@ -136,6 +139,7 @@ export class CreateProductComponent implements OnInit {
             gst: this.productForm.controls.gst.value,
             hsnNo: this.productForm.controls.hsnNo.value,
             currentPrice: this.productForm.controls.currentPrice.value,
+            purchasePrice: this.productForm.controls.purchasePrice.value,
             qty: this.productForm.controls.qty.value,
             profit: this.productForm.controls.profit.value,
             category,

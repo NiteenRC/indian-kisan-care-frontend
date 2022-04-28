@@ -22,7 +22,7 @@
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
                 <input formControlName="categoryName" [matAutocomplete]="supplierAuto" aria-label="Number" matInput
-                    placeholder="Category" type="text">
+                    placeholder="Category" type="text" required>
                 <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption>
                     <mat-option *ngFor="let option of filteredOptions | async" [value]="option?.categoryName">
                         {{option?.categoryName}}
@@ -40,6 +40,13 @@
 
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
+                <input formControlName="purchasePrice" matInput placeholder="PURCHASE PRICE">
+            </mat-form-field>
+            <br>
+        </div>
+
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
                 <input formControlName="hsnNo" matInput placeholder="HSN/SAC">
             </mat-form-field>
             <br>
@@ -47,7 +54,7 @@
 
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input formControlName="gst" matInput placeholder="GST%" required>
+                <input formControlName="gst" matInput placeholder="GST%">
             </mat-form-field>
             <br>
         </div>
