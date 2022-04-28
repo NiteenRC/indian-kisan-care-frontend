@@ -9,9 +9,14 @@
     <form [formGroup]="productForm" (submit)="onSubmit()">
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
-                <input formControlName="productName" matInput placeholder="Product" required>
+                <input formControlName="productName" [matAutocomplete]="productAuto" aria-label="Number" matInput
+                    placeholder="Product" type="text">
+                <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption>
+                    <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
+                        {{product.productName}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
-            <br>
         </div>
 
         <div class="addproduct-container">

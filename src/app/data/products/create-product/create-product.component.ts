@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { autocompleteStringValidator } from 'src/app/validators/category.validator';
 import { CategoryService } from 'src/app/_services/category.service';
-import { LocationService } from 'src/app/_services/location.service';
 import { ProductService } from 'src/app/_services/product.service';
+import { Product } from 'src/app/_model/product';
 
 @Component({
     selector: 'app-create-product',
@@ -18,7 +18,10 @@ export class CreateProductComponent implements OnInit {
     myControl = new FormControl();
     options: Category[] = [];
     filteredOptions: Observable<Category[]>;
+    filteredProducts: Observable<Product[]>;
+
     listOfCategories = [];
+    products = [];
     productForm: FormGroup;
     locationForm: FormGroup;
     productUpdateData: any;
@@ -161,6 +164,11 @@ export class CreateProductComponent implements OnInit {
             this.listOfCategories = data;
             this._valueChangesListner();
         });
+
+        this.productService.getProductsList().subscribe(data => {
+            this.products = data;
+            this._valueChangesListner();
+        });
     }
 
     private _filter(value: string): Category[] {
@@ -168,8 +176,15 @@ export class CreateProductComponent implements OnInit {
             return this.listOfCategories;
         }
         const filterValue = value.toLowerCase();
-        const supplierList = this.listOfCategories.filter(option => option.categoryName.toLowerCase().includes(filterValue))
-        return supplierList;
+        return this.listOfCategories.filter(option => option.categoryName.toLowerCase().includes(filterValue))
+    }
+
+    private _filterProduct(value: string): Product[] {
+        if (!value) {
+          return this.products;
+        }
+        const filterValue = value.toLowerCase();
+        return this.products.filter(option => option.productName.toLowerCase().includes(filterValue));
     }
 
     private _findCategory(categoryName: string) {
@@ -181,5 +196,10 @@ export class CreateProductComponent implements OnInit {
             startWith(''),
             map(value => this._filter(value))
         );
+
+        this.filteredProducts = this.productForm.controls['productName'].valueChanges.pipe(
+            startWith(''),
+            map(value => this._filterProduct(value))
+          );
     }
 }
