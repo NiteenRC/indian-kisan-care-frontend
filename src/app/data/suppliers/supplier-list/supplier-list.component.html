@@ -1,11 +1,11 @@
 <div class="inline-center">
     <mat-form-field style="width: 300px;">
         <button matSuffix mat-button><mat-icon >search</mat-icon></button>
-        <mat-label>Search</mat-label>
+        <mat-label>supplier name</mat-label>
         <input #input (keyup)="applyFilter($event)" matInput>
     </mat-form-field>
     <div>
-        <button (click)="openDialog()" class="btn btn-info btn-sm" style="height: 35px;width: 150px;"> Add Supplier
+        <button (click)="openDialog()" class="btn btn-info btn-sm" style="height: 35px;width: 100px;"> <b>+</b> Supplier
         </button>
     </div>
 </div>

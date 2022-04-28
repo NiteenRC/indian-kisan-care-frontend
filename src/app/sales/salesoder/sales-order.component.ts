@@ -134,7 +134,7 @@ export class SalesOrderComponent implements OnInit {
     this.popupDescription = popupDescription;
     this.popupMarkup = popupMarkup;
 
-    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size:'sm' }).result.then((result) => {
       callback("ok");
     }, (reason) => {
       callback("cancel");
@@ -145,9 +145,22 @@ export class SalesOrderComponent implements OnInit {
 
   save(isPrintReq: boolean, content: any) {
     this.singleClickDisable = true;
+    let isValidPrice = false;
     if (this.salesOrderDetailArr.value.length === 0) {
       // alert('please select products, before submitting');
       this.showAlert("Error", "please select products, before submitting", "");
+      this.singleClickDisable = false;
+      return;
+    }
+
+    this.salesOrderDetailArr.value.forEach(element => {
+      if (element.price <= 0) {
+        isValidPrice = true;
+      }
+    });
+
+    if(isValidPrice){
+      this.showAlert("Error", 'Product price should be more than 0', "");
       this.singleClickDisable = false;
       return;
     }

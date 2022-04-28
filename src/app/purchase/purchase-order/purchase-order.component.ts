@@ -119,12 +119,26 @@ export class PurchaseOrderComponent implements OnInit {
 
   save(isPrintReq: boolean, content: any) {
     this.singleClickDisable = true;
+    let isValidPrice = false;
     if (this.purchaseOrderDetailArr.value.length === 0) {
       // alert('please select products, before submitting');
       this.showAlert("Error", 'please select products, before submitting', "");
       this.singleClickDisable = false;
       return;
     }
+
+    this.purchaseOrderDetailArr.value.forEach(element => {
+      if (element.price <= 0) {
+        isValidPrice = true;
+      }
+    });
+
+    if(isValidPrice){
+      this.showAlert("Error", 'Product price should be more than 0', "");
+      this.singleClickDisable = false;
+      return;
+    }
+
     const supplierName = this.purchaserOrderForm.get('supplierName').value;
     let supplier = this._findSupplier(supplierName);
 

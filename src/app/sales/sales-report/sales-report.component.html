@@ -2,7 +2,7 @@
     <div class="form-group col-3">
         <mat-form-field class="example-form-field">
             <button matSuffix mat-button><mat-icon >search</mat-icon></button>
-            <mat-label>Search</mat-label>
+            <mat-label>customer name</mat-label>
             <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Customer">
             <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearCustomerSearch()">
                 <mat-icon>clear</mat-icon>
@@ -12,8 +12,8 @@
 
     <mat-form-field>
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-            <input matStartDate formControlName="start" placeholder="Start date">
-            <input matEndDate formControlName="end" placeholder="End date">
+            <input matStartDate formControlName="start" placeholder="Bill start">
+            <input matEndDate formControlName="end" placeholder="end date">
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker-toggle matSuffix (click)="clearDate()">
