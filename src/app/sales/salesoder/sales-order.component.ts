@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
@@ -12,6 +12,8 @@ import { SalesOrderService } from '../../_services/sales-order.service';
 import { Customer } from '../../_model/customer';
 import { CustomerService } from '../../_services/customer.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-sales-order',
@@ -48,17 +50,27 @@ export class SalesOrderComponent implements OnInit {
   changeText: boolean;
   updatedProductSalePriceList: UpdateProduct[] = [];
   priceChangeHistory: any = {};
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
     private modalService: NgbModal,
     private customerService: CustomerService,
-    private salesOrderService: SalesOrderService) {
+    private salesOrderService: SalesOrderService,
+    @Inject(MAT_DIALOG_DATA) private data) {
+      if (data != null) {
+        this._setData(data?.data.salesOrderDetail);
+      }
 
     this.changeText = false;
     this.customers = [];
     this.products = [];
+  }
+
+  private _setData(data) {
+    this.salesOrderDetailData = new MatTableDataSource(data);
+    this.salesOrderDetailData.paginator = this.paginator;
   }
 
   ngOnInit() {

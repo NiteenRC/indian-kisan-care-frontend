@@ -7,6 +7,7 @@ import { SalesReportDetailsComponent } from '../sales-report-details/sales-repor
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SalesOrderService } from 'src/app/_services/sales-order.service';
+import { SalesOrderComponent } from '../salesoder/sales-order.component';
 
 @Component({
   selector: 'app-sales-report',
@@ -119,7 +120,7 @@ export class SalesReportComponent implements OnInit {
   }
 
   updateProduct(updateProduct): void {
-    const dialogRef = this.dialog.open(SalesReportDetailsComponent, {
+    const dialogRef = this.dialog.open(SalesOrderComponent, {
       width: '950px',
       disableClose: false,
       data: { data: updateProduct }
