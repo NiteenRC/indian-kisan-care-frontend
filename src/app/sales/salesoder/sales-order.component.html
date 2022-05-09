@@ -205,16 +205,16 @@
             </div>
             <div>
                 <label for="name">Current Due : </label>
-                <span class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR'
+                <span class="amount-read-only">₹{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()).toLocaleString('en-IN')
                         }}</span>
             </div>
             <div>
                 <label for="name">Previous Due : </label>
-                <span class="amount-read-only">{{previousBalance | currency:'INR' }}</span>
+                <span class="amount-read-only">₹{{previousBalance.toLocaleString('en-IN') }}</span>
             </div>
             <div>
                 <label for="name">Total(Curr+Prev) Due :</label>
-                <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
+                <span class="amount-read-only">₹{{getTotalBalance().toLocaleString('en-IN')}}</span>
             </div>
             <br>
 

@@ -120,6 +120,19 @@ export class SalesReportComponent implements OnInit {
   }
 
   updateProduct(updateProduct): void {
+    const dialogRef = this.dialog.open(SalesReportDetailsComponent, {
+      width: '950px',
+      disableClose: false,
+      data: { data: updateProduct }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getSalesOrderList();
+    });
+  }
+
+  updateProduct1(updateProduct): void {
     const dialogRef = this.dialog.open(SalesOrderComponent, {
       width: '950px',
       disableClose: false,

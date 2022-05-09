@@ -57,12 +57,13 @@ export class SalesOrderComponent implements OnInit {
     private productService: ProductService,
     private modalService: NgbModal,
     private customerService: CustomerService,
-    private salesOrderService: SalesOrderService){
-    /*public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) private data) {
-      if (data != null) {
-        this._setData(data?.data.salesOrderDetail);
-      }
+    private salesOrderService: SalesOrderService,
+    public dialog: MatDialog){
+    /*@Inject(MAT_DIALOG_DATA) private data) {
+    this.ngOnInit();
+    if (data != null) {
+      this._setData(data?.data.salesOrderDetail);
+    }
     */
     this.changeText = false;
     this.customers = [];
@@ -70,8 +71,11 @@ export class SalesOrderComponent implements OnInit {
   }
 
   private _setData(data) {
-    this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
-    //this.salesOrderDetailData.paginator = this.paginator;
+    data.map(e => {
+      const newRow = this._initRow(e.product);
+      this.salesOrderDetailArr.push(newRow);
+      this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+    });
   }
 
   ngOnInit() {
