@@ -39,6 +39,10 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
+        if (this.registerForm.controls.role.value === null) {
+            return;
+        }
+
         let data = {
             "username": this.registerForm.controls.username.value,
             "password": this.registerForm.controls.password.value,

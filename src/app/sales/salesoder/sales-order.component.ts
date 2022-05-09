@@ -50,27 +50,28 @@ export class SalesOrderComponent implements OnInit {
   changeText: boolean;
   updatedProductSalePriceList: UpdateProduct[] = [];
   priceChangeHistory: any = {};
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  //@ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
     private modalService: NgbModal,
     private customerService: CustomerService,
-    private salesOrderService: SalesOrderService,
+    private salesOrderService: SalesOrderService){
+    /*public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) private data) {
       if (data != null) {
         this._setData(data?.data.salesOrderDetail);
       }
-
+    */
     this.changeText = false;
     this.customers = [];
     this.products = [];
   }
 
   private _setData(data) {
-    this.salesOrderDetailData = new MatTableDataSource(data);
-    this.salesOrderDetailData.paginator = this.paginator;
+    this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+    //this.salesOrderDetailData.paginator = this.paginator;
   }
 
   ngOnInit() {
