@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SupplierUpdateBalanceSheetComponent } from '../update-supplier-balance-sheet/supplier-update-balance-sheet.component';
+import { PurchaseReportDetailsComponent } from 'src/app/purchase/purchase-report-details/purchase-report-details.component';
+import { SupplierReportDetailsComponent } from 'src/app/purchase/supplier-report-details/supplier-report-details.component';
 
 @Component({
   selector: 'app-balance-sheet',
@@ -98,6 +100,19 @@ export class SupplierBalanceSheetComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getSalesOrderList();
+    });
+  }
+
+  supplierHistory(supplier): void {
+    const dialogRef = this.dialog.open(SupplierReportDetailsComponent, {
+      width: '950px',
+      disableClose: false,
+      data: { data: supplier }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.getPurchaseOrderList();
     });
   }
 }
