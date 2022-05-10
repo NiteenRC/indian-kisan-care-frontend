@@ -114,11 +114,11 @@ export class CreateProductComponent implements OnInit {
                 this.successMsg = 'Product Successfully Updated..!';
                 // this.getCategoryList();
                 this.closeModal();
-                this.singleClickDisable = true;
+                this.singleClickDisable = false;
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;
-            this.singleClickDisable = true;
+            this.singleClickDisable = false;
         });
     }
 
