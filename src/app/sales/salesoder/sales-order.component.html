@@ -71,7 +71,7 @@
             <ng-container matColumnDef="action">
                 <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
                 <td *matCellDef="let element; let i = index;" mat-cell>
-                    <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product">
+                    <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product" type="button">
                         <mat-icon class="delete-button">delete</mat-icon>
                         <!-- <img src="../../assets/delete.png" class="home-icon" alt="" width="25px" height="25px"> -->
                     </button>

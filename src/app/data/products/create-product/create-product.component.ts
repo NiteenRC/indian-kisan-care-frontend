@@ -29,6 +29,7 @@ export class CreateProductComponent implements OnInit {
     errorMsg: any;
     citiesList: any;
     companies: any;
+    singleClickDisable = false;
 
     constructor(private productService: ProductService,
         private categoryService: CategoryService,
@@ -70,6 +71,7 @@ export class CreateProductComponent implements OnInit {
 
     ngOnInit(): void {
         this.fetchData();
+        this.singleClickDisable = false;
     }
 
     onSubmit() {
@@ -83,6 +85,7 @@ export class CreateProductComponent implements OnInit {
     }
 
     addProduct() {
+        this.singleClickDisable = true;
         const categoryName = this.productForm.controls.categoryName.value;
         let category = this._findCategory(categoryName);
 
@@ -111,9 +114,11 @@ export class CreateProductComponent implements OnInit {
                 this.successMsg = 'Product Successfully Updated..!';
                 // this.getCategoryList();
                 this.closeModal();
+                this.singleClickDisable = true;
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;
+            this.singleClickDisable = true;
         });
     }
 
@@ -153,7 +158,6 @@ export class CreateProductComponent implements OnInit {
         }, error => {
             this.errorMsg = error.error.errorMessage;
         });
-
     }
 
     getCategoryList() {
