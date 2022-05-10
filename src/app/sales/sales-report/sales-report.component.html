@@ -1,7 +1,9 @@
 <div class="d-flex">
     <div class="form-group col-3">
         <mat-form-field class="example-form-field">
-            <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+            <button matSuffix mat-button>
+                <mat-icon>search</mat-icon>
+            </button>
             <mat-label>customer name</mat-label>
             <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Customer">
             <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearCustomerSearch()">
@@ -36,7 +38,7 @@
         <ng-container matColumnDef="billDate">
             <th *matHeaderCellDef mat-header-cell>Bill date</th>
             <td *matCellDef="let element" mat-cell>
-                <button (click)="updateProduct(element)">
+                <button (click)="updateProduct(element)" class="btn-info">
                     {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
                 </button>
             </td>
@@ -79,14 +81,12 @@
                 <!--<button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
                     <mat-icon class="delete-button">delete</mat-icon>
                 </button>-->
-                <button (click)="updateProduct1(element) " class="btn btn-info "
-                                style="padding: 0 20px;margin-left: 15px;margin-right: 15px;height:40px  ">
-                                <div style="display:flex">
-                                    <mat-icon class="edit">edit</mat-icon>
-                                    <!-- <img src="../../assets/edit.png " class="home-icon " alt=" " width="18px" height="18px"> -->
-                                    <div style="margin-left: 10px; ">Update </div>
-                                </div>
-                            </button>
+                <button (click)="updateProduct1(element) " class="btn btn-info">
+                    <div style="display:flex">
+                        <mat-icon class="edit">edit</mat-icon>
+                        <div class="btn-info">Update </div>
+                    </div>
+                </button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

@@ -1,7 +1,9 @@
 <div class="d-flex">
   <div class="form-group col-3">
     <mat-form-field class="example-form-field">
-      <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+      <button matSuffix mat-button>
+        <mat-icon>search</mat-icon>
+      </button>
       <mat-label>supplier name</mat-label>
       <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Supplier">
       <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearSupplierSearch()">
@@ -30,44 +32,21 @@
   <table [dataSource]="dataSource" mat-table>
     <ng-container matColumnDef="supplierName">
       <th *matHeaderCellDef mat-header-cell>Supplier</th>
-      <td *matCellDef="let element" mat-cell> {{element.supplier?.supplierName}} </td>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="supplierHistory(element.supplier.id)" class="btn-info">
+          {{element.supplier?.supplierName}}
+        </button>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="billDate">
       <th *matHeaderCellDef mat-header-cell>Bill date</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="updateProduct(element)">
+        <button (click)="updateProduct(element)" class="btn-info">
           {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
         </button>
       </td>
     </ng-container>
-
-
-    <!--<ng-container matColumnDef="productDesc">
-      <th *matHeaderCellDef mat-header-cell> Action</th>
-      <td *matCellDef="let element" mat-cell>
-
-          <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
-              <mat-icon class="kebab-menu">more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
-              <div>
-                  <button (click)="updateProduct(element)" class="btn btn-info"
-                          style="width: 80px;margin-left: 15px;">
-                      Update
-                  </button>
-                  <br>
-                  <button (click)="deleteProduct(element.id)"
-                          class="btn btn-danger"
-                          style="margin-top:5px;width: 80px;margin-left: 15px;">Delete
-                  </button>
-              </div>
-          </mat-menu>
-          
-
-      </td>
-  </ng-container>-->
-
 
     <ng-container matColumnDef="dueDate">
       <th *matHeaderCellDef mat-header-cell>Due Date</th>
@@ -92,7 +71,7 @@
       </td>
     </ng-container>
 
-   <!-- <ng-container matColumnDef="status">
+    <!-- <ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell> {{element.status}} </td>
     </ng-container>-->
