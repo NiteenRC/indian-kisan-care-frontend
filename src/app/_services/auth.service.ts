@@ -43,4 +43,8 @@ export class AuthService {
     logout() {
         localStorage.clear();
     }
+
+    getUserList(): Observable<any> {
+        return this.http.get(AUTH_API);
+    }
 }

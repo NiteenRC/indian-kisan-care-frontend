@@ -16,10 +16,7 @@ export class ProductListComponent implements OnInit {
     super_admin = AppComponent.role_super_admin;
     admin = AppComponent.role_admin;
     user = AppComponent.role_user;
-    displayedColumns: string[] ;
-
-   
-    
+    displayedColumns: string[];
     dataSource;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -36,13 +33,13 @@ export class ProductListComponent implements OnInit {
         this.getProductList();
     }
 
-    displayColumns(){
-    if(this.super_admin || this.admin){
-        this.displayedColumns= ['SNo', 'productName', 'category', 'qty', 'salePrice','price', 'GST', 'productDesc'];
-    } else {
-        this.displayedColumns = ['SNo', 'productName', 'category', 'qty', 'salePrice', 'GST', 'productDesc'];
+    displayColumns() {
+        if (this.super_admin || this.admin) {
+            this.displayedColumns = ['SNo', 'productName', 'category', 'qty', 'salePrice', 'price', 'GST', 'productDesc'];
+        } else {
+            this.displayedColumns = ['SNo', 'productName', 'category', 'qty', 'salePrice', 'GST', 'productDesc'];
+        }
     }
-}
 
     getProductList() {
         this.productService.getProductsList().subscribe(res => {
