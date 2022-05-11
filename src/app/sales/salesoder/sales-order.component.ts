@@ -13,7 +13,7 @@ import { Customer } from '../../_model/customer';
 import { CustomerService } from '../../_services/customer.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { PurchaseOrderComponent } from 'src/app/purchase/purchase-order/purchase-order.component';
 
 @Component({
   selector: 'app-sales-order',
@@ -50,7 +50,6 @@ export class SalesOrderComponent implements OnInit {
   changeText: boolean;
   updatedProductSalePriceList: UpdateProduct[] = [];
   priceChangeHistory: any = {};
-  //@ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private _fb: FormBuilder,
@@ -58,7 +57,7 @@ export class SalesOrderComponent implements OnInit {
     private modalService: NgbModal,
     private customerService: CustomerService,
     private salesOrderService: SalesOrderService,
-    public dialog: MatDialog){
+    public dialog: MatDialog) {
     /*@Inject(MAT_DIALOG_DATA) private data) {
     this.ngOnInit();
     if (data != null) {
@@ -153,6 +152,7 @@ export class SalesOrderComponent implements OnInit {
 
     this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       callback("ok");
+      this.addStockPurchaseOrder();
     }, (reason) => {
       callback("cancel");
     });
@@ -182,12 +182,19 @@ export class SalesOrderComponent implements OnInit {
       return;
     }
 
+    this.salesOrderDetailArr.value.forEach(element => {
+      console.log(element);
+      //this.salesOrderDetailArr.setValue('product.qty = 10;
+    });
+
     let isStockAvail = true;
     this.salesOrderDetailArr.value.forEach(value => {
       if (value.product.qty < value.qtyOrdered) {
-        // alert('No Stock for product: ' + value.product.productName);
-        this.showAlert("Error", 'No Stock for product: ' + value.product.productName, "");
-
+        if (value.product.qty > 0) {
+          this.showAlert("Warning", 'Available stock for product: ' + value.product.productName + ' is ' + value.product.qty, "");
+        } else {
+          this.showAlert("Warning", 'No Stock for product: ' + value.product.productName, "");
+        }
         isStockAvail = false;
       }
 
@@ -499,5 +506,18 @@ export class SalesOrderComponent implements OnInit {
 
   get amountPaid() {
     return this.salesOrderForm.get('amountPaid') as FormControl;
+  }
+
+  addStockPurchaseOrder(): void {
+    const dialogRef = this.dialog.open(PurchaseOrderComponent, {
+      width: '950px',
+      disableClose: false,
+      //data: { data: updateProduct }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.getSalesOrderList();
+    });
   }
 }

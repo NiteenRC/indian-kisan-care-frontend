@@ -37,6 +37,10 @@ export class SalesOrderService {
         return this.http.put(`${this.baseUrl}`, value);
     }
 
+    updateSalesOrderBalance(value: any): Observable<Object> {
+        return this.http.put(`${this.baseUrl}/payment/balance`, value);
+    }
+
     getBarChartReport(): any {
         return this.http.get(`${this.baseUrl}/barChart`);
     }
