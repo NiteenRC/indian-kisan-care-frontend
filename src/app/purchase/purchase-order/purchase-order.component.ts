@@ -51,8 +51,8 @@ export class PurchaseOrderComponent implements OnInit {
     private productService: ProductService,
     private supplierService: SupplierService,
     private modalService: NgbModal,
-    private purchaseOrderService: PurchaseOrderService,
-    @Inject(MAT_DIALOG_DATA) private data) {
+    private purchaseOrderService: PurchaseOrderService) {
+    //@Inject(MAT_DIALOG_DATA) private data) {
     this.ngOnInit();
     this.suppliers = [];
     this.products = [];

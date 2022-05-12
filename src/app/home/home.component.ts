@@ -51,9 +51,9 @@ export class HomeComponent implements OnInit {
             },
             error => console.log(error));
 
-        this.salesOrderService.getSalesOrderList().subscribe(data => {
+        this.salesOrderService.countSalesOrders().subscribe(data => {
                 console.log(data);
-                this.salesOrdersCount = data.length;
+                this.salesOrdersCount = data;
             },
             error => console.log(error));
 

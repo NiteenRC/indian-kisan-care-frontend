@@ -20,8 +20,8 @@
         </ng-container>
 
         <ng-container matColumnDef="GSTIN">
-            <th *matHeaderCellDef mat-header-cell>GSTIN</th>
-            <td *matCellDef="let element" mat-cell> {{element.gstIn}} </td>
+            <th *matHeaderCellDef mat-header-cell class="text-right">GSTIN</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.gstIn}} </td>
         </ng-container>
 
         <ng-container matColumnDef="location">
@@ -36,8 +36,8 @@
         </ng-container>
 
         <ng-container matColumnDef="id">
-            <th *matHeaderCellDef mat-header-cell> Action</th>
-            <td *matCellDef="let element" mat-cell>
+            <th *matHeaderCellDef mat-header-cell class="text-right"> Action</th>
+            <td *matCellDef="let element" mat-cell class="text-right">
 
                 <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
                     <mat-icon class="kebab-menu">more_vert</mat-icon>

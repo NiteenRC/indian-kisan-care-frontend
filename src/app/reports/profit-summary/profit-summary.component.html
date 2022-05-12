@@ -2,29 +2,29 @@
   <div class="form-group col-6">
     <table [dataSource]="dataSource1" mat-table>
       <ng-container matColumnDef="createdDate">
-        <th *matHeaderCellDef mat-header-cell class="text-right-4">Bill date</th>
-        <td *matCellDef="let element" mat-cell class="text-right-4" (click)=getData(element) style="cursor: pointer;">
+        <th *matHeaderCellDef mat-header-cell class="text-left">Bill date</th>
+        <td *matCellDef="let element" mat-cell class="text-left" (click)=getData(element) style="cursor: pointer;">
           {{element.billDate}}
         </td>
       </ng-container>
       <ng-container matColumnDef="totalPrice">
-        <th *matHeaderCellDef mat-header-cell class="text-right-4">Transaction</th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+        <th *matHeaderCellDef mat-header-cell class="text-right">Transaction</th>
+        <td *matCellDef="let element" mat-cell class="text-right">
           {{element.transaction.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
       <ng-container matColumnDef="dueAmount">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Due Amount</th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+        <th *matHeaderCellDef mat-header-cell class="text-right">Due Amount</th>
+        <td *matCellDef="let element" mat-cell class="text-right">
           {{element.dueAmount.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
       <ng-container matColumnDef="totalProfit">
-        <th *matHeaderCellDef mat-header-cell class="text-right-6">Profit</th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+        <th *matHeaderCellDef mat-header-cell class="text-right">Profit</th>
+        <td *matCellDef="let element" mat-cell class="text-right">
           {{element.profit.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
       <ng-container matColumnDef="dueCollection">
-        <th *matHeaderCellDef mat-header-cell class="text-right-6">Due Collection</th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+        <th *matHeaderCellDef mat-header-cell class="text-right">Due Collection</th>
+        <td *matCellDef="let element" mat-cell class="text-right">
           {{element.dueCollection.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
       <tr *matHeaderRowDef="displayedColumns1;  sticky: true" mat-header-row></tr>

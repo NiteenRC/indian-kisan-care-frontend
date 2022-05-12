@@ -65,13 +65,13 @@
     </ng-container>
 
     <ng-container matColumnDef="dueDate">
-      <th *matHeaderCellDef mat-header-cell>Due Date</th>
-      <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy'}} </td>
+      <th *matHeaderCellDef mat-header-cell class="text-left">Due Date</th>
+      <td *matCellDef="let element" mat-cell class="text-left"> {{element.dueDate | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
-      <td *matCellDef="let element" mat-cell>
+      <th *matHeaderCellDef mat-header-cell class="text-right">Action</th>
+      <td *matCellDef="let element" mat-cell class="text-right">
         <button (click)="updateBalance(element)" mat-icon-button aria-label="Pay Balance">
           <mat-icon>payment</mat-icon>
         </button>

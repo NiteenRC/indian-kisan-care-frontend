@@ -49,13 +49,13 @@
     </ng-container>
 
     <ng-container matColumnDef="dueDate">
-      <th *matHeaderCellDef mat-header-cell>Due Date</th>
-      <td *matCellDef="let element" mat-cell> {{element.dueDate | date: 'dd/MM/yyyy'}} </td>
+      <th *matHeaderCellDef mat-header-cell class="text-left">Due Date</th>
+      <td *matCellDef="let element" mat-cell class="text-left"> {{element.dueDate | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="dueAmount">
-      <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
-      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.previousBalance.toLocaleString('en-IN')
+      <th *matHeaderCellDef mat-header-cell class="text-right">Due amount</th>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.previousBalance.toLocaleString('en-IN')
         || 0}} </td>
     </ng-container>
 
@@ -71,11 +71,6 @@
       </td>
     </ng-container>
 
-    <!-- <ng-container matColumnDef="status">
-      <th *matHeaderCellDef mat-header-cell>Status</th>
-      <td *matCellDef="let element" mat-cell> {{element.status}} </td>
-    </ng-container>-->
-
     <!-- <ng-container matColumnDef="action">
       <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
       <td *matCellDef="let element;" mat-cell>
@@ -87,8 +82,10 @@
     </ng-container>-->
 
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']"
-      triggers="mouseenter:mouseleave">
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row>
+    <!-- Mouse hover and show pop up-->
+    <!--<tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']"
+      triggers="mouseenter:mouseleave">-->
       <ng-template #test>
         <table [dataSource]="row.purchaseOrderDetail" mat-table class="mat-elevation-z2">
           <ng-container matColumnDef="id">

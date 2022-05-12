@@ -321,5 +321,5 @@ table {
 }
 
 .mat-row:not(:nth-child(2n+1)){
-    background-color:#ffffff;
+    background-color:#dfdef51e;
 }
