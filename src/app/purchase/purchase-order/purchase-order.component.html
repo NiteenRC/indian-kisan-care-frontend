@@ -72,7 +72,7 @@
         <table formArrayName="purchaseOrderDetail" [dataSource]="purchaseOrderDetailData" mat-table>
             <ng-container matColumnDef="sno">
                 <th *matHeaderCellDef mat-header-cell class="text-left pr-4">S. No</th>
-                <td *matCellDef="let element; let i = index;" mat-cell class="text-left pr-4"> {{i + 1}}. </td>
+                <td *matCellDef="let element; let i = index;" mat-cell class="text-left pr-4"> {{i + 1}} </td>
                 <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
             </ng-container>
 

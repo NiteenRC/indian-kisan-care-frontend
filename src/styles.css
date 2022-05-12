@@ -310,3 +310,16 @@ table {
 .mat-header-cell {
     color: #f8f9fa;
 }
+
+.mat-row:hover {
+    background-color: #ced6dd;
+    cursor: pointer;
+}
+
+.mat-row:nth-child(2n+1){
+    background-color: #f1f2f4;
+}
+
+.mat-row:not(:nth-child(2n+1)){
+    background-color:#ffffff;
+}
