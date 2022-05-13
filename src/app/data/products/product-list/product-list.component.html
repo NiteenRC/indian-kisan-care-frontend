@@ -18,19 +18,17 @@
             <td *matCellDef="let element; let i = index;" mat-cell> {{i + 1}} </td>
         </ng-container>
 
-        <!-- Name Column -->
         <ng-container matColumnDef="productName">
             <th *matHeaderCellDef mat-header-cell> Product</th>
             <td *matCellDef="let element" mat-cell> {{element.productName}} </td>
         </ng-container>
 
-        <!-- Weight Column -->
+        <!--
         <ng-container matColumnDef="category">
             <th *matHeaderCellDef mat-header-cell> Category</th>
             <td *matCellDef="let element" mat-cell> {{element.category?.categoryName}} </td>
-        </ng-container>
+        </ng-container>-->
 
-        <!-- Symbol Column -->
         <ng-container matColumnDef="qty">
             <th *matHeaderCellDef mat-header-cell class="text-right">Stock</th>
             <td *matCellDef="let element" mat-cell class="text-right"> {{element.qty}} </td>

@@ -152,6 +152,19 @@ export class SalesOrderComponent implements OnInit {
 
     this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       callback("ok");
+    }, (reason) => {
+      callback("cancel");
+    });
+  }
+
+  showAlertNoStock(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "", callback: any = () => { }) {
+    this.popupTitle = popupTitle;
+    this.popupsubtitle = popupsubtitle;
+    this.popupDescription = popupDescription;
+    this.popupMarkup = popupMarkup;
+
+    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
+      callback("ok");
       this.addStockPurchaseOrder();
     }, (reason) => {
       callback("cancel");
@@ -191,9 +204,9 @@ export class SalesOrderComponent implements OnInit {
     this.salesOrderDetailArr.value.forEach(value => {
       if (value.product.qty < value.qtyOrdered) {
         if (value.product.qty > 0) {
-          this.showAlert("Warning", 'Available stock for product: ' + value.product.productName + ' is ' + value.product.qty, "");
+          this.showAlertNoStock("Warning", 'Available stock for product: ' + value.product.productName + ' is ' + value.product.qty, "");
         } else {
-          this.showAlert("Warning", 'No Stock for product: ' + value.product.productName, "");
+          this.showAlertNoStock("Warning", 'No Stock for product: ' + value.product.productName, "");
         }
         isStockAvail = false;
       }

@@ -35,9 +35,9 @@ export class ProductListComponent implements OnInit {
 
     displayColumns() {
         if (this.super_admin || this.admin) {
-            this.displayedColumns = ['SNo', 'productName', 'category', 'qty', 'salePrice', 'price', 'GST', 'productDesc'];
+            this.displayedColumns = ['SNo', 'productName', 'qty', 'salePrice', 'price', 'GST', 'productDesc'];
         } else {
-            this.displayedColumns = ['SNo', 'productName', 'category', 'qty', 'salePrice', 'GST', 'productDesc'];
+            this.displayedColumns = ['SNo', 'productName', 'qty', 'salePrice', 'GST', 'productDesc'];
         }
     }
 
