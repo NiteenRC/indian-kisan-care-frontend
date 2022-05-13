@@ -1,5 +1,4 @@
-<!--<div class="mat-elevation-z8">-->
-<div>
+<div class="mat-elevation-z8">
   <table [dataSource]="dataSource" mat-table>
     <ng-container matColumnDef="productName">
       <th *matHeaderCellDef mat-header-cell>Product Name</th>
@@ -27,10 +26,9 @@
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>-->
 
-    <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']">
-    </tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+    <tr *matHeaderRowDef="displayedColumns; sticky: true " mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 30, 50]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
 <br>
