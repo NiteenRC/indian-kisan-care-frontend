@@ -10,7 +10,7 @@
         <div class="addproduct-container">
             <mat-form-field class="forms-fildes">
                 <input formControlName="productName" [matAutocomplete]="productAuto" aria-label="Number" matInput
-                    placeholder="Product" type="text">
+                    placeholder="PRODUCT NAME" type="text">
                 <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption>
                     <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
                         {{product.productName}}

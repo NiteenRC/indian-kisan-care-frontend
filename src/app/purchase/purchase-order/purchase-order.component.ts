@@ -108,7 +108,6 @@ export class PurchaseOrderComponent implements OnInit {
 
   showMsg: boolean = false;
 
-
   showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "") {
     this.popupTitle = popupTitle;
     this.popupsubtitle = popupsubtitle;
@@ -312,7 +311,8 @@ export class PurchaseOrderComponent implements OnInit {
     let isProductAdded = true;
     this.purchaseOrderDetailArr.value.forEach(element => {
       if (product.productName === element.product.productName) {
-        alert('Product is already Added!!');
+        //alert('Product is already Added!!');
+        this.showAlert("Error", "Product is already Added!!", "");
         isProductAdded = false;
       }
     });

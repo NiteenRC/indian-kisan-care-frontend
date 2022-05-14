@@ -129,7 +129,10 @@ export class SalesOrderComponent implements OnInit {
         }
       });
     });
+    this.fetchAllProducts();
+  }
 
+  fetchAllProducts() {
     this.productService.getProductsList().subscribe(data => {
       this.products = data;
       this._valueChangesListner();
@@ -195,11 +198,15 @@ export class SalesOrderComponent implements OnInit {
       return;
     }
 
-    this.salesOrderDetailArr.value.forEach(element => {
-      console.log(element);
-      //this.salesOrderDetailArr.setValue('product.qty = 10;
-    });
-
+    this.salesOrderDetailArr.value.map(x => {
+    this.products.forEach(prod => {
+        if (x.product.productName === prod.productName) {
+          x.product.qty = prod.qty;
+          return x;
+        }
+      })
+    })
+    //this.salesOrderDetailArr.value.map(x => { x.product.qty=3; return x;})
     let isStockAvail = true;
     this.salesOrderDetailArr.value.forEach(value => {
       if (value.product.qty < value.qtyOrdered) {
@@ -530,7 +537,7 @@ export class SalesOrderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.getSalesOrderList();
+      this.fetchAllProducts();
     });
   }
 }

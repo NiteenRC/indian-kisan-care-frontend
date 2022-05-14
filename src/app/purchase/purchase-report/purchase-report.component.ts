@@ -113,7 +113,7 @@ export class PurchaseReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getPurchaseOrderList();
+      //this.getPurchaseOrderList();
     });
   }
 }

@@ -3,7 +3,6 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SalesReportDetailsComponent } from 'src/app/sales/sales-report-details/sales-report-details.component';
 import { PurchaseReportDetailsComponent } from '../purchase-report-details/purchase-report-details.component';
 
 @Component({
