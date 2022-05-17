@@ -16,6 +16,8 @@ export class SalesOrder {
     billDate: string;
     deliverStatus: string;
     paymentMode: string;
+    upiPayment: number;
+    cashPayment: number;
     updatedProductSalePriceList: Array<UpdateProduct>;
 }
 

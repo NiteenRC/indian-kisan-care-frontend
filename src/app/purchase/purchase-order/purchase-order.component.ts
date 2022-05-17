@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ import { Supplier } from '../../_model/supplier';
 import { SupplierService } from '../../_services/supplier.service';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-purchase-order',
@@ -51,6 +51,7 @@ export class PurchaseOrderComponent implements OnInit {
     private productService: ProductService,
     private supplierService: SupplierService,
     private modalService: NgbModal,
+    @Optional() public dialogRef: MatDialogRef<PurchaseOrderComponent>,
     private purchaseOrderService: PurchaseOrderService) {
     //@Inject(MAT_DIALOG_DATA) private data) {
     this.ngOnInit();
@@ -213,6 +214,7 @@ export class PurchaseOrderComponent implements OnInit {
       this.purchaseOrderService
         .createPurchaseOrder(purchaseOrder).subscribe(data => {
           console.log(data);
+          this.closeModal();
           this.productService.updateProductList(this.updatedProductSalePriceList).subscribe();
           this.singleClickDisable = false;
           this.refreshAfterSave();
@@ -242,6 +244,12 @@ export class PurchaseOrderComponent implements OnInit {
       phoneNumber: 'NA'
     };
     return data;;
+  }
+
+  closeModal(): void {
+    if(this.dialogRef != null){
+      this.dialogRef.close();
+    }
   }
 
   refreshAfterSave() {

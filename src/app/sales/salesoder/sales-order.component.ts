@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import { SalesOrderService } from '../../_services/sales-order.service';
 import { Customer } from '../../_model/customer';
 import { CustomerService } from '../../_services/customer.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { PurchaseOrderComponent } from 'src/app/purchase/purchase-order/purchase-order.component';
 
 @Component({
@@ -57,13 +57,14 @@ export class SalesOrderComponent implements OnInit {
     private modalService: NgbModal,
     private customerService: CustomerService,
     private salesOrderService: SalesOrderService,
-    public dialog: MatDialog) {
-    /*@Inject(MAT_DIALOG_DATA) private data) {
+    @Optional() public dialog: MatDialog,
+    @Optional() @Inject(MAT_DIALOG_DATA) private data) {
     this.ngOnInit();
+    //this._createForm();
     if (data != null) {
       this._setData(data?.data.salesOrderDetail);
     }
-    */
+
     this.changeText = false;
     this.customers = [];
     this.products = [];
@@ -199,7 +200,7 @@ export class SalesOrderComponent implements OnInit {
     }
 
     this.salesOrderDetailArr.value.map(x => {
-    this.products.forEach(prod => {
+      this.products.forEach(prod => {
         if (x.product.productName === prod.productName) {
           x.product.qty = prod.qty;
           return x;
@@ -246,6 +247,8 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.deliverStatus = this.selected_deliver_status;
       salesOrder.paymentMode = this.selected_payment_mode;
       salesOrder.currentDue = this.previousBalance;
+      salesOrder.upiPayment = this.salesOrderForm.get('upiPayment').value;
+      salesOrder.cashPayment = this.salesOrderForm.get('cashPayment').value;
 
       if (salesOrder.amountPaid < 0) {
         // alert('Amount paid should be positive');
@@ -517,6 +520,8 @@ export class SalesOrderComponent implements OnInit {
       billDate: [new Date()],
       salesOrderDetail: this._fb.array([]),
       amountPaid: [],
+      upiPayment: [],
+      cashPayment: [],
     });
   }
 

@@ -3,7 +3,7 @@
     <table [dataSource]="dataSource1" mat-table>
       <ng-container matColumnDef="createdDate">
         <th *matHeaderCellDef mat-header-cell class="text-left">Bill date</th>
-        <td *matCellDef="let element" mat-cell class="text-left" (click)=getData(element) style="cursor: pointer;">
+        <td *matCellDef="let element" mat-cell class="text-left" (click)=getData(element) class="btn-info">
           {{element.billDate}}
         </td>
       </ng-container>
@@ -174,8 +174,8 @@
 
                 <p class="profitformCalculation">
                   <mat-form-field class="forms-fildes" style="width:67%">
-                    <input matInput type="number" placeholder="Enter UPI/Online " [(ngModel)]="upi"
-                      (ngModelChange)="calculate()" class="example-right-align">
+                    <input matInput type="number" placeholder="UPI payment " [(ngModel)]="upiPayment"
+                      class="example-right-align" readonly>
                   </mat-form-field>
                 </p>
 

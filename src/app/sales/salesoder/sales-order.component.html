@@ -53,7 +53,8 @@
 
         <mat-form-field class="form-group col-2 text-right pr-4">
             <mat-label>Due date</mat-label>
-            <input matInput [matDatepicker]="picker2" [min]="minStartDate" formControlName="dueDate" class="text-right pr-6">
+            <input matInput [matDatepicker]="picker2" [min]="minStartDate" formControlName="dueDate"
+                class="text-right pr-6">
             <mat-datepicker-toggle matSuffix [for]="picker2" ng-model-options="{timezone: 'utc'}">
             </mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
@@ -173,59 +174,66 @@
         </table>
 
 
-        <!--<div style="display: flex; justify-content: space-between">-->
-        <!-- TODO-->
-        <!--
+        <div style="display: flex; justify-content: space-between">
+            <!--<div class="total-container">
+                <mat-form-field>
+                    <mat-label>select delivery</mat-label>
+                    <mat-select [(value)]="selected_deliver_status">
+                        <mat-option value="DELIVERED">DELIVERED</mat-option>
+                        <mat-option value="NOT_DELIVERED">NOT DELIVERED</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>-->
+            <div class="total-container">
+                <div class="d-flex">
+                    <div class="forms-fildes">
+                        <mat-form-field class="forms-fildes">
+                            <mat-label>select payment</mat-label>
+                            <mat-select [(value)]="selected_payment_mode">
+                                <mat-option value="CASH">CASH</mat-option>
+                                <mat-option value="UPI">UPI</mat-option>
+                                <mat-option value="CASH_UPI">CASH & UPI</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="forms-fildes">
+                        <label for="name">CASH : ₹</label>
+                        <input class="amount-edit" type="number" formControlName="cashPayment" class="text-right pr-6">
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="name">UPI : ₹</label>
+                        <input class="amount-edit" type="number" formControlName="upiPayment" class="text-right pr-6">
+                    </div>
+                </div>
+            </div>
             <div class="total-container">
                 <div>
-                    <mat-form-field>
-                        <mat-label>select delivery</mat-label>
-                        <mat-select [(value)]="selected_deliver_status">
-                            <mat-option value="DELIVERED">DELIVERED</mat-option>
-                            <mat-option value="NOT_DELIVERED">NOT DELIVERED</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <label for="name">Amount Paid : ₹</label>
+                    <input class="amount-edit" type="number" formControlName="amountPaid" required>
                 </div>
                 <div>
-                    <mat-form-field>
-                        <mat-label>select payment</mat-label>
-                        <mat-select [(value)]="selected_payment_mode">
-                            <mat-option value="CASH">CASH</mat-option>
-                            <mat-option value="UPI">UPI/ONLINE</mat-option>
-                            <mat-option value="CASH_UPI">CASH & UPI</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            -->
-        <div class="total-container">
-            <div>
-                <label for="name">Amount Paid : ₹</label>
-                <input class="amount-edit" type="number" formControlName="amountPaid" required>
-            </div>
-            <div>
-                <label for="name">Current Due : </label>
-                <span class="amount-read-only">₹{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()).toLocaleString('en-IN')
+                    <label for="name">Current Due : </label>
+                    <span class="amount-read-only">₹{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()).toLocaleString('en-IN')
                         }}</span>
-            </div>
-            <div>
-                <label for="name">Previous Due : </label>
-                <span class="amount-read-only">₹{{previousBalance.toLocaleString('en-IN') }}</span>
-            </div>
-            <div>
-                <label for="name">Total(Curr+Prev) Due :</label>
-                <span class="amount-read-only">₹{{getTotalBalance().toLocaleString('en-IN')}}</span>
-            </div>
-            <br>
+                </div>
+                <div>
+                    <label for="name">Previous Due : </label>
+                    <span class="amount-read-only">₹{{previousBalance.toLocaleString('en-IN') }}</span>
+                </div>
+                <div>
+                    <label for="name">Total(Curr+Prev) Due :</label>
+                    <span class="amount-read-only">₹{{getTotalBalance().toLocaleString('en-IN')}}</span>
+                </div>
+                <br>
 
-            <button type="submit" class="btn btn-primary" style="margin-left: 5px;"
-                [disabled]="singleClickDisable && !salesOrderForm.valid"
-                (click)="save(false, content)">CHECKOUT</button>
-            <button type="submit" class="btn btn-success" style="margin-left: 5px;" [disabled]="singleClickDisable"
-                (click)="save(true, content)">CHECKOUT & PRINT</button>
-            <button class="btn btn-warning" style="margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
+                <button type="submit" class="btn btn-primary" style="margin-left: 5px;"
+                    [disabled]="singleClickDisable && !salesOrderForm.valid"
+                    (click)="save(false, content)">CHECKOUT</button>
+                <button type="submit" class="btn btn-success" style="margin-left: 5px;" [disabled]="singleClickDisable"
+                    (click)="save(true, content)">CHECKOUT & PRINT</button>
+                <button class="btn btn-warning" style="margin-left: 5px;" (click)="refreshAfterSave()">CLEAR</button>
+            </div>
         </div>
-        <!-- </div> -->
     </div>
 </form>
 
