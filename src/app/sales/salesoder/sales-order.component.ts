@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
@@ -12,6 +12,8 @@ import { SalesOrderService } from '../../_services/sales-order.service';
 import { Customer } from '../../_model/customer';
 import { CustomerService } from '../../_services/customer.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { PurchaseOrderComponent } from 'src/app/purchase/purchase-order/purchase-order.component';
 
 @Component({
   selector: 'app-sales-order',
@@ -54,11 +56,24 @@ export class SalesOrderComponent implements OnInit {
     private productService: ProductService,
     private modalService: NgbModal,
     private customerService: CustomerService,
-    private salesOrderService: SalesOrderService) {
+    private salesOrderService: SalesOrderService,
+    @Optional() public dialog: MatDialog,
+    @Optional() @Inject(MAT_DIALOG_DATA) private data) {
+    this.ngOnInit();
+    //this._createForm();
+    if (data != null) {
+      this._setData(data?.data.salesOrderDetail);
+    }
 
     this.changeText = false;
     this.customers = [];
     this.products = [];
+  }
+
+  private _setData(data) {
+    data.map(e => {
+      this._addProduct(e.product);
+    });
   }
 
   ngOnInit() {
@@ -105,15 +120,13 @@ export class SalesOrderComponent implements OnInit {
   }
 
   fetchData() {
-    this.customers = [];
     this.customerService.getCustomerList().subscribe(data => {
-      data.forEach(x => {
-        if (x.customerName != '') {
-          this.customers.push(x);
-        }
-      });
+      this.customers = data;
     });
+    this.fetchAllProducts();
+  }
 
+  fetchAllProducts() {
     this.productService.getProductsList().subscribe(data => {
       this.products = data;
       this._valueChangesListner();
@@ -136,6 +149,20 @@ export class SalesOrderComponent implements OnInit {
 
     this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       callback("ok");
+    }, (reason) => {
+      callback("cancel");
+    });
+  }
+
+  showAlertNoStock(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "", callback: any = () => { }) {
+    this.popupTitle = popupTitle;
+    this.popupsubtitle = popupsubtitle;
+    this.popupDescription = popupDescription;
+    this.popupMarkup = popupMarkup;
+
+    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
+      callback("ok");
+      this.addStockPurchaseOrder();
     }, (reason) => {
       callback("cancel");
     });
@@ -165,12 +192,23 @@ export class SalesOrderComponent implements OnInit {
       return;
     }
 
+    this.salesOrderDetailArr.value.map(x => {
+      this.products.forEach(prod => {
+        if (x.product.productName === prod.productName) {
+          x.product.qty = prod.qty;
+          return x;
+        }
+      })
+    })
+    //this.salesOrderDetailArr.value.map(x => { x.product.qty=3; return x;})
     let isStockAvail = true;
     this.salesOrderDetailArr.value.forEach(value => {
       if (value.product.qty < value.qtyOrdered) {
-        // alert('No Stock for product: ' + value.product.productName);
-        this.showAlert("Error", 'No Stock for product: ' + value.product.productName, "");
-
+        if (value.product.qty > 0) {
+          this.showAlertNoStock("Warning", 'Available stock for product: ' + value.product.productName + ' is ' + value.product.qty, "");
+        } else {
+          this.showAlertNoStock("Warning", 'No Stock for product: ' + value.product.productName, "");
+        }
         isStockAvail = false;
       }
 
@@ -202,6 +240,8 @@ export class SalesOrderComponent implements OnInit {
       salesOrder.deliverStatus = this.selected_deliver_status;
       salesOrder.paymentMode = this.selected_payment_mode;
       salesOrder.currentDue = this.previousBalance;
+      salesOrder.upiPayment = this.salesOrderForm.get('upiPayment').value;
+      salesOrder.cashPayment = this.salesOrderForm.get('cashPayment').value;
 
       if (salesOrder.amountPaid < 0) {
         // alert('Amount paid should be positive');
@@ -473,6 +513,8 @@ export class SalesOrderComponent implements OnInit {
       billDate: [new Date()],
       salesOrderDetail: this._fb.array([]),
       amountPaid: [],
+      upiPayment: [],
+      cashPayment: [],
     });
   }
 
@@ -482,5 +524,18 @@ export class SalesOrderComponent implements OnInit {
 
   get amountPaid() {
     return this.salesOrderForm.get('amountPaid') as FormControl;
+  }
+
+  addStockPurchaseOrder(): void {
+    const dialogRef = this.dialog.open(PurchaseOrderComponent, {
+      width: '950px',
+      disableClose: false,
+      //data: { data: updateProduct }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.fetchAllProducts();
+    });
   }
 }

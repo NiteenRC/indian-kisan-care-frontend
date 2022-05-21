@@ -15,46 +15,44 @@
 
         <ng-container matColumnDef="SNo">
             <th *matHeaderCellDef mat-header-cell>S.No</th>
-            <td *matCellDef="let element; let i = index;" mat-cell> {{i + 1}}. </td>
+            <td *matCellDef="let element; let i = index;" mat-cell> {{i + 1}} </td>
         </ng-container>
 
-        <!-- Name Column -->
         <ng-container matColumnDef="productName">
             <th *matHeaderCellDef mat-header-cell> Product</th>
             <td *matCellDef="let element" mat-cell> {{element.productName}} </td>
         </ng-container>
 
-        <!-- Weight Column -->
+        <!--
         <ng-container matColumnDef="category">
             <th *matHeaderCellDef mat-header-cell> Category</th>
             <td *matCellDef="let element" mat-cell> {{element.category?.categoryName}} </td>
-        </ng-container>
+        </ng-container>-->
 
-        <!-- Symbol Column -->
         <ng-container matColumnDef="qty">
-            <th *matHeaderCellDef mat-header-cell>Stock</th>
-            <td *matCellDef="let element" mat-cell> {{element.qty}} </td>
+            <th *matHeaderCellDef mat-header-cell class="text-right">Stock</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.qty}} </td>
         </ng-container>
 
         <ng-container matColumnDef="price" *ngIf="super_admin || admin">
-            <th *matHeaderCellDef mat-header-cell> Purchase Price</th>
-            <td *matCellDef="let element" mat-cell> {{element.purchasePrice | number : '1.0-2'}}</td>
+            <th *matHeaderCellDef mat-header-cell class="text-right"> Purchase Price</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.purchasePrice | number : '1.0-2'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="salePrice">
-            <th *matHeaderCellDef mat-header-cell> Selling Price</th>
-            <td *matCellDef="let element" mat-cell class="row-highlight"><b>{{element.currentPrice | number :
+            <th *matHeaderCellDef mat-header-cell class="text-right"> Selling Price</th>
+            <td *matCellDef="let element" mat-cell class="row-highlight text-right"><b>{{element.currentPrice | number :
                     '1.0-2'}}</b></td>
         </ng-container>
 
         <ng-container matColumnDef="GST">
-            <th *matHeaderCellDef mat-header-cell> GST</th>
-            <td *matCellDef="let element" mat-cell> {{element.gst}}%</td>
+            <th *matHeaderCellDef mat-header-cell class="text-right"> GST</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.gst}}%</td>
         </ng-container>
 
         <ng-container matColumnDef="productDesc">
-            <th *matHeaderCellDef mat-header-cell> Action</th>
-            <td *matCellDef="let element" mat-cell>
+            <th *matHeaderCellDef mat-header-cell class="text-right"> Action</th>
+            <td *matCellDef="let element" mat-cell class="text-right">
 
                 <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
                     mat-icon-button>

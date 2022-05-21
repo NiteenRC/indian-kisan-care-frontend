@@ -80,7 +80,7 @@ export class UpdateBalanceSheetComponent implements OnInit {
       dueDate: this.productForm.controls.dueDate.value,
     };
 
-    this.salesOrderService.updateSalesOrder(data).subscribe(res => {
+    this.salesOrderService.updateSalesOrderBalance(data).subscribe(res => {
       if (res != null) {
         this.closeModal();
       }

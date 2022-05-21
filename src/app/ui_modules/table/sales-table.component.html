@@ -107,7 +107,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let cart of response?.salesOrderDetail; index as i;">
-                                <td>{{i + 1}}.</td>
+                                <td>{{i + 1}}</td>
                                 <td>{{cart?.product?.productName}}</td>
                                 <td>{{cart?.product?.hsnNo}}</td>
                                 <td class="text-right pr-4">₹{{cart?.price.toLocaleString('en-IN') || 0}}</td>

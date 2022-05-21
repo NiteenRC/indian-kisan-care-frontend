@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PurchaseReportDetailsComponent } from '../purchase-report-details/purchase-report-details.component';
+import { SupplierReportDetailsComponent } from '../supplier-report-details/supplier-report-details.component';
 
 @Component({
   selector: 'app-purchase-report',
@@ -99,7 +100,20 @@ export class PurchaseReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getPurchaseOrderList();
+      //this.getPurchaseOrderList();
+    });
+  }
+
+  supplierHistory(supplier): void {
+    const dialogRef = this.dialog.open(SupplierReportDetailsComponent, {
+      width: '950px',
+      disableClose: false,
+      data: { data: supplier }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.getPurchaseOrderList();
     });
   }
 }

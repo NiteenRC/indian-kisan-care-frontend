@@ -71,8 +71,8 @@
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
-      <td *matCellDef="let element" mat-cell>
+      <th *matHeaderCellDef mat-header-cell class="text-right">Action</th>
+      <td *matCellDef="let element" mat-cell class="text-right">
         <button (click)="updateBalance(element)" mat-icon-button aria-label="Pay Balance">
           <mat-icon>payment</mat-icon>
         </button>

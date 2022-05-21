@@ -56,3 +56,26 @@ label,input{
       display: flex;
       justify-content: center;
   }
+
+  table {
+    width: 100%;
+}
+
+th {
+    background-color: #5999d2;
+    font-size: 15px;
+}
+
+.row-highlight {
+    color: #5999d2;
+}
+
+.inline-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.firstLabel {
+    margin-right: px;
+}

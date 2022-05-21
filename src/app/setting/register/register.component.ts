@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
-import { MatRadioModule } from '@angular/material/radio';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
     selector: 'app-register',
@@ -18,6 +19,9 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     favoriteSeason: string;
     hide = true;
+    displayedColumns: string[] ;
+    dataSource;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private authService: AuthService, private router: Router) {
     }
@@ -28,6 +32,21 @@ export class RegisterComponent implements OnInit {
             'password': new FormControl(null, [Validators.required]),
             'role': new FormControl(null, [Validators.required]),
         });
+        
+        this.displayColumns();
+        this.getProductList();
+    }
+
+    displayColumns(){
+        this.displayedColumns= ['sno', 'name', 'role'];
+    }
+
+    getProductList() {
+        this.authService.getUserList().subscribe(res => {
+            this.dataSource = res;
+            this.dataSource = new MatTableDataSource(res);
+            this.dataSource.paginator = this.paginator;
+        }, error => console.log(error));
     }
 
     clear() {
@@ -39,6 +58,10 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
+        if (this.registerForm.controls.role.value === null) {
+            return;
+        }
+
         let data = {
             "username": this.registerForm.controls.username.value,
             "password": this.registerForm.controls.password.value,

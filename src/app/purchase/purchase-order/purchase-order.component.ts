@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
@@ -13,6 +13,7 @@ import { Supplier } from '../../_model/supplier';
 import { SupplierService } from '../../_services/supplier.service';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-purchase-order',
@@ -50,8 +51,10 @@ export class PurchaseOrderComponent implements OnInit {
     private productService: ProductService,
     private supplierService: SupplierService,
     private modalService: NgbModal,
-    private purchaseOrderService: PurchaseOrderService, private route: Router) {
-
+    @Optional() public dialogRef: MatDialogRef<PurchaseOrderComponent>,
+    private purchaseOrderService: PurchaseOrderService) {
+    //@Inject(MAT_DIALOG_DATA) private data) {
+    this.ngOnInit();
     this.suppliers = [];
     this.products = [];
   }
@@ -83,11 +86,7 @@ export class PurchaseOrderComponent implements OnInit {
   fetchData() {
     this.suppliers = [];
     this.supplierService.getSupplierList().subscribe(data => {
-      data.forEach(x => {
-        if (x.supplierName != '') {
-          this.suppliers.push(x);
-        }
-      });
+      this.suppliers = data;
     });
 
     this.productService.getProductsList().subscribe(data => {
@@ -106,7 +105,6 @@ export class PurchaseOrderComponent implements OnInit {
 
   showMsg: boolean = false;
 
-
   showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "") {
     this.popupTitle = popupTitle;
     this.popupsubtitle = popupsubtitle;
@@ -122,7 +120,6 @@ export class PurchaseOrderComponent implements OnInit {
     this.singleClickDisable = true;
     let isValidPrice = false;
     if (this.purchaseOrderDetailArr.value.length === 0) {
-      // alert('please select products, before submitting');
       this.showAlert("Error", 'please select products, before submitting', "");
       this.singleClickDisable = false;
       return;
@@ -160,12 +157,10 @@ export class PurchaseOrderComponent implements OnInit {
     purchaseOrder.previousBalance = this.getTotalBalance();
 
     if (purchaseOrder.amountPaid < 0) {
-      // alert('Amount paid should be positive');
       this.showAlert("Error", 'Amount paid should be positive', "");
       this.singleClickDisable = false;
       return;
     } else if (this.getTotalBalance() < 0) {
-      // alert('Amount paid should be equals to balance');
       this.showAlert("Error", 'Amount paid should be equals to balance', "");
       this.singleClickDisable = false;
       return;
@@ -202,7 +197,6 @@ export class PurchaseOrderComponent implements OnInit {
 
     this.purchaseOrder = purchaseOrder;
 
-
     this.purchaseOrderDetailArr.value.forEach(element => {
       const productItem = {
         purchasePrice: element.price,
@@ -216,6 +210,7 @@ export class PurchaseOrderComponent implements OnInit {
       this.purchaseOrderService
         .createPurchaseOrder(purchaseOrder).subscribe(data => {
           console.log(data);
+          this.closeModal();
           this.productService.updateProductList(this.updatedProductSalePriceList).subscribe();
           this.singleClickDisable = false;
           this.refreshAfterSave();
@@ -245,6 +240,12 @@ export class PurchaseOrderComponent implements OnInit {
       phoneNumber: 'NA'
     };
     return data;;
+  }
+
+  closeModal(): void {
+    if (this.dialogRef != null) {
+      this.dialogRef.close();
+    }
   }
 
   refreshAfterSave() {
@@ -314,7 +315,8 @@ export class PurchaseOrderComponent implements OnInit {
     let isProductAdded = true;
     this.purchaseOrderDetailArr.value.forEach(element => {
       if (product.productName === element.product.productName) {
-        alert('Product is already Added!!');
+        //alert('Product is already Added!!');
+        this.showAlert("Error", "Product is already Added!!", "");
         isProductAdded = false;
       }
     });

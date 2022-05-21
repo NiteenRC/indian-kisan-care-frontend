@@ -5,13 +5,12 @@
         </p>
     </div>
 </div>
-<div class="col-md-12">
-    <div class="registration-container">
+<div class="d-flex">
+    <div class="form-group col-6">
         <mat-card style="width: 70%;box-shadow: rgb(0 0 0 / 10%) 0px 3px 7px 4px;padding: 0px;">
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-               
                 <div style="background: #5999d2;">
-                    <h1 style="text-align: center;line-height: 40px;color: white;">Registration</h1>
+                    <h3 style="text-align: center;line-height: 30px;color: white;">USER REGISTRATION</h3>
                 </div>
                 <div class="container-fluid">
                     <div class="row">
@@ -34,8 +33,9 @@
                             <p style="text-align: center;">
                                 <mat-form-field appearance="legacy" style="width: 250px;">
                                     <mat-label>Password</mat-label>
-                                    <input matInput formControlName="password" required [type]="hide ? 'password' : 'text'">
-                                    <button mat-icon-button matSuffix (click)="hide = !hide"
+                                    <input matInput formControlName="password" required
+                                        [type]="hide ? 'password' : 'text'">
+                                    <button mat-icon-button matSuffix (click)="hide = !hide" type="button"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
@@ -54,5 +54,29 @@
                 </div>
             </form>
         </mat-card>
+    </div>
+
+    <div class="form-group col-6">
+        <table [dataSource]="dataSource" mat-table>
+            <ng-container matColumnDef="sno">
+                <th *matHeaderCellDef mat-header-cell class="text-left pr-4">S.No</th>
+                <td *matCellDef="let element; let i = index;" mat-cell class="text-left pr-4"> {{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th *matHeaderCellDef mat-header-cell class="text-left pr-10">USER NAME</th>
+                <td *matCellDef="let element" mat-cell class="text-left pr-10"> {{element.username}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="role">
+                <th *matHeaderCellDef mat-header-cell class="text-left pr-4">ROLE TYPE</th>
+                <td *matCellDef="let element" mat-cell class="text-left pr-4">
+                    {{element.roles[0].name}} </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns; sticky: true " mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns; " mat-row></tr>
+        </table>
     </div>
 </div>

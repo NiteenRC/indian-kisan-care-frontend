@@ -1,11 +1,11 @@
-import { Category } from '../../../_model/category';
+//import { Category } from '../../../_model/category';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { autocompleteStringValidator } from 'src/app/validators/category.validator';
-import { CategoryService } from 'src/app/_services/category.service';
+//import { CategoryService } from 'src/app/_services/category.service';
 import { ProductService } from 'src/app/_services/product.service';
 import { Product } from 'src/app/_model/product';
 
@@ -16,11 +16,11 @@ import { Product } from 'src/app/_model/product';
 })
 export class CreateProductComponent implements OnInit {
     myControl = new FormControl();
-    options: Category[] = [];
-    filteredOptions: Observable<Category[]>;
+    //options: Category[] = [];
+    //filteredOptions: Observable<Category[]>;
     filteredProducts: Observable<Product[]>;
 
-    listOfCategories = [];
+    //listOfCategories = [];
     products = [];
     productForm: FormGroup;
     locationForm: FormGroup;
@@ -29,13 +29,14 @@ export class CreateProductComponent implements OnInit {
     errorMsg: any;
     citiesList: any;
     companies: any;
+    singleClickDisable = false;
 
     constructor(private productService: ProductService,
-        private categoryService: CategoryService,
+        //private categoryService: CategoryService,
         public dialogRef: MatDialogRef<CreateProductComponent>,
         @Inject(MAT_DIALOG_DATA) private data) {
         this.productForm = new FormGroup({
-            categoryName: new FormControl(null, [Validators.required]),
+            //categoryName: new FormControl(null, [Validators.required]),
             productName: new FormControl(null, [Validators.required]),
             price: new FormControl(null),
             gst: new FormControl(null, [Validators.pattern('^[0-9]*$'), Validators.min(0), Validators.max(100)]),
@@ -52,7 +53,7 @@ export class CreateProductComponent implements OnInit {
 
         if (data != null) {
             this.productUpdateData = data?.data;
-            this.productForm.controls['categoryName'].setValue(this.productUpdateData.category.categoryName);
+            //this.productForm.controls['categoryName'].setValue(this.productUpdateData.category.categoryName);
             this.productForm.controls['productName'].setValue(this.productUpdateData.productName);
             this.productForm.controls['price'].setValue(this.productUpdateData.price);
             this.productForm.controls['gst'].setValue(this.productUpdateData.gst);
@@ -70,6 +71,7 @@ export class CreateProductComponent implements OnInit {
 
     ngOnInit(): void {
         this.fetchData();
+        this.singleClickDisable = false;
     }
 
     onSubmit() {
@@ -83,12 +85,13 @@ export class CreateProductComponent implements OnInit {
     }
 
     addProduct() {
-        const categoryName = this.productForm.controls.categoryName.value;
+        this.singleClickDisable = true;
+        /*const categoryName = this.productForm.controls.categoryName.value;
         let category = this._findCategory(categoryName);
 
         if (category == undefined) {
             category = { 'categoryName': categoryName };
-        }
+        }*/
 
         let hsnNo = this.productForm.controls.hsnNo.value;
         if (hsnNo === null) {
@@ -103,7 +106,7 @@ export class CreateProductComponent implements OnInit {
             currentPrice: this.productForm.controls.currentPrice.value,
             purchasePrice: this.productForm.controls.purchasePrice.value,
             //qty: this.productForm.controls.qty.value,
-            category: category
+            //category: category
         };
 
         this.productService.createProduct(data).subscribe(res => {
@@ -111,26 +114,28 @@ export class CreateProductComponent implements OnInit {
                 this.successMsg = 'Product Successfully Updated..!';
                 // this.getCategoryList();
                 this.closeModal();
+                this.singleClickDisable = false;
             }
         }, error => {
             this.errorMsg = error.error.errorMessage;
+            this.singleClickDisable = false;
         });
     }
 
-    saveCategory(categoryName: string) {
+    /*saveCategory(categoryName: string) {
         let data = {
             categoryName: categoryName
         }
         this.categoryService.createCategory(data).subscribe();
-    }
+    }*/
 
     updateProduct() {
-        const selectedCategoryName = this.productForm.controls.categoryName.value;
+        /*const selectedCategoryName = this.productForm.controls.categoryName.value;
         let category = this._findCategory(selectedCategoryName);
 
         if (category == undefined) {
             category = { 'categoryName': selectedCategoryName };
-        }
+        }*/
 
         let data = {
             id: this.productUpdateData.id,
@@ -142,7 +147,7 @@ export class CreateProductComponent implements OnInit {
             purchasePrice: this.productForm.controls.purchasePrice.value,
             qty: this.productForm.controls.qty.value,
             profit: this.productForm.controls.profit.value,
-            category,
+            // category,
         };
         this.productService.updateProduct(data).subscribe(res => {
             if (res != null) {
@@ -153,21 +158,13 @@ export class CreateProductComponent implements OnInit {
         }, error => {
             this.errorMsg = error.error.errorMessage;
         });
-
-    }
-
-    getCategoryList() {
-        this.categoryService.getCategoryList().subscribe(data => {
-            this.options = data;
-            this.productForm.get('categoryName').setValidators([autocompleteStringValidator(data), Validators.required]);
-        });
     }
 
     fetchData() {
-        this.categoryService.getCategoryList().subscribe(data => {
+        /*this.categoryService.getCategoryList().subscribe(data => {
             this.listOfCategories = data;
             this._valueChangesListner();
-        });
+        });*/
 
         this.productService.getProductsList().subscribe(data => {
             this.products = data;
@@ -175,13 +172,13 @@ export class CreateProductComponent implements OnInit {
         });
     }
 
-    private _filter(value: string): Category[] {
+    /*private _filter(value: string): Category[] {
         if (!value) {
             return this.listOfCategories;
         }
         const filterValue = value.toLowerCase();
         return this.listOfCategories.filter(option => option.categoryName.toLowerCase().includes(filterValue))
-    }
+    }*/
 
     private _filterProduct(value: string): Product[] {
         if (!value) {
@@ -191,15 +188,15 @@ export class CreateProductComponent implements OnInit {
         return this.products.filter(option => option.productName.toLowerCase().includes(filterValue));
     }
 
-    private _findCategory(categoryName: string) {
+    /*private _findCategory(categoryName: string) {
         return this.listOfCategories.find(option => option?.categoryName === categoryName);
-    }
+    }*/
 
     private _valueChangesListner() {
-        this.filteredOptions = this.productForm.controls['categoryName'].valueChanges.pipe(
+        /*this.filteredOptions = this.productForm.controls['categoryName'].valueChanges.pipe(
             startWith(''),
             map(value => this._filter(value))
-        );
+        );*/
 
         this.filteredProducts = this.productForm.controls['productName'].valueChanges.pipe(
             startWith(''),

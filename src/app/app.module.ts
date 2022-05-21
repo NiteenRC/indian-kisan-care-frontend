@@ -53,6 +53,7 @@ import { PurchaseReportDetailsComponent } from './purchase/purchase-report-detai
 import { SalesReportDetailsComponent } from './sales/sales-report-details/sales-report-details.component';
 import { SalesOrderComponent } from './sales/salesoder/sales-order.component';
 import { BalanceSheetComponent } from './sales/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
+import { SupplierReportDetailsComponent } from './purchase/supplier-report-details/supplier-report-details.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,7 @@ import { BalanceSheetComponent } from './sales/customer-balance-sheet/list-custo
     PurchaseReportDetailsComponent,
     SalesReportDetailsComponent,
     UpdateBankInfoComponent,
-    UpdateBankInfoComponent,
+    SupplierReportDetailsComponent,
   ],
   imports: [
     TableModule,

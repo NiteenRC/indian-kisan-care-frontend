@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8">
+<div>
     <table [dataSource]="dataSource" mat-table>
         <ng-container matColumnDef="productName">
             <th *matHeaderCellDef mat-header-cell>Product Name</th>
@@ -17,8 +17,8 @@
         </ng-container>
 
         <ng-container matColumnDef="action">
-            <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
-            <td *matCellDef="let element;" mat-cell>
+            <th *matHeaderCellDef mat-header-cell class="text-right">Action</th>
+            <td *matCellDef="let element;" mat-cell class="text-right">
                 <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
           <mat-icon class="delete-button">delete</mat-icon>
           <!-- <img src="../../assets/delete.png" class="home-icon" alt="" width="25px" height="25px"> -->

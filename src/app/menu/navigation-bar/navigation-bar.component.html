@@ -6,15 +6,19 @@
                 username.substr(1)}} ({{userType}})</span>
             <mat-icon class="person-img" [matMenuTriggerFor]="menu">person</mat-icon>
             <mat-menu #menu="matMenu">
-                <p onmouseover="style='text-decoration:underline'"
+                <!-- TO DO-->
+                <!--<p onmouseover="style='text-decoration:underline'"
                     onmouseout="style='text-decoration:none'" (click)="openDialog()" class="menu-title">Edit Profile
-                </p>
+                </p>-->
+
                 <!--<p *ngIf="super_admin" onmouseover="style='text-decoration:underline'"
                     onmouseout="style='text-decoration:none'" (click)="openDialog()" class="menu-title">Manage Account
                 </p>
+                
                 <p *ngIf="super_admin || admin" onmouseover="style='text-decoration:underline'"
                     onmouseout="style='text-decoration:none'" (click)="updateBankDetails()" class="menu-title">
                     Update Bank Details</p> -->
+
                 <p style="border: white;" class="menu-title" onmouseover="style='text-decoration:underline'"
                     onmouseout="style='text-decoration:none'" (click)="logout()">Log Out</p>
             </mat-menu>

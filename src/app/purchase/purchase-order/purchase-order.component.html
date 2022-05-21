@@ -7,7 +7,7 @@
 </div>
 <form [formGroup]="purchaserOrderForm">
     <div class="d-flex">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Product</mat-label>
                 <input type="text" #searchProduct aria-label="Product" matInput formControlName="productName"
@@ -44,42 +44,42 @@
             </mat-form-field>
         </div>
 
-        <div class="form-group col-2">
+        <div class="form-group col-1">
             <mat-form-field class="forms-fildes">
                 <mat-label>Phone number</mat-label>
                 <input type="text" aria-label="Motor Vehicle no" matInput formControlName="motorVehicleNo">
             </mat-form-field>
         </div>
 
-        <mat-form-field class="form-group col-2">
+        <mat-form-field class="form-group col-2  text-right pr-4">
             <mat-label>Bill date</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="billDate">
+            <input matInput [matDatepicker]="picker1" formControlName="billDate" class="text-right pr-6">
             <mat-datepicker-toggle matSuffix [for]="picker1" ng-model-options="{timezone: 'utc'}">
             </mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="form-group col-2">
+        <mat-form-field class="form-group col-2  text-right pr-4">
             <mat-label>Due date</mat-label>
-            <input matInput [matDatepicker]="picker2" [min]="minStartDate" formControlName="dueDate">
+            <input matInput [matDatepicker]="picker2" [min]="minStartDate" formControlName="dueDate" class="text-right pr-6">
             <mat-datepicker-toggle matSuffix [for]="picker2" ng-model-options="{timezone: 'utc'}">
             </mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
-
     </div>
+
     <div class="mat-elevation-z8 purchase-order-container">
         <table formArrayName="purchaseOrderDetail" [dataSource]="purchaseOrderDetailData" mat-table>
             <ng-container matColumnDef="sno">
                 <th *matHeaderCellDef mat-header-cell class="text-left pr-4">S. No</th>
-                <td *matCellDef="let element; let i = index;" mat-cell class="text-right pr-4"> {{i + 1}}. </td>
+                <td *matCellDef="let element; let i = index;" mat-cell class="text-left pr-4"> {{i + 1}} </td>
                 <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
             </ng-container>
 
             <ng-container matColumnDef="action">
                 <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Action</th>
                 <td *matCellDef="let element; let i = index;" mat-cell>
-                    <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product">
+                    <button (click)="removeProduct(i)" mat-icon-button aria-label="Remove product" type="button">
                         <mat-icon class="delete-button">delete</mat-icon>
                         <!-- <img src="../../assets/delete.png" class="home-icon" alt="" width="25px" height="25px"> -->
                     </button>
@@ -183,16 +183,16 @@
             </div>
             <div>
                 <label for="name">Current Due : </label>
-                <span class="amount-read-only">{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()) | currency:'INR'
+                <span class="amount-read-only">₹{{ ((getCurrentBalance() < 0) ? 0 : getCurrentBalance()).toLocaleString('en-IN')
                         }}</span>
             </div>
             <div>
                 <label for="name">Previous Due :</label>
-                <span class="amount-read-only">{{previousBalance | currency:'INR' }}</span>
+                <span class="amount-read-only">₹{{previousBalance.toLocaleString('en-IN') }}</span>
             </div>
             <div>
                 <label for="name">Total(Curr+Prev) Due :</label>
-                <span class="amount-read-only">{{getTotalBalance() | currency:'INR'}}</span>
+                <span class="amount-read-only">₹{{getTotalBalance().toLocaleString('en-IN')}}</span>
             </div>
             <br>
 

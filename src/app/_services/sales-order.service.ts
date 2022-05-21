@@ -21,6 +21,10 @@ export class SalesOrderService {
         return this.http.get(`${this.baseUrl}`);
     }
 
+    countSalesOrders(): Observable<any> {
+        return this.http.get(`${this.baseUrl}/transactions/count`);
+    }
+
     getSalesOrderBalaceByCustomer(customerID: any): any {
         return this.http.get(`${this.baseUrl}/customer/balance/${customerID}`);
     }
@@ -35,6 +39,10 @@ export class SalesOrderService {
 
     updateSalesOrder(value: any): Observable<Object> {
         return this.http.put(`${this.baseUrl}`, value);
+    }
+
+    updateSalesOrderBalance(value: any): Observable<Object> {
+        return this.http.put(`${this.baseUrl}/payment/balance`, value);
     }
 
     getBarChartReport(): any {

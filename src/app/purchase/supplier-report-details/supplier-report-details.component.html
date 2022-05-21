@@ -1,0 +1,33 @@
+<div>
+  <table [dataSource]="dataSource" mat-table>
+    <ng-container matColumnDef="billDate">
+      <th *matHeaderCellDef mat-header-cell>Bill Date</th>
+      <td *matCellDef="let element" mat-cell> 
+        <button (click)="fetchOrderDetails(element)" class="btn-info">
+          {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalPrice">
+      <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element?.totalPrice | number : '1.0-2'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalQty">
+      <th *matHeaderCellDef mat-header-cell class="text-right">Total Qty</th>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element?.totalQty}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amountPaid">
+      <th *matHeaderCellDef mat-header-cell class="text-right">Amount Paid</th>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element?.amountPaid}} </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']">
+    </tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+</div>

@@ -22,6 +22,10 @@ export class PurchaseOrderService {
     }
 
     getPurchaseOrderBalaceBySupplier(supplierID: any): any {
+        return this.http.get(`${this.baseUrl}/supplier/balance/${supplierID}`);
+    }
+
+    getPurchaseOrderBySupplier(supplierID: number): any {
         return this.http.get(`${this.baseUrl}/supplier/${supplierID}`);
     }
 
