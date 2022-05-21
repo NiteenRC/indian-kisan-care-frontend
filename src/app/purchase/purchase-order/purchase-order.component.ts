@@ -86,11 +86,7 @@ export class PurchaseOrderComponent implements OnInit {
   fetchData() {
     this.suppliers = [];
     this.supplierService.getSupplierList().subscribe(data => {
-      data.forEach(x => {
-        if (x.supplierName != '') {
-          this.suppliers.push(x);
-        }
-      });
+      this.suppliers = data;
     });
 
     this.productService.getProductsList().subscribe(data => {
@@ -247,7 +243,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   closeModal(): void {
-    if(this.dialogRef != null){
+    if (this.dialogRef != null) {
       this.dialogRef.close();
     }
   }

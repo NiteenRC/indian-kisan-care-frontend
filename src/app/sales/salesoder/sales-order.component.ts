@@ -72,9 +72,7 @@ export class SalesOrderComponent implements OnInit {
 
   private _setData(data) {
     data.map(e => {
-      const newRow = this._initRow(e.product);
-      this.salesOrderDetailArr.push(newRow);
-      this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
+      this._addProduct(e.product);
     });
   }
 
@@ -122,13 +120,8 @@ export class SalesOrderComponent implements OnInit {
   }
 
   fetchData() {
-    this.customers = [];
     this.customerService.getCustomerList().subscribe(data => {
-      data.forEach(x => {
-        if (x.customerName != '') {
-          this.customers.push(x);
-        }
-      });
+      this.customers = data;
     });
     this.fetchAllProducts();
   }
