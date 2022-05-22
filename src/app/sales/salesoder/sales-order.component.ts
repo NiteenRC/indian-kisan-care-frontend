@@ -538,4 +538,8 @@ export class SalesOrderComponent implements OnInit {
       this.fetchAllProducts();
     });
   }
+
+  somethingChanged(selected : string): void {
+    this.selected_payment_mode = selected;
+  }
 }

@@ -187,22 +187,20 @@
             <div class="total-container">
                 <div class="d-flex">
                     <div class="forms-fildes">
-                        <mat-form-field class="forms-fildes">
-                            <mat-label>select payment</mat-label>
-                            <mat-select [(value)]="selected_payment_mode">
+                        <mat-form-field >
+                            <mat-label>select payment type</mat-label>
+                            <mat-select [(value)]="selected_payment_mode" (selectionChange)="somethingChanged($event.value)">
                                 <mat-option value="CASH">CASH</mat-option>
                                 <mat-option value="UPI">UPI</mat-option>
                                 <mat-option value="CASH_UPI">CASH & UPI</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="forms-fildes">
-                        <label for="name">CASH : ₹</label>
-                        <input class="amount-edit" type="number" formControlName="cashPayment" class="text-right pr-6">
+                    <div class="forms-fildes" *ngIf="selected_payment_mode === 'CASH_UPI'">
+                        <input class="amount-edit" type="number" formControlName="cashPayment" class="text-right pr-6" placeholder="Enter CASH amount">
                     </div>
-                    <div class="form-group col-2">
-                        <label for="name">UPI : ₹</label>
-                        <input class="amount-edit" type="number" formControlName="upiPayment" class="text-right pr-6">
+                    <div class="forms-fildes" *ngIf="selected_payment_mode === 'UPI' || selected_payment_mode === 'CASH_UPI'">
+                        <input class="amount-edit" type="number" formControlName="upiPayment" class="text-right pr-6" placeholder="Enter UPI amount">
                     </div>
                 </div>
             </div>
