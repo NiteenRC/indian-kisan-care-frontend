@@ -103,11 +103,7 @@ export class SalesOrderComponent implements OnInit {
 
     const product = this._findProduct(selectedProduct);
     if (product.qty <= 0) {
-      // alert('Stock is not avaiable');
-      this.showAlert("Error", "Stock is not avaiable", "");
-      // this.salesOrderForm = this._fb.group({
-      //productName: ['']
-      //});
+      this.showAlertNoStock("Warning", 'No Stock for product: ' + selectedProduct, "");
       return;
     }
     this._addProduct(product);
@@ -202,21 +198,23 @@ export class SalesOrderComponent implements OnInit {
     })
     //this.salesOrderDetailArr.value.map(x => { x.product.qty=3; return x;})
     let isStockAvail = true;
+    let noStockProducts = "";
     this.salesOrderDetailArr.value.forEach(value => {
       if (value.product.qty < value.qtyOrdered) {
-        if (value.product.qty > 0) {
+        noStockProducts += value.product.productName+", ";
+        /*if (value.product.qty > 0) {
           this.showAlertNoStock("Warning", 'Available stock for product: ' + value.product.productName + ' is ' + value.product.qty, "");
         } else {
           this.showAlertNoStock("Warning", 'No Stock for product: ' + value.product.productName, "");
-        }
+        }*/
         isStockAvail = false;
       }
 
-      if (value.qtyOrdered === 0) {
+      /*if (value.qtyOrdered === 0) {
         // alert('Please add Quantity to : ' + value.product.productName);
         this.showAlert("Error", "Please add Quantity to : " + value.product.productName, "");
         isStockAvail = false;
-      }
+      }*/
     });
 
     if (isStockAvail) {
@@ -315,6 +313,8 @@ export class SalesOrderComponent implements OnInit {
       }, (reason) => {
         this.singleClickDisable = false;
       });
+    } else {
+      this.showAlertNoStock("Warning", 'No stock for product: ' + noStockProducts.slice(0, -2), "");
     }
     this.singleClickDisable = false;
   }
@@ -539,7 +539,7 @@ export class SalesOrderComponent implements OnInit {
     });
   }
 
-  somethingChanged(selected : string): void {
+  somethingChanged(selected: string): void {
     this.selected_payment_mode = selected;
   }
 }
