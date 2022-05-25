@@ -78,15 +78,15 @@
         <ng-container matColumnDef="Action">
             <th *matHeaderCellDef mat-header-cell class="text-right">Action</th>
             <td *matCellDef="let element;" mat-cell class="text-right">
-                <!--<button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
+                <button (click)="deleteSalesOrder(element)" mat-icon-button aria-label="Remove Sales order">
                     <mat-icon class="delete-button">delete</mat-icon>
-                </button>-->
-                <button (click)="updateProduct1(element) " class="btn btn-info">
+                </button>
+                <!--<button (click)="updateProduct1(element) " class="btn btn-info">
                     <div style="display:flex">
                         <mat-icon class="edit">edit</mat-icon>
                         
                     </div>
-                </button>
+                </button>-->
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

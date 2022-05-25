@@ -1,10 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseOrderService } from 'src/app/_services/purchase-order.service';
-import { SalesOrderService } from 'src/app/_services/sales-order.service';
 
 @Component({
   selector: 'app-update-balance-sheet',
@@ -14,8 +12,14 @@ import { SalesOrderService } from 'src/app/_services/sales-order.service';
 export class SupplierUpdateBalanceSheetComponent implements OnInit {
   productForm: FormGroup;
   productUpdateData: any;
+  popupTitle = "";
+  popupsubtitle = "";
+  popupDescription = "";
+  @ViewChild('modalContent') modalContent: ElementRef;
+  popupMarkup = "";
 
-  constructor(private purchaseOrderService: PurchaseOrderService,
+  constructor(private modalService: NgbModal,
+    private purchaseOrderService: PurchaseOrderService,
     public dialogRef: MatDialogRef<SupplierUpdateBalanceSheetComponent>,
     @Inject(MAT_DIALOG_DATA) private data) {
     this.productForm = new FormGroup({
@@ -40,7 +44,7 @@ export class SupplierUpdateBalanceSheetComponent implements OnInit {
 
   onSubmit() {
     if (this.productForm.valid) {
-        this.updateSupplierBalance();
+      this.updateSupplierBalance();
     }
   }
 
@@ -49,17 +53,17 @@ export class SupplierUpdateBalanceSheetComponent implements OnInit {
     const payAmount: number = Number(this.productForm.controls.payAmount.value);
 
     if (payAmount < 0) {
-      alert('Pay amount should be positive');
+      this.showAlert("Error", "Pay amount should be positive", "");
       return;
     } else if (payAmount == 0) {
-      alert('Pay amount should not be ZERO');
+      this.showAlert("Error", "Pay amount should not be ZERO", "");
       return;
     } else if (payAmount === this.productForm.controls.currentBalance.value) {
       status = 'PAID';
     } else if (payAmount < this.productForm.controls.currentBalance.value) {
       status = 'DUE';
     } else {
-      alert('Please pay amount less than due amount');
+      this.showAlert("Error", "Please pay amount less than due amount", "");
       return;
     }
 
@@ -78,7 +82,20 @@ export class SupplierUpdateBalanceSheetComponent implements OnInit {
     });
   }
 
+  showAlert(popupTitle: string, popupDescription: string, popupsubtitle: string, popupMarkup: string = "", callback: any = () => { }) {
+    this.popupTitle = popupTitle;
+    this.popupsubtitle = popupsubtitle;
+    this.popupDescription = popupDescription;
+    this.popupMarkup = popupMarkup;
+
+    this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
+      callback("ok");
+    }, (reason) => {
+      callback("cancel");
+    });
+  }
+
   closeModal(): void {
-      this.dialogRef.close();
+    this.dialogRef.close();
   }
 }
