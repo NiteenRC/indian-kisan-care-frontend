@@ -78,7 +78,6 @@ export class StockBookComponent implements OnInit {
   
   selectedProduct(selectedProduct: string) {
     //this.productForm.controls['productName'].setValue(null);
-    this.productForm.controls['productName'].setValue(null);
     this.searchProduct.nativeElement.blur();
     this.getSalesOrderList(selectedProduct, this.startDate, this.endDate);
     this.searchText = selectedProduct;
