@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SalesOrderService } from 'src/app/_services/sales-order.service';
 import { SalesOrderComponent } from '../salesoder/sales-order.component';
+import { CustomerReportDetailsComponent } from '../customer-report-details/customer-report-details.component';
 
 @Component({
   selector: 'app-sales-report',
@@ -142,6 +143,19 @@ export class SalesReportComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getSalesOrderList();
+    });
+  }
+
+  supplierHistory(supplier): void {
+    const dialogRef = this.dialog.open(CustomerReportDetailsComponent, {
+      width: '950px',
+      disableClose: false,
+      data: { data: supplier }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.getPurchaseOrderList();
     });
   }
 }

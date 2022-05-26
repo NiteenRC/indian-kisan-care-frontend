@@ -32,7 +32,11 @@
     <table [dataSource]="dataSource" mat-table>
         <ng-container matColumnDef="customerName">
             <th *matHeaderCellDef mat-header-cell>Customer</th>
-            <td *matCellDef="let element" mat-cell> {{element.customer?.customerName}} </td>
+            <td *matCellDef="let element" mat-cell>
+            <button (click)="supplierHistory(element.customer.id)" class="btn-info">
+                {{element.customer?.customerName}}
+              </button>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="billDate">

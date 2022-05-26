@@ -1,5 +1,5 @@
 import { SalesOrderService } from '../../_services/sales-order.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/_model/product';
@@ -74,8 +74,12 @@ export class StockBookComponent implements OnInit {
     return this.products.filter(option => option.productName.toLowerCase().includes(filterValue));
   }
 
+  @ViewChild('searchProduct') searchProduct: ElementRef;
+  
   selectedProduct(selectedProduct: string) {
     //this.productForm.controls['productName'].setValue(null);
+    this.productForm.controls['productName'].setValue(null);
+    this.searchProduct.nativeElement.blur();
     this.getSalesOrderList(selectedProduct, this.startDate, this.endDate);
     this.searchText = selectedProduct;
     //this.getSalesOrderList('0','0');
