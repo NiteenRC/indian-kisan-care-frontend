@@ -3,7 +3,7 @@
     <ng-container matColumnDef="billDate">
       <th *matHeaderCellDef mat-header-cell>Bill Date</th>
       <td *matCellDef="let element" mat-cell> 
-        <button (click)="fetchOrderDetails(element)" class="btn-info">
+        <button (click)="fetchOrderDetails(element)" mat-stroked-button color="primary">
           {{element.billDate | date: 'dd/MM/yyyy hh:mm a'}}
         </button>
       </td>

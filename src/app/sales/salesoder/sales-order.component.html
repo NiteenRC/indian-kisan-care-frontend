@@ -7,7 +7,7 @@
 </div>
 
 <form [formGroup]="salesOrderForm">
-    <div class="d-flex">
+    <div class="d-flex textAlt">
         <div class="form-group col-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Product</mat-label>
@@ -62,7 +62,7 @@
 
     </div>
     <div class="mat-elevation-z8 sales-order-container">
-        <table formArrayName="salesOrderDetail" [dataSource]="salesOrderDetailData" mat-table>
+        <table formArrayName="salesOrderDetail" [dataSource]="salesOrderDetailData" mat-table class="tableAlt">
             <ng-container matColumnDef="sno">
                 <th *matHeaderCellDef mat-header-cell class="text-left pr-4">S. No</th>
                 <td *matCellDef="let element; let i = index;" mat-cell class="text-left pr-4"> {{i + 1}} </td>

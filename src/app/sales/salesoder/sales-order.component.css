@@ -21,6 +21,11 @@
     transform: translate(-40%, 0%);
 }
 
+.forms-fildes.alt {
+    width: auto;
+    margin-top: 20px;
+}
+
 th {
     background-color: #5999d2;
     font-size: 15px;
@@ -43,8 +48,20 @@ th {
     justify-content: space-between;
 }
 
-.forms-fildes {
-    width: 200px;
+::ng-deep .tableAlt .mat-form-field-appearance-legacy .mat-form-field-infix,::ng-deep .tableAlt .mat-form-field-infix{
+    padding: 0 !important;
+}
+
+::ng-deep .textAlt .mat-form-field-appearance-legacy .mat-form-field-wrapper, ::ng-deep .textAlt .mat-form-field-wrapper {
+    padding: 0 !important;
+}
+
+::ng-deep .textAlt .mat-form-field-appearance-legacy .mat-form-field-underline, ::ng-deep .textAlt .mat-form-field-underline {
+    bottom: 0em;
+}
+
+::ng-deep .dateAlt .mat-form-field-wrapper {
+    width: 50%;
 }
 
 .modal-title-custom {
