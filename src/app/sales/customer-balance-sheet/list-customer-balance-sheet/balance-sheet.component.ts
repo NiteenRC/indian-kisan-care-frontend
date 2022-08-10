@@ -80,12 +80,6 @@ export class BalanceSheetComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  pay(index: number) {
-    alert('s')
-    //this.salesOrderDetailArr.removeAt(index);
-    //this.salesOrderDetailData = new MatTableDataSource(this.salesOrderDetailArr.controls);
-  }
-
   updateBalance(updateBalance): void {
     const dialogRef = this.dialog.open(UpdateBalanceSheetComponent, {
       width: '450px',

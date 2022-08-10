@@ -46,5 +46,22 @@
             </button>
         </div>
     </form>
-
+    <ng-template #modalContent let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title modal-title-custom" id="modal-basic-title">{{popupTitle}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p><strong>{{popupsubtitle}}</strong></p>
+            <p>{{popupDescription}}</p>
+            <div [innerHTML]="popupMarkup"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary"
+                (click)="modal.dismiss('cancel click')">Cancel</button>
+            <button type="button" ngbAutofocus class="btn btn-primary" (click)="modal.close('Save click')">Ok</button>
+        </div>
+    </ng-template>
 </div>

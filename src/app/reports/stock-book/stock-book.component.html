@@ -4,9 +4,10 @@
     <br><br>
     <mat-form-field class="example-full-width">
       <mat-label>Product</mat-label>
-      <input type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
+      <input #searchProduct type="text" aria-label="Product" matInput formControlName="productName" [matAutocomplete]="productAuto">
       <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
         (optionSelected)="selectedProduct($event.option.value)">
+        <mat-option [value]="null">-- Select All --</mat-option>
         <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
           {{product.productName}}
         </mat-option>
@@ -53,6 +54,13 @@
           <mat-form-field class="example-full-width">
             <mat-label>Total Profit</mat-label>
             <input type="text" formControlName="totalProfit" matInput readonly>
+          </mat-form-field>
+          <br>
+        </div>
+        <div class="addproduct-container">
+          <mat-form-field class="example-full-width">
+            <mat-label>Total Price</mat-label>
+            <input type="text" formControlName="totalPrice" matInput readonly>
           </mat-form-field>
           <br>
         </div>

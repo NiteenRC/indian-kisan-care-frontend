@@ -74,4 +74,12 @@ export class SalesOrderService {
     getSalesOrder(salesOrderID: any): Observable<any> {
         return this.http.get(`${this.baseUrl}/${salesOrderID}`);
     }
+
+    getSalesOrderDetailsList(id: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/details/${id}`);
+    }
+
+    getSalesOrderByCustomer(supplierID: number): any {
+        return this.http.get(`${this.baseUrl}/customer/${supplierID}`);
+    }
 }

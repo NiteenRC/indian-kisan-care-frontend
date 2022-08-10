@@ -4,6 +4,8 @@ import { TokenStorageService } from '../../_services/token-storage.service';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../app.component';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { SubscriptionComponent } from 'src/app/subscription/register/subscription.component';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
     roles: string[] = [];
     loginForm: FormGroup;
     hide = true;
-    constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {
+    constructor(public dialog: MatDialog, private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {
     }
 
     ngOnInit() {
@@ -65,12 +67,28 @@ export class LoginComponent implements OnInit {
                 AppComponent.role_user = this.roles.includes('ROLE_USER');
             },
             err => {
-                this.errorMessage = "Username or password is wrong.";
+                if (err.error.message === 'Error: Unauthorized') {
+                    this.errorMessage = 'Entered Username or Password is incorrect.';
+                } else {
+                    //this.errorMessage = err.error.message;
+                    this.subscriptionModel();
+                }
             }
         );
     }
 
     signup() {
         this.router.navigate(['register']);
+    }
+
+    subscriptionModel(): void {
+        const dialogRef = this.dialog.open(SubscriptionComponent, {
+            width: '950px',
+            disableClose: false,
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
     }
 }
