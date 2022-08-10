@@ -13,6 +13,6 @@ export class HttpClientHelper {
     //Online mock api
     //static baseURL = 'https://signin.free.beeceptor.com';
     
-     //Azure
+    //Azure
     static baseURL = "https://smart-accounting-book.azurewebsites.net";
 }
