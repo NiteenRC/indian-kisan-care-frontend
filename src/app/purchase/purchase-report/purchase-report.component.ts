@@ -13,7 +13,7 @@ import { SupplierReportDetailsComponent } from '../supplier-report-details/suppl
   styleUrls: ['./purchase-report.component.css']
 })
 export class PurchaseReportComponent implements OnInit {
-  displayedColumns: string[] = ['billDate', 'dueDate', 'supplierName', 'totalPrice', 'amountPaid', 'dueAmount'];
+  displayedColumns: string[] = ['billDate', 'dueDate', 'supplierName', 'totalPrice', 'amountPaid', 'dueAmount','action'];
   productColumns: string[] = ['id', 'productName', 'purchasePrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
@@ -100,7 +100,7 @@ export class PurchaseReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.getPurchaseOrderList();
+      this.getPurchaseOrderList();
     });
   }
 

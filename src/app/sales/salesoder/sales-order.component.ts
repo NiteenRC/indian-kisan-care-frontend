@@ -505,11 +505,14 @@ export class SalesOrderComponent implements OnInit {
   }
 
   private _createForm() {
+    var date = new Date();
+    date.setDate(date.getDate() + 7);
+
     this.salesOrderForm = this._fb.group({
       customerName: [''],
       productName: [''],
       motorVehicleNo: [''],
-      dueDate: [],
+      dueDate: [date],
       billDate: [new Date()],
       salesOrderDetail: this._fb.array([]),
       amountPaid: [],

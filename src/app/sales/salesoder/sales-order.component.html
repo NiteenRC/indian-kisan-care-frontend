@@ -19,6 +19,7 @@
                         {{product.productName}}
                     </mat-option>
                 </mat-autocomplete>
+                <button matSuffix mat-button><mat-icon >search</mat-icon></button>
             </mat-form-field>
         </div>
 
@@ -192,7 +193,7 @@
                             <mat-select [(value)]="selected_payment_mode" (selectionChange)="somethingChanged($event.value)">
                                 <mat-option value="CASH">CASH</mat-option>
                                 <mat-option value="UPI">UPI</mat-option>
-                                <mat-option value="CASH_UPI">CASH & UPI</mat-option>
+                                <!--<mat-option value="CASH_UPI">CASH & UPI</mat-option>-->
                             </mat-select>
                         </mat-form-field>
                     </div>

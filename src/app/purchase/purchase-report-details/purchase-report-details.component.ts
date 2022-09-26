@@ -10,7 +10,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./purchase-report-details.component.css']
 })
 export class PurchaseReportDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['productName', 'price', 'qtyOrdered'];
+  displayedColumns: string[] = ['productName', 'price', 'qtyOrdered','action'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
 

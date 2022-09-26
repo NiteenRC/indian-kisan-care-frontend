@@ -1,8 +1,12 @@
 table {
-    width: 100%;
-  }
-  
-  th {
-    background-color: #5999d2;
-    font-size: 15px;
-  }
+  width: 100%;
+}
+
+th {
+  background-color: #5999d2;
+  font-size: 15px;
+}
+
+.delete-button {
+  color: #bd2929a1;
+}

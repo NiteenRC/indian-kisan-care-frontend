@@ -26,12 +26,14 @@ export class UpdateBalanceSheetComponent implements OnInit {
     private salesOrderService: SalesOrderService,
     public dialogRef: MatDialogRef<UpdateBalanceSheetComponent>,
     @Inject(MAT_DIALOG_DATA) private data) {
+    var date = new Date();
+    date.setDate(date.getDate() + 7);
     this.productForm = new FormGroup({
       id: new FormControl(),
       customerName: new FormControl(),
       currentBalance: new FormControl(),
       payAmount: new FormControl(),
-      dueDate: new FormControl(),
+      dueDate: new FormControl(date),
     });
 
     if (data != null) {
