@@ -63,7 +63,7 @@ export class SalesReportComponent implements OnInit {
     let filteredData = this.salesReports;
 
     if (start && end) {
-      const startTime = start.getTime();
+      const startTime = start.getTime() + 86399999;
       const endTime = end.getTime() + 86399999;
       // console.log('date===', startTime, endTime, new Date(startTime), new Date(endTime));
       filteredData = filteredData.filter(salesReport => {

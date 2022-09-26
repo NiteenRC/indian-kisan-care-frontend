@@ -28,6 +28,7 @@ import { LoginComponent } from './setting/login/login.component';
 import { BalanceSheetComponent } from './sales/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
 import { SalesOrderComponent } from './sales/salesoder/sales-order.component';
 import { SalesReportComponent } from './sales/sales-report/sales-report.component';
+import { ProductSummaryComponent } from './reports/product-summary/product-summary.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -59,7 +60,8 @@ export const routes: Routes = [
       { path: 'sales-report', component: SalesReportComponent },
       { path: 'purchase-report', component: PurchaseReportComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'updateBankDetails', component: UpdateBankInfoComponent }
+      { path: 'updateBankDetails', component: UpdateBankInfoComponent },
+      { path: 'product-summary', component: ProductSummaryComponent }
     ]
   },
   { path: 'table', component: TableComponent },

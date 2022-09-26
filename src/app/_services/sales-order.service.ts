@@ -49,8 +49,9 @@ export class SalesOrderService {
         return this.http.get(`${this.baseUrl}/barChart`);
     }
 
-    getSalesOrderByProductWise(): any {
-        return this.http.get(`${this.baseUrl}/product`);
+    getSalesOrderByProductWise(productName, start: string, end: string): any {
+        const opts = { params: {'productName': productName, 'startDate': start, 'endDate': end}};
+        return this.http.get(`${this.baseUrl}/product`,opts);
     }
 
     getStockBook(productName: string): any {

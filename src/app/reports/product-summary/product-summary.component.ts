@@ -9,12 +9,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-stock-book',
-  templateUrl: './stock-book.component.html',
-  styleUrls: ['./stock-book.component.css']
+  selector: 'app-product-summary',
+  templateUrl: './product-summary.component.html',
+  styleUrls: ['./product-summary.component.css']
 })
-export class StockBookComponent implements OnInit {
-  displayedColumns: string[] = ['sno', 'date', 'productName', 'openingStock', 'soldStock', 'closingStock'];
+export class ProductSummaryComponent implements OnInit {
+  displayedColumns: string[] = ['date', 'productName', 'soldStock', 'closingStock'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
   dataSourceProduct: any;
@@ -35,9 +35,8 @@ export class StockBookComponent implements OnInit {
   constructor(private salesOrderService: SalesOrderService, private productService: ProductService) {
     this.productForm = new FormGroup({
       productName: new FormControl(null),
-      totalProfit: new FormControl(),
-      totalPrice: new FormControl(),
-      totalQtySold: new FormControl()
+      totalProfit: new FormControl(null),
+      totalQtySold: new FormControl(null)
     })
   }
 
@@ -75,7 +74,7 @@ export class StockBookComponent implements OnInit {
   }
 
   @ViewChild('searchProduct') searchProduct: ElementRef;
-  
+
   selectedProduct(selectedProduct: string) {
     //this.productForm.controls['productName'].setValue(null);
     this.searchProduct.nativeElement.blur();
@@ -107,7 +106,7 @@ export class StockBookComponent implements OnInit {
     if (start && end) {
       this.startDate = start.getTime() + 86399999;
       this.endDate = end.getTime() + 86399999;
-      if(this.searchText == undefined){
+      if (this.searchText == undefined) {
         this.searchText = null;
       }
       this.getSalesOrderList(this.searchText, this.startDate, this.endDate);
@@ -115,21 +114,22 @@ export class StockBookComponent implements OnInit {
   }
 
   getSalesOrderList(productName, startDate: string, endDate: string) {
-   // if(startDate != "0" && endDate != "0"){
-     if(startDate == undefined || endDate == undefined){
-        startDate = null;
-        endDate = null;
-     }
-     //this.searchText = productName; 
-     this.salesOrderService.getStockBookByDate(productName, startDate, endDate).subscribe(res => {
-      this.dataSource = res.stockData;
-            this.dataSource = new MatTableDataSource(res.stockData);
-            this.dataSource.paginator = this.paginator;
+    // if(startDate != "0" && endDate != "0"){
+    if (startDate == undefined || endDate == undefined) {
+      startDate = null;
+      endDate = null;
+    }
+    //this.searchText = productName; 
+    this.salesOrderService.getSalesOrderByProductWise(productName, startDate, endDate).subscribe(res => {
+      this.dataSource = res.productDetail;
+      this.dataSource = new MatTableDataSource(res.productDetail);
+      this.dataSource.paginator = this.paginator;
       //this.clearDate();
       this.productForm.controls['totalProfit'].setValue(res.totalProfit);
-      this.productForm.controls['totalPrice'].setValue(res.totalPrice);
       this.productForm.controls['totalQtySold'].setValue(res.totalQtySold);
-     }, error => console.log(error));
-   // }
- }
+
+
+    }, error => console.log(error));
+    // }
+  }
 }
