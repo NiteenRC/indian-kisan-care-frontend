@@ -16,14 +16,14 @@
     </mat-form-field>
 
     <br><br><br><br>
-    <b><span>Stock Summary</span></b>
+    <b><span>Current Stock</span></b>
     <br><br>
     <div class="product-conatiner">
       <form [formGroup]="productForm">
         <div class="addproduct-container">
           <mat-form-field class="example-full-width">
             <mat-label>Totat Qty Purchased</mat-label>
-            <input type="text" formControlName="totalProfit" matInput readonly>
+            <input type="text" formControlName="totalQtySold" matInput readonly>
           </mat-form-field>
           <br>
         </div>
@@ -31,7 +31,7 @@
         <div class="addproduct-container">
           <mat-form-field class="example-full-width">
             <mat-label>Total Purchased Amount</mat-label>
-            <input type="text" formControlName="totalQtySold" matInput readonly>
+            <input type="text" formControlName="totalProfit" matInput readonly>
           </mat-form-field>
           <br>
         </div>
@@ -58,6 +58,12 @@
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Qty Purchased</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
           {{element.qtySold}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalPurchaseAmount">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Total Price</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.qtySold * element.profit}} </td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>

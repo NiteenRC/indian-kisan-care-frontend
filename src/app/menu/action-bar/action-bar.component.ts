@@ -100,7 +100,7 @@ export class ActionBarComponent implements OnInit{
     if (item === "Daily Summary") {
       this._redirectToPage('dashboard/profit-summary');
     }
-    if (item === "Product Summary") {
+    if (item === "Sold Stock") {
       this._redirectToPage('dashboard/product-summary');
     }
     if (item === "Stock Book") {
@@ -173,7 +173,7 @@ const SUMMARY: MasterNode[] = [
         name: 'Current Stock',
       },
       {
-        name: 'Product Summary',
+        name: 'Sold Stock',
       },
       {
         name: 'Stock Book',
