@@ -94,6 +94,9 @@ export class ActionBarComponent implements OnInit{
 
   getSummary(item) {
     this.selected = SUMMARY[0].name + item;
+    if (item === "Current Stock") {
+      this._redirectToPage('dashboard/current-stock');
+    }
     if (item === "Daily Summary") {
       this._redirectToPage('dashboard/profit-summary');
     }
@@ -164,10 +167,13 @@ const SUMMARY: MasterNode[] = [
     name: 'SUMMARY',
     children: [
       {
-        name: 'Product Summary',
+        name: 'Daily Summary',
       },
       {
-        name: 'Daily Summary',
+        name: 'Current Stock',
+      },
+      {
+        name: 'Product Summary',
       },
       {
         name: 'Stock Book',

@@ -52,4 +52,9 @@ export class PurchaseOrderService {
     getPurchaseOrderDetailsList(id: number): Observable<any> {
         return this.http.get(`${this.baseUrl}/details/${id}`);
     }
+
+    getCurrentStock(productName): any {
+        const opts = { params: {'productName': productName}};
+        return this.http.get(`${this.baseUrl}/current-stock`,opts);
+    }
 }

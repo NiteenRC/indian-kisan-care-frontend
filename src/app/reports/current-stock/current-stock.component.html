@@ -1,0 +1,69 @@
+<div class="d-flex">
+  <div class="form-group col-4">
+    <b><span>Search by Product and Billing date</span></b>
+    <br><br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Product</mat-label>
+      <input #searchProduct type="text" aria-label="Product" matInput formControlName="productName"
+        [matAutocomplete]="productAuto">
+      <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption
+        (optionSelected)="selectedProduct($event.option.value)">
+        <mat-option [value]="null">-- Select All --</mat-option>
+        <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
+          {{product.productName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <br><br><br><br>
+    <b><span>Stock Summary</span></b>
+    <br><br>
+    <div class="product-conatiner">
+      <form [formGroup]="productForm">
+        <div class="addproduct-container">
+          <mat-form-field class="example-full-width">
+            <mat-label>Totat Qty Purchased</mat-label>
+            <input type="text" formControlName="totalProfit" matInput readonly>
+          </mat-form-field>
+          <br>
+        </div>
+
+        <div class="addproduct-container">
+          <mat-form-field class="example-full-width">
+            <mat-label>Total Purchased Amount</mat-label>
+            <input type="text" formControlName="totalQtySold" matInput readonly>
+          </mat-form-field>
+          <br>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table [dataSource]="dataSource" mat-table>
+      <ng-container matColumnDef="productName">
+        <th *matHeaderCellDef mat-header-cell class="text-left pr-4">Product Name</th>
+        <td *matCellDef="let element" mat-cell class="text-left pr-4">
+          {{element.productName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Purchase Price</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.profit}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="qtyOrdered">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Qty Purchased</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.qtySold}} </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

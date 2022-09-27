@@ -57,6 +57,7 @@ import { SupplierReportDetailsComponent } from './purchase/supplier-report-detai
 import { SubscriptionComponent } from './subscription/register/subscription.component';
 import { CustomerReportDetailsComponent } from './sales/customer-report-details/customer-report-details.component';
 import { ProductSummaryComponent } from './reports/product-summary/product-summary.component';
+import { CurrentStockComponent } from './reports/current-stock/current-stock.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { ProductSummaryComponent } from './reports/product-summary/product-summa
     SupplierReportDetailsComponent,
     CustomerReportDetailsComponent,
     SubscriptionComponent,
-    ProductSummaryComponent
+    ProductSummaryComponent,
+    CurrentStockComponent
   ],
   imports: [
     TableModule,

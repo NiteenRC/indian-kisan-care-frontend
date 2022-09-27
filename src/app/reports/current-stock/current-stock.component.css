@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+
+th {
+  background-color: #5999d2;
+  font-size: 15px;
+}
+
+.example-full-width {
+  width: 100%;
+}
