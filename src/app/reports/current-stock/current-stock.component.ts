@@ -15,7 +15,7 @@ import { PurchaseOrderService } from 'src/app/_services/purchase-order.service';
   styleUrls: ['./current-stock.component.css']
 })
 export class CurrentStockComponent implements OnInit {
-  displayedColumns: string[] = ['productName', 'price', 'qtyOrdered', 'totalPurchaseAmount'];
+  displayedColumns: string[] = ['productName', 'price', 'margin', 'qtyOrdered', 'totalPurchaseAmount'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
   dataSourceProduct: any;

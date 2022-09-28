@@ -54,6 +54,12 @@
           {{element.profit.toLocaleString( 'en-IN') || 0}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="margin">
+        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Margin</th>
+        <td *matCellDef="let element" mat-cell class="text-right pr-4">
+          {{element.margin.toLocaleString( 'en-IN') || 0}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="qtyOrdered">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Qty Purchased</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">

@@ -135,30 +135,6 @@
                 </td>
             </ng-container>
 
-            <!-- <ng-container matColumnDef="amount">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Base Price</th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          ₹{{element.get('price')?.value - (element.get('price')?.value * (element.get('product')?.value.gst/100) )}}</td>
-        <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container> -->
-
-            <!-- <ng-container matColumnDef="taxType">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">
-          CGST/SGST <br> IGST Rate
-        </th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          {{element.get('product')?.value.gst}}%</td>
-        <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container> -->
-
-            <!-- <ng-container matColumnDef="taxAmount">
-        <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Tax Amount</th>
-        <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          ₹{{element.get('price')?.value * element.get('qtyOrdered')?.value * element.get('product')?.value.gst/100 | number : '1.0-2'}}
-        </td>
-        <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>-->
-
             <ng-container matColumnDef="totalAmount">
                 <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Amount</th>
                 <td *matCellDef="let element" mat-cell class="text-right pr-4">

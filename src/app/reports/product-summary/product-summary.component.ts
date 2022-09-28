@@ -14,7 +14,7 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['./product-summary.component.css']
 })
 export class ProductSummaryComponent implements OnInit {
-  displayedColumns: string[] = ['date', 'productName', 'soldStock', 'closingStock'];
+  displayedColumns: string[] = ['date', 'productName', 'margin', 'soldStock', 'closingStock'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
   dataSourceProduct: any;
