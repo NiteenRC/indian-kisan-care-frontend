@@ -43,7 +43,7 @@ export class CreateCustomerComponent implements OnInit {
             this.customerForm.controls['customerName'].setValue(this.customerUpdateData.customerName);
             this.customerForm.controls['gstIn'].setValue(this.customerUpdateData.gstIn);
             this.customerForm.controls['phoneNumber'].setValue(this.customerUpdateData.phoneNumber);
-            this.customerForm.controls['cityName'].setValue(this.customerUpdateData.location.cityName);
+            this.customerForm.controls['cityName'].setValue(this.customerUpdateData.location?.cityName);
         }
     }
 

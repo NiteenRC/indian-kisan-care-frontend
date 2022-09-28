@@ -105,7 +105,7 @@ export class StockBookComponent implements OnInit {
     const { start, end } = this.range.value || {};
 
     if (start && end) {
-      this.startDate = start.getTime() + 86399999;
+      this.startDate = start.getTime();
       this.endDate = end.getTime() + 86399999;
       if(this.searchText == undefined){
         this.searchText = null;
@@ -126,9 +126,9 @@ export class StockBookComponent implements OnInit {
             this.dataSource = new MatTableDataSource(res.stockData);
             this.dataSource.paginator = this.paginator;
       //this.clearDate();
-      this.productForm.controls['totalProfit'].setValue(res.totalProfit);
-      this.productForm.controls['totalPrice'].setValue(res.totalPrice);
-      this.productForm.controls['totalQtySold'].setValue(res.totalQtySold);
+      this.productForm.controls['totalProfit'].setValue(res.totalProfit.toLocaleString( 'en-IN') || 0);
+      this.productForm.controls['totalPrice'].setValue(res.totalPrice.toLocaleString( 'en-IN') || 0);
+      this.productForm.controls['totalQtySold'].setValue(res.totalQtySold.toLocaleString( 'en-IN') || 0);
      }, error => console.log(error));
    // }
  }

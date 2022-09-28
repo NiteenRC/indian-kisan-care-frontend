@@ -126,8 +126,8 @@ export class CurrentStockComponent implements OnInit {
       this.dataSource = new MatTableDataSource(res.productDetails);
       this.dataSource.paginator = this.paginator;
       //this.clearDate();
-      this.productForm.controls['totalProfit'].setValue(res.totalPurchasePrice);
-      this.productForm.controls['totalQtySold'].setValue(res.totalQtyPurchased);
+      this.productForm.controls['totalProfit'].setValue(res.totalPurchasePrice.toLocaleString( 'en-IN') || 0);
+      this.productForm.controls['totalQtySold'].setValue(res.totalQtyPurchased.toLocaleString( 'en-IN') || 0);
 
 
     }, error => console.log(error));

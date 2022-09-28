@@ -128,7 +128,7 @@ export class ProfitSummaryComponent implements OnInit {
     this.upiPayment = event.upiPayment;
     //this.profit = event.totalProfit;
     this.dueCollection = event.dueCollection;
-    this.difference = this.transaction + this.dueAmount + this.dueCollection - this.totalNoOfNotesCount;
+    this.difference = (this.transaction + this.dueAmount + this.dueCollection - this.totalNoOfNotesCount);
     console.log(event);
   }
 }

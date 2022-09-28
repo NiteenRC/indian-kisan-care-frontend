@@ -13,7 +13,7 @@
           {{element.transaction.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
       <ng-container matColumnDef="dueAmount">
-        <th *matHeaderCellDef mat-header-cell class="text-right">Due Amount</th>
+        <th *matHeaderCellDef mat-header-cell class="text-right">Debit</th>
         <td *matCellDef="let element" mat-cell class="text-right">
           {{element.dueAmount.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
@@ -23,7 +23,7 @@
           {{element.profit.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
       <ng-container matColumnDef="dueCollection">
-        <th *matHeaderCellDef mat-header-cell class="text-right">Due Collection</th>
+        <th *matHeaderCellDef mat-header-cell class="text-right">Credit</th>
         <td *matCellDef="let element" mat-cell class="text-right">
           {{element.dueCollection.toLocaleString('en-IN') || 0}} </td>
       </ng-container>
@@ -153,21 +153,21 @@
 
                 <p class="profitformCalculation">
                   <mat-form-field class="forms-fildes" style="width:67%">
-                    <input matInput type="number" placeholder="Due Collection " [(ngModel)]="dueCollection"
+                    <input matInput type="number" placeholder="Credit" [(ngModel)]="dueCollection"
                       class="example-right-align" readonly>
                   </mat-form-field>
                 </p>
 
                 <p class="profitformCalculation">
                   <mat-form-field class="forms-fildes" style="width:67%">
-                    <input matInput type="number" placeholder="Due Given " [(ngModel)]="dueAmount"
+                    <input matInput type="number" placeholder="Debit " [(ngModel)]="dueAmount"
                       class="example-right-align" readonly>
                   </mat-form-field>
                 </p>
 
                 <p class="profitformCalculation">
                   <mat-form-field class="forms-fildes" style="width:67%">
-                    <input matInput placeholder="Enter Hard Cash " [(ngModel)]="totalNoOfNotesCount"
+                    <input matInput placeholder="Hard Cash " [(ngModel)]="totalNoOfNotesCount"
                       class="example-right-align" readonly>
                   </mat-form-field>
                 </p>

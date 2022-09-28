@@ -50,7 +50,7 @@
         </mat-tree-node>
       </mat-tree>
 
-      <mat-tree *ngIf="true" [dataSource]="dataSourceReports" [treeControl]="treeControl" style="margin-right: 10px;">
+      <mat-tree *ngIf="role_admin || role_super" [dataSource]="dataSourceReports" [treeControl]="treeControl" style="margin-right: 10px;">
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
@@ -105,7 +105,7 @@
 
 
 
-      <mat-tree *ngIf="role" [dataSource]="dataSourceSummary" [treeControl]="treeControl" style="margin-right: 10px;">
+      <mat-tree *ngIf="role_super" [dataSource]="dataSourceSummary" [treeControl]="treeControl" style="margin-right: 10px;">
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
@@ -130,7 +130,7 @@
         </mat-tree-node>
       </mat-tree>
 
-      <mat-tree *ngIf="role" [dataSource]="dataSourceSetting" [treeControl]="treeControl" style="margin-right: 10px;">
+      <mat-tree *ngIf="role_super" [dataSource]="dataSourceSetting" [treeControl]="treeControl" style="margin-right: 10px;">
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->

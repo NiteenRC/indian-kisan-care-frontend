@@ -47,7 +47,7 @@ export class CreateSupplierComponent implements OnInit {
             this.supplierForm.controls['supplierName'].setValue(this.supplierUpdateData.supplierName);
             this.supplierForm.controls['gstIn'].setValue(this.supplierUpdateData.gstIn);
             this.supplierForm.controls['phoneNumber'].setValue(this.supplierUpdateData.phoneNumber);
-            this.supplierForm.controls['cityName'].setValue(this.supplierUpdateData.location.cityName);
+            this.supplierForm.controls['cityName'].setValue(this.supplierUpdateData.location?.cityName);
             //this.supplierForm.controls['companyName'].setValue(this.supplierUpdateData.company);
         }
     }

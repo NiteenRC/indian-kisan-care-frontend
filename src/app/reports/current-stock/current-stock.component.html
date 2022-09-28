@@ -51,19 +51,19 @@
       <ng-container matColumnDef="price">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Purchase Price</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          {{element.profit}} </td>
+          {{element.profit.toLocaleString( 'en-IN') || 0}} </td>
       </ng-container>
 
       <ng-container matColumnDef="qtyOrdered">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Qty Purchased</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          {{element.qtySold}} </td>
+          {{element.qtySold.toLocaleString( 'en-IN') || 0}} </td>
       </ng-container>
 
       <ng-container matColumnDef="totalPurchaseAmount">
         <th *matHeaderCellDef mat-header-cell class="text-right pr-4">Total Price</th>
         <td *matCellDef="let element" mat-cell class="text-right pr-4">
-          {{element.qtySold * element.profit}} </td>
+          {{(element.qtySold * element.profit).toLocaleString( 'en-IN') || 0}} </td>
       </ng-container>
 
       <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>

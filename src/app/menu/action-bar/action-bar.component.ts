@@ -30,7 +30,10 @@ export class ActionBarComponent implements OnInit{
   dataSourceBalance = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceSummary = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   dataSourceSetting = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-  role: boolean;
+
+  role_super: boolean;
+  role_admin: boolean;
+  role_user: boolean;
 
   constructor(private router: Router) {
     this.dataSource.data = TREE_DATA;
@@ -42,7 +45,9 @@ export class ActionBarComponent implements OnInit{
     console.log('dataSourceReports', this.dataSourceReports);
   }
   ngOnInit(): void {
-    this.role = AppComponent.role_admin || AppComponent.role_super_admin;
+    this.role_super = AppComponent.role_super_admin;
+    this.role_admin = AppComponent.role_admin;
+    this.role_user = AppComponent.role_user;
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
@@ -113,7 +118,7 @@ export class ActionBarComponent implements OnInit{
     if (item === "Registration") {
       this._redirectToPage('dashboard/register');
     }
-    if (item === "Update Bank") {
+    if (item === "Print Detail") {
       this._redirectToPage('dashboard/updateBankDetails');
     }
   }
@@ -190,7 +195,7 @@ const SETTING: MasterNode[] = [
         name: 'Registration',
       },
       {
-        name: 'Update Bank',
+        name: 'Print Detail',
       },
     ]
   },

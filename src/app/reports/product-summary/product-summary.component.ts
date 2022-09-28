@@ -125,8 +125,8 @@ export class ProductSummaryComponent implements OnInit {
       this.dataSource = new MatTableDataSource(res.productDetail);
       this.dataSource.paginator = this.paginator;
       //this.clearDate();
-      this.productForm.controls['totalProfit'].setValue(res.totalProfit);
-      this.productForm.controls['totalQtySold'].setValue(res.totalQtySold);
+      this.productForm.controls['totalProfit'].setValue(res.totalProfit.toLocaleString( 'en-IN') || 0);
+      this.productForm.controls['totalQtySold'].setValue(res.totalQtySold.toLocaleString( 'en-IN') || 0);
 
 
     }, error => console.log(error));
