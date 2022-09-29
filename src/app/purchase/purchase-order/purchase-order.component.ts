@@ -45,6 +45,7 @@ export class PurchaseOrderComponent implements OnInit {
   @ViewChild('modalContent') modalContent: ElementRef;
   popupMarkup = "";
   updatedProductSalePriceList: UpdateProduct[] = [];
+  hidePhoneNo : boolean;
 
   constructor(
     private _fb: FormBuilder,
@@ -263,6 +264,7 @@ export class PurchaseOrderComponent implements OnInit {
   private _supplierBalanceData(supplierID: any) {
     this.purchaseOrderService.getPurchaseOrderBalaceBySupplier(supplierID).subscribe((data: any) => {
       this.previousBalance = data.balance;
+      this.hidePhoneNo = data.supplier.phoneNumber === "" ? true : false;
       this.purchaserOrderForm.get('motorVehicleNo').setValue(data.supplier.phoneNumber);
     }, (error: any) => console.log(error));
   }

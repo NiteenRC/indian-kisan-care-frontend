@@ -46,7 +46,7 @@
 
         <div class="form-group col-1">
             <mat-form-field class="forms-fildes">
-                <mat-label>Phone number</mat-label>
+                <mat-label *ngIf="hidePhoneNo">Phone number</mat-label>
                 <input type="text" aria-label="Motor Vehicle no" matInput formControlName="motorVehicleNo">
             </mat-form-field>
         </div>
@@ -188,7 +188,7 @@
             </div>
             <div>
                 <label for="name">Previous Due :</label>
-                <span class="amount-read-only">₹{{previousBalance.toLocaleString('en-IN') }}</span>
+                <span class="amount-read-only">₹{{previousBalance?.toLocaleString('en-IN') || 0 }}</span>
             </div>
             <div>
                 <label for="name">Total(Curr+Prev) Due :</label>

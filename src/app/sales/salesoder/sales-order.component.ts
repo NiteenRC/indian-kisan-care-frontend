@@ -50,6 +50,7 @@ export class SalesOrderComponent implements OnInit {
   changeText: boolean;
   updatedProductSalePriceList: UpdateProduct[] = [];
   priceChangeHistory: any = {};
+  hidePhoneNo : boolean;
 
   constructor(
     private _fb: FormBuilder,
@@ -343,6 +344,7 @@ export class SalesOrderComponent implements OnInit {
   private _customerBalanceData(customerID: any) {
     this.salesOrderService.getSalesOrderBalaceByCustomer(customerID).subscribe((data: any) => {
       this.previousBalance = data.balance;
+      this.hidePhoneNo = data.supplier.phoneNumber === "" ? true : false;
       this.salesOrderForm.get('motorVehicleNo').setValue(data.customer.phoneNumber);
     }, (error: any) => console.log(error));
   }
