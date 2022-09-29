@@ -24,6 +24,7 @@ export class SalesReportComponent implements OnInit {
   totalElements: number = 0;
   currentPage: number = 0;
   pageSize: number = 15;
+  request = { page: this.currentPage, size: this.pageSize };
 
   searchText: string;
 
@@ -37,7 +38,7 @@ export class SalesReportComponent implements OnInit {
   constructor(public dialog: MatDialog, private salesOrderService: SalesOrderService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getSalesOrderList({ page: this.currentPage, size: this.pageSize });
+    this.getSalesOrderList(this.request);
     this.range.valueChanges.subscribe(dateRange => {
       if (this.range.valid) {
         this.searchData();
@@ -126,7 +127,7 @@ export class SalesReportComponent implements OnInit {
   deleteSalesOrder(event) {
     this.salesOrderService.deleteSalesOrder(event.salesOrderID).subscribe(
       response => {
-        //this.getSalesOrderList();
+        this.getSalesOrderList(this.request);
       },
       error => console.log(error));
   }
@@ -169,7 +170,7 @@ export class SalesReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.getSalesOrderList();
+      this.getSalesOrderList(this.request);
     });
   }
 
@@ -182,7 +183,7 @@ export class SalesReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.getSalesOrderList();
+      this.getSalesOrderList(this.request);
     });
   }
 
