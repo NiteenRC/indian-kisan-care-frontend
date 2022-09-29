@@ -12,7 +12,7 @@
         </mat-form-field>
     </div>
 
-    <mat-form-field>
+    <mat-form-field *ngIf="false">
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
             <input matStartDate formControlName="start" placeholder="Bill start">
             <input matEndDate formControlName="end" placeholder="end date">
@@ -33,9 +33,9 @@
         <ng-container matColumnDef="customerName">
             <th *matHeaderCellDef mat-header-cell>Customer</th>
             <td *matCellDef="let element" mat-cell>
-            <button (click)="supplierHistory(element.customer.id)" class="btn-info">
-                {{element.customer?.customerName}}
-              </button>
+                <button (click)="supplierHistory(element.customer.id)" class="btn-info">
+                    {{element.customer?.customerName}}
+                </button>
             </td>
         </ng-container>
 
@@ -56,7 +56,7 @@
         <ng-container matColumnDef="currentDueAmount">
             <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Current Due</th>
             <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{(element.currentBalance
-                < 0) ? 0 : element.currentBalance.toLocaleString( 'en-IN') || 0}} </td>
+                < 0) ? 0 : element.currentBalance.toLocaleString( 'en-IN' ) || 0}} </td>
         </ng-container>
 
         <ng-container matColumnDef="totalDueAmount">
@@ -143,6 +143,7 @@
             </ng-template>
         </tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+    <mat-paginator #paginator [length]="totalElements" [pageIndex]="currentPage" [pageSize]="pageSize"
+        [pageSizeOptions]="[15,30,500]" (page)="nextPage($event)"></mat-paginator>
 </div>
 <br>

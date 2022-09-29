@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpClientHelper } from '../_model/http-client-helper';
+import { PageResponse } from '../_model/page-reponse';
 
 @Injectable({
     providedIn: 'root'
@@ -15,10 +16,6 @@ export class SalesOrderService {
 
     createSalesOrder(invoice: any): Observable<any> {
         return this.http.post(`${this.baseUrl}`, invoice);
-    }
-
-    getSalesOrderList(): Observable<any> {
-        return this.http.get(`${this.baseUrl}`);
     }
 
     countSalesOrders(): Observable<any> {
@@ -47,6 +44,16 @@ export class SalesOrderService {
 
     getBarChartReport(): any {
         return this.http.get(`${this.baseUrl}/barChart`);
+    }
+
+    getSalesOrderList(request: any): Observable<any> {
+        const params = request;
+        return this.http.get<PageResponse<any>>(`${this.baseUrl}`, {params});
+    }
+
+    getSalesOrderByCustomerName(request: any): Observable<any> {
+        const params = request;
+        return this.http.get<PageResponse<any>>(`${this.baseUrl}/customer/name`, {params});
     }
 
     getSalesOrderByProductWise(productName, start: string, end: string): any {

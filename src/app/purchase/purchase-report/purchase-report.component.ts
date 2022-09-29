@@ -1,6 +1,6 @@
 import { PurchaseOrderService } from '../../_services/purchase-order.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,8 +17,12 @@ export class PurchaseReportComponent implements OnInit {
   productColumns: string[] = ['id', 'productName', 'purchasePrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
-
   searchText: string;
+
+  totalElements: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 15;
+  request = { page: this.currentPage, size: this.pageSize };
 
   range = new FormGroup({
     start: new FormControl(),
@@ -30,7 +34,7 @@ export class PurchaseReportComponent implements OnInit {
   constructor(public dialog: MatDialog, private purchaseOrderService: PurchaseOrderService) { }
 
   ngOnInit(): void {
-    this.getPurchaseOrderList();
+    this.getPurchaseOrderList(this.request);
     this.range.valueChanges.subscribe(dateRange => {
       if (this.range.valid) {
         this.searchData();
@@ -38,11 +42,29 @@ export class PurchaseReportComponent implements OnInit {
     })
   }
 
-  getPurchaseOrderList() {
-    this.purchaseOrderService.getPurchaseOrderList().subscribe(res => {
-      this.purchaseReports = res;
-      this._setData(res);
+  getPurchaseOrderList(request) {
+    this.purchaseOrderService.getPurchaseOrderList(request).subscribe(res => {
+      this.purchaseReports = res['content'];
+      this.totalElements = res['totalElements'];
+      this._setData(res['content']);
+
+      setTimeout(() => {
+        this.paginator.pageIndex = this.currentPage;
+        this.paginator.length = res.totalElements;
+      });
     }, error => console.log(error));
+  }
+
+  nextPage(event: PageEvent) {
+    const request = {};
+    request['page'] = event.pageIndex.toString();
+    request['size'] = event.pageSize.toString();
+
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+
+    this.getPurchaseOrderList(request);
+    return event;
   }
 
   clearSupplierSearch() {
@@ -57,7 +79,24 @@ export class PurchaseReportComponent implements OnInit {
   searchData() {
     const searchText = this.searchText;
     const { start, end } = this.range.value || {};
-    let filteredData = this.purchaseReports;
+    
+    let filteredData = null;
+
+    if (searchText.length === 0) {
+      this.currentPage = 0
+      this.searchText = null;
+    }
+
+    filteredData = this.purchaseOrderService.getPurchaseOrderBySupplierName({ supplierName: this.searchText, page: this.currentPage, size: this.pageSize }).subscribe(res => {
+      this.purchaseReports = res['content'];
+      this.totalElements = res['totalElements'];
+      this._setData(res['content']);
+
+      setTimeout(() => {
+        this.paginator.pageIndex = this.currentPage;
+        this.paginator.length = res.totalElements;
+      });
+    }, error => console.log(error));
 
     if (start && end) {
       const startTime = start.getTime() + 86399999;
@@ -83,7 +122,7 @@ export class PurchaseReportComponent implements OnInit {
   deleteSalesOrder(event) {
     this.purchaseOrderService.deleteOrder(event.purchaseOrderID).subscribe(
       response => {
-        this.getPurchaseOrderList();
+        this.getPurchaseOrderList(this.request);
       },
       error => {
         console.log(error);
@@ -100,7 +139,7 @@ export class PurchaseReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getPurchaseOrderList();
+      this.getPurchaseOrderList(this.request);
     });
   }
 
