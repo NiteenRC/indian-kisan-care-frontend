@@ -1,14 +1,14 @@
-<div class="d-flex">
-  <div class="form-group col-3">
-    <mat-form-field class="example-form-field">
-      <button matSuffix mat-button><mat-icon >search</mat-icon></button>
-      <mat-label>customer name</mat-label>
-      <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()">
-      <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearCustomerSearch()">
-        <mat-icon>clear</mat-icon>
-      </button>
-    </mat-form-field>
-  </div>
+<div class="inline-center">
+  <mat-form-field>
+    <button matSuffix mat-button>
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-label>customer name</mat-label>
+    <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()">
+    <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearCustomerSearch()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
 
   <mat-form-field>
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
@@ -45,17 +45,20 @@
 
     <ng-container matColumnDef="totalPrice">
       <th *matHeaderCellDef mat-header-cell class="text-right">Total Price</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice.toLocaleString('en-IN') || 0}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.totalPrice.toLocaleString('en-IN') || 0}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="amountPaid">
       <th *matHeaderCellDef mat-header-cell class="text-right">Amount Paid</th>
-      <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid.toLocaleString('en-IN') || 0}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right"> {{element.amountPaid.toLocaleString('en-IN') || 0}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="dueAmount">
       <th *matHeaderCellDef mat-header-cell class="text-right pr-5">Due amount</th>
-      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.currentBalance.toLocaleString('en-IN') || 0}} </td>
+      <td *matCellDef="let element" mat-cell class="text-right pr-5"> {{element.currentBalance.toLocaleString('en-IN')
+        || 0}} </td>
     </ng-container>
 
     <ng-container matColumnDef="billDate">
@@ -83,6 +86,6 @@
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
   </table>
-<mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>
 </div>
 <br>

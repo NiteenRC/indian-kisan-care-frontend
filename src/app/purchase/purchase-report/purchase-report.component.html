@@ -1,17 +1,17 @@
-<div class="d-flex">
-  <div class="form-group col-3">
-    <mat-form-field class="example-form-field">
-      <button matSuffix mat-button>
-        <mat-icon>search</mat-icon>
-      </button>
-      <mat-label>supplier name</mat-label>
-      <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Supplier">
-      <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearSupplierSearch()">
-        <mat-icon>clear</mat-icon>
-      </button>
-    </mat-form-field>
-  </div>
+<div class="inline-center">
+  <mat-form-field style="width: 300px;">
+    <button matSuffix mat-button>
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-label>supplier name</mat-label>
+    <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Supplier">
+    <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearSupplierSearch()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 
+<div class="inline-center">
   <mat-form-field *ngIf="false">
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
       <input matStartDate formControlName="start" placeholder="Bill start">
@@ -50,7 +50,7 @@
 
     <ng-container matColumnDef="dueDate">
       <th *matHeaderCellDef mat-header-cell class="text-left">Due Date</th>
-      <td *matCellDef="let element" mat-cell class="text-left"> {{element.dueDate | date: 'dd/MM/yyyy'}} </td>
+      <td *matCellDef="let element" mat-cell class="text-left"> {{element.dueDate === null? 'NA' : element.dueDate | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="dueAmount">
@@ -83,8 +83,8 @@
 
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row>
-    <!-- Mouse hover and show pop up-->
-    <!--<tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']"
+      <!-- Mouse hover and show pop up-->
+      <!--<tr *matRowDef="let row; columns: displayedColumns;" mat-row [ngbPopover]="test" [placement]="['bottom']"
       triggers="mouseenter:mouseleave">-->
       <ng-template #test>
         <table [dataSource]="row.purchaseOrderDetail" mat-table class="mat-elevation-z2">
@@ -118,6 +118,6 @@
     </tr>
   </table>
   <mat-paginator #paginator [length]="totalElements" [pageIndex]="currentPage" [pageSize]="pageSize"
-        [pageSizeOptions]="[15,30,500]" (page)="nextPage($event)"></mat-paginator>
+    [pageSizeOptions]="[15,30,500]" (page)="nextPage($event)"></mat-paginator>
 </div>
 <br>

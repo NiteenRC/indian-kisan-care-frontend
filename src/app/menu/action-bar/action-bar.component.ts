@@ -169,7 +169,7 @@ const REPORTS: MasterNode[] = [
 
 const SUMMARY: MasterNode[] = [
   {
-    name: 'SUMMARY',
+    name: 'REPORT',
     children: [
       {
         name: 'Daily Summary',
@@ -189,7 +189,7 @@ const SUMMARY: MasterNode[] = [
 
 const SETTING: MasterNode[] = [
   {
-    name: 'SETTING',
+    name: 'SETUP',
     children: [
       {
         name: 'Registration',

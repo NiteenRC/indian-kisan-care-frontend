@@ -286,6 +286,10 @@ export class SalesOrderComponent implements OnInit {
         salesOrder.amountPaid = 0.0;
       }
 
+      if (salesOrder.previousBalance === 0) {
+        salesOrder.dueDate = null;
+      }
+
       this.salesOrder = salesOrder;
       this.salesOrder.updatedProductSalePriceList = this.updatedProductSalePriceList;
 

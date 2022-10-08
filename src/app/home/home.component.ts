@@ -19,6 +19,11 @@ export class HomeComponent implements OnInit {
     totalCustomerBalance: number;
     totalSupplierBalance: number;
 
+    totalElements: number = 0;
+    currentPage: number = 0;
+    pageSize: number = 1000000;
+    request = { page: this.currentPage, size: this.pageSize };
+
     constructor(private productService: ProductService, private customerService: CustomerService, private supplierService: SupplierService, private purchaseOrderService: PurchaseOrderService, private salesOrderService: SalesOrderService) {
     }
 
@@ -45,9 +50,9 @@ export class HomeComponent implements OnInit {
             },
             error => console.log(error));
 
-        this.purchaseOrderService.getPurchaseOrderList().subscribe(data => {
+        this.purchaseOrderService.getPurchaseOrderList(this.request).subscribe(data => {
                 console.log(data);
-                this.purchaseOrdersCount = data.length;
+                this.purchaseOrdersCount = data.totalElements;
             },
             error => console.log(error));
 

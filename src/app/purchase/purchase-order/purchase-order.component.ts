@@ -45,7 +45,7 @@ export class PurchaseOrderComponent implements OnInit {
   @ViewChild('modalContent') modalContent: ElementRef;
   popupMarkup = "";
   updatedProductSalePriceList: UpdateProduct[] = [];
-  hidePhoneNo : boolean;
+  hidePhoneNo: boolean;
 
   constructor(
     private _fb: FormBuilder,
@@ -174,7 +174,7 @@ export class PurchaseOrderComponent implements OnInit {
     }
 
     if ((purchaseOrder.status === 'DUE' || purchaseOrder.status === 'PARTIAL') &&
-      (supplier.supplierName === "" || supplier.phoneNumber === "")) {
+      (supplier.supplierName === "" || supplier.phoneNumber === "") || purchaseOrder.dueDate === undefined) {
       let alertMsg = "<p>Please provide below. <br>";
       let fields = [];
       if (supplier.supplierName === "") {
@@ -194,6 +194,10 @@ export class PurchaseOrderComponent implements OnInit {
 
     if (purchaseOrder.amountPaid == null) {
       purchaseOrder.amountPaid = 0.0;
+    }
+
+    if (purchaseOrder.previousBalance === 0) {
+      purchaseOrder.dueDate = null;
     }
 
     this.purchaseOrder = purchaseOrder;
@@ -357,12 +361,15 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   private _createForm() {
+    var date = new Date();
+    date.setDate(date.getDate() + 7);
+
     this.purchaserOrderForm = this._fb.group({
       supplierName: [''],
       productName: [''],
       motorVehicleNo: [''],
       billDate: [new Date()],
-      dueDate: [],
+      dueDate: [date],
       purchaseOrderDetail: this._fb.array([]),
       amountPaid: [],
     });
