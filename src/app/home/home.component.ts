@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
             },
             error => console.log(error));
 
-        this.purchaseOrderService.getPurchaseOrderList(this.request).subscribe(data => {
+        this.purchaseOrderService.getPurchaseOrderList("",this.request).subscribe(data => {
                 console.log(data);
                 this.purchaseOrdersCount = data.totalElements;
             },
