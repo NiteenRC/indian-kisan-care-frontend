@@ -22,6 +22,7 @@ export class StockBookComponent implements OnInit {
   products: Product[];
   filteredProducts: Observable<Product[]>;
   productForm: FormGroup;
+  @ViewChild('searchProduct') searchProduct: ElementRef;
 
   searchText: string;
   startDate: string;
@@ -73,15 +74,10 @@ export class StockBookComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.products.filter(option => option.productName.toLowerCase().includes(filterValue));
   }
-
-  @ViewChild('searchProduct') searchProduct: ElementRef;
   
   selectedProduct(selectedProduct: string) {
-    //this.productForm.controls['productName'].setValue(null);
-    this.searchProduct.nativeElement.blur();
     this.getSalesOrderList(selectedProduct, this.startDate, this.endDate);
     this.searchText = selectedProduct;
-    //this.getSalesOrderList('0','0');
   }
 
   private _findProduct(value: string): Product {

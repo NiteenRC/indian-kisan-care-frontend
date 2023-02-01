@@ -20,13 +20,12 @@ export class SalesReportComponent implements OnInit {
   productColumns: string[] = ['id', 'productName', 'salesPrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
+  searchText: string = "";
 
   totalElements: number = 0;
   currentPage: number = 0;
   pageSize: number = 15;
   request = { page: this.currentPage, size: this.pageSize };
-
-  searchText: string;
 
   range = new FormGroup({
     start: new FormControl(),
@@ -38,17 +37,12 @@ export class SalesReportComponent implements OnInit {
   constructor(public dialog: MatDialog, private salesOrderService: SalesOrderService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getSalesOrderList(this.request);
-    this.range.valueChanges.subscribe(dateRange => {
-      if (this.range.valid) {
-        this.searchData();
-      }
-    })
+    this.getSalesOrderList(this.searchText, this.request);
   }
 
-  getSalesOrderList(request): void {
+  getSalesOrderList(searchText, request): void {
     this.salesReports = [];
-    this.salesOrderService.getSalesOrderList(request).subscribe(res => {
+    this.salesOrderService.getSalesOrderList(searchText, request).subscribe(res => {
       this.salesReports = res['content'];
       this.totalElements = res['totalElements'];
       this._setData(res['content']);
@@ -68,7 +62,7 @@ export class SalesReportComponent implements OnInit {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
 
-    this.getSalesOrderList(request);
+    this.getSalesOrderList(this.searchText, request);
     return event;
   }
 
@@ -81,42 +75,11 @@ export class SalesReportComponent implements OnInit {
     this.range.reset();
   }
 
-  searchData() {
-    const searchText = this.searchText;
-    const { start, end } = this.range.value || {};
-
-    let filteredData = null;
-
-    if (searchText.length === 0) {
-      this.currentPage = 0
-      this.searchText = null;
-    }
-
-    filteredData = this.salesOrderService.getSalesOrderByCustomerName({ customerName: this.searchText, page: this.currentPage, size: this.pageSize }).subscribe(res => {
-      this.salesReports = res['content'];
-      this.totalElements = res['totalElements'];
-      this._setData(res['content']);
-
-      setTimeout(() => {
-        this.paginator.pageIndex = this.currentPage;
-        this.paginator.length = res.totalElements;
-      });
-    }, error => console.log(error));
-
-    if (start && end) {
-      const startTime = start.getTime() + 86399999;
-      const endTime = end.getTime() + 86399999;
-      // console.log('date===', startTime, endTime, new Date(startTime), new Date(endTime));
-      filteredData = filteredData.filter(salesReport => {
-        const dueDateTime = new Date(salesReport?.billDate).getTime();
-        return dueDateTime >= startTime && dueDateTime <= endTime
-      });
-    }
-
-    if (searchText) {
-      filteredData = filteredData.filter(salesReport => salesReport?.customer?.customerName?.toLowerCase().indexOf(searchText?.toLowerCase()) > -1);
-    }
-    this._setData(filteredData);
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.searchText = filterValue.trim().toLowerCase();
+    this.getSalesOrderList(this.searchText, this.request);
+    this.currentPage = 0;
   }
 
   private _setData(data) {
@@ -127,7 +90,7 @@ export class SalesReportComponent implements OnInit {
   deleteSalesOrder(event) {
     this.salesOrderService.deleteSalesOrder(event.salesOrderID).subscribe(
       response => {
-        this.getSalesOrderList(this.request);
+        this.getSalesOrderList(this.searchText, this.request);
       },
       error => console.log(error));
   }
@@ -170,7 +133,7 @@ export class SalesReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getSalesOrderList(this.request);
+      this.getSalesOrderList(this.searchText, this.request);
     });
   }
 
@@ -183,7 +146,7 @@ export class SalesReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getSalesOrderList(this.request);
+      this.getSalesOrderList(this.searchText, this.request);
     });
   }
 

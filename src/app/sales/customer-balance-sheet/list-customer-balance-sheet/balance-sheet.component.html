@@ -86,6 +86,7 @@
     <tr *matHeaderRowDef="displayedColumns;  sticky: true" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
   </table>
-  <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>
+  <mat-paginator #paginator [length]="totalElements" [pageIndex]="currentPage" [pageSize]="pageSize"
+        [pageSizeOptions]="[15,30,500]" (page)="nextPage($event)"></mat-paginator>
 </div>
 <br>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UpdateBalanceSheetComponent } from '../update-customer-balance-sheet/customer-update-balance-sheet.component';
@@ -18,6 +18,11 @@ export class BalanceSheetComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
 
+  totalElements: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 15;
+  request = { page: this.currentPage, size: this.pageSize };
+
   searchText: string;
 
   range = new FormGroup({
@@ -30,7 +35,7 @@ export class BalanceSheetComponent implements OnInit {
   constructor(private dialog: MatDialog, private salesOrderService: SalesOrderService) { }
 
   ngOnInit(): void {
-    this.getSalesOrderList();
+    this.getSalesOrderList(this.request);
     this.range.valueChanges.subscribe(dateRange => {
       if (this.range.valid) {
         this.searchData();
@@ -38,11 +43,23 @@ export class BalanceSheetComponent implements OnInit {
     })
   }
 
-  getSalesOrderList() {
-    this.salesOrderService.getAllCustomerSalesOrderBalanceSheet().subscribe(res => {
+  getSalesOrderList(request) {
+    this.salesOrderService.getAllCustomerSalesOrderBalanceSheet(request).subscribe(res => {
       this.salesReports = res;
       this._setData(res);
     }, error => console.log(error));
+  }
+
+  nextPage(event: PageEvent) {
+    const request = {};
+    request['page'] = event.pageIndex.toString();
+    request['size'] = event.pageSize.toString();
+
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+
+    this.getSalesOrderList(request);
+    return event;
   }
 
   clearCustomerSearch() {
@@ -89,7 +106,7 @@ export class BalanceSheetComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getSalesOrderList();
+      this.getSalesOrderList(this.request);
     });
   }
 }

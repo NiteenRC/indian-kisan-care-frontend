@@ -4,10 +4,7 @@
             <mat-icon>search</mat-icon>
         </button>
         <mat-label>customer name</mat-label>
-        <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Customer">
-        <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearCustomerSearch()">
-            <mat-icon>clear</mat-icon>
-        </button>
+        <input #input (keyup)="applyFilter($event)" matInput>
     </mat-form-field>
 </div>
 

@@ -66,7 +66,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "smart-accounting-book:build"
+            "browserTarget": "smart-accounting-book:build",
+            "port": 3001
           },
           "configurations": {
             "production": {

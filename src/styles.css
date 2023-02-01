@@ -307,27 +307,42 @@ table {
     width: 100%;
 }
 
+
 .mat-header-cell {
     color: #f8f9fa;
 }
 
-.mat-row:hover {
-    background-color: #ced6dd;
+.mat-row:nth-child(odd) {
+    background-color:#f9f9f9;
     cursor: pointer;
 }
 
-/*.mat-row:nth-child(2n+1){
-    background-color: #f1f2f4;
+.mat-row:nth-child(even) {
+    background-color: #FFFFFF;
+    cursor: pointer;
 }
 
-.mat-row:not(:nth-child(2n+1)){
-    background-color:#dfdef51e;
-}*/
-
-.mat-row:nth-child(even){
-    background-color: #f1f2f4;
+.mat-row:nth-child(odd):hover {
+    background-color: #1a151129;
+    cursor: pointer;
 }
         
-.mat-row:nth-child(odd){
-    background-color:#dfdef51e;
+.mat-row:nth-child(even):hover {
+    background-color: #1a151129;
+    cursor: pointer;
+}
+
+.Active {
+    color: green;
+    text-transform: uppercase;
+}
+
+.Closed {
+    color: coral;
+    text-transform: uppercase;
+}
+
+.Inactive {
+    color: coral;
+    text-transform: uppercase;
 }

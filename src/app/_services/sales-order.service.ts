@@ -30,8 +30,9 @@ export class SalesOrderService {
         return this.http.get(`${this.baseUrl}/customer/`);
     }
 
-    getAllCustomerSalesOrderBalanceSheet(): any {
-        return this.http.get(`${this.baseUrl}/customer/balance`);
+    getAllCustomerSalesOrderBalanceSheet(request): any {
+        const params = request;
+        return this.http.get(`${this.baseUrl}/customer/balance`, {params});
     }
 
     updateSalesOrder(value: any): Observable<Object> {
@@ -46,14 +47,15 @@ export class SalesOrderService {
         return this.http.get(`${this.baseUrl}/barChart`);
     }
 
-    getSalesOrderList(request: any): Observable<any> {
-        const params = request;
-        return this.http.get<PageResponse<any>>(`${this.baseUrl}`, {params});
-    }
-
-    getSalesOrderByCustomerName(request: any): Observable<any> {
-        const params = request;
-        return this.http.get<PageResponse<any>>(`${this.baseUrl}/customer/name`, {params});
+    getSalesOrderList(name:any, request: any): Observable<any> {
+        return this.http.get(this.baseUrl, {
+            params: {
+                name: name,
+                page: request.page,
+                size: request.size,
+                sort: 'salesOrderID,desc',
+            },
+        });
     }
 
     getSalesOrderByProductWise(productName, start: string, end: string): any {

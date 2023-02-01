@@ -18,14 +18,15 @@ export class PurchaseOrderService {
         return this.http.post(`${this.baseUrl}`, invoice);
     }
 
-    getPurchaseOrderList(request: any): Observable<any> {
-        const params = request;
-        return this.http.get<PageResponse<any>>(`${this.baseUrl}`, {params});
-    }
-
-    getPurchaseOrderBySupplierName(request: any): Observable<any> {
-        const params = request;
-        return this.http.get<PageResponse<any>>(`${this.baseUrl}/supplier/name`, {params});
+    getPurchaseOrderList(name:any, request: any): Observable<any> {
+        return this.http.get(this.baseUrl, {
+            params: {
+                name: name,
+                page: request.page,
+                size: request.size,
+                sort: 'purchaseOrderID,desc',
+            },
+        });
     }
 
     getPurchaseOrderBalaceBySupplier(supplierID: any): any {

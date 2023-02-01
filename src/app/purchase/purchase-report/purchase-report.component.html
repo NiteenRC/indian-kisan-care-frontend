@@ -4,10 +4,7 @@
       <mat-icon>search</mat-icon>
     </button>
     <mat-label>supplier name</mat-label>
-    <input matInput type="text" [(ngModel)]="searchText" (input)="searchData()" placeholder="Search Supplier">
-    <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearSupplierSearch()">
-      <mat-icon>clear</mat-icon>
-    </button>
+    <input #input (keyup)="applyFilter($event)" matInput>
   </mat-form-field>
 </div>
 
@@ -50,7 +47,8 @@
 
     <ng-container matColumnDef="dueDate">
       <th *matHeaderCellDef mat-header-cell class="text-left">Due Date</th>
-      <td *matCellDef="let element" mat-cell class="text-left"> {{element.dueDate === null? 'NA' : element.dueDate | date: 'dd/MM/yyyy'}} </td>
+      <td *matCellDef="let element" mat-cell class="text-left">
+        {{element.dueDate === null? 'NA' : element.dueDate | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="dueAmount">
